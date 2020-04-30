@@ -32,6 +32,8 @@
 #include "RadarDrawVertex.h"
 #include "RadarCanvas.h"
 #include "RadarInfo.h"
+#include "ocius/oc_radar_interface.h"
+#include <stdio.h>
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -270,6 +272,7 @@ void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotat
       glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(VertexPoint), &line->points[0].red);
       glDrawArrays(GL_TRIANGLES, 0, line->count);
     }
+    OciusDumpImage();
     glPopMatrix();
   }
   glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays

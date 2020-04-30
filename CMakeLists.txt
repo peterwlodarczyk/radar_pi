@@ -80,6 +80,11 @@ SET(SRC_NAVICO
             src/navico/NavicoRadarInfo.h
 )
 
+SET(SRC_OCIUS
+            src/ocius/oc_radar_interface.cpp
+            src/ocius/oc_radar_interface.h
+)
+
 SET(SRC_RADAR
             src/ControlsDialog.cpp
             src/ControlsDialog.h
@@ -163,7 +168,7 @@ INCLUDE_DIRECTORIES(src/nmea0183)
 INCLUDE_DIRECTORIES(src/wxJSON)
 INCLUDE_DIRECTORIES(src)
 
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_NAVICO})
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
 
 
 INCLUDE("cmake/PluginInstall.cmake")
