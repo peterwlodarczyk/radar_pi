@@ -40,6 +40,7 @@
 #include "icons.h"
 #include "navico/NavicoLocate.h"
 #include "nmea0183/nmea0183.h"
+#include "ocius/oc_utils.h"
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -122,6 +123,7 @@ END_EVENT_TABLE()
 //---------------------------------------------------------------------------------------------------------
 
 radar_pi::radar_pi(void *ppimgr) : opencpn_plugin_116(ppimgr) {
+  OC_DEBUG("[radar_pi::radar_pi]");
   m_boot_time = wxGetUTCTimeMillis();
   m_initialized = false;
   m_predicted_position_initialised = false;
