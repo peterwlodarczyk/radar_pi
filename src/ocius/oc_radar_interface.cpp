@@ -9,7 +9,7 @@
 
 using namespace std;
 
-static const std::string ImageDir = "/dev/shm";
+static const std::string ImageDir = "/dev/shm/usv/live";
 static time_t next_update = 0;
 static int oc_count = 0;
 
@@ -50,7 +50,8 @@ void OciusDumpVertexImage(int radar)
 	OC_TRACE("Vierport:%d,%d,%d,%d\n", viewport[0], viewport[1], viewport[2], viewport[3]);
 	image2.SetOption("quality", 50);
 
-	string tmpFilename = "/tmp/radar" + to_string(radar) + "-tmp.jpg";
+	string tmpFilename = ImageDir + "/radar" + to_string(radar) + "-live.jpg";
+	//string tmpFilename = "/tmp/radar" + to_string(radar) + "-tmp.jpg";
 	image2.SaveFile(tmpFilename.c_str(), wxBITMAP_TYPE_JPEG);
 
 	auto uncommented = readfile(tmpFilename.c_str());
@@ -60,7 +61,7 @@ void OciusDumpVertexImage(int radar)
 	auto commented = JpegAppendComment(uncommented, MakeLocalTimeStamp(), "radar0");
 	OC_TRACE("commented=%d\n", commented.size());
 
-	string filename = ImageDir + "/radar" + to_string(radar) + "-live.jpg";
+	string filename = ImageDir + "/radar" + to_string(radar) + "-live-c.jpg";
 	ofstream commentedFile;
 	commentedFile.open(filename.c_str(), ios::out | ios::binary);
 	commentedFile.write(reinterpret_cast<const char *>(&commented.front()), commented.size());
