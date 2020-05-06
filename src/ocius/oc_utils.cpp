@@ -1,4 +1,8 @@
 #include <sys/time.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include <fstream>
 #include <string>
@@ -63,7 +67,7 @@ std::vector<uint8_t> readfile(const char* filename)
 	return std::vector<uint8_t>((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
 }
 
-string Filename = "/tmp/radar.log";
+static const string Filename = "/tmp/radar.log";
 
 static void LogWrite(const char* t, const char* str)
 {
@@ -91,4 +95,17 @@ void OC_DEBUG(const char *format, ...)
 	vsnprintf(achDebug, sizeof(achDebug), format, args);
 	va_end(args);
 	LogWrite("DEBUG", achDebug);
+}
+
+void CreateFileWithPermissions(const char* filename, int mode) 
+{
+	if (access(filename, 0))
+	{
+		mode_t old_mask = umask(0);
+		int hf = open(filename, O_RDWR | O_CREAT, 0666);
+		if (hf) 
+			close(hf);
+		umask(old_mask);
+    }
+	return;
 }
