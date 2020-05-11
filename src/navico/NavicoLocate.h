@@ -52,19 +52,7 @@ PLUGIN_BEGIN_NAMESPACE
 class NavicoLocate : public wxThread {
 #define MAX_REPORT 10
  public:
-  NavicoLocate(radar_pi *pi) : wxThread(wxTHREAD_JOINABLE) {
-    Create(64 * 1024);  // Stack size
-    m_pi = pi;          // This allows you to access the main plugin stuff
-    m_shutdown = false;
-    m_is_shutdown = true;
-
-    m_interface_addr = 0;
-    m_socket = 0;
-    m_interface_count = 0;
-    m_report_count = 0;
-
-    LOG_INFO(wxT("radar_pi: NavicoLocate thread created, prio= %i"), GetPriority());
-  }
+  NavicoLocate(radar_pi *pi);
 
   /*
    * Shutdown
@@ -72,7 +60,7 @@ class NavicoLocate : public wxThread {
    * Called when the thread should stop.
    * It should stop running.
    */
-  void Shutdown(void) { m_shutdown = true; }
+  void Shutdown(void);
 
   ~NavicoLocate() {
     while (!m_is_shutdown) {
