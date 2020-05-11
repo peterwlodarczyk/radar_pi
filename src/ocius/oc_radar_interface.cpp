@@ -15,8 +15,10 @@ static int oc_count = 0;
 
 
 void OciusDumpVertexImage(int radar) {
-  if (time(0) < next_update) return;
-  OC_DEBUG("[OciusDumpVertexImage] %d>>", oc_count);
+  if (time(0) < next_update) 
+    return;
+  string name = string("radar") + to_string(radar);
+  OC_DEBUG("[OciusDumpVertexImage] %s:%d>>", name.c_str(), oc_count);
   next_update = time(0) + 1;
 
   ++oc_count;
@@ -47,7 +49,7 @@ void OciusDumpVertexImage(int radar) {
   OC_TRACE("Vierport:%d,%d,%d,%d\n", viewport[0], viewport[1], viewport[2], viewport[3]);
   image2.SetOption("quality", 50);
 
-  string tmpFilename = "/tmp/radar" + to_string(radar) + "-tmp.jpg";
+  string tmpFilename = ImageDir + '/' + name + "-tmp.jpg";
   image2.SaveFile(tmpFilename.c_str(), wxBITMAP_TYPE_JPEG);
 
   auto uncommented = readfile(tmpFilename.c_str());
@@ -58,11 +60,12 @@ void OciusDumpVertexImage(int radar) {
     string timestamp = MakeLocalTimeStamp();
     auto commented = JpegAppendComment(uncommented, MakeLocalTimeStamp(), "radar0");
 
-    string filename = ImageDir + "/radar" + to_string(radar) + "-live.jpg";
+    string filename = ImageDir + '/' + name + "-capture.jpg";
     OC_TRACE("%s=%d\n", filename.c_str(), commented.size());
     ofstream commentedFile;
-	CreateFileWithPermissions(filename.c_str(), 0666);
+    CreateFileWithPermissions(filename.c_str(), 0666);
     commentedFile.open(filename.c_str(), ios::out | ios::binary);
+    // TODO: Do file locking
     commentedFile.write(reinterpret_cast<const char *>(&commented.front()), commented.size());
     if (commentedFile)
       OC_DEBUG("Wrote %d bytes to file %s:%s.", commented.size(), filename.c_str(), timestamp.c_str());
