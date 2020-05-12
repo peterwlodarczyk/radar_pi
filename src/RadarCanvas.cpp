@@ -50,7 +50,6 @@ static int attribs[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, WX
 
 RadarCanvas::RadarCanvas(radar_pi *pi, RadarInfo *ri, wxWindow *parent, wxSize size)
     : wxGLCanvas(parent, wxID_ANY, attribs, wxDefaultPosition, size, wxFULL_REPAINT_ON_RESIZE | wxBG_STYLE_CUSTOM, _T("")) {
-#ifndef RADAR_EXE
   m_parent = parent;
   m_pi = pi;
   m_ri = ri;
@@ -62,11 +61,9 @@ RadarCanvas::RadarCanvas(radar_pi *pi, RadarInfo *ri, wxWindow *parent, wxSize s
 
   LOG_VERBOSE(wxT("radar_pi: %s create OpenGL canvas"), m_ri->m_name.c_str());
   Refresh(false);
-#endif
 }
 
 RadarCanvas::~RadarCanvas() {
-#ifndef RADAR_EXE
   LOG_VERBOSE(wxT("radar_pi: %s destroy OpenGL canvas"), m_ri->m_name.c_str());
   delete m_context;
   delete m_zero_context;
@@ -74,29 +71,23 @@ RadarCanvas::~RadarCanvas() {
     glDeleteTextures(1, &m_cursor_texture);
     m_cursor_texture = 0;
   }
-#endif
 }
 
 void RadarCanvas::OnSize(wxSizeEvent &evt) {
-#ifndef RADAR_EXE
   wxSize parentSize = m_parent->GetSize();
   LOG_DIALOG(wxT("radar_pi: %s resize OpenGL canvas to %d, %d"), m_ri->m_name.c_str(), parentSize.x, parentSize.y);
   Refresh(false);
   if (GetSize() != parentSize) {
     SetSize(parentSize);
   }
-#endif
 }
 
 void RadarCanvas::OnMove(wxMoveEvent &evt) {
-#ifndef RADAR_EXE
   wxPoint pos = m_parent->GetPosition();
   LOG_DIALOG(wxT("radar_pi: %s move OpenGL canvas to %d, %d"), m_ri->m_name.c_str(), pos.x, pos.y);
-#endif
 }
 
 void RadarCanvas::RenderTexts(const wxSize &loc) {
-#ifndef RADAR_EXE
   int x, y;
   int menu_x;
   wxString s;
@@ -175,14 +166,12 @@ void RadarCanvas::RenderTexts(const wxSize &loc) {
     i.y -= 5;
     i = RenderControlItem(i, m_ri->m_gain, CT_GAIN, _("Gain"));
   }
-#endif
 }
 
 /*
  * Receives bottom mid part of canvas to draw, returns back top mid
  */
 wxSize RadarCanvas::RenderControlItem(const wxSize &loc, RadarControlItem &item, ControlType ct, const wxString &name) {
-#ifndef RADAR_EXE
   if (!m_ri->m_control_dialog || m_ri->m_control_dialog->m_ctrl[ct].type == CT_NONE) {
     return loc;
   }
@@ -234,14 +223,9 @@ wxSize RadarCanvas::RenderControlItem(const wxSize &loc, RadarControlItem &item,
     DrawArc(where.x, where.y + ty, ty + 3, (float)deg2rad(-225), (float)deg2rad(value * 270. / ci.maxValue), value / 2);
   }
   return where;
-#else
-  wxSize where = loc;
-  return where;
-#endif
 }
 
 void RadarCanvas::RenderRangeRingsAndHeading(const wxSize &clientSize, float r) {
-#ifndef RADAR_EXE
   // Max range ringe
   // Size of rendered string in pixels
   glPushMatrix();
@@ -361,11 +345,9 @@ void RadarCanvas::RenderRangeRingsAndHeading(const wxSize &clientSize, float r) 
 
   glPopAttrib();
   glPopMatrix();
-#endif
 }
 
 void RadarCanvas::FillCursorTexture() {
-#ifndef RADAR_EXE
 #define CURSOR_WIDTH 16
 #define CURSOR_HEIGHT 16
 
@@ -425,11 +407,9 @@ void RadarCanvas::FillCursorTexture() {
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 16, 16, 0, GL_RGBA, GL_UNSIGNED_BYTE, cursorTexture);
-#endif
 }
 
 void RadarCanvas::RenderCursor(const wxSize &clientSize, float radius) {
-#ifndef RADAR_EXE
   glColor3f(1.0f, 1.0f, 1.0f);
 
   if (!isnan(m_ri->m_mouse_vrm)) {
@@ -437,19 +417,15 @@ void RadarCanvas::RenderCursor(const wxSize &clientSize, float radius) {
   } else {
     RenderCursor(clientSize, radius, m_ri->m_mouse_pos);
   }
-#endif
 }
 
 void RadarCanvas::RenderChartCursor(const wxSize &clientSize, float radius) {
-#ifndef RADAR_EXE
   glColor3f(0.0f, 1.0f, 1.0f);
 
   RenderCursor(clientSize, radius, m_pi->m_cursor_pos);
-#endif
 }
 
 void RadarCanvas::RenderCursor(const wxSize &clientSize, float radius, const GeoPosition &cursor) {
-#ifndef RADAR_EXE
   float distance;
   float bearing;
   GeoPosition pos;
@@ -464,11 +440,9 @@ void RadarCanvas::RenderCursor(const wxSize &clientSize, float radius, const Geo
     bearing -= m_pi->GetHeadingTrue();
   }
   RenderCursor(clientSize, radius, distance, bearing);
-#endif
 }
 
 void RadarCanvas::RenderCursor(const wxSize &clientSize, float radius, double distance, double bearing) {
-#ifndef RADAR_EXE
   int display_range = m_ri->GetDisplayRange();
   double range = distance * radius / display_range;
 
@@ -499,11 +473,9 @@ void RadarCanvas::RenderCursor(const wxSize &clientSize, float radius, double di
   glTexCoord2i(0, 1);
   glVertex2i(x, y + CURSOR_SCALE * CURSOR_HEIGHT);
   glEnd();
-#endif
 }
 
 void RadarCanvas::Render_EBL_VRM(const wxSize &clientSize, float radius) {
-#ifndef RADAR_EXE
   static const uint8_t rgb[BEARING_LINES][3] = {{22, 129, 154}, {45, 255, 254}};
 
   float center_x = clientSize.GetWidth() / 2.0;
@@ -533,22 +505,17 @@ void RadarCanvas::Render_EBL_VRM(const wxSize &clientSize, float radius) {
     }
   }
   glPopMatrix();
-#endif
 }
 
 static void ResetGLViewPort(const wxSize &size) {
-#ifndef RADAR_EXE
   glViewport(0, 0, size.GetWidth(), size.GetHeight());
   glMatrixMode(GL_PROJECTION);  // Next two operations on the project matrix stack
   glLoadIdentity();             // Reset projection matrix stack
   glOrtho(0, size.GetWidth(), size.GetHeight(), 0, -1, 1);
   glMatrixMode(GL_MODELVIEW);  // Reset matrick stack target back to GL_MODELVIEW
-#endif
 }
 
 void RadarCanvas::Render(wxPaintEvent &evt) {
-#ifndef RADAR_EXE
-
   if (!IsShown() || !m_pi->IsInitialized()) {
     return;
   }
@@ -664,6 +631,7 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
     vp.clat = pos.lat;
     vp.clon = pos.lon;
 
+#ifndef RADAR_EXE
     wxString aisTextFont = _("AIS Target Name");
     wxFont *aisFont = GetOCPNScaledFont_PlugIn(aisTextFont, 12);
     wxColour aisFontColor = GetFontColour_PlugIn(aisTextFont);
@@ -677,6 +645,7 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
     if (aisFont) {
       PlugInSetFontColor(aisTextFont, aisFontColor);
     }
+#endif
 
     glPopAttrib();
     glPopMatrix();
@@ -733,7 +702,6 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
   } else {
     SetCurrent(*m_zero_context);  // Make sure OpenCPN -at least- doesn't overwrite our context info
   }
-#endif
 }
 
 void RadarCanvas::OnMouseMotion(wxMouseEvent &event) {

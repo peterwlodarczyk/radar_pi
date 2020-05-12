@@ -223,7 +223,6 @@ RadarInfo::~RadarInfo() {
  * multiple times.
  */
 bool RadarInfo::Init() {
-#ifndef RADAR_EXE
   m_verbose = M_SETTINGS.verbose;
   m_name = RadarTypeName[m_radar_type];
   m_spokes = RadarSpokes[m_radar_type];
@@ -280,7 +279,6 @@ bool RadarInfo::Init() {
     }
   }
 
-#endif
   return true;
 }
 
@@ -433,6 +431,7 @@ void RadarInfo::ResetSpokes() {
 void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint8_t *data, size_t len, int range_meters,
                                   wxLongLong time_rec) {
   int orientation;
+  LOG_VERBOSE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
 
   // calculate course as the moving average of m_hdt over one revolution
   SampleCourse(angle);  // used for course_up mode

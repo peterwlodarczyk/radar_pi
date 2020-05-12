@@ -1084,8 +1084,10 @@ extern DECL_EXP bool GetSingleWaypoint( wxString GUID, PlugIn_Waypoint *pwaypoin
 extern DECL_EXP bool CheckEdgePan_PlugIn( int x, int y, bool dragging, int margin, int delta );
 extern DECL_EXP wxBitmap GetIcon_PlugIn(const wxString & name);
 extern DECL_EXP void SetCursor_PlugIn( wxCursor *pPlugin_Cursor = NULL );
+#endif
 extern DECL_EXP wxFont *GetOCPNScaledFont_PlugIn(wxString TextElement, int default_size = 0);
 extern DECL_EXP wxFont GetOCPNGUIScaledFont_PlugIn(wxString item);
+#ifndef RADAR_EXE
 extern DECL_EXP double GetOCPNGUIToolScaleFactor_PlugIn(int GUIScaledFactor);
 extern DECL_EXP double GetOCPNGUIToolScaleFactor_PlugIn();
 extern DECL_EXP float  GetOCPNChartScaleFactor_Plugin();
@@ -1302,10 +1304,11 @@ extern DECL_EXP wxWindow* PluginGetOverlayRenderCanvas();
 
 extern "C"  DECL_EXP void CanvasJumpToPosition( wxWindow *canvas, double lat, double lon, double scale);
 extern "C"  DECL_EXP  int AddCanvasMenuItem(wxMenuItem *pitem, opencpn_plugin *pplugin, const char *name = "");
+#endif
 extern "C"  DECL_EXP void RemoveCanvasMenuItem(int item, const char *name = "");      // Fully remove this item
 extern "C"  DECL_EXP void SetCanvasMenuItemViz(int item, bool viz, const char *name = ""); // Temporarily change context menu options
 extern "C"  DECL_EXP void SetCanvasMenuItemGrey(int item, bool grey, const char *name = "");
-
+#ifndef RADAR_EXE
 // Extract waypoints, routes and tracks
 extern DECL_EXP wxString GetSelectedWaypointGUID_Plugin( );
 extern DECL_EXP wxString GetSelectedRouteGUID_Plugin( );

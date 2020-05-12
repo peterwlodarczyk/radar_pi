@@ -158,7 +158,6 @@ radar_pi::~radar_pi() {}
  */
 
 int radar_pi::Init(void) {
-#ifndef RADAR_EXE
   if (m_initialized) {
     // Whoops, shouldn't happen
     return PLUGIN_OPTIONS;
@@ -186,12 +185,14 @@ int radar_pi::Init(void) {
 
   time_t now = time(0);
 
+#ifndef RADAR_EXE
   // Font can change so initialize every time
   m_font = GetOCPNGUIScaledFont_PlugIn(_T("Dialog"));
   m_fat_font = m_font;
   m_fat_font.SetWeight(wxFONTWEIGHT_BOLD);
   m_fat_font.SetPointSize(m_font.GetPointSize() + 1);
   m_small_font.SetPointSize(m_font.GetPointSize() - 1);
+#endif
   m_max_canvas = 0;
   for (int i = 0; i < MAX_CHART_CANVAS; i++) {
     m_chart_overlay[i] = -1;
@@ -248,13 +249,14 @@ int radar_pi::Init(void) {
   // Get a pointer to the opencpn display canvas, to use as a parent for the UI
   // dialog
   m_parent_window = GetOCPNCanvasWindow();
+#ifndef RADAR_EXE
   m_shareLocn = *GetpSharedDataLocation() + _T("plugins") + wxFileName::GetPathSeparator() + _T("radar_pi") +
                 wxFileName::GetPathSeparator() + _T("data") + wxFileName::GetPathSeparator();
 
   m_pMessageBox = new MessageBox;
   m_pMessageBox->Create(m_parent_window, this);
   LOG_INFO(wxT(PLUGIN_VERSION_WITH_DATE));
-
+#endif
   m_locator = 0;
 
   // Create objects before config, so config can set data in it
@@ -290,14 +292,15 @@ int radar_pi::Init(void) {
   }
   //    This PlugIn needs a toolbar icon
 
+  #ifndef RADAR_EXE
   wxString svg_normal = m_shareLocn + wxT("radar_standby.svg");
   wxString svg_rollover = m_shareLocn + wxT("radar_searching.svg");
   wxString svg_toggled = m_shareLocn + wxT("radar_active.svg");
   m_tool_id = InsertPlugInToolSVG(wxT("Radar"), svg_normal, svg_rollover, svg_toggled, wxITEM_NORMAL, wxT("Radar"),
                                   _("Radar plugin with support for multiple radars"), NULL, RADAR_TOOL_POSITION, 0, this);
+  #endif
 
   // CacheSetToolbarToolBitmaps(BM_ID_RED, BM_ID_BLANK);
-
   // Now that the settings are made we can initialize the RadarInfos
   for (size_t r = 0; r < M_SETTINGS.radar_count; r++) {
     m_radar[r]->Init();
@@ -327,6 +330,7 @@ int radar_pi::Init(void) {
   //    we need to create a dummy menu to act as a surrogate parent of the created MenuItems
   //    The Items will be re-parented when added to the real context meenu
 
+#ifndef RADAR_EXE
   wxMenu dummy_menu;
 
   wxMenuItem *mi1 = new wxMenuItem(&dummy_menu, -1, _("Show radar"));
@@ -353,12 +357,12 @@ int radar_pi::Init(void) {
   m_context_menu_show = true;
   m_context_menu_arpa = false;
   SetCanvasContextMenuItemViz(m_context_menu_show_id, false);
+#endif
 
   LOG_VERBOSE(wxT("radar_pi: Initialized plugin transmit=%d/%d "), m_settings.show_radar[0], m_settings.show_radar[1]);
 
   m_notify_time_ms = 0;
   m_timer = new wxTimer(this, TIMER_ID);
-#endif
   return PLUGIN_OPTIONS;
 }
 
@@ -369,7 +373,6 @@ int radar_pi::Init(void) {
  */
 
 bool radar_pi::DeInit(void) {
-#ifndef RADAR_EXE
   if (!m_initialized) {
     return false;
   }
@@ -395,6 +398,7 @@ bool radar_pi::DeInit(void) {
     m_radar[r]->Shutdown();
   }
 
+#ifndef RADAR_EXE
   if (m_bogey_dialog) {
     delete m_bogey_dialog;  // This will also save its current pos in m_settings
     m_bogey_dialog = 0;
@@ -408,6 +412,7 @@ bool radar_pi::DeInit(void) {
   RemoveCanvasContextMenuItem(m_context_menu_delete_radar_target);
   RemoveCanvasContextMenuItem(m_context_menu_delete_all_radar_targets);
   LOG_INFO(wxT("radar_pi Context menus removed"));
+#endif
 
   // Delete the RadarInfo objects. This will call their destructor and delete all data.
   for (size_t r = 0; r < M_SETTINGS.radar_count; r++) {
@@ -423,7 +428,6 @@ bool radar_pi::DeInit(void) {
   delete m_pMessageBox;
 
   // No need to delete wxWindow stuff, wxWidgets does this for us.
-#endif
   LOG_VERBOSE(wxT("radar_pi: DeInit of plugin done"));
   return true;
 }
@@ -1415,7 +1419,6 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
 //****************************************************************************
 
 bool radar_pi::LoadConfig(void) {
-#ifndef RADAR_EXE
   wxFileConfig *pConf = m_pconfig;
   int v, x, y, state;
   wxString s;
@@ -1583,10 +1586,9 @@ bool radar_pi::LoadConfig(void) {
 
     m_settings.max_age = wxMax(wxMin(m_settings.max_age, MAX_AGE), MIN_AGE);
 
-    SaveConfig();
+    //SaveConfig();
     return true;
   }
-#endif
   return false;
 }
 
