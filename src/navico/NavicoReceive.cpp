@@ -138,6 +138,42 @@ enum LookupSpokeEnum {
 
 static uint8_t lookupData[6][256];
 
+NavicoReceive::NavicoReceive(radar_pi *pi, RadarInfo *ri, NetworkAddress reportAddr, NetworkAddress dataAddr, NetworkAddress sendAddr)
+    : RadarReceive(pi, ri) {
+  m_info.serialNr = wxT(" ");
+  m_info.spoke_data_addr = dataAddr;
+  m_info.report_addr = reportAddr;
+  m_info.send_command_addr = sendAddr;
+  m_next_spoke = -1;
+  m_radar_status = 0;
+  m_shutdown_time_requested = 0;
+  m_is_shutdown = false;
+  m_first_receive = true;
+  m_interface_addr = m_pi->GetRadarInterfaceAddress(ri->m_radar);
+
+  m_receive_socket = GetLocalhostServerTCPSocket();
+  m_send_socket = GetLocalhostSendTCPSocket(m_receive_socket);
+  SetInfoStatus(wxString::Format(wxT("%s: %s"), m_ri->m_name.c_str(), _("Initializing")));
+  SetPriority(wxPRIORITY_MAX);
+  LOG_INFO(wxT("radar_pi: %s receive thread created, prio= %i"), m_ri->m_name.c_str(), GetPriority());
+  InitializeLookupData();
+
+  NavicoRadarInfo info = m_pi->GetNavicoRadarInfo(m_ri->m_radar);
+  if (info.report_addr.IsNull() && !m_info.report_addr.IsNull()) {
+    // BR24, 3G, 4G initial setup, when ini file doesn't contain multicast addresses yet
+    // In this case m_info.spoke_data_addr etc. are correct, these don't really change in the wild according to our data,
+    // so write them into the NavicoRadarInfo object.
+    m_pi->SetNavicoRadarInfo(m_ri->m_radar, m_info);
+  } else if (!info.report_addr.IsNull() && ri->m_radar_type != RT_BR24) {
+    // Restart, when ini file contains multicast addresses, that are hopefully still correct.
+    // This will also overwrite the initial addresses for 3G and 4G with those from the ini file
+    // If not we will time-out and then NavicoLocate will find the radar.
+    m_info = m_pi->GetNavicoRadarInfo(m_ri->m_radar);
+  }
+};
+
+NavicoReceive::~NavicoReceive() {}
+
 void NavicoReceive::InitializeLookupData() {
   if (lookupData[5][255] == 0) {
     for (int j = 0; j <= UINT8_MAX; j++) {

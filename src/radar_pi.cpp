@@ -1576,7 +1576,7 @@ bool radar_pi::SaveConfig(void) {
     pConf->Write(wxT("ColourArpaEdge"), m_settings.arpa_colour.GetAsString());
     pConf->Write(wxT("ColourAISText"), m_settings.ais_text_colour.GetAsString());
     pConf->Write(wxT("ColourPPIBackground"), m_settings.ppi_background_colour.GetAsString());
-    pConf->Write(wxT("RadarCount"), m_settings.radar_count);
+    pConf->Write(wxT("RadarCount"), static_cast<unsigned int>(m_settings.radar_count));
     pConf->Write(wxT("DockSize"), m_settings.dock_size);
 
     for (int r = 0; r < (int)m_settings.radar_count; r++) {
