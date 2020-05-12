@@ -10,3 +10,4 @@ example/
 *.vs
 exe-win32/radar_pi.dir
 exe-win32/x64/
+exe-win32/radar.dir/
