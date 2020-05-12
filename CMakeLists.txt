@@ -127,6 +127,7 @@ SET(SRC_PLUGIN
 )            
 
 SET(SRC_EXECUTABLE
+            src/exemanager.cpp
             src/radar_exe.cpp
             src/radar_exe.h
             src/radar_main.cpp

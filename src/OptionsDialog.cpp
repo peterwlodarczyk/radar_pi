@@ -352,6 +352,7 @@ void OptionsDialog::OnDopplerRecedingColourClick(wxCommandEvent &event) {
 void OptionsDialog::OnStrongColourClick(wxCommandEvent &event) { m_settings.strong_colour = m_StrongColour->GetColour(); }
 
 void OptionsDialog::OnSelectSoundClick(wxCommandEvent &event) {
+#if 0
   wxString *sharedData = GetpSharedDataLocation();
   wxString sound_dir;
 
@@ -364,6 +365,7 @@ void OptionsDialog::OnSelectSoundClick(wxCommandEvent &event) {
   if (response == wxID_OK) {
     m_settings.alert_audio_file = openDialog->GetPath();
   }
+#endif
 }
 
 void OptionsDialog::OnGuardZoneTimeoutClick(wxCommandEvent &event) {
@@ -375,9 +377,9 @@ void OptionsDialog::OnGuardZoneTimeoutClick(wxCommandEvent &event) {
 void OptionsDialog::OnEnableCOGHeadingClick(wxCommandEvent &event) { m_settings.enable_cog_heading = m_COGHeading->GetValue(); }
 
 void OptionsDialog::OnTestSoundClick(wxCommandEvent &event) {
-  if (!m_settings.alert_audio_file.IsEmpty()) {
-    PlugInPlaySound(m_settings.alert_audio_file);
-  }
+  //if (!m_settings.alert_audio_file.IsEmpty()) {
+  //  PlugInPlaySound(m_settings.alert_audio_file);
+  //}
 }
 
 void OptionsDialog::OnIgnoreHeadingClick(wxCommandEvent &event) { m_settings.ignore_radar_heading = m_IgnoreHeading->GetValue(); }

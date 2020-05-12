@@ -26,12 +26,12 @@
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
-    <ProjectName>radar</ProjectName>
+    <ProjectName>radar_pi</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
@@ -60,8 +60,8 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar_pi.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar_pi</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
@@ -98,11 +98,9 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
-      <WarningLevel>Level1</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";radar_pi_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DisableSpecificWarnings>6011;6287;6385;6386;26437;26495;26444;26812</DisableSpecificWarnings>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;__WXDEBUG__;CMAKE_INTDIR=\"Debug\";radar_pi_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -318,6 +316,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="H:\home\user\src\radar_pi\src\radar_pi.cpp" />
+    <ClInclude Include="H:\home\user\src\radar_pi\src\radar_pi.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\ControlsDialog.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\ControlsDialog.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\GuardZone.cpp" />
@@ -363,8 +363,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="H:\home\user\src\radar_pi\src\icons.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\icons.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\pi_common.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\radar_pi.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\radar_pi.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\shaderutil.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\shaderutil.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\socketutil.cpp" />
@@ -386,21 +384,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hdm.cpp" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonreader.cpp" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonval.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControl.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControlSet.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControlsDialog.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorReceive.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\emulatortype.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControl.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControlSet.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControlsDialog.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDReceive.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\garminhdtype.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControl.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControlSet.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControlsDialog.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDReceive.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\garminxhdtype.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_radar_interface.cpp" />

@@ -169,6 +169,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+    <ProjectReference Include="H:\home\user\src\radar_pi\exe-win32\radar_exe.vcxproj">
+      <Project>{57B42E52-5E57-3F5D-B522-81C3B5E7D5EC}</Project>
+      <Name>radar_exe</Name>
+    </ProjectReference>
     <ProjectReference Include="H:\home\user\src\radar_pi\exe-win32\radar_pi.vcxproj">
       <Project>{F696826E-4F83-32BF-9E9B-A9AEE3A4A73F}</Project>
       <Name>radar_pi</Name>

@@ -168,7 +168,7 @@ void RadarInfo::Shutdown() {
 
 RadarInfo::~RadarInfo() {
   Shutdown();
-
+#if 0
   // delete context menu item for radar control
   // it does not harm to remove an non existing menu
   if (m_pi->m_context_menu_control_id[m_radar] != -1) {
@@ -212,6 +212,7 @@ RadarInfo::~RadarInfo() {
     }
     free(m_history);
   }
+#endif
 }
 
 /**
@@ -222,6 +223,7 @@ RadarInfo::~RadarInfo() {
  * multiple times.
  */
 bool RadarInfo::Init() {
+#if 0
   m_verbose = M_SETTINGS.verbose;
   m_name = RadarTypeName[m_radar_type];
   m_spokes = RadarSpokes[m_radar_type];
@@ -278,6 +280,7 @@ bool RadarInfo::Init() {
     }
   }
 
+#endif
   return true;
 }
 
@@ -592,6 +595,7 @@ void RadarInfo::UpdateTransmitState() {
 }
 
 void RadarInfo::RequestRadarState(RadarState state) {
+#if 0
   int oldState = m_state.GetValue();
   if (/*m_pi->IsRadarOnScreen(m_radar) &&*/ oldState != RADAR_OFF) {                     // if radar is visible and detected
     if (oldState != state && !(oldState != RADAR_STANDBY && state == RADAR_TRANSMIT)) {  // and change is wanted
@@ -616,6 +620,7 @@ void RadarInfo::RequestRadarState(RadarState state) {
       m_stayalive_timeout = now + STAYALIVE_TIMEOUT;
     }
   }
+#endif
 }
 
 void RadarInfo::RenderGuardZone() {

@@ -51,7 +51,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Woverloaded-virtual"
 #endif
-#include "ocpn_plugin.h"
+#include "ocpn_exe.h"
 #ifdef __WXOSX__
 #pragma clang diagnostic pop
 #endif
