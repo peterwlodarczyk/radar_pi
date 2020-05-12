@@ -82,7 +82,7 @@
 //#include "config.h"
 //#include "SoundFactory.h"
 //#include "dychart.h"
-#include "ocpn_exe.h"
+#include "ocpn_plugin.h"
 //#include "chartbase.h"        // for ChartPlugInWrapper
 //#include "chartdb.h"
 //#include "chartdbs.h"

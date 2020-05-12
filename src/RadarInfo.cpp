@@ -168,7 +168,7 @@ void RadarInfo::Shutdown() {
 
 RadarInfo::~RadarInfo() {
   Shutdown();
-#if 0
+#ifndef RADAR_EXE
   // delete context menu item for radar control
   // it does not harm to remove an non existing menu
   if (m_pi->m_context_menu_control_id[m_radar] != -1) {
@@ -223,7 +223,7 @@ RadarInfo::~RadarInfo() {
  * multiple times.
  */
 bool RadarInfo::Init() {
-#if 0
+#ifndef RADAR_EXE
   m_verbose = M_SETTINGS.verbose;
   m_name = RadarTypeName[m_radar_type];
   m_spokes = RadarSpokes[m_radar_type];
@@ -595,7 +595,7 @@ void RadarInfo::UpdateTransmitState() {
 }
 
 void RadarInfo::RequestRadarState(RadarState state) {
-#if 0
+#ifndef RADAR_EXE
   int oldState = m_state.GetValue();
   if (/*m_pi->IsRadarOnScreen(m_radar) &&*/ oldState != RADAR_OFF) {                     // if radar is visible and detected
     if (oldState != state && !(oldState != RADAR_STANDBY && state == RADAR_TRANSMIT)) {  // and change is wanted

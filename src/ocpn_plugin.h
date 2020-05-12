@@ -261,6 +261,7 @@ typedef struct _ExtentPI{
 //  This class is the base class for Plug-able chart types
 // ----------------------------------------------------------------------------
 
+#ifndef RADAR_EXE
 class DECL_EXP PlugInChartBase : public wxObject
 {
       public:
@@ -350,7 +351,7 @@ class DECL_EXP PlugInChartBase : public wxObject
 
 
 };
-
+#endif
 
 
 
@@ -555,6 +556,7 @@ public:
 //
 //------------------------------------------------------------------
 
+#ifndef RADAR_EXE
 class DECL_EXP Plugin_Hyperlink
 {
 public:
@@ -621,7 +623,7 @@ public:
 
     Plugin_WaypointList     *pWaypointList;
 };
-
+#endif
 
 
 //----------------------------------------------------------------------------------------------------------
@@ -719,6 +721,7 @@ typedef enum OptionsParentPI
       PI_OPTIONS_PARENT_UI,
       PI_OPTIONS_PARENT_PLUGINS
 }_OptionsParentPI;
+#ifndef RADAR_EXE
 extern DECL_EXP wxScrolledWindow *AddOptionsPage( OptionsParentPI parent, wxString title );
 extern DECL_EXP bool DeleteOptionsPage( wxScrolledWindow* page );
 
@@ -778,6 +781,7 @@ extern  DECL_EXP wxString GetPlugInPath(opencpn_plugin *pplugin);
 extern "C"  DECL_EXP int AddChartToDBInPlace( wxString &full_path, bool b_RefreshCanvas );
 extern "C"  DECL_EXP int RemoveChartFromDBInPlace( wxString &full_path );
 extern  DECL_EXP wxString GetLocaleCanonicalName();
+#endif
 
 //  API 1.11 adds access to S52 Presentation library
 //Types
@@ -795,6 +799,7 @@ class PI_S57Obj;
 
 WX_DECLARE_LIST(PI_S57Obj, ListOfPI_S57Obj);
 
+#ifndef RADAR_EXE
 // ----------------------------------------------------------------------------
 // PlugInChartBaseGL
 //  Derived from PlugInChartBase, add OpenGL Vector chart support
@@ -855,7 +860,7 @@ public:
     
 };
 
-
+#endif
 
 
 
@@ -1003,6 +1008,7 @@ public:
 };
 
 
+#ifndef RADAR_EXE
 
 wxString DECL_EXP PI_GetPLIBColorScheme();
 int DECL_EXP PI_GetPLIBDepthUnitInt();
@@ -1313,7 +1319,9 @@ extern DECL_EXP wxWindow* GetCanvasUnderMouse( );
 extern DECL_EXP int GetCanvasIndexUnderMouse( );
 //extern DECL_EXP std::vector<wxWindow *> GetCanvasArray();
 extern DECL_EXP wxWindow *GetCanvasByIndex( int canvasIndex );
+#endif
 extern DECL_EXP int GetCanvasCount( );
+#ifndef RADAR_EXE
 extern DECL_EXP bool CheckMUIEdgePan_PlugIn( int x, int y, bool dragging, int margin, int delta, int canvasIndex );
 extern DECL_EXP void SetMUICursor_PlugIn( wxCursor *pCursor, int canvasIndex );
 
@@ -1326,5 +1334,6 @@ enum SDDMFORMAT
 };
 
 extern DECL_EXP int GetLatLonFormat(void);
+#endif
 
 #endif //_PLUGIN_H_

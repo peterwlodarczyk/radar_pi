@@ -123,14 +123,18 @@ END_EVENT_TABLE()
 //---------------------------------------------------------------------------------------------------------
 
 radar_pi::radar_pi(void *ppimgr) : opencpn_plugin_116(ppimgr) {
-  OC_DEBUG("[oc_radar2::oc_radar2]");
+  OC_DEBUG("[oc_radar3::oc_radar3]");
   m_boot_time = wxGetUTCTimeMillis();
   m_initialized = false;
   m_predicted_position_initialised = false;
 
   // Create the PlugIn icons
+  #ifndef RADAR_EXE
   initialize_images();
   m_pdeficon = new wxBitmap(*_img_radar_blank);
+  #else
+  m_pdeficon = nullptr;
+  #endif
 
   m_opengl_mode = OPENGL_UNKOWN;
   m_opengl_mode_changed = false;
@@ -154,6 +158,7 @@ radar_pi::~radar_pi() {}
  */
 
 int radar_pi::Init(void) {
+#ifndef RADAR_EXE
   if (m_initialized) {
     // Whoops, shouldn't happen
     return PLUGIN_OPTIONS;
@@ -353,7 +358,7 @@ int radar_pi::Init(void) {
 
   m_notify_time_ms = 0;
   m_timer = new wxTimer(this, TIMER_ID);
-
+#endif
   return PLUGIN_OPTIONS;
 }
 
@@ -364,6 +369,7 @@ int radar_pi::Init(void) {
  */
 
 bool radar_pi::DeInit(void) {
+#ifndef RADAR_EXE
   if (!m_initialized) {
     return false;
   }
@@ -417,6 +423,7 @@ bool radar_pi::DeInit(void) {
   delete m_pMessageBox;
 
   // No need to delete wxWindow stuff, wxWidgets does this for us.
+#endif
   LOG_VERBOSE(wxT("radar_pi: DeInit of plugin done"));
   return true;
 }
@@ -445,6 +452,7 @@ void radar_pi::SetDefaults(void) {
 }
 
 bool radar_pi::EnsureRadarSelectionComplete(bool force) {
+#ifndef RADAR_EXE
   bool any = false;
   size_t r;
 
@@ -461,9 +469,13 @@ bool radar_pi::EnsureRadarSelectionComplete(bool force) {
 
   LOG_DIALOG(wxT("radar_pi: EnsureRadarSelectionComplete not yet so show selection dialog"));
   return MakeRadarSelection();
+#else
+  return true;
+#endif
 }
 
 bool radar_pi::MakeRadarSelection() {
+#ifndef RADAR_EXE
   bool ret = false;
 
   RadarType oldRadarType[RADARS];
@@ -541,9 +553,14 @@ bool radar_pi::MakeRadarSelection() {
   m_initialized = true;
   SaveConfig();
   return ret;
+#else
+  return true;
+
+#endif
 }
 
 void radar_pi::ShowPreferencesDialog(wxWindow *parent) {
+#ifndef RADAR_EXE
   LOG_DIALOG(wxT("radar_pi: ShowPreferencesDialog"));
 
   bool oldShow = M_SETTINGS.show;
@@ -566,6 +583,7 @@ void radar_pi::ShowPreferencesDialog(wxWindow *parent) {
 
   M_SETTINGS.show = oldShow;
   NotifyRadarWindowViz();
+#endif
 }
 
 // A different thread (or even the control dialog itself) has changed state and now
@@ -580,6 +598,7 @@ void radar_pi::NotifyRadarWindowViz() { m_notify_radar_window_viz = true; }
 void radar_pi::NotifyControlDialog() { m_notify_control_dialog = true; }
 
 void radar_pi::SetRadarWindowViz(bool reparent) {
+#ifndef RADAR_EXE
   for (size_t r = 0; r < m_settings.radar_count; r++) {
     bool showThisRadar = m_settings.show && m_settings.show_radar[r];
     bool showThisControl = m_settings.show && m_settings.show_radar_control[r];
@@ -589,6 +608,7 @@ void radar_pi::SetRadarWindowViz(bool reparent) {
     m_radar[r]->ShowControlDialog(showThisControl, reparent);
     m_radar[r]->UpdateTransmitState();
   }
+#endif
 }
 
 /**
@@ -599,6 +619,7 @@ void radar_pi::SetRadarWindowViz(bool reparent) {
  * @param canvasIndex      Canvas #
  */
 void radar_pi::PrepareContextMenu(int canvasIndex) {
+#ifndef RADAR_EXE
   int arpa_targets = GetArpaTargetCount();
   bool targets_tracked = arpa_targets > 0;
   bool show = m_settings.show;
@@ -629,27 +650,35 @@ void radar_pi::PrepareContextMenu(int canvasIndex) {
   SetCanvasContextMenuItemViz(m_context_menu_acquire_radar_target, overlay);
   SetCanvasContextMenuItemViz(m_context_menu_delete_radar_target, show_acq_delete);
   SetCanvasContextMenuItemViz(m_context_menu_delete_all_radar_targets, targets_tracked);
+#endif
 }
 
 int radar_pi::GetArpaTargetCount(void) {
+#ifndef RADAR_EXE
   int arpa_targets = 0;
 
   for (size_t r = 0; r < M_SETTINGS.radar_count; r++) {
     if (m_radar[r]->m_arpa) arpa_targets += m_radar[r]->m_arpa->GetTargetCount();
   }
   return arpa_targets;
+#else
+  return 0;
+#endif
 }
 
 //********************************************************************************
 // Operation Dialogs - Control, Manual, and Options
 
 void radar_pi::ShowRadarControl(int radar, bool show, bool reparent) {
+#ifndef RADAR_EXE
   LOG_DIALOG(wxT("radar_pi: ShowRadarControl(%d, %d)"), radar, (int)show);
   m_settings.show_radar_control[radar] = show;
   m_radar[radar]->ShowControlDialog(show, reparent);
+#endif
 }
 
 void radar_pi::OnControlDialogClose(RadarInfo *ri) {
+#ifndef RADAR_EXE
   if (ri->m_control_dialog) {
     m_settings.control_pos[ri->m_radar] = ri->m_control_dialog->GetPosition();
   }
@@ -657,10 +686,13 @@ void radar_pi::OnControlDialogClose(RadarInfo *ri) {
   if (ri->m_control_dialog) {
     ri->m_control_dialog->HideDialog();
   }
+#endif
 }
 
 void radar_pi::ConfirmGuardZoneBogeys() {
+#ifndef RADAR_EXE
   m_guard_bogey_confirmed = true;  // This will stop the sound being repeated
+#endif
 }
 
 //*******************************************************************************
@@ -681,6 +713,7 @@ int radar_pi::GetToolbarToolCount(void) { return 1; }
  *
  */
 void radar_pi::OnToolbarToolCallback(int id) {
+#ifndef RADAR_EXE
   if (!m_initialized) {
     return;
   }
@@ -720,9 +753,11 @@ void radar_pi::OnToolbarToolCallback(int id) {
     SetRadarWindowViz();
   }
   UpdateState();
+#endif
 }
 
 void radar_pi::OnContextMenuItemCallback(int id) {
+#ifndef RADAR_EXE
   if (!EnsureRadarSelectionComplete(false)) {
     return;
   }
@@ -781,9 +816,11 @@ void radar_pi::OnContextMenuItemCallback(int id) {
       }
     }
   }
+#endif
 }
 
 void radar_pi::PassHeadingToOpenCPN() {
+#ifndef RADAR_EXE
   wxString nmea;
   char sentence[40];
   char checksum = 0;
@@ -878,9 +915,11 @@ void radar_pi::CheckGuardZoneBogeys(void) {
   if (m_bogey_dialog) {
     m_bogey_dialog->ShowBogeys(text, bogeys_found, m_guard_bogey_confirmed);
   }
+#endif
 }
 
 void radar_pi::SetRadarHeading(double heading, bool isTrue) {
+#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
   m_radar_heading = heading;
   m_radar_heading_true = isTrue;
@@ -908,9 +947,11 @@ void radar_pi::SetRadarHeading(double heading, bool isTrue) {
     // no heading on radar and heading source is still radar
     m_heading_source = HEADING_NONE;
   }
+#endif
 }
 
 void radar_pi::UpdateHeadingPositionState() {
+#ifndef RADAR_EXE
   {
     wxCriticalSectionLocker lock(m_exclusive);
     time_t now = time(0);
@@ -955,6 +996,7 @@ void radar_pi::UpdateHeadingPositionState() {
       LOG_VERBOSE(wxT("radar_pi: Lost Variation source"));
     }
   }
+#endif
 }
 
 /**
@@ -964,6 +1006,7 @@ void radar_pi::UpdateHeadingPositionState() {
  * This happens on the main (GUI) thread.
  */
 void radar_pi::ScheduleWindowRefresh() {
+#ifndef RADAR_EXE
   int drawTime = 0;
   int millis;
   int renderPPI[RADARS];
@@ -996,9 +1039,11 @@ void radar_pi::ScheduleWindowRefresh() {
   } else {
     LOG_VERBOSE(wxT("radar_pi: rendering took %dms, refreshrate=%d, no next extra render"), drawTime, refreshrate);
   }
+#endif
 }
 
 void radar_pi::OnTimerNotify(wxTimerEvent &event) {
+#ifndef RADAR_EXE
   if (!EnsureRadarSelectionComplete(false)) {
     return;
   }
@@ -1024,10 +1069,12 @@ void radar_pi::OnTimerNotify(wxTimerEvent &event) {
       }
     }
   }
+#endif
 }
 
 // Called between 1 and 10 times per second by RenderGLOverlay call
 void radar_pi::TimedControlUpdate() {
+#ifndef RADAR_EXE
   wxLongLong now = wxGetUTCTimeMillis();
   if (!m_notify_control_dialog && !TIMED_OUT(now, m_notify_time_ms + 500)) {
     return;  // Don't run this more often than 2 times per second
@@ -1160,15 +1207,19 @@ void radar_pi::TimedControlUpdate() {
 
   UpdateAllControlStates(updateAllControls);
   UpdateState();
+#endif
 }
 
 void radar_pi::UpdateAllControlStates(bool all) {
+#ifndef RADAR_EXE
   for (size_t r = 0; r < M_SETTINGS.radar_count; r++) {
     m_radar[r]->UpdateControlState(all);
   }
+#endif
 }
 
 void radar_pi::UpdateState(void) {
+#ifndef RADAR_EXE
   if (m_settings.show == false) {
     m_toolbar_button = TB_HIDDEN;
   } else {
@@ -1183,15 +1234,18 @@ void radar_pi::UpdateState(void) {
   for (size_t r = 0; r < M_SETTINGS.radar_count; r++) {
     m_radar[r]->CheckTimedTransmit();
   }
+#endif
 }
 
 void radar_pi::SetOpenGLMode(OpenGLMode mode) {
+#ifndef RADAR_EXE
   if (m_opengl_mode != mode) {
     m_opengl_mode = mode;
     // Can't hide/show the windows from here, this becomes recursive because the Chart display
     // is managed by wxAuiManager as well.
     m_opengl_mode_changed = true;
   }
+#endif
 }
 
 wxGLContext *radar_pi::GetChartOpenGLContext() { return m_opencpn_gl_context; }
@@ -1201,6 +1255,7 @@ wxGLContext *radar_pi::GetChartOpenGLContext() { return m_opencpn_gl_context; }
 //**************************************************************************************************
 
 bool radar_pi::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp) {
+#ifndef RADAR_EXE
   if (!m_initialized) {
     return true;
   }
@@ -1208,12 +1263,14 @@ bool radar_pi::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp) {
   LOG_DIALOG(wxT("radar_pi: RenderOverlay"));
 
   SetOpenGLMode(OPENGL_OFF);
+#endif
   return true;
 }
 
 // Called by Plugin Manager on main system process cycle
 
 bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort *vp, int canvasIndex) {
+#ifndef RADAR_EXE
   GeoPosition radar_pos;
   // prevent this being called recursively
   // no critical section locker (will wait), better to return immediately
@@ -1351,12 +1408,14 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
   }
   TimedControlUpdate();
   m_render_busy = false;
+#endif
   return true;
 }
 
 //****************************************************************************
 
 bool radar_pi::LoadConfig(void) {
+#ifndef RADAR_EXE
   wxFileConfig *pConf = m_pconfig;
   int v, x, y, state;
   wxString s;
@@ -1527,10 +1586,12 @@ bool radar_pi::LoadConfig(void) {
     SaveConfig();
     return true;
   }
+#endif
   return false;
 }
 
 bool radar_pi::SaveConfig(void) {
+#ifndef RADAR_EXE
   wxFileConfig *pConf = m_pconfig;
 
   if (pConf) {
@@ -1622,17 +1683,20 @@ bool radar_pi::SaveConfig(void) {
     // LOG_VERBOSE(wxT("radar_pi: Saved settings"));
     return true;
   }
-
+#endif
   return false;
 }
 
 void radar_pi::SetNavicoRadarInfo(size_t r, const NavicoRadarInfo &info) {
+#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
 
   M_SETTINGS.navico_radar_info[r] = info;
+#endif
 }
 
 void radar_pi::FoundNavicoRadarInfo(const NetworkAddress &addr, const NetworkAddress &interface_addr, const NavicoRadarInfo &info) {
+#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
 
   bool halo_type = false;
@@ -1742,17 +1806,24 @@ void radar_pi::FoundNavicoRadarInfo(const NetworkAddress &addr, const NetworkAdd
     }
   }
   LOG_INFO(wxT("radar_pi: Failed to allocate info from NavicoLocate to a radar"));
+#endif
 }
 
 bool radar_pi::HaveRadarSerialNo(size_t r) {
+#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
 
   return !M_SETTINGS.navico_radar_info[r].serialNr.IsNull();
+#else
+  return true; // TODO: maybe should be false;
+#endif
 }
 
 NavicoRadarInfo &radar_pi::GetNavicoRadarInfo(size_t r) {
+#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
 
+#endif
   return M_SETTINGS.navico_radar_info[r];
 }
 
@@ -1760,6 +1831,7 @@ NavicoRadarInfo &radar_pi::GetNavicoRadarInfo(size_t r) {
 void radar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {}
 
 void radar_pi::SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix) {
+#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
 
   time_t now = time(0);
@@ -1870,9 +1942,11 @@ void radar_pi::SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix) {
     m_ownship = m_expected_position.pos;
     m_last_fixed = m_expected_position;
   }
+#endif
 }
 
 void radar_pi::UpdateCOGAvg(double cog) {
+#ifndef RADAR_EXE
   // This is a straight copy (except for formatting) of the code in
   // OpenCPN/src/chart1.cpp MyFrame::PostProcessNNEA
   if (m_COGAvgSec > 0) {
@@ -1910,9 +1984,11 @@ void radar_pi::UpdateCOGAvg(double cog) {
   } else {
     m_COGAvg = cog;
   }
+#endif
 }
 
 void radar_pi::SetPluginMessage(wxString &message_id, wxString &message_body) {
+#ifndef RADAR_EXE
   static const wxString WMM_VARIATION_BOAT = wxString(_T("WMM_VARIATION_BOAT"));
   wxString info;
   if (message_id.Cmp(WMM_VARIATION_BOAT) == 0) {
@@ -1993,9 +2069,11 @@ void radar_pi::SetPluginMessage(wxString &message_id, wxString &message_body) {
       }
     }
   }
+#endif
 }
 
 bool radar_pi::FindAIS_at_arpaPos(const GeoPosition &pos, const double &arpa_dist) {
+#ifndef RADAR_EXE
   m_arpa_max_range = MAX(arpa_dist + 200, m_arpa_max_range);  // For AIS search area
   if (m_ais_in_arpa_zone.size() < 1) return false;
   bool hit = false;
@@ -2014,10 +2092,14 @@ bool radar_pi::FindAIS_at_arpaPos(const GeoPosition &pos, const double &arpa_dis
     }
   }
   return hit;
+#else
+  return false;
+#endif
 }
 
 //*****************************************************************************************************
 void radar_pi::CacheSetToolbarToolBitmaps() {
+#ifndef RADAR_EXE
   if (m_toolbar_button == m_sent_toolbar_button) {
     return;  // no change needed
   }
@@ -2048,6 +2130,7 @@ void radar_pi::CacheSetToolbarToolBitmaps() {
   }
   SetToolbarToolBitmapsSVG(m_tool_id, icon, icon, icon);
   m_sent_toolbar_button = m_toolbar_button;
+#endif
 }
 
 /*
@@ -2059,6 +2142,7 @@ void radar_pi::CacheSetToolbarToolBitmaps() {
 */
 
 void radar_pi::SetNMEASentence(wxString &sentence) {
+#ifndef RADAR_EXE
   m_NMEA0183 << sentence;
   time_t now = time(0);
   double hdm = nan("");
@@ -2119,6 +2203,7 @@ void radar_pi::SetNMEASentence(wxString &sentence) {
       m_hdm_timeout = now + HEADING_TIMEOUT;
     }
   }
+#endif
 }
 
 // is not called anywhere
@@ -2130,6 +2215,7 @@ void radar_pi::SetCursorLatLon(double lat, double lon) {
 }
 
 bool radar_pi::MouseEventHook(wxMouseEvent &event) {
+#ifndef RADAR_EXE
   if (event.LeftDown()) {
     for (size_t r = 0; r < M_SETTINGS.radar_count; r++) {
       m_radar[r]->SetMousePosition(m_cursor_pos);
@@ -2138,6 +2224,7 @@ bool radar_pi::MouseEventHook(wxMouseEvent &event) {
   if (event.RightDown()) {
     m_right_click_pos = m_cursor_pos;
   }
+#endif
   return false;
 }
 
@@ -2156,7 +2243,11 @@ void radar_pi::logBinaryData(const wxString &what, const uint8_t *data, int size
 }
 
 bool radar_pi::IsRadarOnScreen(int radar) {
+#ifndef RADAR_EXE
   return m_settings.show && (m_settings.show_radar[radar] || m_radar[radar]->GetOverlayCanvasIndex() > -1);
+#else
+  return true;
+#endif
 }
 
 PLUGIN_END_NAMESPACE

@@ -352,7 +352,7 @@ void OptionsDialog::OnDopplerRecedingColourClick(wxCommandEvent &event) {
 void OptionsDialog::OnStrongColourClick(wxCommandEvent &event) { m_settings.strong_colour = m_StrongColour->GetColour(); }
 
 void OptionsDialog::OnSelectSoundClick(wxCommandEvent &event) {
-#if 0
+#ifndef RADAR_EXE
   wxString *sharedData = GetpSharedDataLocation();
   wxString sound_dir;
 

@@ -9,11 +9,10 @@
 # define minimum cmake version
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
 
-PROJECT(radar_pi)
+option(OUTPUT_EXE "Output type" ON)
 
+PROJECT(radar_pi)
 SET(PACKAGE_NAME radar_pi)
-SET(LIBRARY_NAME radar_pi)
-SET(EXECUTABLE_NAME radar_exe)
 SET(VERBOSE_NAME Radar)
 SET(TITLE_NAME Radar)
 SET(CPACK_PACKAGE_CONTACT "kees@verruijt.net")
@@ -96,6 +95,8 @@ SET(SRC_RADAR
             src/RadarInfo.h
             src/RadarMarpa.cpp
             src/RadarMarpa.h
+            src/radar_pi.cpp
+            src/radar_pi.h
             src/RadarPanel.cpp
             src/RadarPanel.h
             src/RadarReceive.h
@@ -122,14 +123,10 @@ SET(SRC_RADAR
 )
 
 SET(SRC_PLUGIN
-            src/radar_pi.cpp
-            src/radar_pi.h
 )            
 
 SET(SRC_EXECUTABLE
             src/exemanager.cpp
-            src/radar_exe.cpp
-            src/radar_exe.h
             src/radar_main.cpp
 )            
 
@@ -162,11 +159,18 @@ INCLUDE_DIRECTORIES(src/nmea0183)
 INCLUDE_DIRECTORIES(src/wxJSON)
 INCLUDE_DIRECTORIES(src)
 
-ADD_LIBRARY(${LIBRARY_NAME} SHARED ${SRC_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
-ADD_EXECUTABLE(${EXECUTABLE_NAME} ${SRC_EXECUTABLE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
-target_link_libraries(${EXECUTABLE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
-
-
+IF (OUTPUT_EXE)
+MESSAGE(WARNING "Peter")
+ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_EXECUTABLE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
+ADD_DEFINITIONS(-DRADAR_EXE)
+TARGET_LINK_LIBRARIES(${PACKAGE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
+ELSE()
+MESSAGE(WARNING "Paul")
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
 INCLUDE("cmake/PluginInstall.cmake")
 INCLUDE("cmake/PluginLocalization.cmake")
 INCLUDE("cmake/PluginPackage.cmake")
+ENDIF()
+
+
+
