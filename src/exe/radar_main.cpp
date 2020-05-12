@@ -11,7 +11,6 @@
 #include "wx/wx.h"
 #endif
 
-
 class RadarApp : public wxApp {
  public:
   virtual int OnExit();
@@ -49,18 +48,16 @@ bool RadarApp::OnInit() {
   OC_DEBUG("[RadarApp::OnInit]>>");
   LOG_INFO("[RadarApp::OnInit]>>");
 
-  MyFrame* frame = new MyFrame(nullptr);
+  //MyFrame* frame = new MyFrame(nullptr);
   //frame->CreateStatusBar();
   //frame->SetStatusText(_T("Radar"));
-  frame->Show(true);
-  SetTopWindow(frame);
+  //frame->Show(true);
+  //SetTopWindow(frame);
 
-  m_PluginManager = new PlugInManager(frame);
-  OC_DEBUG("[RadarApp::OnInit]<<");
-  m_PluginManager->LoadAllPlugIns(true, true);
-  printf("radar_exe\n");
-
-  // Init the plugin
+  //m_PluginManager = new PlugInManager(frame);
+  //OC_DEBUG("[RadarApp::OnInit]<<");
+  //m_PluginManager->LoadAllPlugIns(true, true);
+  //printf("radar_exe\n");
 
   return true;
 }

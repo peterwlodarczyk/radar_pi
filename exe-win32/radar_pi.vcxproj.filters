@@ -118,10 +118,10 @@
     <ClCompile Include="..\src\radar_pi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\exe\exemanager.cpp">
+    <ClCompile Include="..\src\exe\radar_main.cpp">
       <Filter>Source Files\exe</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\exe\radar_main.cpp">
+    <ClCompile Include="..\src\exe\pluginmanager.cpp">
       <Filter>Source Files\exe</Filter>
     </ClCompile>
   </ItemGroup>

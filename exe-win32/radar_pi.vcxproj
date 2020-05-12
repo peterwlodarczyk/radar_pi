@@ -261,7 +261,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\exe\exemanager.cpp" />
+    <ClCompile Include="..\src\exe\pluginmanager.cpp" />
     <ClCompile Include="..\src\exe\radar_main.cpp" />
     <ClCompile Include="..\src\radar_pi.cpp" />
     <ClInclude Include="..\src\exe\chart1.h" />

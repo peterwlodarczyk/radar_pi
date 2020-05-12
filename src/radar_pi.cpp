@@ -123,7 +123,7 @@ END_EVENT_TABLE()
 //---------------------------------------------------------------------------------------------------------
 
 radar_pi::radar_pi(void *ppimgr) : opencpn_plugin_116(ppimgr) {
-  OC_DEBUG("[oc_radar3::oc_radar3]");
+  OC_DEBUG("[oc_radar4::oc_radar]");
   m_boot_time = wxGetUTCTimeMillis();
   m_initialized = false;
   m_predicted_position_initialised = false;
@@ -1010,7 +1010,6 @@ void radar_pi::UpdateHeadingPositionState() {
  * This happens on the main (GUI) thread.
  */
 void radar_pi::ScheduleWindowRefresh() {
-#ifndef RADAR_EXE
   int drawTime = 0;
   int millis;
   int renderPPI[RADARS];
@@ -1043,7 +1042,6 @@ void radar_pi::ScheduleWindowRefresh() {
   } else {
     LOG_VERBOSE(wxT("radar_pi: rendering took %dms, refreshrate=%d, no next extra render"), drawTime, refreshrate);
   }
-#endif
 }
 
 void radar_pi::OnTimerNotify(wxTimerEvent &event) {
@@ -1354,7 +1352,6 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
     m_vp_rotation = vp->rotation;
   }
 
-#ifndef RADAR_EXE
   if (M_SETTINGS.show                                                     // Radar shown
       && current_overlay_radar > -1                                       // Overlay desired
       && current_overlay_radar < (int)M_SETTINGS.radar_count              // and still valid
@@ -1410,7 +1407,6 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
   }
   TimedControlUpdate();
   m_render_busy = false;
-#endif
   return true;
 }
 
@@ -1591,7 +1587,6 @@ bool radar_pi::LoadConfig(void) {
 }
 
 bool radar_pi::SaveConfig(void) {
-#ifndef RADAR_EXE
   wxFileConfig *pConf = m_pconfig;
 
   if (pConf) {
@@ -1683,7 +1678,6 @@ bool radar_pi::SaveConfig(void) {
     // LOG_VERBOSE(wxT("radar_pi: Saved settings"));
     return true;
   }
-#endif
   return false;
 }
 
@@ -1696,7 +1690,6 @@ void radar_pi::SetNavicoRadarInfo(size_t r, const NavicoRadarInfo &info) {
 }
 
 void radar_pi::FoundNavicoRadarInfo(const NetworkAddress &addr, const NetworkAddress &interface_addr, const NavicoRadarInfo &info) {
-#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
 
   bool halo_type = false;
@@ -1806,24 +1799,16 @@ void radar_pi::FoundNavicoRadarInfo(const NetworkAddress &addr, const NetworkAdd
     }
   }
   LOG_INFO(wxT("radar_pi: Failed to allocate info from NavicoLocate to a radar"));
-#endif
 }
 
 bool radar_pi::HaveRadarSerialNo(size_t r) {
-#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
 
   return !M_SETTINGS.navico_radar_info[r].serialNr.IsNull();
-#else
-  return true; // TODO: maybe should be false;
-#endif
 }
 
 NavicoRadarInfo &radar_pi::GetNavicoRadarInfo(size_t r) {
-#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
-
-#endif
   return M_SETTINGS.navico_radar_info[r];
 }
 
@@ -1831,7 +1816,6 @@ NavicoRadarInfo &radar_pi::GetNavicoRadarInfo(size_t r) {
 void radar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {}
 
 void radar_pi::SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix) {
-#ifndef RADAR_EXE
   wxCriticalSectionLocker lock(m_exclusive);
 
   time_t now = time(0);
@@ -1942,11 +1926,9 @@ void radar_pi::SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix) {
     m_ownship = m_expected_position.pos;
     m_last_fixed = m_expected_position;
   }
-#endif
 }
 
 void radar_pi::UpdateCOGAvg(double cog) {
-#ifndef RADAR_EXE
   // This is a straight copy (except for formatting) of the code in
   // OpenCPN/src/chart1.cpp MyFrame::PostProcessNNEA
   if (m_COGAvgSec > 0) {
@@ -1984,7 +1966,6 @@ void radar_pi::UpdateCOGAvg(double cog) {
   } else {
     m_COGAvg = cog;
   }
-#endif
 }
 
 void radar_pi::SetPluginMessage(wxString &message_id, wxString &message_body) {
