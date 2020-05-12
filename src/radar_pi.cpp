@@ -123,7 +123,7 @@ END_EVENT_TABLE()
 //---------------------------------------------------------------------------------------------------------
 
 radar_pi::radar_pi(void *ppimgr) : opencpn_plugin_116(ppimgr) {
-  OC_DEBUG("[oc_radar_pi::oc_radar_pi]");
+  OC_DEBUG("[oc_radar::oc_radar]");
   m_boot_time = wxGetUTCTimeMillis();
   m_initialized = false;
   m_predicted_position_initialised = false;

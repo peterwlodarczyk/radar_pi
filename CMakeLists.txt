@@ -12,6 +12,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
 PROJECT(radar_pi)
 
 SET(PACKAGE_NAME radar_pi)
+SET(LIBRARY_NAME radar_pi)
+SET(EXECUTABLE_NAME radar_exe)
 SET(VERBOSE_NAME Radar)
 SET(TITLE_NAME Radar)
 SET(CPACK_PACKAGE_CONTACT "kees@verruijt.net")
@@ -29,6 +31,7 @@ SET(wxWidgets_INCLUDE_DIRS "C:/dev/libs/wxWidgets_src/include/wx")
 
 set(wxWidgets_INCLUDE_DIRS "C:/dev/libs/wxWidgets_src")
 set(wxWidgets_LIBRARIES "C:/dev/libs/wxWidgets_src/lib/vc_dll")
+set(wxWidgets_FIND_COMPONENTS net xml html adv aui core base gl)
 
 INCLUDE("cmake/PluginConfigure.cmake")
 
@@ -120,6 +123,13 @@ SET(SRC_RADAR
 
 )
 
+SET(SRC_PLUGIN
+)            
+
+SET(SRC_EXECUTABLE
+            src/radar_exe.cpp
+)            
+
 SET(SRC_NMEA0183
         src/nmea0183/nmea0183.cpp
         src/nmea0183/nmea0183.hpp
@@ -142,11 +152,16 @@ SET(SRC_JSON
         src/wxJSON/jsonval.cpp
         # We don't use jsonwriter.cpp yet ...
 )
+
+find_package(OpenGL)
+
 INCLUDE_DIRECTORIES(src/nmea0183)
 INCLUDE_DIRECTORIES(src/wxJSON)
 INCLUDE_DIRECTORIES(src)
 
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
+ADD_LIBRARY(${LIBRARY_NAME} SHARED ${SRC_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
+#ADD_EXECUTABLE(${EXECUTABLE_NAME} ${SRC_EXECUTABLE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
+#target_link_libraries(${EXECUTABLE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
 
 
 INCLUDE("cmake/PluginInstall.cmake")
