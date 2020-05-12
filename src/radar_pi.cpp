@@ -1259,7 +1259,6 @@ wxGLContext *radar_pi::GetChartOpenGLContext() { return m_opencpn_gl_context; }
 //**************************************************************************************************
 
 bool radar_pi::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp) {
-#ifndef RADAR_EXE
   if (!m_initialized) {
     return true;
   }
@@ -1267,14 +1266,12 @@ bool radar_pi::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp) {
   LOG_DIALOG(wxT("radar_pi: RenderOverlay"));
 
   SetOpenGLMode(OPENGL_OFF);
-#endif
   return true;
 }
 
 // Called by Plugin Manager on main system process cycle
 
 bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort *vp, int canvasIndex) {
-#ifndef RADAR_EXE
   GeoPosition radar_pos;
   // prevent this being called recursively
   // no critical section locker (will wait), better to return immediately
@@ -1357,6 +1354,7 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
     m_vp_rotation = vp->rotation;
   }
 
+#ifndef RADAR_EXE
   if (M_SETTINGS.show                                                     // Radar shown
       && current_overlay_radar > -1                                       // Overlay desired
       && current_overlay_radar < (int)M_SETTINGS.radar_count              // and still valid

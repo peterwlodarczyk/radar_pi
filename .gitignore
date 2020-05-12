@@ -12,3 +12,5 @@ exe-win32/radar_pi.dir
 exe-win32/x64/
 exe-win32/radar.dir/
 lib-linux
+exe-win32/Debug
+exe-win32/radar.log

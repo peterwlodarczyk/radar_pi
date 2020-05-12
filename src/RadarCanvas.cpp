@@ -715,7 +715,6 @@ void RadarCanvas::OnMouseMotion(wxMouseEvent &event) {
 }
 
 void RadarCanvas::OnMouseClickUp(wxMouseEvent &event) {
-#ifndef RADAR_EXE
   int x, y, w, h;
   event.GetPosition(&x, &y);
   if (abs(x - m_mouse_down.x) > 10 || abs(y - m_mouse_down.y) > 10) {
@@ -766,7 +765,6 @@ void RadarCanvas::OnMouseClickUp(wxMouseEvent &event) {
     }
   }
   event.Skip();
-#endif
 }
 
 void RadarCanvas::OnMouseClickDown(wxMouseEvent &event) {
@@ -779,7 +777,6 @@ void RadarCanvas::OnMouseClickDown(wxMouseEvent &event) {
 #define ZOOM_SENSITIVITY 0   // Increase to make less sensitive
 
 void RadarCanvas::OnMouseWheel(wxMouseEvent &event) {
-#ifndef RADAR_EXE
   // int delta = event.GetWheelDelta();
   int rotation = event.GetWheelRotation();
 
@@ -814,7 +811,6 @@ void RadarCanvas::OnMouseWheel(wxMouseEvent &event) {
       m_last_mousewheel_zoom_out = now;
     }
   }
-#endif
 }
 
 PLUGIN_END_NAMESPACE
