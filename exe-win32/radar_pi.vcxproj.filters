@@ -109,24 +109,6 @@
     <ClCompile Include="H:\home\user\src\radar_pi\src\emulator\EmulatorReceive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControlsDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDReceive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControlsDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDReceive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

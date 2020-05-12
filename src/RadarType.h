@@ -36,14 +36,6 @@
 #include "RadarInfo.h"
 #include "pi_common.h"
 
-#include "garminhd/GarminHDControl.h"
-#include "garminhd/GarminHDControlsDialog.h"
-#include "garminhd/GarminHDReceive.h"
-
-#include "garminxhd/GarminxHDControl.h"
-#include "garminxhd/GarminxHDControlsDialog.h"
-#include "garminxhd/GarminxHDReceive.h"
-
 #include "navico/NavicoControl.h"
 #include "navico/NavicoControlsDialog.h"
 #include "navico/NavicoReceive.h"
@@ -83,9 +75,6 @@
 #define RO_PRIMARY (1)
 #define RO_SECONDARY (2)
 #endif
-
-#include "garminhd/garminhdtype.h"
-#include "garminxhd/garminxhdtype.h"
 
 #include "navico/br24type.h"
 #include "navico/br3gtype.h"

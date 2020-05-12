@@ -31,7 +31,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
@@ -102,6 +102,7 @@
       <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";radar_pi_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DisableSpecificWarnings>6011;6287;6385;6386;26437;26495;26444;26812</DisableSpecificWarnings>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;__WXDEBUG__;CMAKE_INTDIR=\"Debug\";radar_pi_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -393,20 +394,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="H:\home\user\src\radar_pi\src\emulator\EmulatorReceive.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorReceive.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\emulatortype.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControl.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControl.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControlSet.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControlsDialog.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControlsDialog.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDReceive.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDReceive.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\garminhdtype.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControl.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControl.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControlSet.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControlsDialog.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDControlsDialog.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDReceive.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\GarminxHDReceive.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminxhd\garminxhdtype.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.cpp" />
