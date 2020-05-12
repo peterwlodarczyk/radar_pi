@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\ar_SA.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\bg_BG.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\ca_ES.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\cs_CZ.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\da_DK.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\de_DE.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\el_GR.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\es_ES.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\et_EE.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\fi_FI.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\fil_PH.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\fr_FR.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\gl_ES.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\hi_IN.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\hu_HU.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\id_ID.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\is_IS.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\it_IT.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\ja_JP.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\ko_KR.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\mr_IN.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\nb_NO.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\nl_NL.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\pl_PL.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\pt_BR.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\pt_PT.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\ro_RO.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\ru_RU.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\sv_SE.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\th_TH.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\tr_TR.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\vi_VN.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\zh_CN.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\8be903abb33cbc3c609f77c9395b1409\zh_TW.mo.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\02809eb692cb7dd6fb78bde0a0e611b3\radar-i18n.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\radar-i18n" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3160F477-8564-3028-A8AC-4B6A7668CA46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

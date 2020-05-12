@@ -5,3 +5,8 @@ cmake_install.cmake
 install_manifest.txt
 build*
 example/
+*.mo
+*.cmake
+*.vs
+exe-win32/radar_pi.dir
+exe-win32/x64/

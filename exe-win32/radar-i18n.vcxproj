@@ -1,0 +1,2405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{900CF243-69C1-3CB4-869A-7DDCC9D094F8}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>radar-i18n</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswu;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswu;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswu;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswu;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\ar_SA.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [ar_SA]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ar_SA.mo H:/home/user/src/radar_pi/po/ar_SA.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ar_SA.mo Resources/ar_SA.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\ar_SA.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\ar_SA.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [ar_SA]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ar_SA.mo H:/home/user/src/radar_pi/po/ar_SA.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ar_SA.mo Resources/ar_SA.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\ar_SA.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\ar_SA.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [ar_SA]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ar_SA.mo H:/home/user/src/radar_pi/po/ar_SA.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ar_SA.mo Resources/ar_SA.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\ar_SA.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\ar_SA.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [ar_SA]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ar_SA.mo H:/home/user/src/radar_pi/po/ar_SA.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ar_SA.mo Resources/ar_SA.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\ar_SA.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\ar_SA.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\bg_BG.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [bg_BG]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/bg_BG.mo H:/home/user/src/radar_pi/po/bg_BG.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/bg_BG.mo Resources/bg_BG.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\bg_BG.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\bg_BG.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [bg_BG]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/bg_BG.mo H:/home/user/src/radar_pi/po/bg_BG.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/bg_BG.mo Resources/bg_BG.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\bg_BG.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\bg_BG.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [bg_BG]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/bg_BG.mo H:/home/user/src/radar_pi/po/bg_BG.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/bg_BG.mo Resources/bg_BG.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\bg_BG.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\bg_BG.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [bg_BG]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/bg_BG.mo H:/home/user/src/radar_pi/po/bg_BG.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/bg_BG.mo Resources/bg_BG.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\bg_BG.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\bg_BG.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\ca_ES.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [ca_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ca_ES.mo H:/home/user/src/radar_pi/po/ca_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ca_ES.mo Resources/ca_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\ca_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\ca_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [ca_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ca_ES.mo H:/home/user/src/radar_pi/po/ca_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ca_ES.mo Resources/ca_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\ca_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\ca_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [ca_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ca_ES.mo H:/home/user/src/radar_pi/po/ca_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ca_ES.mo Resources/ca_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\ca_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\ca_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [ca_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ca_ES.mo H:/home/user/src/radar_pi/po/ca_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ca_ES.mo Resources/ca_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\ca_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\ca_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\cs_CZ.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [cs_CZ]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/cs_CZ.mo H:/home/user/src/radar_pi/po/cs_CZ.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/cs_CZ.mo Resources/cs_CZ.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\cs_CZ.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\cs_CZ.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [cs_CZ]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/cs_CZ.mo H:/home/user/src/radar_pi/po/cs_CZ.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/cs_CZ.mo Resources/cs_CZ.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\cs_CZ.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\cs_CZ.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [cs_CZ]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/cs_CZ.mo H:/home/user/src/radar_pi/po/cs_CZ.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/cs_CZ.mo Resources/cs_CZ.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\cs_CZ.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\cs_CZ.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [cs_CZ]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/cs_CZ.mo H:/home/user/src/radar_pi/po/cs_CZ.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/cs_CZ.mo Resources/cs_CZ.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\cs_CZ.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\cs_CZ.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\da_DK.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [da_DK]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/da_DK.mo H:/home/user/src/radar_pi/po/da_DK.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/da_DK.mo Resources/da_DK.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\da_DK.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\da_DK.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [da_DK]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/da_DK.mo H:/home/user/src/radar_pi/po/da_DK.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/da_DK.mo Resources/da_DK.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\da_DK.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\da_DK.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [da_DK]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/da_DK.mo H:/home/user/src/radar_pi/po/da_DK.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/da_DK.mo Resources/da_DK.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\da_DK.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\da_DK.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [da_DK]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/da_DK.mo H:/home/user/src/radar_pi/po/da_DK.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/da_DK.mo Resources/da_DK.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\da_DK.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\da_DK.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\de_DE.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [de_DE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/de_DE.mo H:/home/user/src/radar_pi/po/de_DE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/de_DE.mo Resources/de_DE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\de_DE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\de_DE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [de_DE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/de_DE.mo H:/home/user/src/radar_pi/po/de_DE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/de_DE.mo Resources/de_DE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\de_DE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\de_DE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [de_DE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/de_DE.mo H:/home/user/src/radar_pi/po/de_DE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/de_DE.mo Resources/de_DE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\de_DE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\de_DE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [de_DE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/de_DE.mo H:/home/user/src/radar_pi/po/de_DE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/de_DE.mo Resources/de_DE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\de_DE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\de_DE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\el_GR.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [el_GR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/el_GR.mo H:/home/user/src/radar_pi/po/el_GR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/el_GR.mo Resources/el_GR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\el_GR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\el_GR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [el_GR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/el_GR.mo H:/home/user/src/radar_pi/po/el_GR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/el_GR.mo Resources/el_GR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\el_GR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\el_GR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [el_GR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/el_GR.mo H:/home/user/src/radar_pi/po/el_GR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/el_GR.mo Resources/el_GR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\el_GR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\el_GR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [el_GR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/el_GR.mo H:/home/user/src/radar_pi/po/el_GR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/el_GR.mo Resources/el_GR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\el_GR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\el_GR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\es_ES.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [es_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/es_ES.mo H:/home/user/src/radar_pi/po/es_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/es_ES.mo Resources/es_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\es_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\es_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [es_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/es_ES.mo H:/home/user/src/radar_pi/po/es_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/es_ES.mo Resources/es_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\es_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\es_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [es_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/es_ES.mo H:/home/user/src/radar_pi/po/es_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/es_ES.mo Resources/es_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\es_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\es_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [es_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/es_ES.mo H:/home/user/src/radar_pi/po/es_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/es_ES.mo Resources/es_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\es_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\es_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\et_EE.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [et_EE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/et_EE.mo H:/home/user/src/radar_pi/po/et_EE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/et_EE.mo Resources/et_EE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\et_EE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\et_EE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [et_EE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/et_EE.mo H:/home/user/src/radar_pi/po/et_EE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/et_EE.mo Resources/et_EE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\et_EE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\et_EE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [et_EE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/et_EE.mo H:/home/user/src/radar_pi/po/et_EE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/et_EE.mo Resources/et_EE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\et_EE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\et_EE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [et_EE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/et_EE.mo H:/home/user/src/radar_pi/po/et_EE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/et_EE.mo Resources/et_EE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\et_EE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\et_EE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\fi_FI.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [fi_FI]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fi_FI.mo H:/home/user/src/radar_pi/po/fi_FI.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fi_FI.mo Resources/fi_FI.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\fi_FI.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\fi_FI.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [fi_FI]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fi_FI.mo H:/home/user/src/radar_pi/po/fi_FI.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fi_FI.mo Resources/fi_FI.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\fi_FI.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\fi_FI.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [fi_FI]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fi_FI.mo H:/home/user/src/radar_pi/po/fi_FI.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fi_FI.mo Resources/fi_FI.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\fi_FI.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\fi_FI.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [fi_FI]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fi_FI.mo H:/home/user/src/radar_pi/po/fi_FI.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fi_FI.mo Resources/fi_FI.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\fi_FI.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\fi_FI.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\fil_PH.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [fil_PH]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fil_PH.mo H:/home/user/src/radar_pi/po/fil_PH.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fil_PH.mo Resources/fil_PH.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\fil_PH.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\fil_PH.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [fil_PH]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fil_PH.mo H:/home/user/src/radar_pi/po/fil_PH.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fil_PH.mo Resources/fil_PH.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\fil_PH.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\fil_PH.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [fil_PH]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fil_PH.mo H:/home/user/src/radar_pi/po/fil_PH.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fil_PH.mo Resources/fil_PH.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\fil_PH.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\fil_PH.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [fil_PH]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fil_PH.mo H:/home/user/src/radar_pi/po/fil_PH.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fil_PH.mo Resources/fil_PH.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\fil_PH.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\fil_PH.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\fr_FR.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [fr_FR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fr_FR.mo H:/home/user/src/radar_pi/po/fr_FR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fr_FR.mo Resources/fr_FR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\fr_FR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\fr_FR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [fr_FR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fr_FR.mo H:/home/user/src/radar_pi/po/fr_FR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fr_FR.mo Resources/fr_FR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\fr_FR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\fr_FR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [fr_FR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fr_FR.mo H:/home/user/src/radar_pi/po/fr_FR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fr_FR.mo Resources/fr_FR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\fr_FR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\fr_FR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [fr_FR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/fr_FR.mo H:/home/user/src/radar_pi/po/fr_FR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/fr_FR.mo Resources/fr_FR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\fr_FR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\fr_FR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\gl_ES.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [gl_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/gl_ES.mo H:/home/user/src/radar_pi/po/gl_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/gl_ES.mo Resources/gl_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\gl_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\gl_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [gl_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/gl_ES.mo H:/home/user/src/radar_pi/po/gl_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/gl_ES.mo Resources/gl_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\gl_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\gl_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [gl_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/gl_ES.mo H:/home/user/src/radar_pi/po/gl_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/gl_ES.mo Resources/gl_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\gl_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\gl_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [gl_ES]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/gl_ES.mo H:/home/user/src/radar_pi/po/gl_ES.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/gl_ES.mo Resources/gl_ES.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\gl_ES.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\gl_ES.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\hi_IN.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [hi_IN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/hi_IN.mo H:/home/user/src/radar_pi/po/hi_IN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/hi_IN.mo Resources/hi_IN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\hi_IN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\hi_IN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [hi_IN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/hi_IN.mo H:/home/user/src/radar_pi/po/hi_IN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/hi_IN.mo Resources/hi_IN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\hi_IN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\hi_IN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [hi_IN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/hi_IN.mo H:/home/user/src/radar_pi/po/hi_IN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/hi_IN.mo Resources/hi_IN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\hi_IN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\hi_IN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [hi_IN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/hi_IN.mo H:/home/user/src/radar_pi/po/hi_IN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/hi_IN.mo Resources/hi_IN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\hi_IN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\hi_IN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\hu_HU.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [hu_HU]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/hu_HU.mo H:/home/user/src/radar_pi/po/hu_HU.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/hu_HU.mo Resources/hu_HU.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\hu_HU.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\hu_HU.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [hu_HU]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/hu_HU.mo H:/home/user/src/radar_pi/po/hu_HU.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/hu_HU.mo Resources/hu_HU.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\hu_HU.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\hu_HU.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [hu_HU]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/hu_HU.mo H:/home/user/src/radar_pi/po/hu_HU.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/hu_HU.mo Resources/hu_HU.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\hu_HU.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\hu_HU.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [hu_HU]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/hu_HU.mo H:/home/user/src/radar_pi/po/hu_HU.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/hu_HU.mo Resources/hu_HU.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\hu_HU.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\hu_HU.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\id_ID.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [id_ID]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/id_ID.mo H:/home/user/src/radar_pi/po/id_ID.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/id_ID.mo Resources/id_ID.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\id_ID.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\id_ID.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [id_ID]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/id_ID.mo H:/home/user/src/radar_pi/po/id_ID.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/id_ID.mo Resources/id_ID.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\id_ID.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\id_ID.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [id_ID]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/id_ID.mo H:/home/user/src/radar_pi/po/id_ID.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/id_ID.mo Resources/id_ID.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\id_ID.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\id_ID.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [id_ID]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/id_ID.mo H:/home/user/src/radar_pi/po/id_ID.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/id_ID.mo Resources/id_ID.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\id_ID.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\id_ID.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\is_IS.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [is_IS]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/is_IS.mo H:/home/user/src/radar_pi/po/is_IS.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/is_IS.mo Resources/is_IS.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\is_IS.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\is_IS.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [is_IS]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/is_IS.mo H:/home/user/src/radar_pi/po/is_IS.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/is_IS.mo Resources/is_IS.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\is_IS.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\is_IS.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [is_IS]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/is_IS.mo H:/home/user/src/radar_pi/po/is_IS.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/is_IS.mo Resources/is_IS.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\is_IS.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\is_IS.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [is_IS]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/is_IS.mo H:/home/user/src/radar_pi/po/is_IS.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/is_IS.mo Resources/is_IS.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\is_IS.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\is_IS.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\it_IT.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [it_IT]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/it_IT.mo H:/home/user/src/radar_pi/po/it_IT.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/it_IT.mo Resources/it_IT.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\it_IT.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\it_IT.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [it_IT]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/it_IT.mo H:/home/user/src/radar_pi/po/it_IT.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/it_IT.mo Resources/it_IT.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\it_IT.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\it_IT.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [it_IT]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/it_IT.mo H:/home/user/src/radar_pi/po/it_IT.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/it_IT.mo Resources/it_IT.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\it_IT.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\it_IT.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [it_IT]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/it_IT.mo H:/home/user/src/radar_pi/po/it_IT.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/it_IT.mo Resources/it_IT.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\it_IT.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\it_IT.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\ja_JP.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [ja_JP]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ja_JP.mo H:/home/user/src/radar_pi/po/ja_JP.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ja_JP.mo Resources/ja_JP.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\ja_JP.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\ja_JP.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [ja_JP]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ja_JP.mo H:/home/user/src/radar_pi/po/ja_JP.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ja_JP.mo Resources/ja_JP.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\ja_JP.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\ja_JP.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [ja_JP]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ja_JP.mo H:/home/user/src/radar_pi/po/ja_JP.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ja_JP.mo Resources/ja_JP.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\ja_JP.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\ja_JP.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [ja_JP]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ja_JP.mo H:/home/user/src/radar_pi/po/ja_JP.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ja_JP.mo Resources/ja_JP.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\ja_JP.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\ja_JP.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\ko_KR.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [ko_KR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ko_KR.mo H:/home/user/src/radar_pi/po/ko_KR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ko_KR.mo Resources/ko_KR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\ko_KR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\ko_KR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [ko_KR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ko_KR.mo H:/home/user/src/radar_pi/po/ko_KR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ko_KR.mo Resources/ko_KR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\ko_KR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\ko_KR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [ko_KR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ko_KR.mo H:/home/user/src/radar_pi/po/ko_KR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ko_KR.mo Resources/ko_KR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\ko_KR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\ko_KR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [ko_KR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ko_KR.mo H:/home/user/src/radar_pi/po/ko_KR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ko_KR.mo Resources/ko_KR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\ko_KR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\ko_KR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\mr_IN.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [mr_IN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/mr_IN.mo H:/home/user/src/radar_pi/po/mr_IN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/mr_IN.mo Resources/mr_IN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\mr_IN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\mr_IN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [mr_IN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/mr_IN.mo H:/home/user/src/radar_pi/po/mr_IN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/mr_IN.mo Resources/mr_IN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\mr_IN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\mr_IN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [mr_IN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/mr_IN.mo H:/home/user/src/radar_pi/po/mr_IN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/mr_IN.mo Resources/mr_IN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\mr_IN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\mr_IN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [mr_IN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/mr_IN.mo H:/home/user/src/radar_pi/po/mr_IN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/mr_IN.mo Resources/mr_IN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\mr_IN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\mr_IN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\nb_NO.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [nb_NO]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/nb_NO.mo H:/home/user/src/radar_pi/po/nb_NO.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/nb_NO.mo Resources/nb_NO.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\nb_NO.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\nb_NO.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [nb_NO]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/nb_NO.mo H:/home/user/src/radar_pi/po/nb_NO.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/nb_NO.mo Resources/nb_NO.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\nb_NO.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\nb_NO.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [nb_NO]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/nb_NO.mo H:/home/user/src/radar_pi/po/nb_NO.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/nb_NO.mo Resources/nb_NO.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\nb_NO.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\nb_NO.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [nb_NO]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/nb_NO.mo H:/home/user/src/radar_pi/po/nb_NO.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/nb_NO.mo Resources/nb_NO.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\nb_NO.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\nb_NO.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\nl_NL.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [nl_NL]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/nl_NL.mo H:/home/user/src/radar_pi/po/nl_NL.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/nl_NL.mo Resources/nl_NL.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\nl_NL.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\nl_NL.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [nl_NL]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/nl_NL.mo H:/home/user/src/radar_pi/po/nl_NL.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/nl_NL.mo Resources/nl_NL.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\nl_NL.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\nl_NL.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [nl_NL]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/nl_NL.mo H:/home/user/src/radar_pi/po/nl_NL.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/nl_NL.mo Resources/nl_NL.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\nl_NL.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\nl_NL.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [nl_NL]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/nl_NL.mo H:/home/user/src/radar_pi/po/nl_NL.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/nl_NL.mo Resources/nl_NL.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\nl_NL.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\nl_NL.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\pl_PL.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [pl_PL]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pl_PL.mo H:/home/user/src/radar_pi/po/pl_PL.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pl_PL.mo Resources/pl_PL.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\pl_PL.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\pl_PL.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [pl_PL]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pl_PL.mo H:/home/user/src/radar_pi/po/pl_PL.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pl_PL.mo Resources/pl_PL.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\pl_PL.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\pl_PL.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [pl_PL]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pl_PL.mo H:/home/user/src/radar_pi/po/pl_PL.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pl_PL.mo Resources/pl_PL.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\pl_PL.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\pl_PL.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [pl_PL]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pl_PL.mo H:/home/user/src/radar_pi/po/pl_PL.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pl_PL.mo Resources/pl_PL.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\pl_PL.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\pl_PL.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\pt_BR.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [pt_BR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pt_BR.mo H:/home/user/src/radar_pi/po/pt_BR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pt_BR.mo Resources/pt_BR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\pt_BR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\pt_BR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [pt_BR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pt_BR.mo H:/home/user/src/radar_pi/po/pt_BR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pt_BR.mo Resources/pt_BR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\pt_BR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\pt_BR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [pt_BR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pt_BR.mo H:/home/user/src/radar_pi/po/pt_BR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pt_BR.mo Resources/pt_BR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\pt_BR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\pt_BR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [pt_BR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pt_BR.mo H:/home/user/src/radar_pi/po/pt_BR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pt_BR.mo Resources/pt_BR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\pt_BR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\pt_BR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\pt_PT.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [pt_PT]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pt_PT.mo H:/home/user/src/radar_pi/po/pt_PT.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pt_PT.mo Resources/pt_PT.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\pt_PT.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\pt_PT.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [pt_PT]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pt_PT.mo H:/home/user/src/radar_pi/po/pt_PT.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pt_PT.mo Resources/pt_PT.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\pt_PT.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\pt_PT.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [pt_PT]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pt_PT.mo H:/home/user/src/radar_pi/po/pt_PT.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pt_PT.mo Resources/pt_PT.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\pt_PT.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\pt_PT.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [pt_PT]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/pt_PT.mo H:/home/user/src/radar_pi/po/pt_PT.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/pt_PT.mo Resources/pt_PT.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\pt_PT.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\pt_PT.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\ro_RO.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [ro_RO]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ro_RO.mo H:/home/user/src/radar_pi/po/ro_RO.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ro_RO.mo Resources/ro_RO.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\ro_RO.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\ro_RO.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [ro_RO]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ro_RO.mo H:/home/user/src/radar_pi/po/ro_RO.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ro_RO.mo Resources/ro_RO.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\ro_RO.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\ro_RO.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [ro_RO]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ro_RO.mo H:/home/user/src/radar_pi/po/ro_RO.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ro_RO.mo Resources/ro_RO.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\ro_RO.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\ro_RO.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [ro_RO]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ro_RO.mo H:/home/user/src/radar_pi/po/ro_RO.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ro_RO.mo Resources/ro_RO.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\ro_RO.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\ro_RO.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\ru_RU.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [ru_RU]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ru_RU.mo H:/home/user/src/radar_pi/po/ru_RU.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ru_RU.mo Resources/ru_RU.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\ru_RU.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\ru_RU.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [ru_RU]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ru_RU.mo H:/home/user/src/radar_pi/po/ru_RU.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ru_RU.mo Resources/ru_RU.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\ru_RU.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\ru_RU.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [ru_RU]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ru_RU.mo H:/home/user/src/radar_pi/po/ru_RU.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ru_RU.mo Resources/ru_RU.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\ru_RU.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\ru_RU.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [ru_RU]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/ru_RU.mo H:/home/user/src/radar_pi/po/ru_RU.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/ru_RU.mo Resources/ru_RU.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\ru_RU.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\ru_RU.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\sv_SE.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [sv_SE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/sv_SE.mo H:/home/user/src/radar_pi/po/sv_SE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/sv_SE.mo Resources/sv_SE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\sv_SE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\sv_SE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [sv_SE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/sv_SE.mo H:/home/user/src/radar_pi/po/sv_SE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/sv_SE.mo Resources/sv_SE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\sv_SE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\sv_SE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [sv_SE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/sv_SE.mo H:/home/user/src/radar_pi/po/sv_SE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/sv_SE.mo Resources/sv_SE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\sv_SE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\sv_SE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [sv_SE]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/sv_SE.mo H:/home/user/src/radar_pi/po/sv_SE.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/sv_SE.mo Resources/sv_SE.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\sv_SE.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\sv_SE.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\th_TH.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [th_TH]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/th_TH.mo H:/home/user/src/radar_pi/po/th_TH.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/th_TH.mo Resources/th_TH.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\th_TH.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\th_TH.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [th_TH]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/th_TH.mo H:/home/user/src/radar_pi/po/th_TH.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/th_TH.mo Resources/th_TH.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\th_TH.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\th_TH.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [th_TH]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/th_TH.mo H:/home/user/src/radar_pi/po/th_TH.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/th_TH.mo Resources/th_TH.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\th_TH.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\th_TH.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [th_TH]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/th_TH.mo H:/home/user/src/radar_pi/po/th_TH.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/th_TH.mo Resources/th_TH.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\th_TH.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\th_TH.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\tr_TR.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [tr_TR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/tr_TR.mo H:/home/user/src/radar_pi/po/tr_TR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/tr_TR.mo Resources/tr_TR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\tr_TR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\tr_TR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [tr_TR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/tr_TR.mo H:/home/user/src/radar_pi/po/tr_TR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/tr_TR.mo Resources/tr_TR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\tr_TR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\tr_TR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [tr_TR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/tr_TR.mo H:/home/user/src/radar_pi/po/tr_TR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/tr_TR.mo Resources/tr_TR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\tr_TR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\tr_TR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [tr_TR]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/tr_TR.mo H:/home/user/src/radar_pi/po/tr_TR.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/tr_TR.mo Resources/tr_TR.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\tr_TR.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\tr_TR.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\vi_VN.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [vi_VN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/vi_VN.mo H:/home/user/src/radar_pi/po/vi_VN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/vi_VN.mo Resources/vi_VN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\vi_VN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\vi_VN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [vi_VN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/vi_VN.mo H:/home/user/src/radar_pi/po/vi_VN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/vi_VN.mo Resources/vi_VN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\vi_VN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\vi_VN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [vi_VN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/vi_VN.mo H:/home/user/src/radar_pi/po/vi_VN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/vi_VN.mo Resources/vi_VN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\vi_VN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\vi_VN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [vi_VN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/vi_VN.mo H:/home/user/src/radar_pi/po/vi_VN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/vi_VN.mo Resources/vi_VN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\vi_VN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\vi_VN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\zh_CN.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [zh_CN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/zh_CN.mo H:/home/user/src/radar_pi/po/zh_CN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/zh_CN.mo Resources/zh_CN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\zh_CN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\zh_CN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [zh_CN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/zh_CN.mo H:/home/user/src/radar_pi/po/zh_CN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/zh_CN.mo Resources/zh_CN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\zh_CN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\zh_CN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [zh_CN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/zh_CN.mo H:/home/user/src/radar_pi/po/zh_CN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/zh_CN.mo Resources/zh_CN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\zh_CN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\zh_CN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [zh_CN]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/zh_CN.mo H:/home/user/src/radar_pi/po/zh_CN.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/zh_CN.mo Resources/zh_CN.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\zh_CN.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\zh_CN.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\1105669c84f5d4810daf219912979c25\zh_TW.mo.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar-i18n [zh_TW]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/zh_TW.mo H:/home/user/src/radar_pi/po/zh_TW.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/zh_TW.mo Resources/zh_TW.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\po\zh_TW.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\zh_TW.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar-i18n [zh_TW]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/zh_TW.mo H:/home/user/src/radar_pi/po/zh_TW.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/zh_TW.mo Resources/zh_TW.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\po\zh_TW.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\zh_TW.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar-i18n [zh_TW]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/zh_TW.mo H:/home/user/src/radar_pi/po/zh_TW.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/zh_TW.mo Resources/zh_TW.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\po\zh_TW.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\zh_TW.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar-i18n [zh_TW]: Created mo file.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\Poedit\GettextTools\bin\msgfmt.exe" --check -o H:/home/user/src/radar_pi/exe-win32/zh_TW.mo H:/home/user/src/radar_pi/po/zh_TW.po
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E copy H:/home/user/src/radar_pi/exe-win32/zh_TW.mo Resources/zh_TW.lproj/opencpn-radar_pi.mo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\po\zh_TW.po;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\zh_TW.mo</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\248a7a3c4615a10f486f16df87d8c0ce\radar-i18n.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar_pi-i18n: Done.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\ar_SA.mo;H:\home\user\src\radar_pi\exe-win32\bg_BG.mo;H:\home\user\src\radar_pi\exe-win32\ca_ES.mo;H:\home\user\src\radar_pi\exe-win32\cs_CZ.mo;H:\home\user\src\radar_pi\exe-win32\da_DK.mo;H:\home\user\src\radar_pi\exe-win32\de_DE.mo;H:\home\user\src\radar_pi\exe-win32\el_GR.mo;H:\home\user\src\radar_pi\exe-win32\es_ES.mo;H:\home\user\src\radar_pi\exe-win32\et_EE.mo;H:\home\user\src\radar_pi\exe-win32\fi_FI.mo;H:\home\user\src\radar_pi\exe-win32\fil_PH.mo;H:\home\user\src\radar_pi\exe-win32\fr_FR.mo;H:\home\user\src\radar_pi\exe-win32\gl_ES.mo;H:\home\user\src\radar_pi\exe-win32\hi_IN.mo;H:\home\user\src\radar_pi\exe-win32\hu_HU.mo;H:\home\user\src\radar_pi\exe-win32\id_ID.mo;H:\home\user\src\radar_pi\exe-win32\is_IS.mo;H:\home\user\src\radar_pi\exe-win32\it_IT.mo;H:\home\user\src\radar_pi\exe-win32\ja_JP.mo;H:\home\user\src\radar_pi\exe-win32\ko_KR.mo;H:\home\user\src\radar_pi\exe-win32\mr_IN.mo;H:\home\user\src\radar_pi\exe-win32\nb_NO.mo;H:\home\user\src\radar_pi\exe-win32\nl_NL.mo;H:\home\user\src\radar_pi\exe-win32\pl_PL.mo;H:\home\user\src\radar_pi\exe-win32\pt_BR.mo;H:\home\user\src\radar_pi\exe-win32\pt_PT.mo;H:\home\user\src\radar_pi\exe-win32\ro_RO.mo;H:\home\user\src\radar_pi\exe-win32\ru_RU.mo;H:\home\user\src\radar_pi\exe-win32\sv_SE.mo;H:\home\user\src\radar_pi\exe-win32\th_TH.mo;H:\home\user\src\radar_pi\exe-win32\tr_TR.mo;H:\home\user\src\radar_pi\exe-win32\vi_VN.mo;H:\home\user\src\radar_pi\exe-win32\zh_CN.mo;H:\home\user\src\radar_pi\exe-win32\zh_TW.mo;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\CMakeFiles\radar-i18n</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar_pi-i18n: Done.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\ar_SA.mo;H:\home\user\src\radar_pi\exe-win32\bg_BG.mo;H:\home\user\src\radar_pi\exe-win32\ca_ES.mo;H:\home\user\src\radar_pi\exe-win32\cs_CZ.mo;H:\home\user\src\radar_pi\exe-win32\da_DK.mo;H:\home\user\src\radar_pi\exe-win32\de_DE.mo;H:\home\user\src\radar_pi\exe-win32\el_GR.mo;H:\home\user\src\radar_pi\exe-win32\es_ES.mo;H:\home\user\src\radar_pi\exe-win32\et_EE.mo;H:\home\user\src\radar_pi\exe-win32\fi_FI.mo;H:\home\user\src\radar_pi\exe-win32\fil_PH.mo;H:\home\user\src\radar_pi\exe-win32\fr_FR.mo;H:\home\user\src\radar_pi\exe-win32\gl_ES.mo;H:\home\user\src\radar_pi\exe-win32\hi_IN.mo;H:\home\user\src\radar_pi\exe-win32\hu_HU.mo;H:\home\user\src\radar_pi\exe-win32\id_ID.mo;H:\home\user\src\radar_pi\exe-win32\is_IS.mo;H:\home\user\src\radar_pi\exe-win32\it_IT.mo;H:\home\user\src\radar_pi\exe-win32\ja_JP.mo;H:\home\user\src\radar_pi\exe-win32\ko_KR.mo;H:\home\user\src\radar_pi\exe-win32\mr_IN.mo;H:\home\user\src\radar_pi\exe-win32\nb_NO.mo;H:\home\user\src\radar_pi\exe-win32\nl_NL.mo;H:\home\user\src\radar_pi\exe-win32\pl_PL.mo;H:\home\user\src\radar_pi\exe-win32\pt_BR.mo;H:\home\user\src\radar_pi\exe-win32\pt_PT.mo;H:\home\user\src\radar_pi\exe-win32\ro_RO.mo;H:\home\user\src\radar_pi\exe-win32\ru_RU.mo;H:\home\user\src\radar_pi\exe-win32\sv_SE.mo;H:\home\user\src\radar_pi\exe-win32\th_TH.mo;H:\home\user\src\radar_pi\exe-win32\tr_TR.mo;H:\home\user\src\radar_pi\exe-win32\vi_VN.mo;H:\home\user\src\radar_pi\exe-win32\zh_CN.mo;H:\home\user\src\radar_pi\exe-win32\zh_TW.mo;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\CMakeFiles\radar-i18n</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar_pi-i18n: Done.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\ar_SA.mo;H:\home\user\src\radar_pi\exe-win32\bg_BG.mo;H:\home\user\src\radar_pi\exe-win32\ca_ES.mo;H:\home\user\src\radar_pi\exe-win32\cs_CZ.mo;H:\home\user\src\radar_pi\exe-win32\da_DK.mo;H:\home\user\src\radar_pi\exe-win32\de_DE.mo;H:\home\user\src\radar_pi\exe-win32\el_GR.mo;H:\home\user\src\radar_pi\exe-win32\es_ES.mo;H:\home\user\src\radar_pi\exe-win32\et_EE.mo;H:\home\user\src\radar_pi\exe-win32\fi_FI.mo;H:\home\user\src\radar_pi\exe-win32\fil_PH.mo;H:\home\user\src\radar_pi\exe-win32\fr_FR.mo;H:\home\user\src\radar_pi\exe-win32\gl_ES.mo;H:\home\user\src\radar_pi\exe-win32\hi_IN.mo;H:\home\user\src\radar_pi\exe-win32\hu_HU.mo;H:\home\user\src\radar_pi\exe-win32\id_ID.mo;H:\home\user\src\radar_pi\exe-win32\is_IS.mo;H:\home\user\src\radar_pi\exe-win32\it_IT.mo;H:\home\user\src\radar_pi\exe-win32\ja_JP.mo;H:\home\user\src\radar_pi\exe-win32\ko_KR.mo;H:\home\user\src\radar_pi\exe-win32\mr_IN.mo;H:\home\user\src\radar_pi\exe-win32\nb_NO.mo;H:\home\user\src\radar_pi\exe-win32\nl_NL.mo;H:\home\user\src\radar_pi\exe-win32\pl_PL.mo;H:\home\user\src\radar_pi\exe-win32\pt_BR.mo;H:\home\user\src\radar_pi\exe-win32\pt_PT.mo;H:\home\user\src\radar_pi\exe-win32\ro_RO.mo;H:\home\user\src\radar_pi\exe-win32\ru_RU.mo;H:\home\user\src\radar_pi\exe-win32\sv_SE.mo;H:\home\user\src\radar_pi\exe-win32\th_TH.mo;H:\home\user\src\radar_pi\exe-win32\tr_TR.mo;H:\home\user\src\radar_pi\exe-win32\vi_VN.mo;H:\home\user\src\radar_pi\exe-win32\zh_CN.mo;H:\home\user\src\radar_pi\exe-win32\zh_TW.mo;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\CMakeFiles\radar-i18n</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar_pi-i18n: Done.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\ar_SA.mo;H:\home\user\src\radar_pi\exe-win32\bg_BG.mo;H:\home\user\src\radar_pi\exe-win32\ca_ES.mo;H:\home\user\src\radar_pi\exe-win32\cs_CZ.mo;H:\home\user\src\radar_pi\exe-win32\da_DK.mo;H:\home\user\src\radar_pi\exe-win32\de_DE.mo;H:\home\user\src\radar_pi\exe-win32\el_GR.mo;H:\home\user\src\radar_pi\exe-win32\es_ES.mo;H:\home\user\src\radar_pi\exe-win32\et_EE.mo;H:\home\user\src\radar_pi\exe-win32\fi_FI.mo;H:\home\user\src\radar_pi\exe-win32\fil_PH.mo;H:\home\user\src\radar_pi\exe-win32\fr_FR.mo;H:\home\user\src\radar_pi\exe-win32\gl_ES.mo;H:\home\user\src\radar_pi\exe-win32\hi_IN.mo;H:\home\user\src\radar_pi\exe-win32\hu_HU.mo;H:\home\user\src\radar_pi\exe-win32\id_ID.mo;H:\home\user\src\radar_pi\exe-win32\is_IS.mo;H:\home\user\src\radar_pi\exe-win32\it_IT.mo;H:\home\user\src\radar_pi\exe-win32\ja_JP.mo;H:\home\user\src\radar_pi\exe-win32\ko_KR.mo;H:\home\user\src\radar_pi\exe-win32\mr_IN.mo;H:\home\user\src\radar_pi\exe-win32\nb_NO.mo;H:\home\user\src\radar_pi\exe-win32\nl_NL.mo;H:\home\user\src\radar_pi\exe-win32\pl_PL.mo;H:\home\user\src\radar_pi\exe-win32\pt_BR.mo;H:\home\user\src\radar_pi\exe-win32\pt_PT.mo;H:\home\user\src\radar_pi\exe-win32\ro_RO.mo;H:\home\user\src\radar_pi\exe-win32\ru_RU.mo;H:\home\user\src\radar_pi\exe-win32\sv_SE.mo;H:\home\user\src\radar_pi\exe-win32\th_TH.mo;H:\home\user\src\radar_pi\exe-win32\tr_TR.mo;H:\home\user\src\radar_pi\exe-win32\vi_VN.mo;H:\home\user\src\radar_pi\exe-win32\zh_CN.mo;H:\home\user\src\radar_pi\exe-win32\zh_TW.mo;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\CMakeFiles\radar-i18n</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</VerifyInputsAndOutputsExist>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule H:/home/user/src/radar_pi/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SH:/home/user/src/radar_pi -BH:/home/user/src/radar_pi/exe-win32 --check-stamp-file H:/home/user/src/radar_pi/exe-win32/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CPack.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CPackComponent.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindGettext.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindwxWidgets.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\UsewxWidgets.cmake;C:\Program Files\CMake\share\cmake-3.16\Templates\CPackConfig.cmake.in;H:\home\user\src\radar_pi\cmake\PluginConfigure.cmake;H:\home\user\src\radar_pi\cmake\PluginInstall.cmake;H:\home\user\src\radar_pi\cmake\PluginLocalization.cmake;H:\home\user\src\radar_pi\cmake\PluginPackage.cmake;H:\home\user\src\radar_pi\cmake\version.h.in;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeCCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeCXXCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeRCCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule H:/home/user/src/radar_pi/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SH:/home/user/src/radar_pi -BH:/home/user/src/radar_pi/exe-win32 --check-stamp-file H:/home/user/src/radar_pi/exe-win32/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CPack.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CPackComponent.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindGettext.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindwxWidgets.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\UsewxWidgets.cmake;C:\Program Files\CMake\share\cmake-3.16\Templates\CPackConfig.cmake.in;H:\home\user\src\radar_pi\cmake\PluginConfigure.cmake;H:\home\user\src\radar_pi\cmake\PluginInstall.cmake;H:\home\user\src\radar_pi\cmake\PluginLocalization.cmake;H:\home\user\src\radar_pi\cmake\PluginPackage.cmake;H:\home\user\src\radar_pi\cmake\version.h.in;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeCCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeCXXCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeRCCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule H:/home/user/src/radar_pi/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SH:/home/user/src/radar_pi -BH:/home/user/src/radar_pi/exe-win32 --check-stamp-file H:/home/user/src/radar_pi/exe-win32/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CPack.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CPackComponent.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindGettext.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindwxWidgets.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\UsewxWidgets.cmake;C:\Program Files\CMake\share\cmake-3.16\Templates\CPackConfig.cmake.in;H:\home\user\src\radar_pi\cmake\PluginConfigure.cmake;H:\home\user\src\radar_pi\cmake\PluginInstall.cmake;H:\home\user\src\radar_pi\cmake\PluginLocalization.cmake;H:\home\user\src\radar_pi\cmake\PluginPackage.cmake;H:\home\user\src\radar_pi\cmake\version.h.in;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeCCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeCXXCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeRCCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule H:/home/user/src/radar_pi/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SH:/home/user/src/radar_pi -BH:/home/user/src/radar_pi/exe-win32 --check-stamp-file H:/home/user/src/radar_pi/exe-win32/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CPack.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\CPackComponent.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindGettext.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\FindwxWidgets.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.16\Modules\UsewxWidgets.cmake;C:\Program Files\CMake\share\cmake-3.16\Templates\CPackConfig.cmake.in;H:\home\user\src\radar_pi\cmake\PluginConfigure.cmake;H:\home\user\src\radar_pi\cmake\PluginInstall.cmake;H:\home\user\src\radar_pi\cmake\PluginLocalization.cmake;H:\home\user\src\radar_pi\cmake\PluginPackage.cmake;H:\home\user\src\radar_pi\cmake\version.h.in;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeCCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeCXXCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeRCCompiler.cmake;H:\home\user\src\radar_pi\exe-win32\CMakeFiles\3.16.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="H:\home\user\src\radar_pi\exe-win32\CMakeFiles\radar-i18n" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="H:\home\user\src\radar_pi\exe-win32\ZERO_CHECK.vcxproj">
+      <Project>{9830F96C-A21F-3DA7-9C16-EE9CBBD81468}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

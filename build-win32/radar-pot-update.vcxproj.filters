@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\7400995ae23d246d6dcd08c0dbfa288f\radar_pi.pot.dummy.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\02809eb692cb7dd6fb78bde0a0e611b3\radar-pot-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="H:\home\user\src\radar_pi\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="H:\home\user\src\radar_pi\build-win32\CMakeFiles\radar-pot-update" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3160F477-8564-3028-A8AC-4B6A7668CA46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
