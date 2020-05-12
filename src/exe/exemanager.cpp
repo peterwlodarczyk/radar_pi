@@ -79,7 +79,7 @@
 //#include "config.h"
 //#include "SoundFactory.h"
 //#include "dychart.h"
-#include "exe/PluginManager.h"
+#include "pluginmanager.h"
 #include "ocpn_plugin.h"
 //#include "chartbase.h"        // for ChartPlugInWrapper
 //#include "chartdb.h"
@@ -124,7 +124,7 @@ using namespace RadarPlugin;
 
 class MyConfig : public wxFileConfig {
  public:
-  MyConfig::MyConfig(const wxString &LocalFileName)
+  MyConfig(const wxString &LocalFileName)
       : wxFileConfig(_T (""), _T (""), LocalFileName, _T (""), wxCONFIG_USE_LOCAL_FILE) {}
   // static int LoadMyConfig();
   // void LoadS57Config();

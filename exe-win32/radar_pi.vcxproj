@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets_src\lib\vc_dll\mswud;$(OCIUS_LIB_DIR)\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -261,10 +261,12 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\exe\exemanager.cpp" />
+    <ClCompile Include="..\src\exe\radar_main.cpp" />
     <ClCompile Include="..\src\radar_pi.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\exemanager.cpp" />
+    <ClInclude Include="..\src\exe\chart1.h" />
+    <ClInclude Include="..\src\exe\pluginmanager.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\radar_exe.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\radar_main.cpp" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\ControlsDialog.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\ControlsDialog.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\GuardZone.cpp" />

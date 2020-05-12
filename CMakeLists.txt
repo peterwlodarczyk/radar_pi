@@ -126,8 +126,8 @@ SET(SRC_PLUGIN
 )            
 
 SET(SRC_EXECUTABLE
-            src/exemanager.cpp
-            src/radar_main.cpp
+            src/exe/exemanager.cpp
+            src/exe/radar_main.cpp
 )            
 
 SET(SRC_NMEA0183
@@ -157,6 +157,7 @@ find_package(OpenGL)
 
 INCLUDE_DIRECTORIES(src/nmea0183)
 INCLUDE_DIRECTORIES(src/wxJSON)
+INCLUDE_DIRECTORIES(src/exe)
 INCLUDE_DIRECTORIES(src)
 
 IF (OUTPUT_EXE)
