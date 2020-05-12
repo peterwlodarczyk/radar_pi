@@ -35,38 +35,6 @@ INCLUDE("cmake/PluginConfigure.cmake")
 # For convenience we define the sources as a variable. You can add
 # header files and cpp/c files and CMake will sort them out
 
-SET(SRC_EMULATOR
-            src/emulator/EmulatorControl.cpp        
-            src/emulator/EmulatorControl.h          
-            src/emulator/EmulatorControlSet.h       
-            src/emulator/EmulatorControlsDialog.cpp 
-            src/emulator/EmulatorControlsDialog.h   
-            src/emulator/EmulatorReceive.cpp        
-            src/emulator/EmulatorReceive.h          
-            src/emulator/emulatortype.h
-)
-
-SET(SRC_GARMIN_HD
-            src/garminhd/GarminHDControl.cpp        
-            src/garminhd/GarminHDControl.h          
-            src/garminhd/GarminHDControlSet.h       
-            src/garminhd/GarminHDControlsDialog.cpp 
-            src/garminhd/GarminHDControlsDialog.h   
-            src/garminhd/GarminHDReceive.cpp        
-            src/garminhd/GarminHDReceive.h          
-            src/garminhd/garminhdtype.h
-)
-
-SET(SRC_GARMIN_XHD
-            src/garminxhd/GarminxHDControl.cpp        
-            src/garminxhd/GarminxHDControl.h          
-            src/garminxhd/GarminxHDControlSet.h       
-            src/garminxhd/GarminxHDControlsDialog.cpp 
-            src/garminxhd/GarminxHDControlsDialog.h   
-            src/garminxhd/GarminxHDReceive.cpp        
-            src/garminxhd/GarminxHDReceive.h          
-            src/garminxhd/garminxhdtype.h
-)
 
 SET(SRC_NAVICO
             src/navico/br24type.h
