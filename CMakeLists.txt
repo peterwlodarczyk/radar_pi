@@ -1,5 +1,5 @@
 ##---------------------------------------------------------------------------
-## Plagiarized by: Dave Cowell for WINDOWS
+## Plagiarized by: Peter Wlodarczyk for WINDOWS
 ##
 ## Author:      bdbcat aka. dsr (Dave Register)
 ## Copyright:
@@ -15,28 +15,28 @@ PROJECT(radar_pi)
 SET(PACKAGE_NAME radar_pi)
 SET(VERBOSE_NAME Radar)
 SET(TITLE_NAME Radar)
-SET(CPACK_PACKAGE_CONTACT "kees@verruijt.net")
+SET(CPACK_PACKAGE_CONTACT "peter@ocius.com.au")
 #SET(CMAKE_BUILD_TYPE Debug)
 SET(VERSION_MAJOR "5")
 SET(VERSION_MINOR "0")
 SET(VERSION_PATCH "5")
-SET(VERSION_DATE "2020-04-19")
+SET(VERSION_DATE "2020-05-15")
 SET(OCPN_MIN_VERSION "ov50")
 
+IF(MSVC)
 SET(wxWidgets_ROOT_DIR "C:/dev/libs/wxWidgets_src")
 SET(wxWidgets_LIB_DIR "C:/dev/libs/wxWidgets_src/lib/vc_dll")
 SET(wxWidgets_LIBRARIES "C:/dev/libs/wxWidgets_src/lib")
 SET(wxWidgets_INCLUDE_DIRS "C:/dev/libs/wxWidgets_src/include/wx")
-
 set(wxWidgets_INCLUDE_DIRS "C:/dev/libs/wxWidgets_src")
 set(wxWidgets_LIBRARIES "C:/dev/libs/wxWidgets_src/lib/vc_dll")
 set(wxWidgets_FIND_COMPONENTS net xml html adv aui core base gl)
+ENDIF()
 
 INCLUDE("cmake/PluginConfigure.cmake")
 
 # For convenience we define the sources as a variable. You can add
 # header files and cpp/c files and CMake will sort them out
-
 
 SET(SRC_NAVICO
             src/navico/br24type.h
@@ -153,7 +153,7 @@ SET(SRC_JSON
         # We don't use jsonwriter.cpp yet ...
 )
 
-find_package(OpenGL)
+#find_package(OpenGL)
 
 INCLUDE_DIRECTORIES(src/nmea0183)
 INCLUDE_DIRECTORIES(src/wxJSON)
@@ -161,13 +161,14 @@ INCLUDE_DIRECTORIES(src/exe)
 INCLUDE_DIRECTORIES(src)
 
 IF (OUTPUT_EXE)
-MESSAGE(WARNING "Peter")
-ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_EXECUTABLE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
+MESSAGE(INFO "Executable")
+ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_EXECUTABLE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+#ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_EXECUTABLE}  ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} )
 ADD_DEFINITIONS(-DRADAR_EXE)
 TARGET_LINK_LIBRARIES(${PACKAGE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
 ELSE()
-MESSAGE(WARNING "Paul")
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
+MESSAGE(INFO "Plugin")
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
 INCLUDE("cmake/PluginInstall.cmake")
 INCLUDE("cmake/PluginLocalization.cmake")
 INCLUDE("cmake/PluginPackage.cmake")

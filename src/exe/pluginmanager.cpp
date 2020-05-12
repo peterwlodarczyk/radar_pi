@@ -194,7 +194,11 @@ static wxFileConfig *pConfig = nullptr;
 wxAuiManager *g_pauimgr = nullptr;
 
 
+#ifdef PLUGINMANAGER
 static PlugInManager *s_ppim = nullptr;
+#else
+static void* s_ppim = nullptr;
+#endif
 
 OCPNPlatform *g_Platform = new OCPNPlatform();
 #if 0
@@ -801,6 +805,7 @@ PlugInToolbarToolContainer::~PlugInToolbarToolContainer()
 //
 //-----------------------------------------------------------------------------------------------------
 
+#ifdef PLUGINMANAGER
 PlugInManager::PlugInManager(MyFrame *parent) {
 #ifndef RADAR_EXE
 #ifndef __OCPN__ANDROID__
@@ -1541,6 +1546,8 @@ bool PlugInManager::DeactivateAllPlugIns() {
   }
   return true;
 }
+#endif
+#endif // PLUGINMANAGER
 
 #ifdef __WXMSW__
 /*Convert Virtual Address to File Offset */
@@ -1687,6 +1694,7 @@ FailureEpilogue:
 }
 #endif  // USE_LIBELF
 
+#ifndef RADAR_EXE
 bool PlugInManager::CheckPluginCompatibility(wxString plugin_file) {
   bool b_compat = true;
 
@@ -3118,12 +3126,14 @@ wxFileConfig *GetOCPNConfigObject(void) {
 
 wxWindow *GetOCPNCanvasWindow() {
   wxWindow *pret = NULL;
+#ifdef PLUGINMANAGER
   if (s_ppim) {
     MyFrame *pFrame = s_ppim->GetParentFrame();
     // pret = (wxWindow *)pFrame->GetPrimaryCanvas();
     pret = pFrame;
   }
-  return pret;
+#endif
+return pret;
 }
 
 void RequestRefresh(wxWindow *win) {
@@ -3186,14 +3196,18 @@ bool GetGlobalColor(wxString colorName, wxColour *pcolour)
     return true;
 }
 #endif
-static wxFont s_defaultFont(*wxSMALL_FONT);
+
+static wxFont& s_DefaultFont() {
+  static wxFont instance(*wxSMALL_FONT);
+  return instance;
+}
 
 wxFont *OCPNGetFont(wxString TextElement, int default_size)
 {
 #ifndef RADAR_EXE
   return FontMgr::Get().GetFont(TextElement, default_size);
 #else
-  return &s_defaultFont;
+  return &s_DefaultFont();
 #endif
 }
 
@@ -3202,7 +3216,7 @@ wxFont *GetOCPNScaledFont_PlugIn(wxString TextElement, int default_size)
 #ifndef RADAR_EXE
   return GetOCPNScaledFont(TextElement, default_size);
 #else
-  return &s_defaultFont;
+  return &s_DefaultFont();
 #endif
 }
 
@@ -3226,7 +3240,7 @@ wxFont GetOCPNGUIScaledFont_PlugIn(wxString item)
 #ifndef RADAR_EXE
   return GetOCPNGUIScaledFont(item);
 #else
-  return s_defaultFont;
+  return s_DefaultFont();
 #endif
 }
 

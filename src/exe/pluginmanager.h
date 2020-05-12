@@ -81,7 +81,6 @@
 
 #ifndef RADAR_EXE
 PlugIn_AIS_Target *Create_PI_AIS_Target(AIS_Target_Data *ptarget);
-#endif
 
 class PluginListPanel;
 class PluginPanel;
@@ -106,7 +105,6 @@ const BlackListedPlugin PluginBlacklist[] = {
 #endif    
 };
 
-#ifndef RADAR_EXE
 //----------------------------------------------------------------------------
 // PlugIn Messaging scheme Event
 //----------------------------------------------------------------------------
@@ -268,8 +266,10 @@ WX_DEFINE_ARRAY_PTR(PlugInToolbarToolContainer *, ArrayOfPlugInToolbarTools);
 //          The PlugIn Manager Specification
 //
 //-----------------------------------------------------------------------------------------------------
-#endif
+#endif // RADAR_EXE
 
+#define PLUGINMANAGER
+#ifdef PLUGINMANAGER
 
 class PlugInManager: public wxEvtHandler
 {
@@ -432,6 +432,7 @@ private:
 
 // DECLARE_EVENT_TABLE()
 };
+#endif // PLUGINMANAGER
 
 #ifndef RADAR_EXE
 
@@ -603,7 +604,7 @@ public:
 
 void CreateCompatibleS57Object( PI_S57Obj *pObj, S57Obj *cobj, chart_context *pctx );
 void UpdatePIObjectPlibContext( PI_S57Obj *pObj, S57Obj *cobj );
-#endif
+#endif // RADAR_EXE
 
 #endif            // _PLUGINMGR_H_
 

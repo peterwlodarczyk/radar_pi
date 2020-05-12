@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "radar_pi.h"
 #include "ocius/oc_utils.h"
-#include "exe/pluginmanager.h"
+#include "pluginmanager.h"
 #include "chart1.h"
 
 // For compilers that don't support precompilation, include "wx/wx.h"
@@ -10,6 +10,8 @@
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
 #endif
+
+#if 1
 
 class RadarApp : public wxApp {
  public:
@@ -48,16 +50,30 @@ bool RadarApp::OnInit() {
   OC_DEBUG("[RadarApp::OnInit]>>");
   LOG_INFO("[RadarApp::OnInit]>>");
 
-  //MyFrame* frame = new MyFrame(nullptr);
-  //frame->CreateStatusBar();
-  //frame->SetStatusText(_T("Radar"));
-  //frame->Show(true);
-  //SetTopWindow(frame);
+  MyFrame* frame = new MyFrame(nullptr);
+  frame->CreateStatusBar();
+  frame->SetStatusText(_T("Radar"));
+  frame->Show(true);
+  SetTopWindow(frame);
 
-  //m_PluginManager = new PlugInManager(frame);
-  //OC_DEBUG("[RadarApp::OnInit]<<");
-  //m_PluginManager->LoadAllPlugIns(true, true);
-  //printf("radar_exe\n");
+  m_PluginManager = new PlugInManager(frame);
+  OC_DEBUG("[RadarApp::OnInit]<<");
+  m_PluginManager->LoadAllPlugIns(true, true);
+  printf("radar_exe\n");
 
   return true;
 }
+#else
+class DerivedApp : public wxApp
+{
+public:
+    virtual bool OnInit();
+};
+wxIMPLEMENT_APP(DerivedApp);
+bool DerivedApp::OnInit()
+{
+    wxFrame *the_frame = new wxFrame(NULL, -1, argv[0]);
+    the_frame->Show(true);
+    return true;
+}
+#endif

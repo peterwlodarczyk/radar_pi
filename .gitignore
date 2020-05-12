@@ -14,3 +14,4 @@ exe-win32/radar.dir/
 lib-linux
 exe-win32/Debug
 exe-win32/radar.log
+exe-linux/
