@@ -114,8 +114,6 @@ SET(SRC_RADAR
             src/icons.cpp
             src/icons.h
             src/pi_common.h
-            src/radar_pi.cpp
-            src/radar_pi.h
             src/shaderutil.cpp
             src/shaderutil.h
             src/socketutil.cpp
@@ -124,10 +122,14 @@ SET(SRC_RADAR
 )
 
 SET(SRC_PLUGIN
+            src/radar_pi.cpp
+            src/radar_pi.h
 )            
 
 SET(SRC_EXECUTABLE
             src/radar_exe.cpp
+            src/radar_exe.h
+            src/radar_main.cpp
 )            
 
 SET(SRC_NMEA0183
@@ -160,8 +162,8 @@ INCLUDE_DIRECTORIES(src/wxJSON)
 INCLUDE_DIRECTORIES(src)
 
 ADD_LIBRARY(${LIBRARY_NAME} SHARED ${SRC_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
-#ADD_EXECUTABLE(${EXECUTABLE_NAME} ${SRC_EXECUTABLE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
-#target_link_libraries(${EXECUTABLE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
+ADD_EXECUTABLE(${EXECUTABLE_NAME} ${SRC_EXECUTABLE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_EMULATOR} ${SRC_GARMIN_HD} ${SRC_GARMIN_XHD} ${SRC_OCIUS} ${SRC_NAVICO})
+target_link_libraries(${EXECUTABLE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
 
 
 INCLUDE("cmake/PluginInstall.cmake")
