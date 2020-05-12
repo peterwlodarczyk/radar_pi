@@ -100,15 +100,6 @@
     <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonval.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControlsDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\emulator\EmulatorReceive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

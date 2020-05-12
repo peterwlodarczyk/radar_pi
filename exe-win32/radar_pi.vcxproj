@@ -386,12 +386,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hdm.cpp" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonreader.cpp" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonval.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControl.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControl.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControlSet.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControlsDialog.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorControlsDialog.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\emulator\EmulatorReceive.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\EmulatorReceive.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\emulator\emulatortype.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\garminhd\GarminHDControl.h" />
