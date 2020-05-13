@@ -9,7 +9,9 @@
 # define minimum cmake version
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
 
-option(OUTPUT_EXE "Output type" ON)
+option(RADAR_EXE "Build radar exe" OFF)
+option(OC_DP "Build ocius daemon proc" ON)
+option(OPENCPN_PLUGIN "OpenCPN Plugin" OFF)
 
 PROJECT(radar_pi)
 SET(PACKAGE_NAME radar_pi)
@@ -125,10 +127,30 @@ SET(SRC_RADAR
 SET(SRC_PLUGIN
 )            
 
-SET(SRC_EXECUTABLE
+SET(SRC_RADAR_EXE
             src/exe/pluginmanager.cpp
             src/exe/radar_main.cpp
 )            
+
+SET(SRC_OC_DP
+            ../oc_usv/oc_common/oc_args.cpp
+            ../oc_usv/oc_common/oc_buffer.cpp
+            ../oc_usv/oc_common/oc_conf.cpp
+            ../oc_usv/oc_common/oc_dirs.cpp
+            ../oc_usv/oc_common/oc_fileio.cpp
+            ../oc_usv/oc_common/oc_lock.cpp
+            ../oc_usv/oc_common/oc_log4_oc.cpp
+            ../oc_usv/oc_common/oc_noservconf.cpp
+            ../oc_usv/oc_common/oc_pipe.cpp
+            ../oc_usv/oc_common/oc_proc_helpers.cpp
+            ../oc_usv/oc_common/oc_status.cpp
+            ../oc_usv/oc_common/oc_utils.cpp
+            ../oc_usv/oc_common/oc_xmlutils.cpp
+            ../oc_usv/oc_common/wininc.cpp
+            ../oc_usv/oc_dp_radar/oc_dp_radar.cpp
+            src/exe/pluginmanager.cpp
+            src/exe/radar_main.cpp
+)
 
 SET(SRC_NMEA0183
         src/nmea0183/nmea0183.cpp
@@ -160,19 +182,42 @@ INCLUDE_DIRECTORIES(src/wxJSON)
 INCLUDE_DIRECTORIES(src/exe)
 INCLUDE_DIRECTORIES(src)
 
-IF (OUTPUT_EXE)
-MESSAGE(INFO "Executable")
-ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_EXECUTABLE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
-#ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_EXECUTABLE}  ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} )
-ADD_DEFINITIONS(-DRADAR_EXE)
-TARGET_LINK_LIBRARIES(${PACKAGE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
+IF (RADAR_EXE)
+  MESSAGE(STATUS "Radar Executable")
+  ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_RADAR_EXE} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+  ADD_DEFINITIONS(-DRADAR_EXE)
+  TARGET_LINK_LIBRARIES(${PACKAGE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
+ELSEIF (OC_DP)
+  FIND_PACKAGE(LibXml2 REQUIRED)
+  MESSAGE(STATUS "found libxml ${LIBXML2}")
+  find_library(LIBLOG4 liblog4cplus.so HINTS "/usr/lib")
+  find_library(LIBXML2 libxml2.so HINTS "/usr/lib")
+
+  INCLUDE_DIRECTORIES(${LIBXML2_INCLUDE_DIR})
+  INCLUDE_DIRECTORIES("../oc_usv/oc_common")
+  
+  MESSAGE(STATUS "ocius daemon")
+  #ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_OC_DP})
+  ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_OC_DP} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+  ADD_DEFINITIONS(-DOC_DP)
+  TARGET_LINK_LIBRARIES(${PACKAGE_NAME} 
+    ${wxWidgets_LIBRARIES} 
+    ${OPENGL_LIBRARY}
+	${LIBXML2}
+	${LIBLOG4}
+	-ljpeg
+	-lz
+	-lpthread
+  )
 ELSE()
-MESSAGE(INFO "Plugin")
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
-INCLUDE("cmake/PluginInstall.cmake")
-INCLUDE("cmake/PluginLocalization.cmake")
-INCLUDE("cmake/PluginPackage.cmake")
+  MESSAGE(STATUS "OpenCPN Plugin")
+  IF (OPENCPN_PLUGIN)
+    ADD_DEFINITIONS(-DOPENCPN_PLUGIN)
+  ELSE()
+    ADD_DEFINITIONS(-DOCIUS_PLUGIN)
+  ENDIF()
+  ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+  INCLUDE("cmake/PluginInstall.cmake")
+  INCLUDE("cmake/PluginLocalization.cmake")
+  INCLUDE("cmake/PluginPackage.cmake")
 ENDIF()
-
-
-

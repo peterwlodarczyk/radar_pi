@@ -25,7 +25,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   59 Temple Place - Suite 3130, Boston, MA  02111-1307, USA.             *
  ***************************************************************************
  */
 
@@ -168,7 +168,7 @@ void RadarInfo::Shutdown() {
 
 RadarInfo::~RadarInfo() {
   Shutdown();
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
   // delete context menu item for radar control
   // it does not harm to remove an non existing menu
   if (m_pi->m_context_menu_control_id[m_radar] != -1) {
@@ -594,7 +594,7 @@ void RadarInfo::UpdateTransmitState() {
 }
 
 void RadarInfo::RequestRadarState(RadarState state) {
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
   int oldState = m_state.GetValue();
   if (/*m_pi->IsRadarOnScreen(m_radar) &&*/ oldState != RADAR_OFF) {                     // if radar is visible and detected
     if (oldState != state && !(oldState != RADAR_STANDBY && state == RADAR_TRANSMIT)) {  // and change is wanted

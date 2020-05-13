@@ -79,7 +79,7 @@
 
 //    Assorted static helper routines
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 PlugIn_AIS_Target *Create_PI_AIS_Target(AIS_Target_Data *ptarget);
 
 class PluginListPanel;
@@ -266,7 +266,7 @@ WX_DEFINE_ARRAY_PTR(PlugInToolbarToolContainer *, ArrayOfPlugInToolbarTools);
 //          The PlugIn Manager Specification
 //
 //-----------------------------------------------------------------------------------------------------
-#endif // RADAR_EXE
+#endif // OPENCPN_PLUGIN
 
 #define PLUGINMANAGER
 #ifdef PLUGINMANAGER
@@ -434,7 +434,7 @@ private:
 };
 #endif // PLUGINMANAGER
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 
 WX_DEFINE_ARRAY_PTR(PluginPanel *, ArrayOfPluginPanel);
 
@@ -604,7 +604,7 @@ public:
 
 void CreateCompatibleS57Object( PI_S57Obj *pObj, S57Obj *cobj, chart_context *pctx );
 void UpdatePIObjectPlibContext( PI_S57Obj *pObj, S57Obj *cobj );
-#endif // RADAR_EXE
+#endif // OPENCPN_PLUGIN
 
 #endif            // _PLUGINMGR_H_
 

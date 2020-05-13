@@ -807,7 +807,7 @@ PlugInToolbarToolContainer::~PlugInToolbarToolContainer()
 
 #ifdef PLUGINMANAGER
 PlugInManager::PlugInManager(MyFrame *parent) {
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 #ifndef __OCPN__ANDROID__
 #ifdef OCPN_USE_CURL
   m_pCurlThread = NULL;
@@ -867,7 +867,7 @@ PlugInManager::~PlugInManager() {
 #endif
 }
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 /**
  *
  * For linux, set up LD_LIBRARY_PATH to the same value as the path used
@@ -951,7 +951,7 @@ bool PlugInManager::LoadAllPlugIns(bool load_enabled, bool b_enable_blackdialog)
   //    return any_dir_loaded;
 }
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 // Static helper function: loads all plugins from a single directory
 bool PlugInManager::LoadPlugInDirectory(const wxString &plugin_dir, bool load_enabled, bool b_enable_blackdialog) {
   pConfig->SetPath(_T("/PlugIns/"));
@@ -1523,7 +1523,7 @@ bool PlugInManager::UnLoadPlugIn(size_t ix) {
   return true;
 }
 
-#endif //RADAR_EXE
+#endif //OPENCPN_PLUGIN
 
 bool PlugInManager::UnLoadAllPlugIns() {
   // for (size_t i = 0; i < plugin_array.GetCount(); i++) {
@@ -1537,7 +1537,7 @@ bool PlugInManager::UnLoadAllPlugIns() {
 
   return true;
 }
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 
 bool PlugInManager::DeactivateAllPlugIns() {
   for (unsigned int i = 0; i < plugin_array.GetCount(); i++) {
@@ -1694,7 +1694,7 @@ FailureEpilogue:
 }
 #endif  // USE_LIBELF
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 bool PlugInManager::CheckPluginCompatibility(wxString plugin_file) {
   bool b_compat = true;
 
@@ -3079,31 +3079,31 @@ int AddCanvasMenuItem(wxMenuItem *pitem, opencpn_plugin *pplugin, const char *na
   else
     return -1;
 }
-#endif // RADAR_EXE
+#endif // OPENCPN_PLUGIN
 
 void SetCanvasMenuItemViz(int item, bool viz, const char *name) {
-#ifndef RADAR_EXE 
+#ifdef OPENCPN_PLUGIN 
   /* main context popup menu */
   if (s_ppim) s_ppim->SetCanvasContextMenuItemViz(item, viz, name);
 #endif
 }
 
 void SetCanvasMenuItemGrey(int item, bool grey, const char *name) {
-#ifndef RADAR_EXE 
+#ifdef OPENCPN_PLUGIN 
   /* main context popup menu */
   if (s_ppim) s_ppim->SetCanvasContextMenuItemGrey(item, grey, name);
 #endif
 }
 
 void RemoveCanvasMenuItem(int item, const char *name) {
-#ifndef RADAR_EXE 
+#ifdef OPENCPN_PLUGIN 
     /* main context popup menu */
     if (s_ppim) s_ppim->RemoveCanvasContextMenuItem(item, name);
 #endif
 }
 
 int AddCanvasContextMenuItem(wxMenuItem *pitem, opencpn_plugin *pplugin) {
-#ifndef RADAR_EXE  
+#ifdef OPENCPN_PLUGIN  
   /* main context popup menu */
   return AddCanvasMenuItem(pitem, pplugin, "");
 #else
@@ -3204,7 +3204,7 @@ static wxFont& s_DefaultFont() {
 
 wxFont *OCPNGetFont(wxString TextElement, int default_size)
 {
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
   return FontMgr::Get().GetFont(TextElement, default_size);
 #else
   return &s_DefaultFont();
@@ -3213,14 +3213,14 @@ wxFont *OCPNGetFont(wxString TextElement, int default_size)
 
 wxFont *GetOCPNScaledFont_PlugIn(wxString TextElement, int default_size)
 {
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
   return GetOCPNScaledFont(TextElement, default_size);
 #else
   return &s_DefaultFont();
 #endif
 }
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 double GetOCPNGUIToolScaleFactor_PlugIn(int GUIScaleFactor) {
     return g_Platform->GetToolbarScaleFactor(GUIScaleFactor);
 }
@@ -3237,14 +3237,14 @@ float GetOCPNChartScaleFactor_Plugin()
 #endif
 wxFont GetOCPNGUIScaledFont_PlugIn(wxString item)
 {
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
   return GetOCPNGUIScaledFont(item);
 #else
   return s_DefaultFont();
 #endif
 }
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 bool AddPersistentFontKey(wxString TextElement) {
     return FontMgr::Get().AddAuxKey( TextElement );
 }

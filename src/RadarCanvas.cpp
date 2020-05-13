@@ -631,7 +631,7 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
     vp.clat = pos.lat;
     vp.clon = pos.lon;
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
     wxString aisTextFont = _("AIS Target Name");
     wxFont *aisFont = GetOCPNScaledFont_PlugIn(aisTextFont, 12);
     wxColour aisFontColor = GetFontColour_PlugIn(aisTextFont);

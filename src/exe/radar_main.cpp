@@ -24,7 +24,7 @@ class RadarApp : public wxApp {
 };
 
 DECLARE_APP(RadarApp)
-IMPLEMENT_APP(RadarApp)
+IMPLEMENT_APP_NO_MAIN(RadarApp)
 
 // This is executed upon startup, like 'main()' in non-wxWidgets programs.
 int RadarApp::OnExit() { 
@@ -63,6 +63,26 @@ bool RadarApp::OnInit() {
 
   return true;
 }
+
+//gtk_init_check()
+// sudo apt-get install -y xvfb
+// Xvfb :99 & DISPLAY=:99 ./radar_pi
+
+#ifdef RADAR_EXE
+int main(int argc, char* argv[]) {
+#else
+int radar_start() {
+  int argc = 0;
+  char** argv = nullptr;
+#endif
+  printf("[radar_pi::main]\n");
+  return wxEntry(argc, argv);
+}
+
+void radar_stop() { 
+  wxGetApp().GetTopWindow()->Close(); 
+}
+
 #else
 class DerivedApp : public wxApp
 {

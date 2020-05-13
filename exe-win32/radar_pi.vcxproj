@@ -355,6 +355,9 @@
     <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoLocate.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoRadarInfo.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\CMakeLists.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

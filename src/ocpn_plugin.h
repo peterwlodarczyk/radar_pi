@@ -261,7 +261,7 @@ typedef struct _ExtentPI{
 //  This class is the base class for Plug-able chart types
 // ----------------------------------------------------------------------------
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 class DECL_EXP PlugInChartBase : public wxObject
 {
       public:
@@ -556,7 +556,7 @@ public:
 //
 //------------------------------------------------------------------
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 class DECL_EXP Plugin_Hyperlink
 {
 public:
@@ -721,7 +721,7 @@ typedef enum OptionsParentPI
       PI_OPTIONS_PARENT_UI,
       PI_OPTIONS_PARENT_PLUGINS
 }_OptionsParentPI;
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 extern DECL_EXP wxScrolledWindow *AddOptionsPage( OptionsParentPI parent, wxString title );
 extern DECL_EXP bool DeleteOptionsPage( wxScrolledWindow* page );
 
@@ -799,7 +799,7 @@ class PI_S57Obj;
 
 WX_DECLARE_LIST(PI_S57Obj, ListOfPI_S57Obj);
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 // ----------------------------------------------------------------------------
 // PlugInChartBaseGL
 //  Derived from PlugInChartBase, add OpenGL Vector chart support
@@ -1008,7 +1008,7 @@ public:
 };
 
 
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 
 wxString DECL_EXP PI_GetPLIBColorScheme();
 int DECL_EXP PI_GetPLIBDepthUnitInt();
@@ -1087,7 +1087,7 @@ extern DECL_EXP void SetCursor_PlugIn( wxCursor *pPlugin_Cursor = NULL );
 #endif
 extern DECL_EXP wxFont *GetOCPNScaledFont_PlugIn(wxString TextElement, int default_size = 0);
 extern DECL_EXP wxFont GetOCPNGUIScaledFont_PlugIn(wxString item);
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 extern DECL_EXP double GetOCPNGUIToolScaleFactor_PlugIn(int GUIScaledFactor);
 extern DECL_EXP double GetOCPNGUIToolScaleFactor_PlugIn();
 extern DECL_EXP float  GetOCPNChartScaleFactor_Plugin();
@@ -1308,7 +1308,7 @@ extern "C"  DECL_EXP  int AddCanvasMenuItem(wxMenuItem *pitem, opencpn_plugin *p
 extern "C"  DECL_EXP void RemoveCanvasMenuItem(int item, const char *name = "");      // Fully remove this item
 extern "C"  DECL_EXP void SetCanvasMenuItemViz(int item, bool viz, const char *name = ""); // Temporarily change context menu options
 extern "C"  DECL_EXP void SetCanvasMenuItemGrey(int item, bool grey, const char *name = "");
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 // Extract waypoints, routes and tracks
 extern DECL_EXP wxString GetSelectedWaypointGUID_Plugin( );
 extern DECL_EXP wxString GetSelectedRouteGUID_Plugin( );
@@ -1324,7 +1324,7 @@ extern DECL_EXP int GetCanvasIndexUnderMouse( );
 extern DECL_EXP wxWindow *GetCanvasByIndex( int canvasIndex );
 #endif
 extern DECL_EXP int GetCanvasCount( );
-#ifndef RADAR_EXE
+#ifdef OPENCPN_PLUGIN
 extern DECL_EXP bool CheckMUIEdgePan_PlugIn( int x, int y, bool dragging, int margin, int delta, int canvasIndex );
 extern DECL_EXP void SetMUICursor_PlugIn( wxCursor *pCursor, int canvasIndex );
 

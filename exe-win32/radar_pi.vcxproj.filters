@@ -294,4 +294,7 @@
       <UniqueIdentifier>{c2cf9c12-ff26-44ac-bcf6-406a44185928}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\CMakeLists.txt" />
+  </ItemGroup>
 </Project>
