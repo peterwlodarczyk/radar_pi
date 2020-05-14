@@ -11,8 +11,9 @@
 #include "wx/wx.h"
 #endif
 
-#if 1
-
+class glChartCanvas : public wxGLCanvas {
+};
+  
 class RadarApp : public wxApp {
  public:
   virtual int OnExit();
@@ -21,10 +22,31 @@ class RadarApp : public wxApp {
   wxLog* m_Logger;
   wxLog* m_OldLogger;
   PlugInManager* m_PluginManager;
+  wxTimer* m_timer;
+
+  wxGLCanvas* m_glChartCanvas;
+  wxGLContext* m_glContext;
+
+  void OnRenderTimer(wxTimerEvent& event);
+
+  DECLARE_EVENT_TABLE();
 };
 
 DECLARE_APP(RadarApp)
+#ifdef WIN32
+IMPLEMENT_APP(RadarApp)
+#else
 IMPLEMENT_APP_NO_MAIN(RadarApp)
+#endif
+
+BEGIN_EVENT_TABLE(RadarApp, wxApp)
+EVT_TIMER(wxID_HIGHEST, RadarApp::OnRenderTimer)
+END_EVENT_TABLE() 
+
+void RadarApp::OnRenderTimer(wxTimerEvent&) {
+  LOG_INFO("[RadarApp::OnRenderTimer].");
+  m_PluginManager->RenderAllGLCanvasOverlayPlugIns(m_glContext, CreatePlugInViewport(), 0);
+}
 
 // This is executed upon startup, like 'main()' in non-wxWidgets programs.
 int RadarApp::OnExit() { 
@@ -40,12 +62,21 @@ int RadarApp::OnExit() {
   return 0;
 }
 
+#ifdef WIN32
+#define LOG_FILENAME "radar.log"
+#else
+#define LOG_FILENAME "/tmp/usv/comp/radar.log"
+#endif
+
+
 bool RadarApp::OnInit() {
-  m_LogFile = fopen("radar.log", "a");
+  // TODO: Get this from configuration
+  m_LogFile = fopen(LOG_FILENAME, "a");
   m_Logger = new wxLogStderr(m_LogFile);
   m_OldLogger = wxLog::GetActiveTarget();
   wxLog::SetActiveTarget(m_Logger);
   wxASSERT(m_Logger);
+
 
   OC_DEBUG("[RadarApp::OnInit]>>");
   LOG_INFO("[RadarApp::OnInit]>>");
@@ -56,10 +87,18 @@ bool RadarApp::OnInit() {
   frame->Show(true);
   SetTopWindow(frame);
 
+  m_glChartCanvas = new wxGLCanvas(frame);
+  m_glContext = new wxGLContext(m_glChartCanvas);
+
   m_PluginManager = new PlugInManager(frame);
   OC_DEBUG("[RadarApp::OnInit]<<");
   m_PluginManager->LoadAllPlugIns(true, true);
+
+  static const int INTERVAL = 1000;  // milliseconds
+  m_timer = new wxTimer(this, wxID_HIGHEST);
+  m_timer->Start(INTERVAL);
   printf("radar_exe\n");
+
 
   return true;
 }
@@ -83,7 +122,7 @@ void radar_stop() {
   wxGetApp().GetTopWindow()->Close(); 
 }
 
-#else
+/*
 class DerivedApp : public wxApp
 {
 public:
@@ -96,4 +135,4 @@ bool DerivedApp::OnInit()
     the_frame->Show(true);
     return true;
 }
-#endif
+*/

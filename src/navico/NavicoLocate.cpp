@@ -31,7 +31,6 @@
  */
 
 #include "NavicoLocate.h"
-#include "ocius/oc_utils.h"
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -45,27 +44,27 @@ static const NetworkAddress reportNavicoCommon(236, 6, 7, 5, 6878);
 #define PERIOD_UNTIL_WAKE_RADAR (30)
 
 NavicoLocate::NavicoLocate(radar_pi *pi) : wxThread(wxTHREAD_JOINABLE) {
-  OC_DEBUG("[NavicoLocate::NavicoLocate]().");
-Create(64 * 1024);  // Stack size
-m_pi = pi;          // This allows you to access the main plugin stuff
-m_shutdown = false;
-m_is_shutdown = true;
+  LOG_INFO(wxT("[NavicoLocate::NavicoLocate]()."));
+  Create(64 * 1024);  // Stack size
+  m_pi = pi;          // This allows you to access the main plugin stuff
+  m_shutdown = false;
+  m_is_shutdown = true;
 
-m_interface_addr = 0;
-m_socket = 0;
-m_interface_count = 0;
-m_report_count = 0;
+  m_interface_addr = 0;
+  m_socket = 0;
+  m_interface_count = 0;
+  m_report_count = 0;
 
-LOG_INFO(wxT("radar_pi: NavicoLocate thread created, prio= %i"), GetPriority());
+  LOG_INFO(wxT("radar_pi: NavicoLocate thread created, prio= %i"), GetPriority());
 }
 
 
 void NavicoLocate::Shutdown(void) { 
-  OC_DEBUG("[NavicoLocate::Shutdown]().");
+  LOG_INFO(wxT("[NavicoLocate::Shutdown]()."));
   m_shutdown = true; 
 }
 void NavicoLocate::CleanupCards() {
-  OC_DEBUG("[NavicoLocate::CleanupCards]().");
+  LOG_VERBOSE(wxT("[NavicoLocate::CleanupCards]()."));
   if (m_interface_addr) {
     delete[] m_interface_addr;
     m_interface_addr = 0;
@@ -83,7 +82,7 @@ void NavicoLocate::CleanupCards() {
 }
 
 void NavicoLocate::UpdateEthernetCards() {
-  OC_DEBUG("[NavicoLocate::UpdateEthernetCards]().");
+  LOG_INFO(wxT("[NavicoLocate::UpdateEthernetCards]()."));
   struct ifaddrs *addr_list;
   struct ifaddrs *addr;
   size_t i = 0;
@@ -129,7 +128,7 @@ void NavicoLocate::UpdateEthernetCards() {
  * It should remain running until Shutdown is called.
  */
 void *NavicoLocate::Entry(void) {
-  OC_DEBUG("[NavicoLocate::Entry]().");
+  LOG_VERBOSE(wxT("[NavicoLocate::Entry]()."));
   int r = 0;
   int rescan_network_cards = 0;
   int wake_timeout = 0;

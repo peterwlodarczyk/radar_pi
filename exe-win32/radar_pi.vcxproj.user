@@ -4,4 +4,8 @@
     <LocalDebuggerEnvironment>PATH=C:\dev\libs\wxWidgets_src\lib\vc_dll</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">
+    <LocalDebuggerEnvironment>PATH=C:\dev\libs\wxWidgets_src\lib\vc_dll</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

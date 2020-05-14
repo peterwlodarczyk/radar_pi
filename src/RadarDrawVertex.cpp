@@ -33,7 +33,6 @@
 #include "RadarCanvas.h"
 #include "RadarInfo.h"
 #include "ocius/oc_radar_interface.h"
-#include <stdio.h>
 
 PLUGIN_BEGIN_NAMESPACE
 

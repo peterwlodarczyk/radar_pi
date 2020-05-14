@@ -282,6 +282,9 @@
     <ClInclude Include="..\src\exe\pluginmanager.h">
       <Filter>Source Files\exe</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ocpn_plugin.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

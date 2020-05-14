@@ -4,6 +4,10 @@
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug_ocius|x64">
+      <Configuration>Debug_ocius</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -35,6 +39,11 @@
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
@@ -60,11 +69,17 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">H:\home\user\src\radar_pi\exe-win32\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar_pi.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">radar_pi.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar_pi</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">radar_pi</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar_pi.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar_pi</TargetName>
@@ -85,6 +100,51 @@
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets_src\lib\vc_dll\mswud;$(OCIUS_LIB_DIR)\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";RADAR_EXE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;__WXDEBUG__;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>H:/home/user/src/radar_pi/exe-win32/Debug/radar_pi.lib</ImportLibrary>
+      <ProgramDataBaseFile>H:/home/user/src/radar_pi/exe-win32/Debug/radar_pi.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets_src\lib\vc_dll\mswud;$(OCIUS_LIB_DIR)\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
@@ -266,6 +326,7 @@
     <ClCompile Include="..\src\radar_pi.cpp" />
     <ClInclude Include="..\src\exe\chart1.h" />
     <ClInclude Include="..\src\exe\pluginmanager.h" />
+    <ClInclude Include="..\src\ocpn_plugin.h" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\radar_exe.h" />
     <ClCompile Include="H:\home\user\src\radar_pi\src\ControlsDialog.cpp" />
     <ClInclude Include="H:\home\user\src\radar_pi\src\ControlsDialog.h" />

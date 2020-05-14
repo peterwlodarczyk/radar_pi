@@ -377,11 +377,9 @@ void OptionsDialog::OnGuardZoneTimeoutClick(wxCommandEvent &event) {
 void OptionsDialog::OnEnableCOGHeadingClick(wxCommandEvent &event) { m_settings.enable_cog_heading = m_COGHeading->GetValue(); }
 
 void OptionsDialog::OnTestSoundClick(wxCommandEvent &event) {
-#ifdef OPENCPN_PLUGIN
   if (!m_settings.alert_audio_file.IsEmpty()) {
     PlugInPlaySound(m_settings.alert_audio_file);
   }
-#endif
 }
 
 void OptionsDialog::OnIgnoreHeadingClick(wxCommandEvent &event) { m_settings.ignore_radar_heading = m_IgnoreHeading->GetValue(); }

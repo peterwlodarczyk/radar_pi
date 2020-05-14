@@ -271,6 +271,74 @@ WX_DEFINE_ARRAY_PTR(PlugInToolbarToolContainer *, ArrayOfPlugInToolbarTools);
 #define PLUGINMANAGER
 #ifdef PLUGINMANAGER
 
+#ifdef VIEWPORT
+class ViewPort {
+ public:
+  ViewPort() {}
+  //
+//  wxPoint GetPixFromLL(double lat, double lon);
+//  void GetLLFromPix(const wxPoint &p, double *lat, double *lon) { GetLLFromPix(wxPoint2DDouble(p), lat, lon); }
+//  void GetLLFromPix(const wxPoint2DDouble &p, double *lat, double *lon);
+//  wxPoint2DDouble GetDoublePixFromLL(double lat, double lon);
+//
+//  LLRegion GetLLRegion(const OCPNRegion &region);
+//  OCPNRegion GetVPRegionIntersect(const OCPNRegion &region, const LLRegion &llregion, int chart_native_scale);
+//  OCPNRegion GetVPRegionIntersect(const OCPNRegion &Region, int nPoints, float *llpoints, int chart_native_scale, wxPoint *ppoints);
+//  wxRect GetVPRectIntersect(size_t n, float *llpoints);
+//  ViewPort BuildExpandedVP(int width, int height);
+//
+//  void SetBoxes(void);
+//
+//  //  Accessors
+//  void Invalidate() { bValid = false; }
+//  void Validate() { bValid = true; }
+//  bool IsValid() const { return bValid; }
+//
+//  void SetRotationAngle(double angle_rad) { rotation = angle_rad; }
+//  void SetProjectionType(int type) { m_projection_type = type; }
+//
+//  LLBBox &GetBBox() { return vpBBox; }
+//
+//  void SetBBoxDirect(const LLBBox &bbox) { vpBBox = bbox; }
+//  void SetBBoxDirect(double latmin, double lonmin, double latmax, double lonmax);
+//
+//  void InvalidateTransformCache() { lat0_cache = NAN; }
+//
+//  //  Generic
+  double clat = 0.0;  // center point
+  double clon = 0.0;
+  double view_scale_ppm = 1.0;
+  double skew = 0.0;
+  double rotation = 0.0;
+  double tilt = 0.0;  // For perspective view
+
+  double chart_scale = 1.0;  // conventional chart displayed scale
+  double ref_scale = 1.0;    //  the nominal scale of the "reference chart" for this view
+
+  int pix_width = 1;
+  int pix_height = 1;
+
+  bool b_quilt = false;
+//  bool b_FullScreenQuilt;
+//
+  int m_projection_type = 1;
+//  bool b_MercatorProjectionOverride;
+  wxRect rv_rect = wxRect(0, 0, 500, 500);
+  //
+//#ifdef USE_ANDROID_GLES2
+//  float vp_transform[16];
+//  float norm_transform[16];
+//#endif
+//
+// private:
+//  LLBBox vpBBox;  // An un-skewed rectangular lat/lon bounding box
+//                  // which contains the entire vieport
+//
+//  bool bValid;  // This VP is valid
+//
+//  double lat0_cache, cache0, cache1;
+};
+#endif
 class PlugInManager: public wxEvtHandler
 {
 
@@ -294,7 +362,8 @@ public:
       // ArrayOfPlugIns *GetPlugInArray(){ return &plugin_array; }
 
       // bool RenderAllCanvasOverlayPlugIns( ocpnDC &dc, const ViewPort &vp, int canvasIndex);
-      // bool RenderAllGLCanvasOverlayPlugIns( wxGLContext *pcontext, const ViewPort &vp, int canvasIndex);
+      bool RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const PlugIn_ViewPort &vp, int canvasIndex);
+      
       // void SendCursorLatLonToAllPlugIns( double lat, double lon);
       // void SendViewPortToRequestingPlugIns( ViewPort &vp );
       // void PrepareAllPluginContextMenus();
@@ -373,6 +442,8 @@ public:
       // pluginUtilHandler *GetUtilHandler(){ return m_utilHandler; }
       // void SetListPanelPtr( PluginListPanel *ptr ) { m_listPanel = ptr; }
 
+      RadarPlugin::radar_pi *pPlugin;
+
 private:
       // bool CheckBlacklistedPlugin(opencpn_plugin* plugin);
       // wxBitmap *BuildDimmedToolBitmap(wxBitmap *pbmp_normal, unsigned char dim_ratio);
@@ -382,7 +453,6 @@ private:
       // void ProcessLateInit(PlugInContainer *pic);
 
       MyFrame                 *pParent;
-      RadarPlugin::radar_pi* pPlugin;
 
 
       // ArrayOfPlugIns    plugin_array;
@@ -490,7 +560,8 @@ class PluginListPanel: public wxScrolledWindow
       DECLARE_EVENT_TABLE()
 
 public:
-      PluginListPanel( wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size, ArrayOfPlugIns *pPluginArray );
+      PluginListPanel( wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size, ArrayOfPlugIns *        PlugIn_ViewPort pivp = CreatePlugInViewport(vp);
+Array );
       ~PluginListPanel();
 
       void SelectPlugin( PluginPanel *pi );
@@ -605,6 +676,7 @@ public:
 void CreateCompatibleS57Object( PI_S57Obj *pObj, S57Obj *cobj, chart_context *pctx );
 void UpdatePIObjectPlibContext( PI_S57Obj *pObj, S57Obj *cobj );
 #endif // OPENCPN_PLUGIN
+PlugIn_ViewPort CreatePlugInViewport();
 
 #endif            // _PLUGINMGR_H_
 

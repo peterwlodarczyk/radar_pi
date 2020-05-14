@@ -741,10 +741,9 @@ extern "C" DECL_EXP bool PlugIn_GSHHS_CrossesLand(double lat1, double lon1, doub
 /**
  * Synchronous play a sound file. Supported formats depends on sound backend.
 */
+#endif
 extern DECL_EXP void PlugInPlaySound( wxString &sound_file );
-
-
-
+#if OPENCPN_PLUGIN
 
 // API 1.10 Route and Waypoint Support
 extern DECL_EXP wxBitmap *FindSystemWaypointIcon( wxString& icon_name );
@@ -1318,11 +1317,11 @@ extern DECL_EXP std::unique_ptr<PlugIn_Waypoint> GetWaypoint_Plugin( const wxStr
 extern DECL_EXP std::unique_ptr<PlugIn_Route> GetRoute_Plugin( const wxString& );
 extern DECL_EXP std::unique_ptr<PlugIn_Track> GetTrack_Plugin( const wxString& );
 
-extern DECL_EXP wxWindow* GetCanvasUnderMouse( );
-extern DECL_EXP int GetCanvasIndexUnderMouse( );
-//extern DECL_EXP std::vector<wxWindow *> GetCanvasArray();
-extern DECL_EXP wxWindow *GetCanvasByIndex( int canvasIndex );
 #endif
+extern DECL_EXP wxWindow *GetCanvasUnderMouse();
+extern DECL_EXP int GetCanvasIndexUnderMouse( );
+// extern DECL_EXP std::vector<wxWindow *> GetCanvasArray();
+extern DECL_EXP wxWindow *GetCanvasByIndex( int canvasIndex );
 extern DECL_EXP int GetCanvasCount( );
 #ifdef OPENCPN_PLUGIN
 extern DECL_EXP bool CheckMUIEdgePan_PlugIn( int x, int y, bool dragging, int margin, int delta, int canvasIndex );

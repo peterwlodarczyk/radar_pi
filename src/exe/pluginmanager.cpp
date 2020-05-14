@@ -201,11 +201,11 @@ static void* s_ppim = nullptr;
 #endif
 
 OCPNPlatform *g_Platform = new OCPNPlatform();
-#if 0
+#if OPENCPN_EXE
 extern ChartDB         *ChartData;
-#endif
+#endif // OPENCPN_EXE
 extern MyFrame         *gFrame;
-#if 0
+#if OPENCPN_EXE
 extern ocpnStyle::StyleManager* g_StyleManager;
 extern options         *g_pOptions;
 extern Multiplexer     *g_pMUX;
@@ -535,17 +535,34 @@ static void run_update_dialog(PluginListPanel* parent,
 }
 
 
-
+#endif //
 
 //    Some static helper funtions
 //    Scope is local to this module
 
-PlugIn_ViewPort CreatePlugInViewport( const ViewPort &vp)
+PlugIn_ViewPort CreatePlugInViewport()
 {
     //    Create a PlugIn Viewport
-    ViewPort tvp = vp;
+    //ViewPort tvp = vp;
     PlugIn_ViewPort pivp;
 
+    pivp.clat = 0.0;
+    pivp.clon = 0.0;
+    pivp.view_scale_ppm = 1.0;
+    pivp.skew = 0.0;
+    pivp.rotation = 0.0;
+    pivp.chart_scale = 1.0;
+    pivp.pix_width = 500;
+    pivp.pix_height = 500;
+    pivp.rv_rect = wxRect(0,0,500,500);
+    pivp.b_quilt = false;
+    pivp.m_projection_type = 1;
+    pivp.lat_min = 0;     // tvp.GetBBox().GetMinLat();
+    pivp.lat_max = 0;     // tvp.GetBBox().GetMaxLat();
+    pivp.lon_min = 10.0;  // tvp.GetBBox().GetMinLon();
+    pivp.lon_max = 10.0;  // tvp.GetBBox().GetMaxLon();
+    pivp.bValid = true;   // tvp.IsValid();                 // This VP is valid
+    /*
     pivp.clat =                   tvp.clat;                   // center point
     pivp.clon =                   tvp.clon;
     pivp.view_scale_ppm =         tvp.view_scale_ppm;
@@ -557,17 +574,15 @@ PlugIn_ViewPort CreatePlugInViewport( const ViewPort &vp)
     pivp.rv_rect =                tvp.rv_rect;
     pivp.b_quilt =                tvp.b_quilt;
     pivp.m_projection_type =      tvp.m_projection_type;
-
-    pivp.lat_min =                tvp.GetBBox().GetMinLat();
-    pivp.lat_max =                tvp.GetBBox().GetMaxLat();
-    pivp.lon_min =                tvp.GetBBox().GetMinLon();
-    pivp.lon_max =                tvp.GetBBox().GetMaxLon();
-
-    pivp.bValid =                 tvp.IsValid();                 // This VP is valid
-
+    pivp.lat_min =                0;//tvp.GetBBox().GetMinLat();
+    pivp.lat_max =                0;//tvp.GetBBox().GetMaxLat();
+    pivp.lon_min =                10.0;//tvp.GetBBox().GetMinLon();
+    pivp.lon_max =                10.0;//tvp.GetBBox().GetMaxLon();
+    pivp.bValid =                 true;//tvp.IsValid();                 // This VP is valid
+    */
     return pivp;
 }
-
+#ifdef OPENCPN_EXE
 ViewPort CreateCompatibleViewport( const PlugIn_ViewPort &pivp)
 {
     //    Create a system ViewPort
@@ -797,7 +812,7 @@ PlugInToolbarToolContainer::~PlugInToolbarToolContainer()
     delete bitmap_Rollover_dusk;
     delete bitmap_Rollover_night;
 }
-#endif
+#endif //OPENCPN_EXE
 
 //-----------------------------------------------------------------------------------------------------
 //
@@ -807,7 +822,7 @@ PlugInToolbarToolContainer::~PlugInToolbarToolContainer()
 
 #ifdef PLUGINMANAGER
 PlugInManager::PlugInManager(MyFrame *parent) {
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
 #ifndef __OCPN__ANDROID__
 #ifdef OCPN_USE_CURL
   m_pCurlThread = NULL;
@@ -867,7 +882,7 @@ PlugInManager::~PlugInManager() {
 #endif
 }
 
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
 /**
  *
  * For linux, set up LD_LIBRARY_PATH to the same value as the path used
@@ -951,7 +966,7 @@ bool PlugInManager::LoadAllPlugIns(bool load_enabled, bool b_enable_blackdialog)
   //    return any_dir_loaded;
 }
 
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
 // Static helper function: loads all plugins from a single directory
 bool PlugInManager::LoadPlugInDirectory(const wxString &plugin_dir, bool load_enabled, bool b_enable_blackdialog) {
   pConfig->SetPath(_T("/PlugIns/"));
@@ -1523,7 +1538,7 @@ bool PlugInManager::UnLoadPlugIn(size_t ix) {
   return true;
 }
 
-#endif //OPENCPN_PLUGIN
+#endif //OPENCPN_EXE
 
 bool PlugInManager::UnLoadAllPlugIns() {
   // for (size_t i = 0; i < plugin_array.GetCount(); i++) {
@@ -1537,7 +1552,7 @@ bool PlugInManager::UnLoadAllPlugIns() {
 
   return true;
 }
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
 
 bool PlugInManager::DeactivateAllPlugIns() {
   for (unsigned int i = 0; i < plugin_array.GetCount(); i++) {
@@ -1694,7 +1709,7 @@ FailureEpilogue:
 }
 #endif  // USE_LIBELF
 
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
 bool PlugInManager::CheckPluginCompatibility(wxString plugin_file) {
   bool b_compat = true;
 
@@ -2205,8 +2220,10 @@ bool PlugInManager::RenderAllCanvasOverlayPlugIns(ocpnDC &dc, const ViewPort &vp
 
   return true;
 }
+#endif
 
-bool PlugInManager::RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const ViewPort &vp, int canvasIndex) {
+bool PlugInManager::RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const PlugIn_ViewPort &vp, int canvasIndex) {
+#ifdef OPENCPN_EXE
   for (unsigned int i = 0; i < plugin_array.GetCount(); i++) {
     PlugInContainer *pic = plugin_array[i];
     if (pic->m_bEnabled && pic->m_bInitState) {
@@ -2250,10 +2267,13 @@ bool PlugInManager::RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const
       }
     }
   }
-
+#endif
+  PlugIn_ViewPort pivp = CreatePlugInViewport();
+  pPlugin->RenderGLOverlayMultiCanvas(pcontext, &pivp, canvasIndex);
   return true;
 }
 
+#ifdef OPENCPN_EXE
 bool PlugInManager::SendMouseEventToPlugins(wxMouseEvent &event) {
   bool bret = false;
   for (unsigned int i = 0; i < plugin_array.GetCount(); i++) {
@@ -3079,31 +3099,31 @@ int AddCanvasMenuItem(wxMenuItem *pitem, opencpn_plugin *pplugin, const char *na
   else
     return -1;
 }
-#endif // OPENCPN_PLUGIN
+#endif // OPENCPN_EXE
 
 void SetCanvasMenuItemViz(int item, bool viz, const char *name) {
-#ifdef OPENCPN_PLUGIN 
+#ifdef OPENCPN_EXE 
   /* main context popup menu */
   if (s_ppim) s_ppim->SetCanvasContextMenuItemViz(item, viz, name);
 #endif
 }
 
 void SetCanvasMenuItemGrey(int item, bool grey, const char *name) {
-#ifdef OPENCPN_PLUGIN 
+#ifdef OPENCPN_EXE 
   /* main context popup menu */
   if (s_ppim) s_ppim->SetCanvasContextMenuItemGrey(item, grey, name);
 #endif
 }
 
 void RemoveCanvasMenuItem(int item, const char *name) {
-#ifdef OPENCPN_PLUGIN 
+#ifdef OPENCPN_EXE 
     /* main context popup menu */
     if (s_ppim) s_ppim->RemoveCanvasContextMenuItem(item, name);
 #endif
 }
 
 int AddCanvasContextMenuItem(wxMenuItem *pitem, opencpn_plugin *pplugin) {
-#ifdef OPENCPN_PLUGIN  
+#ifdef OPENCPN_EXE  
   /* main context popup menu */
   return AddCanvasMenuItem(pitem, pplugin, "");
 #else
@@ -3204,7 +3224,7 @@ static wxFont& s_DefaultFont() {
 
 wxFont *OCPNGetFont(wxString TextElement, int default_size)
 {
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
   return FontMgr::Get().GetFont(TextElement, default_size);
 #else
   return &s_DefaultFont();
@@ -3213,14 +3233,14 @@ wxFont *OCPNGetFont(wxString TextElement, int default_size)
 
 wxFont *GetOCPNScaledFont_PlugIn(wxString TextElement, int default_size)
 {
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
   return GetOCPNScaledFont(TextElement, default_size);
 #else
   return &s_DefaultFont();
 #endif
 }
 
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
 double GetOCPNGUIToolScaleFactor_PlugIn(int GUIScaleFactor) {
     return g_Platform->GetToolbarScaleFactor(GUIScaleFactor);
 }
@@ -3237,14 +3257,14 @@ float GetOCPNChartScaleFactor_Plugin()
 #endif
 wxFont GetOCPNGUIScaledFont_PlugIn(wxString item)
 {
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
   return GetOCPNGUIScaledFont(item);
 #else
   return s_DefaultFont();
 #endif
 }
 
-#ifdef OPENCPN_PLUGIN
+#ifdef OPENCPN_EXE
 bool AddPersistentFontKey(wxString TextElement) {
     return FontMgr::Get().AddAuxKey( TextElement );
 }
@@ -7226,6 +7246,32 @@ int PI_PLIBRenderAreaToGL( const wxGLContext &glcc, PI_S57Obj *pObj, PlugIn_View
 
 #endif
 int GetCanvasCount() { return 1; }
+wxWindow *GetCanvasUnderMouse(void) { 
+  //return gFrame->GetCanvasUnderMouse(); 
+  return nullptr;
+}
+
+int GetCanvasIndexUnderMouse(void) {
+  //ChartCanvas *l_canvas = gFrame->GetCanvasUnderMouse();
+  //if (l_canvas) {
+  //  for (unsigned int i = 0; i < g_canvasArray.GetCount(); ++i) {
+  //    if (l_canvas == g_canvasArray[i]) return i;
+  //  }
+  //}
+  return 0;
+}
+
+wxWindow *GetCanvasByIndex(int canvasIndex) {
+  // TODO
+  // if (g_canvasConfig == 0)
+  //  return gFrame->GetPrimaryCanvas();
+  //else {
+  //  if ((canvasIndex >= 0) && g_canvasArray[canvasIndex]) {
+  //    return g_canvasArray[canvasIndex];
+  //  }
+  //}
+  return NULL;
+}
 
 void PlugInAISDrawGL(wxGLCanvas *glcanvas, const PlugIn_ViewPort &vp) {}
 
