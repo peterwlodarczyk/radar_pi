@@ -69,13 +69,13 @@ std::vector<uint8_t> JpegAppendComment(const std::vector<uint8_t>& input, const 
   }
 
 #ifdef WIN32
-  static const string Filename = "c:\\temp\\radar.log";
+  static const string LogFilename = "c:\\temp\\radar.log";
 #else
-  static const string Filename = "/tmp/radar.log";
+  static const string LogFilename = "/tmp/usv/comp/radar-opencpn.log";
 #endif
 
   static void LogWrite(const char* t, const char* str) {
-    FILE* f = fopen(Filename.c_str(), "a");
+    FILE* f = fopen(LogFilename.c_str(), "a");
     if (f) {
       fprintf(f, "%s %s", MakeLocalTimeStamp().c_str(), str);
       size_t len = strlen(str);

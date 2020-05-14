@@ -176,7 +176,7 @@ class OCPNPlatform {
 #ifdef __WXMSW__
   wxString m_config_file_name = _T("C:\\ProgramData\\opencpn\\opencpn.ini");
 #else
-  wxString m_config_file_name = _T("~/.opencpn/opencpn.conf");
+  wxString m_config_file_name = _T("/etc/opencpn/opencpn.conf");
 #endif
   OCPNPlatform() {}
   ~OCPNPlatform() {}
