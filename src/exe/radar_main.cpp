@@ -10,6 +10,7 @@
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
 #endif
+#define RENDER_OVERLAY
 
 class glChartCanvas : public wxGLCanvas {
 };
@@ -24,10 +25,11 @@ class RadarApp : public wxApp {
   PlugInManager* m_PluginManager;
   wxTimer* m_timer;
 
+#ifdef RENDER_OVERLAY
   wxGLCanvas* m_glChartCanvas;
   wxGLContext* m_glContext;
-
   void OnRenderTimer(wxTimerEvent& event);
+#endif
 
   DECLARE_EVENT_TABLE();
 };
@@ -40,13 +42,17 @@ IMPLEMENT_APP_NO_MAIN(RadarApp)
 #endif
 
 BEGIN_EVENT_TABLE(RadarApp, wxApp)
+#ifdef RENDER_OVERLAY
 EVT_TIMER(wxID_HIGHEST, RadarApp::OnRenderTimer)
+#endif
 END_EVENT_TABLE() 
 
-void RadarApp::OnRenderTimer(wxTimerEvent&) {
+#ifdef RENDER_OVERLAY
+ void RadarApp::OnRenderTimer(wxTimerEvent&) {
   LOG_INFO("[RadarApp::OnRenderTimer].");
   m_PluginManager->RenderAllGLCanvasOverlayPlugIns(m_glContext, CreatePlugInViewport(), 0);
 }
+#endif
 
 // This is executed upon startup, like 'main()' in non-wxWidgets programs.
 int RadarApp::OnExit() { 
@@ -87,18 +93,20 @@ bool RadarApp::OnInit() {
   frame->Show(true);
   SetTopWindow(frame);
 
-  m_glChartCanvas = new wxGLCanvas(frame);
+#ifdef RENDER_OVERLAY
+  m_glChartCanvas = new wxGLCanvas(frame, wxID_ANY, NULL, wxDefaultPosition, wxDefaultSize, 0, wxGLCanvasName, wxNullPalette);
   m_glContext = new wxGLContext(m_glChartCanvas);
+#endif
 
   m_PluginManager = new PlugInManager(frame);
   OC_DEBUG("[RadarApp::OnInit]<<");
   m_PluginManager->LoadAllPlugIns(true, true);
 
+#ifdef RENDER_OVERLAY
   static const int INTERVAL = 1000;  // milliseconds
   m_timer = new wxTimer(this, wxID_HIGHEST);
   m_timer->Start(INTERVAL);
-  printf("radar_exe\n");
-
+#endif
 
   return true;
 }
