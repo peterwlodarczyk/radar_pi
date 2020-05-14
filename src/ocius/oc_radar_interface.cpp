@@ -9,7 +9,13 @@
 
 using namespace std;
 
-static const std::string ImageDir = "/dev/shm/usv/live";
+#ifdef WIN32
+static const std::string ImageDir = "c:\\temp";
+#else
+//static const std::string ImageDir = "/dev/shm/usv/live";
+static const std::string ImageDir = "/tmp";
+#endif
+
 static time_t next_update = 0;
 static int oc_count = 0;
 
@@ -28,10 +34,17 @@ void OciusDumpVertexImage(int radar) {
 
   int x = viewport[2];
   int y = viewport[3];
-  unsigned char *buffer = (unsigned char *)malloc(x * y * 4);
+  int inputSize = x *y * 4;
+  unsigned char *buffer = (unsigned char *)malloc(inputSize);
+  memset(buffer, 0, inputSize);
   glReadPixels(0, 0, x, y, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+  int inputSum = 0;
+  for (int i = 0; i < inputSize; ++i)
+    inputSum += buffer[i];
+  OC_TRACE("Vierport:%d,%d,%d,%d.inputSum=%d.\n", viewport[0], viewport[1], viewport[2], viewport[3], inputSum);
 
-  unsigned char *e = (unsigned char *)malloc(x * y * 3);
+  int outputSize = x * y * 3;
+  unsigned char *e = (unsigned char *)malloc(outputSize);
   if (buffer && e) {
     for (int p = 0; p < x * y; p++) {
       e[3 * p + 0] = buffer[4 * p + 0];
@@ -41,16 +54,21 @@ void OciusDumpVertexImage(int radar) {
   }
   free(buffer);
 
-  wxImage image0(x, y);
-  image0.SetData(e);
-  wxImage image1 = image0.Mirror(true);
-  wxImage image2 = image0.Mirror(false);
+  wxImage image(x, y);
+  image.SetData(e);
+  image.SetOption("quality", 50);
 
-  OC_TRACE("Vierport:%d,%d,%d,%d\n", viewport[0], viewport[1], viewport[2], viewport[3]);
-  image2.SetOption("quality", 50);
-
-  string tmpFilename = ImageDir + '/' + name + "-tmp.jpg";
-  image2.SaveFile(tmpFilename.c_str(), wxBITMAP_TYPE_JPEG);
+#ifdef WIN32
+  string tmpFilename = string("c:\\temp\\") + name + "-tmp.jpg";
+#else
+  string tmpFilename = string("/tmp/") + name + "-tmp.jpg";  // ImageDir + '/' + name + "-tmp.jpg";
+#endif
+  if (!image.SaveFile("/tmp/radar0.bmp", wxBITMAP_TYPE_JPEG)) {
+    OC_DEBUG("ERROR: Faled to write file %s", "/tmp/radar0.bmp");
+  }
+  if (!image.Mirror(false).SaveFile(tmpFilename.c_str(), wxBITMAP_TYPE_JPEG)) {
+    OC_DEBUG("ERROR: Faled to write file %s", tmpFilename.c_str());
+  }
 
   auto uncommented = readfile(tmpFilename.c_str());
   OC_TRACE("%s=%d\n", tmpFilename.c_str(), uncommented.size());

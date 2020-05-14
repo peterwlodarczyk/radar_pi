@@ -87,6 +87,8 @@ bool RadarApp::OnInit() {
   OC_DEBUG("[RadarApp::OnInit]>>");
   LOG_INFO("[RadarApp::OnInit]>>");
 
+  wxInitAllImageHandlers();
+
   MyFrame* frame = new MyFrame(nullptr);
   frame->CreateStatusBar();
   frame->SetStatusText(_T("Radar"));
