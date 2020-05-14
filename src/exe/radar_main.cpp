@@ -105,7 +105,7 @@ bool RadarApp::OnInit() {
   m_PluginManager->LoadAllPlugIns(true, true);
 
 #ifdef RENDER_OVERLAY
-  static const int INTERVAL = 1000;  // milliseconds
+  static const int INTERVAL = 250;  // milliseconds
   m_timer = new wxTimer(this, wxID_HIGHEST);
   m_timer->Start(INTERVAL);
 #endif

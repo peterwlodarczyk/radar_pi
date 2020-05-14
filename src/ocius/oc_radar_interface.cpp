@@ -8,25 +8,25 @@
 #include "pi_common.h"
 
 using namespace std;
+using namespace std::chrono;
 
 #ifdef WIN32
 static const std::string ImageDir = "c:\\temp";
 #else
-//static const std::string ImageDir = "/dev/shm/usv/live";
-static const std::string ImageDir = "/tmp";
+static const std::string ImageDir = "/dev/shm/usv/live";
+//static const std::string ImageDir = "/tmp";
 #endif
 
-static time_t next_update = 0;
+static system_clock::time_point next_update = system_clock::now();
 static int oc_count = 0;
 
-
 void OciusDumpVertexImage(int radar) {
-  if (time(0) < next_update) 
+  system_clock::time_point now = system_clock::now();
+  if (now < next_update) 
     return;
+  next_update = now + milliseconds(100);
   string name = string("radar") + to_string(radar);
   OC_DEBUG("[OciusDumpVertexImage] %s:%d>>", name.c_str(), oc_count);
-  next_update = time(0) + 1;
-
   ++oc_count;
 
   GLint viewport[4];
@@ -53,30 +53,18 @@ void OciusDumpVertexImage(int radar) {
     }
   }
   free(buffer);
-
   wxImage image(x, y);
   image.SetData(e);
   image.SetOption("quality", 50);
 
-#ifdef WIN32
-  string tmpFilename = string("c:\\temp\\") + name + "-tmp.jpg";
-#else
-  string tmpFilename = string("/tmp/") + name + "-tmp.jpg";  // ImageDir + '/' + name + "-tmp.jpg";
-#endif
-  if (!image.SaveFile("/tmp/radar0.bmp", wxBITMAP_TYPE_JPEG)) {
-    OC_DEBUG("ERROR: Faled to write file %s", "/tmp/radar0.bmp");
-  }
-  if (!image.Mirror(false).SaveFile(tmpFilename.c_str(), wxBITMAP_TYPE_JPEG)) {
-    OC_DEBUG("ERROR: Faled to write file %s", tmpFilename.c_str());
-  }
-
-  auto uncommented = readfile(tmpFilename.c_str());
-  OC_TRACE("%s=%d\n", tmpFilename.c_str(), uncommented.size());
-  if (uncommented.size()) 
-  {
-    OC_TRACE("time=%s\n", MakeLocalTimeStamp().c_str());
+  // Write it to a file with a comment of the timestamp
+  wxMemoryOutputStream writeBuffer;
+  if (image.Mirror(false).SaveFile(writeBuffer, wxBITMAP_TYPE_JPEG) && writeBuffer.GetOutputStreamBuffer()->GetBufferSize() > 0) {
     string timestamp = MakeLocalTimeStamp();
-    auto commented = JpegAppendComment(uncommented, MakeLocalTimeStamp(), "radar0");
+    OC_TRACE("ImageSize=%d.time=%s", writeBuffer.GetOutputStreamBuffer()->GetBufferSize(), timestamp.c_str());
+    vector<uint8_t> uncommented;
+    uncommented.assign(reinterpret_cast<const uint8_t*>(writeBuffer.GetOutputStreamBuffer()->GetBufferStart()), reinterpret_cast<const uint8_t*>(writeBuffer.GetOutputStreamBuffer()->GetBufferEnd()));
+    auto commented = JpegAppendComment(uncommented, timestamp, "radar0");
 
     string filename = ImageDir + '/' + name + "-capture.jpg";
     OC_TRACE("%s=%d\n", filename.c_str(), commented.size());
@@ -88,9 +76,12 @@ void OciusDumpVertexImage(int radar) {
     if (commentedFile)
       OC_DEBUG("Wrote %d bytes to file %s:%s.", commented.size(), filename.c_str(), timestamp.c_str());
     else if (commentedFile)
-     OC_DEBUG("Failed to write file %s.", filename.c_str());
+      OC_DEBUG("Failed to write file %s.", filename.c_str());
     commentedFile.close();
   }
-
+  else {
+    OC_DEBUG("ERROR: Faled to write GL image to buffer.");
+  }
+  
   OC_TRACE("[OciusDumpVertexImage]<<");
 }

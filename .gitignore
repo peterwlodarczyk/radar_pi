@@ -16,3 +16,4 @@ exe-win32/Debug
 exe-win32/radar.log
 exe-linux/
 exe-oc_dp
+/lib-ocius/*.so
