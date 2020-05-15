@@ -152,13 +152,15 @@ int radar_start(const char* configFilename, const char* logDir, const char* live
 #endif
 
   g_ConfigFilename = configFilename;
-  printf("[radar_pi::main]\n");
-  printf("g_ConfigFilename=%s.\n", g_ConfigFilename.c_str());
-  printf("g_OciusLogFilename=%s\n", g_OciusLogFilename.c_str());
-  printf("g_OpenCPNLogFilename=%s\n", g_OpenCPNLogFilename.c_str());
-  printf("g_OciusLiveDir=%s\n", g_OciusLiveDir.c_str());
-  printf("DISPLAY=%s\n", getenv("DISPLAY"));
-  return wxEntry(argc, argv);
+  OC_DEBUG("[radar_pi::main]");
+  OC_DEBUG("g_ConfigFilename=%s.", g_ConfigFilename.c_str());
+  OC_DEBUG("g_OciusLogFilename=%s", g_OciusLogFilename.c_str());
+  OC_DEBUG("g_OpenCPNLogFilename=%s", g_OpenCPNLogFilename.c_str());
+  OC_DEBUG("g_OciusLiveDir=%s", g_OciusLiveDir.c_str());
+  OC_DEBUG("DISPLAY=%s", getenv("DISPLAY"));
+  int ret = wxEntry(argc, argv);
+  OC_DEBUG("wxEntry=%d", ret);
+  return ret;
 }
 
 void radar_stop() { 
