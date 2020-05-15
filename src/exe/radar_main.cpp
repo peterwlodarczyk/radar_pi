@@ -68,21 +68,13 @@ int RadarApp::OnExit() {
   return 0;
 }
 
-#ifdef WIN32
-#define LOG_FILENAME "radar.log"
-#else
-#define LOG_FILENAME "/tmp/usv/comp/radar.log"
-#endif
-
-
 bool RadarApp::OnInit() {
   // TODO: Get this from configuration
-  m_LogFile = fopen(LOG_FILENAME, "a");
+  m_LogFile = fopen(g_OpenCPNLogFilename.c_str(), "a");
   m_Logger = new wxLogStderr(m_LogFile);
   m_OldLogger = wxLog::GetActiveTarget();
   wxLog::SetActiveTarget(m_Logger);
   wxASSERT(m_Logger);
-
 
   OC_DEBUG("[RadarApp::OnInit]>>");
   LOG_INFO("[RadarApp::OnInit]>>");
@@ -100,6 +92,7 @@ bool RadarApp::OnInit() {
   m_glContext = new wxGLContext(m_glChartCanvas);
 #endif
 
+  g_Platform = new OCPNPlatform(g_ConfigFilename.c_str());
   m_PluginManager = new PlugInManager(frame);
   OC_DEBUG("[RadarApp::OnInit]<<");
   m_PluginManager->LoadAllPlugIns(true, true);
@@ -119,12 +112,52 @@ bool RadarApp::OnInit() {
 
 #ifdef RADAR_EXE
 int main(int argc, char* argv[]) {
+  const char* configFilename;
+  if (argc > 1) 
+    configFilename = argv[1];
+  else
+#ifdef WIN32
+    configFilename = "C:\\ProgramData\\opencpn\\opencpn.ini";
 #else
-int radar_start() {
+    configFilename = "~/.opencpn/opencpn.conf";
+#endif
+
+  const char* logDir;
+  if (argc > 2)
+    logDir  = argv[2];
+  else
+#ifdef WIN32
+    logDir = "C:\\ProgramData\\opencpn";
+#else
+    logDir = "/tmp";
+#endif
+  g_OciusLogFilename = string(logDir) + "/radar-ocius.log";
+  g_OpenCPNLogFilename = string(logDir) + "/radar-opencpn.log";
+
+  const char* liveDir;
+  if (argc > 3)
+    liveDir  = argv[3];
+  else
+#ifdef WIN32
+    liveDir = "c:\\temp\\usv\\live";
+#else
+    liveDir = "/dev/shm/usv/live";
+#endif
+  g_OciusLiveDir = liveDir;
+
+#else
+int radar_start(const char* configFilename, const char* logDir, const char* liveDir) {
   int argc = 0;
   char** argv = nullptr;
 #endif
+
+  g_ConfigFilename = configFilename;
   printf("[radar_pi::main]\n");
+  printf("g_ConfigFilename=%s.\n", g_ConfigFilename.c_str());
+  printf("g_OciusLogFilename=%s\n", g_OciusLogFilename.c_str());
+  printf("g_OpenCPNLogFilename=%s\n", g_OpenCPNLogFilename.c_str());
+  printf("g_OciusLiveDir=%s\n", g_OciusLiveDir.c_str());
+  printf("DISPLAY=%s\n", getenv("DISPLAY"));
   return wxEntry(argc, argv);
 }
 

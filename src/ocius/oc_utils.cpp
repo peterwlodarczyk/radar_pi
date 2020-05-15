@@ -68,14 +68,10 @@ std::vector<uint8_t> JpegAppendComment(const std::vector<uint8_t>& input, const 
     return std::vector<uint8_t>((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
   }
 
-#ifdef WIN32
-  static const string LogFilename = "c:\\temp\\radar.log";
-#else
-  static const string LogFilename = "/tmp/usv/comp/radar-opencpn.log";
-#endif
+extern std::string g_OciusLogFilename;
 
-  static void LogWrite(const char* t, const char* str) {
-    FILE* f = fopen(LogFilename.c_str(), "a");
+static void LogWrite(const char* t, const char* str) {
+    FILE* f = fopen(g_OciusLogFilename.c_str(), "a");
     if (f) {
       fprintf(f, "%s %s", MakeLocalTimeStamp().c_str(), str);
       size_t len = strlen(str);

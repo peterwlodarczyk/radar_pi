@@ -10,12 +10,7 @@
 using namespace std;
 using namespace std::chrono;
 
-#ifdef WIN32
-static const std::string ImageDir = "c:\\temp";
-#else
-static const std::string ImageDir = "/dev/shm/usv/live";
-//static const std::string ImageDir = "/tmp";
-#endif
+extern std::string g_OciusLiveDir;
 
 static system_clock::time_point next_update = system_clock::now();
 static int oc_count = 0;
@@ -66,7 +61,7 @@ void OciusDumpVertexImage(int radar) {
     uncommented.assign(reinterpret_cast<const uint8_t*>(writeBuffer.GetOutputStreamBuffer()->GetBufferStart()), reinterpret_cast<const uint8_t*>(writeBuffer.GetOutputStreamBuffer()->GetBufferEnd()));
     auto commented = JpegAppendComment(uncommented, timestamp, "radar0");
 
-    string filename = ImageDir + '/' + name + "-capture.jpg";
+    string filename = g_OciusLiveDir + '/' + name + "-capture.jpg";
     OC_TRACE("%s=%d\n", filename.c_str(), commented.size());
     ofstream commentedFile;
     CreateFileWithPermissions(filename.c_str(), 0666);

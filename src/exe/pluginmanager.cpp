@@ -122,76 +122,14 @@
 
 using namespace RadarPlugin;
 
-class MyConfig : public wxFileConfig {
- public:
-  MyConfig(const wxString &LocalFileName)
-      : wxFileConfig(_T (""), _T (""), LocalFileName, _T (""), wxCONFIG_USE_LOCAL_FILE) {}
-  // static int LoadMyConfig();
-  // void LoadS57Config();
-  // void LoadNavObjects();
-  // virtual void AddNewRoute(Route *pr);
-  // virtual void UpdateRoute(Route *pr);
-  // virtual void DeleteConfigRoute(Route *pr);
-
-  // virtual void AddNewTrack(Track *pt);
-  // virtual void UpdateTrack(Track *pt);
-  // virtual void DeleteConfigTrack(Track *pt);
-
-  // virtual void AddNewWayPoint(RoutePoint *pWP, int ConfigRouteNum = -1);
-  // virtual void UpdateWayPoint(RoutePoint *pWP);
-  // virtual void DeleteWayPoint(RoutePoint *pWP);
-  // virtual void AddNewTrackPoint(TrackPoint *pWP, const wxString &parent_GUID);
-
-  // virtual void CreateConfigGroups(ChartGroupArray *pGroupArray);
-  // virtual void DestroyConfigGroups(void);
-  // virtual void LoadConfigGroups(ChartGroupArray *pGroupArray);
-
-  // virtual void LoadCanvasConfigs(bool bApplyAsTemplate = false);
-  // virtual void LoadConfigCanvas(canvasConfig *cConfig, bool bApplyAsTemplate);
-
-  // virtual void SaveCanvasConfigs();
-  // virtual void SaveConfigCanvas(canvasConfig *cc);
-
-  // virtual bool UpdateChartDirs(ArrayOfCDI &dirarray);
-  // virtual bool LoadChartDirArray(ArrayOfCDI &ChartDirArray);
-  // virtual void UpdateSettings();
-  // virtual void UpdateNavObj(bool bRecreate = false);
-  // virtual bool IsChangesFileDirty();
-
-  // bool LoadLayers(wxString &path);
-  // int LoadMyConfigRaw(bool bAsTemplate = false);
-
-  // void CreateRotatingNavObjBackup();
-
-  // wxString m_sNavObjSetFile;
-  // wxString m_sNavObjSetChangesFile;
-
-  // NavObjectChanges *m_pNavObjectChangesSet;
-  // NavObjectCollection1 *m_pNavObjectInputSet;
-  // bool m_bSkipChangeSetUpdate;
-};
-
-class OCPNPlatform {
- public:
-#ifdef __WXMSW__
-  wxString m_config_file_name = _T("C:\\ProgramData\\opencpn\\opencpn.ini");
-#else
-  wxString m_config_file_name = _T("/etc/opencpn/opencpn.conf");
-#endif
-  OCPNPlatform() {}
-  ~OCPNPlatform() {}
-
-  MyConfig *GetConfigObject() {
-    MyConfig *result = NULL;
-
-    result = new MyConfig(m_config_file_name);
-
-    return result;
-  }
-};
 
 static wxFileConfig *pConfig = nullptr;
 wxAuiManager *g_pauimgr = nullptr;
+
+std::string g_ConfigFilename = "opencpn.conf";
+std::string g_OciusLogFilename = "radar-ocius.log";
+std::string g_OpenCPNLogFilename = "radar-opencpn.log";
+std::string g_OciusLiveDir = "/dev/shm/usv/live";
 
 
 #ifdef PLUGINMANAGER
@@ -200,7 +138,7 @@ static PlugInManager *s_ppim = nullptr;
 static void* s_ppim = nullptr;
 #endif
 
-OCPNPlatform *g_Platform = new OCPNPlatform();
+OCPNPlatform *g_Platform = nullptr;
 #if OPENCPN_EXE
 extern ChartDB         *ChartData;
 #endif // OPENCPN_EXE

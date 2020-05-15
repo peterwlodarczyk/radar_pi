@@ -97,12 +97,6 @@
     <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonval.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_radar_interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoReceive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -123,6 +117,12 @@
     </ClCompile>
     <ClCompile Include="..\src\exe\pluginmanager.cpp">
       <Filter>Source Files\exe</Filter>
+    </ClCompile>
+    <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_radar_interface.cpp">
+      <Filter>Source Files\ocius</Filter>
+    </ClCompile>
+    <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.cpp">
+      <Filter>Source Files\ocius</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +295,9 @@
     </Filter>
     <Filter Include="Source Files\exe">
       <UniqueIdentifier>{c2cf9c12-ff26-44ac-bcf6-406a44185928}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ocius">
+      <UniqueIdentifier>{b808db5f-d014-4e2b-8867-99bc669218bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

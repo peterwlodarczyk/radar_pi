@@ -79,6 +79,77 @@
 
 //    Assorted static helper routines
 
+class MyConfig : public wxFileConfig {
+ public:
+  MyConfig(const wxString &LocalFileName) : wxFileConfig(_T (""), _T (""), LocalFileName, _T (""), wxCONFIG_USE_LOCAL_FILE) {}
+  // static int LoadMyConfig();
+  // void LoadS57Config();
+  // void LoadNavObjects();
+  // virtual void AddNewRoute(Route *pr);
+  // virtual void UpdateRoute(Route *pr);
+  // virtual void DeleteConfigRoute(Route *pr);
+
+  // virtual void AddNewTrack(Track *pt);
+  // virtual void UpdateTrack(Track *pt);
+  // virtual void DeleteConfigTrack(Track *pt);
+
+  // virtual void AddNewWayPoint(RoutePoint *pWP, int ConfigRouteNum = -1);
+  // virtual void UpdateWayPoint(RoutePoint *pWP);
+  // virtual void DeleteWayPoint(RoutePoint *pWP);
+  // virtual void AddNewTrackPoint(TrackPoint *pWP, const wxString &parent_GUID);
+
+  // virtual void CreateConfigGroups(ChartGroupArray *pGroupArray);
+  // virtual void DestroyConfigGroups(void);
+  // virtual void LoadConfigGroups(ChartGroupArray *pGroupArray);
+
+  // virtual void LoadCanvasConfigs(bool bApplyAsTemplate = false);
+  // virtual void LoadConfigCanvas(canvasConfig *cConfig, bool bApplyAsTemplate);
+
+  // virtual void SaveCanvasConfigs();
+  // virtual void SaveConfigCanvas(canvasConfig *cc);
+
+  // virtual bool UpdateChartDirs(ArrayOfCDI &dirarray);
+  // virtual bool LoadChartDirArray(ArrayOfCDI &ChartDirArray);
+  // virtual void UpdateSettings();
+  // virtual void UpdateNavObj(bool bRecreate = false);
+  // virtual bool IsChangesFileDirty();
+
+  // bool LoadLayers(wxString &path);
+  // int LoadMyConfigRaw(bool bAsTemplate = false);
+
+  // void CreateRotatingNavObjBackup();
+
+  // wxString m_sNavObjSetFile;
+  // wxString m_sNavObjSetChangesFile;
+
+  // NavObjectChanges *m_pNavObjectChangesSet;
+  // NavObjectCollection1 *m_pNavObjectInputSet;
+  // bool m_bSkipChangeSetUpdate;
+};
+
+
+class OCPNPlatform {
+ public:
+  wxString m_config_file_name;
+  OCPNPlatform(const char *config_file_name) : m_config_file_name(config_file_name) {}
+  ~OCPNPlatform() {}
+
+  MyConfig *GetConfigObject() {
+    MyConfig *result = NULL;
+
+    result = new MyConfig(m_config_file_name);
+
+    return result;
+  }
+};
+
+extern OCPNPlatform *g_Platform;
+extern std::string g_ConfigFilename;
+extern std::string g_OciusLogFilename;
+extern std::string g_OpenCPNLogFilename;
+extern std::string g_OciusLiveDir;
+
+
 #ifdef OPENCPN_PLUGIN
 PlugIn_AIS_Target *Create_PI_AIS_Target(AIS_Target_Data *ptarget);
 
