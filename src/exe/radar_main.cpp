@@ -4,9 +4,32 @@
 #include "pluginmanager.h"
 #include "chart1.h"
 
+#if defined(WIN32) && defined(RADAR_LIB)
+#define WIN32_LEAN_AND_MEAN  // Exclude rarely-used stuff from Windows headers
+// Windows Header Files
+#include <windows.h>
+
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
+  switch (ul_reason_for_call) {
+    case DLL_PROCESS_ATTACH:
+    case DLL_THREAD_ATTACH:
+    case DLL_THREAD_DETACH:
+    case DLL_PROCESS_DETACH:
+      break;
+  }
+  return TRUE;
+}
+#endif // WIN32
+
 // For compilers that don't support precompilation, include "wx/wx.h"
 #include "wx/wxprec.h"
 
+bool  Func1() { 
+  printf("Hello\n");
+  return true;
+}
+
+static bool x = Func1();
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
 #endif
@@ -146,11 +169,14 @@ int main(int argc, char* argv[]) {
   g_OciusLiveDir = liveDir;
 
 #else
-int radar_start(const char* configFilename, const char* logDir, const char* liveDir) {
+extern "C" DECL_EXP int radar_start(const char* configFilename, const char* logDir, const char* liveDir) {
   int argc = 0;
   char** argv = nullptr;
 #endif
 
+  string s = "Peter";
+  s = string(configFilename);
+  g_ConfigFilename = "Paul";
   g_ConfigFilename = configFilename;
   OC_DEBUG("[radar_pi::main]");
   OC_DEBUG("g_ConfigFilename=%s.", g_ConfigFilename.c_str());
@@ -158,12 +184,13 @@ int radar_start(const char* configFilename, const char* logDir, const char* live
   OC_DEBUG("g_OpenCPNLogFilename=%s", g_OpenCPNLogFilename.c_str());
   OC_DEBUG("g_OciusLiveDir=%s", g_OciusLiveDir.c_str());
   OC_DEBUG("DISPLAY=%s", getenv("DISPLAY"));
+  return 7;
   int ret = wxEntry(argc, argv);
   OC_DEBUG("wxEntry=%d", ret);
   return ret;
 }
 
-void radar_stop() { 
+extern "C" DECL_EXP void radar_stop() { 
   wxGetApp().GetTopWindow()->Close(); 
 }
 

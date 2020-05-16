@@ -1,27 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug_ocius|x64">
-      <Configuration>Debug_ocius</Configuration>
+    <ProjectConfiguration Include="lib|Win32">
+      <Configuration>lib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="lib|x64">
+      <Configuration>lib</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
+    <ProjectConfiguration Include="exe|Win32">
+      <Configuration>exe</Configuration>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="MinSizeRel|x64">
-      <Configuration>MinSizeRel</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="RelWithDebInfo|x64">
-      <Configuration>RelWithDebInfo</Configuration>
+    <ProjectConfiguration Include="exe|x64">
+      <Configuration>exe</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -34,27 +30,22 @@
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='exe|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='exe|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='lib|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='lib|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
@@ -68,40 +59,40 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">H:\home\user\src\radar_pi\exe-win32\Debug\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">H:\home\user\src\radar_pi\exe-win32\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar_pi.dir\Debug\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">radar_pi.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">radar_pi</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">radar_pi</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">H:\home\user\src\radar_pi\exe-win32\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar_pi.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">radar_pi</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">H:\home\user\src\radar_pi\exe-win32\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar_pi.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">radar_pi</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">H:\home\user\src\radar_pi\exe-win32\RelWithDebInfo\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar_pi.dir\RelWithDebInfo\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">radar_pi</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='exe|x64'">bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='lib|x64'">bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='exe|Win32'">bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='lib|Win32'">bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='exe|x64'">int\exe-x64\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='lib|x64'">int\lib-x64\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='exe|Win32'">int\exe-win32\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='lib|Win32'">int\lib-win32\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='exe|x64'">radar_exe-x64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='exe|Win32'">radar_exe</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='lib|x64'">radar_lib-x64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='lib|Win32'">radar_lib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='exe|x64'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='exe|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='lib|x64'">.dll</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='lib|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='exe|x64'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='exe|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='lib|x64'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='lib|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='exe|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='exe|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='lib|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='lib|Win32'">true</GenerateManifest>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='lib|Win32'">
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='lib|x64'">
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='exe|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets_src\lib\vc_dll\mswud;$(OCIUS_LIB_DIR)\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets\lib\vc14x_x64_dll\mswud;$(OCIUS_LIB_DIR)\wxWidgets\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -120,10 +111,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;__WXDEBUG__;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src;..\src\nmea0183;..\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src;..\src\nmea0183;..\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -131,22 +122,23 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxbase31ud.lib;wxmsw31ud_core.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxmsw31ud_html.lib;wxmsw31ud_adv.lib;wxmsw31ud_gl.lib;wxmsw31ud_aui.lib;wxpngd.lib;wxtiffd.lib;wxjpegd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\libs\wxWidgets\lib\vc14x_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>H:/home/user/src/radar_pi/exe-win32/Debug/radar_pi.lib</ImportLibrary>
-      <ProgramDataBaseFile>H:/home/user/src/radar_pi/exe-win32/Debug/radar_pi.pdb</ProgramDataBaseFile>
+      <ImportLibrary>
+      </ImportLibrary>
+      <ProgramDataBaseFile>bin/radar_exe-x64.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_ocius|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='exe|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets_src\lib\vc_dll\mswud;$(OCIUS_LIB_DIR)\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets\lib\vc14x_dll\mswu;$(OCIUS_LIB_DIR)\wxWidgets\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -165,10 +157,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;__WXDEBUG__;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src;..\src\nmea0183;..\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src;..\src\nmea0183;..\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -176,130 +168,45 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <AdditionalDependencies>wxbase31ud.lib;wxmsw31ud_core.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxmsw31ud_html.lib;wxmsw31ud_adv.lib;wxmsw31ud_gl.lib;wxmsw31ud_aui.lib;wxpngd.lib;wxtiffd.lib;wxjpegd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\libs\wxWidgets\lib\vc14x_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>H:/home/user/src/radar_pi/exe-win32/Debug/radar_pi.lib</ImportLibrary>
-      <ProgramDataBaseFile>H:/home/user/src/radar_pi/exe-win32/Debug/radar_pi.pdb</ProgramDataBaseFile>
+      <ImportLibrary>
+      </ImportLibrary>
+      <ProgramDataBaseFile>bin/radar_exe.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='lib|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets\lib\vc14x_x64_dll\mswud;$(OCIUS_LIB_DIR)\wxWidgets\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <UseFullPaths>false</UseFullPaths>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
-    <Link>
-      <AdditionalDependencies>C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opengl32.lib;glu32.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opengl32.lib;glu32.lib;opencpn.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opencpn.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>H:/home/user/src/radar_pi/exe-win32/Release/radar_pi.lib</ImportLibrary>
-      <ProgramDataBaseFile>H:/home/user/src/radar_pi/exe-win32/Release/radar_pi.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <Optimization>MinSpace</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <UseFullPaths>false</UseFullPaths>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
-    <Link>
-      <AdditionalDependencies>C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opengl32.lib;glu32.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opengl32.lib;glu32.lib;opencpn.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opencpn.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>H:/home/user/src/radar_pi/exe-win32/MinSizeRel/radar_pi.lib</ImportLibrary>
-      <ProgramDataBaseFile>H:/home/user/src/radar_pi/exe-win32/MinSizeRel/radar_pi.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";RADAR_EXE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;__WXDEBUG__;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\include;..\src;..\src\nmea0183;..\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>H:\home\user\src\radar_pi\include;H:\home\user\src\radar_pi\src;H:\home\user\src\radar_pi\src\nmea0183;H:\home\user\src\radar_pi\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\src;..\src\nmea0183;..\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -307,14 +214,61 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opengl32.lib;glu32.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opengl32.lib;glu32.lib;opencpn.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_core.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_net.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxbase31ud_xml.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_html.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_adv.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_gl.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxmsw31ud_aui.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxpngd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxtiffd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxjpegd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxzlibd.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxregexud.lib;C:\dev\libs\wxWidgets_src\lib\vc_dll\wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;opencpn.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxbase31ud.lib;wxmsw31ud_core.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxmsw31ud_html.lib;wxmsw31ud_adv.lib;wxmsw31ud_gl.lib;wxmsw31ud_aui.lib;wxpngd.lib;wxtiffd.lib;wxjpegd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\libs\wxWidgets\lib\vc14x_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>H:/home/user/src/radar_pi/exe-win32/RelWithDebInfo/radar_pi.lib</ImportLibrary>
-      <ProgramDataBaseFile>H:/home/user/src/radar_pi/exe-win32/RelWithDebInfo/radar_pi.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <ImportLibrary>bin/radar_lib-x64.lib</ImportLibrary>
+      <ProgramDataBaseFile>bin/radar_lib-x64.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='lib|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\src\exe;..\src;..\src\nmea0183;..\src\wxJSON;$(OCIUS_LIB_DIR)\wxWidgets\lib\vc14x_dll\mswu;$(OCIUS_LIB_DIR)\wxWidgets\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";RADAR_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;__WXDEBUG__;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\include;..\src;..\src\nmea0183;..\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>..\include;..\src;..\src\nmea0183;..\src\wxJSON;C:\dev\libs\wxWidgets_src\lib\vc_dll\mswud;C:\dev\libs\wxWidgets_src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>wxbase31ud.lib;wxmsw31ud_core.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxmsw31ud_html.lib;wxmsw31ud_adv.lib;wxmsw31ud_gl.lib;wxmsw31ud_aui.lib;wxpngd.lib;wxtiffd.lib;wxjpegd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;opengl32.lib;glu32.lib;winmm.lib;comctl32.lib;uuid.lib;oleacc.lib;uxtheme.lib;rpcrt4.lib;shlwapi.lib;version.lib;wsock32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\libs\wxWidgets\lib\vc14x_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>bin/radar_lib.lib</ImportLibrary>
+      <ProgramDataBaseFile>bin/radar_lib.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -327,94 +281,94 @@
     <ClInclude Include="..\src\exe\chart1.h" />
     <ClInclude Include="..\src\exe\pluginmanager.h" />
     <ClInclude Include="..\src\ocpn_plugin.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\radar_exe.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\ControlsDialog.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\ControlsDialog.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\GuardZone.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\GuardZone.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\GuardZoneBogey.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\GuardZoneBogey.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\Kalman.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\Kalman.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\Matrix.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\MessageBox.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\MessageBox.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\OptionsDialog.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\OptionsDialog.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarCanvas.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarCanvas.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarControl.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarControlItem.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarDraw.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarDraw.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarDrawShader.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarDrawShader.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarDrawVertex.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarDrawVertex.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarFactory.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarFactory.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarInfo.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarInfo.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarMarpa.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarMarpa.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarPanel.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarPanel.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarReceive.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarType.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\SelectDialog.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\SelectDialog.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\SoftwareControlSet.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\TextureFont.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\TextureFont.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\TrailBuffer.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\TrailBuffer.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\drawutil.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\drawutil.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\icons.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\icons.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\pi_common.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\shaderutil.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\shaderutil.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\socketutil.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\socketutil.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\nmea0183.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\nmea0183.hpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\Response.hpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\response.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\Sentence.hpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\sentence.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\talkerid.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hexvalue.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\expid.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\hdt.hpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hdt.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\hdg.hpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hdg.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\hdm.hpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hdm.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonreader.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonval.cpp" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_radar_interface.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\ocius\oc_radar_interface.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\br24type.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\br3gtype.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\br4gatype.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\br4gbtype.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\haloatype.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\halobtype.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoCommon.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoReceive.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoReceive.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoControl.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoControl.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoControlSet.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoControlsDialog.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoControlsDialog.h" />
-    <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoLocate.cpp" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoLocate.h" />
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoRadarInfo.h" />
+    <ClInclude Include="..\src\radar_exe.h" />
+    <ClCompile Include="..\src\ControlsDialog.cpp" />
+    <ClInclude Include="..\src\ControlsDialog.h" />
+    <ClCompile Include="..\src\GuardZone.cpp" />
+    <ClInclude Include="..\src\GuardZone.h" />
+    <ClCompile Include="..\src\GuardZoneBogey.cpp" />
+    <ClInclude Include="..\src\GuardZoneBogey.h" />
+    <ClCompile Include="..\src\Kalman.cpp" />
+    <ClInclude Include="..\src\Kalman.h" />
+    <ClInclude Include="..\src\Matrix.h" />
+    <ClCompile Include="..\src\MessageBox.cpp" />
+    <ClInclude Include="..\src\MessageBox.h" />
+    <ClCompile Include="..\src\OptionsDialog.cpp" />
+    <ClInclude Include="..\src\OptionsDialog.h" />
+    <ClCompile Include="..\src\RadarCanvas.cpp" />
+    <ClInclude Include="..\src\RadarCanvas.h" />
+    <ClInclude Include="..\src\RadarControl.h" />
+    <ClInclude Include="..\src\RadarControlItem.h" />
+    <ClCompile Include="..\src\RadarDraw.cpp" />
+    <ClInclude Include="..\src\RadarDraw.h" />
+    <ClCompile Include="..\src\RadarDrawShader.cpp" />
+    <ClInclude Include="..\src\RadarDrawShader.h" />
+    <ClCompile Include="..\src\RadarDrawVertex.cpp" />
+    <ClInclude Include="..\src\RadarDrawVertex.h" />
+    <ClCompile Include="..\src\RadarFactory.cpp" />
+    <ClInclude Include="..\src\RadarFactory.h" />
+    <ClCompile Include="..\src\RadarInfo.cpp" />
+    <ClInclude Include="..\src\RadarInfo.h" />
+    <ClCompile Include="..\src\RadarMarpa.cpp" />
+    <ClInclude Include="..\src\RadarMarpa.h" />
+    <ClCompile Include="..\src\RadarPanel.cpp" />
+    <ClInclude Include="..\src\RadarPanel.h" />
+    <ClInclude Include="..\src\RadarReceive.h" />
+    <ClInclude Include="..\src\RadarType.h" />
+    <ClCompile Include="..\src\SelectDialog.cpp" />
+    <ClInclude Include="..\src\SelectDialog.h" />
+    <ClInclude Include="..\src\SoftwareControlSet.h" />
+    <ClCompile Include="..\src\TextureFont.cpp" />
+    <ClInclude Include="..\src\TextureFont.h" />
+    <ClInclude Include="..\src\TrailBuffer.h" />
+    <ClCompile Include="..\src\TrailBuffer.cpp" />
+    <ClCompile Include="..\src\drawutil.cpp" />
+    <ClInclude Include="..\src\drawutil.h" />
+    <ClCompile Include="..\src\icons.cpp" />
+    <ClInclude Include="..\src\icons.h" />
+    <ClInclude Include="..\src\pi_common.h" />
+    <ClCompile Include="..\src\shaderutil.cpp" />
+    <ClInclude Include="..\src\shaderutil.h" />
+    <ClCompile Include="..\src\socketutil.cpp" />
+    <ClInclude Include="..\src\socketutil.h" />
+    <ClCompile Include="..\src\nmea0183\nmea0183.cpp" />
+    <ClInclude Include="..\src\nmea0183\nmea0183.hpp" />
+    <ClInclude Include="..\src\nmea0183\Response.hpp" />
+    <ClCompile Include="..\src\nmea0183\response.cpp" />
+    <ClInclude Include="..\src\nmea0183\Sentence.hpp" />
+    <ClCompile Include="..\src\nmea0183\sentence.cpp" />
+    <ClCompile Include="..\src\nmea0183\talkerid.cpp" />
+    <ClCompile Include="..\src\nmea0183\hexvalue.cpp" />
+    <ClCompile Include="..\src\nmea0183\expid.cpp" />
+    <ClInclude Include="..\src\nmea0183\hdt.hpp" />
+    <ClCompile Include="..\src\nmea0183\hdt.cpp" />
+    <ClInclude Include="..\src\nmea0183\hdg.hpp" />
+    <ClCompile Include="..\src\nmea0183\hdg.cpp" />
+    <ClInclude Include="..\src\nmea0183\hdm.hpp" />
+    <ClCompile Include="..\src\nmea0183\hdm.cpp" />
+    <ClCompile Include="..\src\wxJSON\jsonreader.cpp" />
+    <ClCompile Include="..\src\wxJSON\jsonval.cpp" />
+    <ClCompile Include="..\src\ocius\oc_utils.cpp" />
+    <ClInclude Include="..\src\ocius\oc_utils.h" />
+    <ClCompile Include="..\src\ocius\oc_radar_interface.cpp" />
+    <ClInclude Include="..\src\ocius\oc_radar_interface.h" />
+    <ClInclude Include="..\src\navico\br24type.h" />
+    <ClInclude Include="..\src\navico\br3gtype.h" />
+    <ClInclude Include="..\src\navico\br4gatype.h" />
+    <ClInclude Include="..\src\navico\br4gbtype.h" />
+    <ClInclude Include="..\src\navico\haloatype.h" />
+    <ClInclude Include="..\src\navico\halobtype.h" />
+    <ClInclude Include="..\src\navico\NavicoCommon.h" />
+    <ClCompile Include="..\src\navico\NavicoReceive.cpp" />
+    <ClInclude Include="..\src\navico\NavicoReceive.h" />
+    <ClCompile Include="..\src\navico\NavicoControl.cpp" />
+    <ClInclude Include="..\src\navico\NavicoControl.h" />
+    <ClInclude Include="..\src\navico\NavicoControlSet.h" />
+    <ClCompile Include="..\src\navico\NavicoControlsDialog.cpp" />
+    <ClInclude Include="..\src\navico\NavicoControlsDialog.h" />
+    <ClCompile Include="..\src\navico\NavicoLocate.cpp" />
+    <ClInclude Include="..\src\navico\NavicoLocate.h" />
+    <ClInclude Include="..\src\navico\NavicoRadarInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\CMakeLists.txt" />

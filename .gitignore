@@ -17,3 +17,6 @@ exe-win32/radar.log
 exe-linux/
 exe-oc_dp
 /lib-ocius/*.so
+exe-win32/bin
+exe-win32/int
+exe-win32/radar.log exe-win32/radar-ocius.log exe-win32/radar-opencpn.log

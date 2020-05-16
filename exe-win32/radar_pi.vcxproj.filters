@@ -1,114 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\ControlsDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\GuardZone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\GuardZoneBogey.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\Kalman.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\MessageBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\OptionsDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarCanvas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarDraw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarDrawShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarDrawVertex.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarMarpa.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\RadarPanel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\SelectDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\TextureFont.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\TrailBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\drawutil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\icons.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\shaderutil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\socketutil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\nmea0183.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\response.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\sentence.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\talkerid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hexvalue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\expid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hdt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hdg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\nmea0183\hdm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonreader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\wxJSON\jsonval.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoReceive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoControlsDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\navico\NavicoLocate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\radar_pi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -118,164 +10,46 @@
     <ClCompile Include="..\src\exe\pluginmanager.cpp">
       <Filter>Source Files\exe</Filter>
     </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_radar_interface.cpp">
-      <Filter>Source Files\ocius</Filter>
-    </ClCompile>
-    <ClCompile Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.cpp">
-      <Filter>Source Files\ocius</Filter>
-    </ClCompile>
+    <ClCompile Include="..\src\ControlsDialog.cpp" />
+    <ClCompile Include="..\src\GuardZone.cpp" />
+    <ClCompile Include="..\src\GuardZoneBogey.cpp" />
+    <ClCompile Include="..\src\Kalman.cpp" />
+    <ClCompile Include="..\src\MessageBox.cpp" />
+    <ClCompile Include="..\src\OptionsDialog.cpp" />
+    <ClCompile Include="..\src\RadarCanvas.cpp" />
+    <ClCompile Include="..\src\RadarDraw.cpp" />
+    <ClCompile Include="..\src\RadarDrawShader.cpp" />
+    <ClCompile Include="..\src\RadarDrawVertex.cpp" />
+    <ClCompile Include="..\src\RadarFactory.cpp" />
+    <ClCompile Include="..\src\RadarInfo.cpp" />
+    <ClCompile Include="..\src\RadarMarpa.cpp" />
+    <ClCompile Include="..\src\RadarPanel.cpp" />
+    <ClCompile Include="..\src\SelectDialog.cpp" />
+    <ClCompile Include="..\src\TextureFont.cpp" />
+    <ClCompile Include="..\src\TrailBuffer.cpp" />
+    <ClCompile Include="..\src\drawutil.cpp" />
+    <ClCompile Include="..\src\icons.cpp" />
+    <ClCompile Include="..\src\shaderutil.cpp" />
+    <ClCompile Include="..\src\socketutil.cpp" />
+    <ClCompile Include="..\src\nmea0183\nmea0183.cpp" />
+    <ClCompile Include="..\src\nmea0183\response.cpp" />
+    <ClCompile Include="..\src\nmea0183\sentence.cpp" />
+    <ClCompile Include="..\src\nmea0183\talkerid.cpp" />
+    <ClCompile Include="..\src\nmea0183\hexvalue.cpp" />
+    <ClCompile Include="..\src\nmea0183\expid.cpp" />
+    <ClCompile Include="..\src\nmea0183\hdt.cpp" />
+    <ClCompile Include="..\src\nmea0183\hdg.cpp" />
+    <ClCompile Include="..\src\nmea0183\hdm.cpp" />
+    <ClCompile Include="..\src\wxJSON\jsonreader.cpp" />
+    <ClCompile Include="..\src\wxJSON\jsonval.cpp" />
+    <ClCompile Include="..\src\ocius\oc_utils.cpp" />
+    <ClCompile Include="..\src\ocius\oc_radar_interface.cpp" />
+    <ClCompile Include="..\src\navico\NavicoReceive.cpp" />
+    <ClCompile Include="..\src\navico\NavicoControl.cpp" />
+    <ClCompile Include="..\src\navico\NavicoControlsDialog.cpp" />
+    <ClCompile Include="..\src\navico\NavicoLocate.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\radar_exe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\ControlsDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\GuardZone.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\GuardZoneBogey.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\Kalman.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\Matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\MessageBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\OptionsDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarCanvas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarControl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarControlItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarDraw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarDrawShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarDrawVertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarMarpa.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarPanel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarReceive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\RadarType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\SelectDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\SoftwareControlSet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\TextureFont.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\TrailBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\drawutil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\icons.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\pi_common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\shaderutil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\socketutil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\nmea0183.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\Response.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\Sentence.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\hdt.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\hdg.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\nmea0183\hdm.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\ocius\oc_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\ocius\oc_radar_interface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\br24type.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\br3gtype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\br4gatype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\br4gbtype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\haloatype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\halobtype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoCommon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoReceive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoControl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoControlSet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoControlsDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoLocate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="H:\home\user\src\radar_pi\src\navico\NavicoRadarInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\exe\chart1.h">
       <Filter>Source Files\exe</Filter>
     </ClInclude>
@@ -285,6 +59,56 @@
     <ClInclude Include="..\src\ocpn_plugin.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\radar_exe.h" />
+    <ClInclude Include="..\src\ControlsDialog.h" />
+    <ClInclude Include="..\src\GuardZone.h" />
+    <ClInclude Include="..\src\GuardZoneBogey.h" />
+    <ClInclude Include="..\src\Kalman.h" />
+    <ClInclude Include="..\src\Matrix.h" />
+    <ClInclude Include="..\src\MessageBox.h" />
+    <ClInclude Include="..\src\OptionsDialog.h" />
+    <ClInclude Include="..\src\RadarCanvas.h" />
+    <ClInclude Include="..\src\RadarControl.h" />
+    <ClInclude Include="..\src\RadarControlItem.h" />
+    <ClInclude Include="..\src\RadarDraw.h" />
+    <ClInclude Include="..\src\RadarDrawShader.h" />
+    <ClInclude Include="..\src\RadarDrawVertex.h" />
+    <ClInclude Include="..\src\RadarFactory.h" />
+    <ClInclude Include="..\src\RadarInfo.h" />
+    <ClInclude Include="..\src\RadarMarpa.h" />
+    <ClInclude Include="..\src\RadarPanel.h" />
+    <ClInclude Include="..\src\RadarReceive.h" />
+    <ClInclude Include="..\src\RadarType.h" />
+    <ClInclude Include="..\src\SelectDialog.h" />
+    <ClInclude Include="..\src\SoftwareControlSet.h" />
+    <ClInclude Include="..\src\TextureFont.h" />
+    <ClInclude Include="..\src\TrailBuffer.h" />
+    <ClInclude Include="..\src\drawutil.h" />
+    <ClInclude Include="..\src\icons.h" />
+    <ClInclude Include="..\src\pi_common.h" />
+    <ClInclude Include="..\src\shaderutil.h" />
+    <ClInclude Include="..\src\socketutil.h" />
+    <ClInclude Include="..\src\nmea0183\nmea0183.hpp" />
+    <ClInclude Include="..\src\nmea0183\Response.hpp" />
+    <ClInclude Include="..\src\nmea0183\Sentence.hpp" />
+    <ClInclude Include="..\src\nmea0183\hdt.hpp" />
+    <ClInclude Include="..\src\nmea0183\hdg.hpp" />
+    <ClInclude Include="..\src\nmea0183\hdm.hpp" />
+    <ClInclude Include="..\src\ocius\oc_utils.h" />
+    <ClInclude Include="..\src\ocius\oc_radar_interface.h" />
+    <ClInclude Include="..\src\navico\br24type.h" />
+    <ClInclude Include="..\src\navico\br3gtype.h" />
+    <ClInclude Include="..\src\navico\br4gatype.h" />
+    <ClInclude Include="..\src\navico\br4gbtype.h" />
+    <ClInclude Include="..\src\navico\haloatype.h" />
+    <ClInclude Include="..\src\navico\halobtype.h" />
+    <ClInclude Include="..\src\navico\NavicoCommon.h" />
+    <ClInclude Include="..\src\navico\NavicoReceive.h" />
+    <ClInclude Include="..\src\navico\NavicoControl.h" />
+    <ClInclude Include="..\src\navico\NavicoControlSet.h" />
+    <ClInclude Include="..\src\navico\NavicoControlsDialog.h" />
+    <ClInclude Include="..\src\navico\NavicoLocate.h" />
+    <ClInclude Include="..\src\navico\NavicoRadarInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
