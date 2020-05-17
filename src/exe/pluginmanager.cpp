@@ -3088,7 +3088,7 @@ wxWindow *GetOCPNCanvasWindow() {
   if (s_ppim) {
     MyFrame *pFrame = s_ppim->GetParentFrame();
     // pret = (wxWindow *)pFrame->GetPrimaryCanvas();
-    pret = pFrame;
+    pret = (wxWindow *)pFrame;
   }
 #endif
 return pret;

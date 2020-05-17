@@ -38,9 +38,11 @@
 //#include "config.h"
 
 #include "ocpn_plugin.h"
+//namespace RadarPlugin{ class radar_pi;}
 #include "radar_pi.h"
 
-#include "chart1.h"                 // for MyFrame
+class MyFrame;
+//#include "chart1.h"                 // for MyFrame
 //#include "chcanv.h"                 // for ViewPort
 //#include "OCPN_Sound.h"
 //#include "chartimg.h"
