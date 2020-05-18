@@ -12,6 +12,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
 option(RADAR_EXE "Build radar exe" OFF)
 option(OC_DP "Build ocius daemon proc" OFF)
 option(OPENCPN_PLUGIN "OpenCPN Plugin" OFF)
+option(ENABLE_EMULATOR "Enable Emulator" OFF)
 
 PROJECT(radar_pi)
 SET(PACKAGE_NAME radar_pi)
@@ -39,6 +40,17 @@ INCLUDE("cmake/PluginConfigure.cmake")
 
 # For convenience we define the sources as a variable. You can add
 # header files and cpp/c files and CMake will sort them out
+
+SET(SRC_EMULATOR
+            src/emulator/EmulatorControl.cpp        
+            src/emulator/EmulatorControl.h          
+            src/emulator/EmulatorControlSet.h       
+            src/emulator/EmulatorControlsDialog.cpp 
+            src/emulator/EmulatorControlsDialog.h   
+            src/emulator/EmulatorReceive.cpp        
+            src/emulator/EmulatorReceive.h          
+            src/emulator/emulatortype.h
+)
 
 SET(SRC_NAVICO
             src/navico/br24type.h
@@ -202,9 +214,14 @@ INCLUDE_DIRECTORIES(src/wxJSON)
 INCLUDE_DIRECTORIES(src/exe)
 INCLUDE_DIRECTORIES(src)
 
+SET(SRC ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+IF (ENABLE_EMULATOR)
+  SET(SRC ${SRC_EMULATOR} ${SRC})
+ENDIF()
+
 IF (RADAR_EXE OR OC_DP)
   MESSAGE(STATUS "Radar Executable")
-  ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_OCIUS_MAIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+  ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_OCIUS_MAIN} ${SRC})
   ADD_DEFINITIONS(-DRADAR_EXE)
   TARGET_LINK_LIBRARIES(${PACKAGE_NAME} ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARY})
 ELSEIF (OC_DP)
@@ -218,8 +235,7 @@ ELSEIF (OC_DP)
   INCLUDE_DIRECTORIES("../oc_usv/oc_common")
   
   MESSAGE(STATUS "ocius daemon")
-  #ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_OC_DP})
-  ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_OCIUS_MAIN} ${SRC_OC_DP} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+  ADD_EXECUTABLE(${PACKAGE_NAME} ${SRC_OCIUS_MAIN} ${SRC_OC_DP} ${SRC})
   ADD_DEFINITIONS(-DOC_DP)
   TARGET_LINK_LIBRARIES(${PACKAGE_NAME} 
     ${wxWidgets_LIBRARIES} 
@@ -234,13 +250,13 @@ ELSE()
   IF (OPENCPN_PLUGIN)
     MESSAGE(STATUS "OpenCPN Plugin")
     ADD_DEFINITIONS(-DOPENCPN_PLUGIN)
-    ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_OPENCPN_PLUGIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+    ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_OPENCPN_PLUGIN} ${SRC})
     INCLUDE("cmake/PluginInstall.cmake")
     INCLUDE("cmake/PluginLocalization.cmake")
     INCLUDE("cmake/PluginPackage.cmake")
   ELSE()
     MESSAGE(STATUS "Ocius Plugin")
     ADD_DEFINITIONS(-DOCIUS_PLUGIN)
-    ADD_LIBRARY(radar_oc SHARED ${SRC_OCIUS_MAIN} ${SRC_RADAR} ${SRC_NMEA0183} ${SRC_JSON} ${SRC_OCIUS} ${SRC_NAVICO})
+    ADD_LIBRARY(radar_oc SHARED ${SRC_OCIUS_MAIN} )
   ENDIF()
 ENDIF()

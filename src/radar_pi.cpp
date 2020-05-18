@@ -255,6 +255,7 @@ int radar_pi::Init(void) {
   m_pMessageBox = new MessageBox;
   m_pMessageBox->Create(m_parent_window, this);
   LOG_INFO(wxT(PLUGIN_VERSION_WITH_DATE));
+
   m_locator = 0;
 
   // Create objects before config, so config can set data in it
@@ -298,7 +299,6 @@ int radar_pi::Init(void) {
                                   _("Radar plugin with support for multiple radars"), NULL, RADAR_TOOL_POSITION, 0, this);
   #endif
 
-  LOG_INFO(wxT("!!!!!!!!!!!!!!!"));
   // CacheSetToolbarToolBitmaps(BM_ID_RED, BM_ID_BLANK);
 
   // Now that the settings are made we can initialize the RadarInfos

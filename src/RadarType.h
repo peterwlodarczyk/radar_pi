@@ -40,9 +40,11 @@
 #include "navico/NavicoControlsDialog.h"
 #include "navico/NavicoReceive.h"
 
+#ifdef ENABLE_EMULATOR
 #include "emulator/EmulatorControl.h"
 #include "emulator/EmulatorControlsDialog.h"
 #include "emulator/EmulatorReceive.h"
+#endif
 
 #endif /* _RADARTYPE_H_ */
 
@@ -86,7 +88,9 @@
 
 // TODO: Add Garmin etc.
 
+#ifdef ENABLE_EMULATOR
 #include "emulator/emulatortype.h"
+#endif
 
 #undef DEFINE_RADAR  // Prepare for next inclusion
 #undef INITIALIZE_RADAR

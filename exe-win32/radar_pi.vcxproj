@@ -151,7 +151,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";RADAR_EXE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";RADAR_EXE;ENABLE_EMULATOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -242,7 +242,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";RADAR_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;__MSVC__;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;wxDEBUG_LEVEL=0;WXUSINGDLL;UNICODE;_UNICODE;ocpnUSE_GL;_DEBUG;__WXDEBUG__;CMAKE_INTDIR="Debug";RADAR_LIB;ENABLE_EMULATOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>

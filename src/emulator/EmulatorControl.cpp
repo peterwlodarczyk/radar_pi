@@ -54,7 +54,7 @@ void EmulatorControl::RadarTxOff() { m_ri->m_state.Update(RADAR_STANDBY); }
 void EmulatorControl::RadarTxOn() {
   if (m_ri) {
     m_ri->m_state.Update(RADAR_TRANSMIT);
-  } 
+  }
 }
 
 bool EmulatorControl::RadarStayAlive() { return true; }
