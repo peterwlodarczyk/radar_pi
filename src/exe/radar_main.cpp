@@ -178,9 +178,6 @@ int main(int argc, char* argv[]) {
 #else
     logDir = "/tmp";
 #endif
-  g_OciusLogFilename = string(logDir) + "/radar-ocius.log";
-  g_OpenCPNLogFilename = string(logDir) + "/radar-opencpn.log";
-
   const char* liveDir;
   if (argc > 3)
     liveDir = argv[3];
@@ -190,7 +187,6 @@ int main(int argc, char* argv[]) {
 #else
     liveDir = "/dev/shm/usv/live";
 #endif
-  g_OciusLiveDir = liveDir;
 
 #else
 bool radar_start(const char* configFilename, const char* logDir, const char* liveDir) {
@@ -203,7 +199,9 @@ bool radar_start(const char* configFilename, const char* logDir, const char* liv
     g_OpenCPNLogFilename = string(logDir) + '/' + g_OpenCPNLogFilename;
   }
 
+  g_OciusLiveDir = liveDir;
   g_ConfigFilename = configFilename;
+
   OC_DEBUG("[radar_pi::main]");
   OC_DEBUG("g_ConfigFilename=%s.", g_ConfigFilename.c_str());
   OC_DEBUG("g_OciusLogFilename=%s", g_OciusLogFilename.c_str());
