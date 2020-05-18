@@ -29,67 +29,46 @@
  ***************************************************************************
  */
 
-#if !defined(DEFINE_RADAR)
-#ifndef _RADARTYPE_H_
-#define _RADARTYPE_H_
+#include "EmulatorControl.h"
 
-#include "RadarInfo.h"
-#include "pi_common.h"
+PLUGIN_BEGIN_NAMESPACE
 
-#include "navico/NavicoControl.h"
-#include "navico/NavicoControlsDialog.h"
-#include "navico/NavicoReceive.h"
+EmulatorControl::EmulatorControl() {
+  m_pi = 0;
+  m_ri = 0;
+  m_name = wxT("Emulator");
+}
 
-#include "emulator/EmulatorControl.h"
-#include "emulator/EmulatorControlsDialog.h"
-#include "emulator/EmulatorReceive.h"
+EmulatorControl::~EmulatorControl() {}
 
-#endif /* _RADARTYPE_H_ */
+bool EmulatorControl::Init(radar_pi *pi, RadarInfo *ri, NetworkAddress &ifadr, NetworkAddress &radaradr) {
+  m_pi = pi;
+  m_ri = ri;
+  m_name = ri->m_name;
 
-#define DEFINE_RADAR(t, x, s, l, a, b, c, d)
-#define INITIALIZE_RADAR
-#endif
+  return true;
+}
 
-#if !defined(DEFINE_RANGE_METRIC)
-#define DEFINE_RANGE_METRIC(t, x)
-#endif
+void EmulatorControl::RadarTxOff() { m_ri->m_state.Update(RADAR_STANDBY); }
 
-#if !defined(DEFINE_RANGE_MIXED)
-#define DEFINE_RANGE_MIXED(t, x)
-#endif
+void EmulatorControl::RadarTxOn() {
+  if (m_ri) {
+    m_ri->m_state.Update(RADAR_TRANSMIT);
+  } 
+}
 
-#if !defined(DEFINE_RANGE_NAUTIC)
-#define DEFINE_RANGE_NAUTIC(t, x)
-#endif
+bool EmulatorControl::RadarStayAlive() { return true; }
 
-#ifndef SPOKES_MAX
-#define SPOKES_MAX 0
-#endif
+bool EmulatorControl::SetRange(int meters) {
+  m_ri->m_range.Update(meters);
+  return true;
+}
 
-#ifndef SPOKE_LEN_MAX
-#define SPOKE_LEN_MAX 0
-#endif
+bool EmulatorControl::SetControlValue(ControlType controlType, RadarControlItem &item, RadarControlButton *button) {
+  // sends the command to the radar
+  bool r = false;
 
-#ifndef RO_SINGLE
-#define RO_SINGLE (0)
-#define RO_PRIMARY (1)
-#define RO_SECONDARY (2)
-#endif
+  return r;
+}
 
-#include "navico/br24type.h"
-#include "navico/br3gtype.h"
-#include "navico/br4gatype.h"
-#include "navico/br4gbtype.h"
-
-#include "navico/haloatype.h"
-#include "navico/halobtype.h"
-
-// TODO: Add Garmin etc.
-
-#include "emulator/emulatortype.h"
-
-#undef DEFINE_RADAR  // Prepare for next inclusion
-#undef INITIALIZE_RADAR
-#undef DEFINE_RANGE_METRIC
-#undef DEFINE_RANGE_MIXED
-#undef DEFINE_RANGE_NAUTIC
+PLUGIN_END_NAMESPACE

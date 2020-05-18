@@ -29,67 +29,50 @@
  ***************************************************************************
  */
 
-#if !defined(DEFINE_RADAR)
-#ifndef _RADARTYPE_H_
-#define _RADARTYPE_H_
+#ifndef _EMULATORRECEIVE_H_
+#define _EMULATORRECEIVE_H_
 
-#include "RadarInfo.h"
-#include "pi_common.h"
+#include "RadarReceive.h"
+#include "socketutil.h"
 
-#include "navico/NavicoControl.h"
-#include "navico/NavicoControlsDialog.h"
-#include "navico/NavicoReceive.h"
+PLUGIN_BEGIN_NAMESPACE
 
-#include "emulator/EmulatorControl.h"
-#include "emulator/EmulatorControlsDialog.h"
-#include "emulator/EmulatorReceive.h"
+//
+// An intermediary class that implements the common parts of any Emulator radar.
+//
 
-#endif /* _RADARTYPE_H_ */
+class EmulatorReceive : public RadarReceive {
+ public:
+  EmulatorReceive(radar_pi *pi, RadarInfo *ri) : RadarReceive(pi, ri) {
+    m_shutdown = false;
+    m_next_spoke = 0;
+    m_next_rotation = 0;
+    m_receive_socket = GetLocalhostServerTCPSocket();
+    m_send_socket = GetLocalhostSendTCPSocket(m_receive_socket);
+    LOG_RECEIVE(wxT("radar_pi: %s receive thread created"), m_ri->m_name.c_str());
+  };
 
-#define DEFINE_RADAR(t, x, s, l, a, b, c, d)
-#define INITIALIZE_RADAR
-#endif
+  ~EmulatorReceive() {
+    closesocket(m_receive_socket);
+    closesocket(m_send_socket);
+  }
 
-#if !defined(DEFINE_RANGE_METRIC)
-#define DEFINE_RANGE_METRIC(t, x)
-#endif
+  void *Entry(void);
+  void Shutdown(void);
+  wxString GetInfoStatus();
 
-#if !defined(DEFINE_RANGE_MIXED)
-#define DEFINE_RANGE_MIXED(t, x)
-#endif
+ private:
+  void EmulateFakeBuffer(void);
 
-#if !defined(DEFINE_RANGE_NAUTIC)
-#define DEFINE_RANGE_NAUTIC(t, x)
-#endif
+  volatile bool m_shutdown;
 
-#ifndef SPOKES_MAX
-#define SPOKES_MAX 0
-#endif
+  int m_next_spoke;     // emulator next spoke
+  int m_next_rotation;  // slowly rotate emulator
 
-#ifndef SPOKE_LEN_MAX
-#define SPOKE_LEN_MAX 0
-#endif
+  SOCKET m_receive_socket;  // Where we listen for message from m_send_socket
+  SOCKET m_send_socket;     // A message to this socket will interrupt select() and allow immediate shutdown
+};
 
-#ifndef RO_SINGLE
-#define RO_SINGLE (0)
-#define RO_PRIMARY (1)
-#define RO_SECONDARY (2)
-#endif
+PLUGIN_END_NAMESPACE
 
-#include "navico/br24type.h"
-#include "navico/br3gtype.h"
-#include "navico/br4gatype.h"
-#include "navico/br4gbtype.h"
-
-#include "navico/haloatype.h"
-#include "navico/halobtype.h"
-
-// TODO: Add Garmin etc.
-
-#include "emulator/emulatortype.h"
-
-#undef DEFINE_RADAR  // Prepare for next inclusion
-#undef INITIALIZE_RADAR
-#undef DEFINE_RANGE_METRIC
-#undef DEFINE_RANGE_MIXED
-#undef DEFINE_RANGE_NAUTIC
+#endif /* _EMULATORRECEIVE_H_ */

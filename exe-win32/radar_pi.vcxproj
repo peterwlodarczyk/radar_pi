@@ -275,9 +275,17 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\emulator\EmulatorControl.cpp" />
+    <ClCompile Include="..\src\emulator\EmulatorControlsDialog.cpp" />
+    <ClCompile Include="..\src\emulator\EmulatorReceive.cpp" />
     <ClCompile Include="..\src\exe\pluginmanager.cpp" />
     <ClCompile Include="..\src\exe\radar_main.cpp" />
     <ClCompile Include="..\src\radar_pi.cpp" />
+    <ClInclude Include="..\src\emulator\EmulatorControl.h" />
+    <ClInclude Include="..\src\emulator\EmulatorControlsDialog.h" />
+    <ClInclude Include="..\src\emulator\EmulatorControlSet.h" />
+    <ClInclude Include="..\src\emulator\EmulatorReceive.h" />
+    <ClInclude Include="..\src\emulator\emulatortype.h" />
     <ClInclude Include="..\src\exe\chart1.h" />
     <ClInclude Include="..\src\exe\pluginmanager.h" />
     <ClInclude Include="..\src\ocpn_plugin.h" />

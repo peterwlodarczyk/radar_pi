@@ -3,6 +3,8 @@
 #include "chart1.h"
 #include "ocius/oc_utils.h"
 #include "radar_pi.h"
+#include "RadarInfo.h"
+#include "radar_lib.h"
 
 //#ifndef WX_PRECOMP
 //#include "wx/wx.h"
@@ -14,6 +16,22 @@ class glChartCanvas : public wxGLCanvas {};
 MyFrame* gFrame = nullptr;
 PlugInManager* g_pi_manager = nullptr;
 extern wxAuiManager* g_pauimgr;
+
+
+/*
+class DerivedApp : public wxApp
+{
+public:
+    virtual bool OnInit();
+};
+wxIMPLEMENT_APP(DerivedApp);
+bool DerivedApp::OnInit()
+{
+    wxFrame *the_frame = new wxFrame(NULL, -1, argv[0]);
+    the_frame->Show(true);
+    return true;
+}
+*/
 
 ///////////////////////////////////////////////////////////////////////////////
 // MyFrame
@@ -175,7 +193,7 @@ int main(int argc, char* argv[]) {
   g_OciusLiveDir = liveDir;
 
 #else
-extern "C" DECL_EXP int radar_start(const char* configFilename, const char* logDir, const char* liveDir) {
+bool radar_start(const char* configFilename, const char* logDir, const char* liveDir) {
   int argc = 0;
   char** argv = nullptr;
 #endif
@@ -192,28 +210,83 @@ extern "C" DECL_EXP int radar_start(const char* configFilename, const char* logD
   OC_DEBUG("g_OpenCPNLogFilename=%s", g_OpenCPNLogFilename.c_str());
   OC_DEBUG("g_OciusLiveDir=%s", g_OciusLiveDir.c_str());
   OC_DEBUG("DISPLAY=%s", getenv("DISPLAY"));
-  int ret = wxEntry(argc, argv);
-  OC_DEBUG("wxEntry=%d", ret);
-  return ret;
+  try
+  {
+    int ret = wxEntry(argc, argv);
+    OC_DEBUG("wxEntry=%d", ret);
+    return ret == 0;
+  }
+  catch (...)
+  {
+    printf("Unhandled exception");
+    return false;
+  }
 }
 
-extern "C" DECL_EXP void radar_stop() 
-{ 
+///////////////////////////////////////////////////////////////////////////////
+// radar_lib interface
+///////////////////////////////////////////////////////////////////////////////
+
+static RadarPlugin::RadarControl* GetRadarControl(int radar) {
+  if (radar < RADARS) {
+    if (g_pi_manager) {
+      RadarPlugin::radar_pi* plugin = g_pi_manager->pPlugin;
+      if (plugin) {
+        RadarPlugin::RadarInfo* info = plugin->m_radar[radar];
+        if (info) {
+          RadarPlugin::RadarControl* control = info->m_control;
+          return control;
+        }
+      }
+    }
+  }
+  return nullptr;
+}
+
+void radar_stop() { 
   if (gFrame)
     wxGetApp().Close();
 }
 
-/*
-class DerivedApp : public wxApp
-{
-public:
-    virtual bool OnInit();
-};
-wxIMPLEMENT_APP(DerivedApp);
-bool DerivedApp::OnInit()
-{
-    wxFrame *the_frame = new wxFrame(NULL, -1, argv[0]);
-    the_frame->Show(true);
-    return true;
+bool radar_set_tx(int radar, bool on) { 
+  auto controller = GetRadarControl(radar);
+  if (controller) {
+    if (on)
+      controller->RadarTxOn();
+    else 
+      controller->RadarTxOff();
+  }
+
+  return true;
 }
-*/
+
+bool radar_get_tx(int radar) {
+  return radar;
+}
+
+int radar_set_range(int radar, int range){
+  auto controller = GetRadarControl(radar);
+  if (controller) {
+    controller->SetRange(range);
+  }
+  return range;
+}
+
+int radar_get_range(int radar) {
+  return 0;
+}
+
+int radar_set_control(int radar, const char* control, int value) {
+  //auto controller = GetRadarControl(radar);
+  //controller->SetControl(range);
+  return value;
+}
+
+int radar_get_control(int radar, const char* cont6rol) {
+  return 0;
+}
+
+RadarState radar_get_state(int radar) {
+  RadarState state = { false };
+  return state;
+}

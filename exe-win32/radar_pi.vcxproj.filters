@@ -48,6 +48,9 @@
     <ClCompile Include="..\src\navico\NavicoControl.cpp" />
     <ClCompile Include="..\src\navico\NavicoControlsDialog.cpp" />
     <ClCompile Include="..\src\navico\NavicoLocate.cpp" />
+    <ClCompile Include="..\src\emulator\EmulatorReceive.cpp" />
+    <ClCompile Include="..\src\emulator\EmulatorControl.cpp" />
+    <ClCompile Include="..\src\emulator\EmulatorControlsDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\exe\chart1.h">
@@ -109,6 +112,11 @@
     <ClInclude Include="..\src\navico\NavicoControlsDialog.h" />
     <ClInclude Include="..\src\navico\NavicoLocate.h" />
     <ClInclude Include="..\src\navico\NavicoRadarInfo.h" />
+    <ClInclude Include="..\src\emulator\EmulatorReceive.h" />
+    <ClInclude Include="..\src\emulator\EmulatorControl.h" />
+    <ClInclude Include="..\src\emulator\EmulatorControlsDialog.h" />
+    <ClInclude Include="..\src\emulator\EmulatorControlSet.h" />
+    <ClInclude Include="..\src\emulator\emulatortype.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

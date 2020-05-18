@@ -16,5 +16,6 @@
     <LocalDebuggerEnvironment>PATH=c:\ocius\radar_pi\exe-win32\bin;C:\dev\libs\wxWidgets\lib\vc14x_dll;C:\ocius\scratch\testdll1\Debug;%PATH%</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerCommand>c:\ocius\oc_usv\bin\oc_dp_radar.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments>-ct tcp -th 10.42.250.225 -tp 9999 -vb 5</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

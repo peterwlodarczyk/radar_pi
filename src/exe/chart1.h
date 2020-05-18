@@ -13,7 +13,6 @@ public:
    ~MyFrame();
 
   wxAuiManager m_mgr;
-  PlugInManager* m_PluginManager;
   wxTimer* RenderTimer;
   wxGLCanvas* m_glChartCanvas;
   wxGLContext* m_glContext;
