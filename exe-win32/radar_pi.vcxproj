@@ -181,6 +181,9 @@
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(OCIUS_BIN_DIR)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='lib|x64'">
     <ClCompile>
@@ -273,6 +276,9 @@
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(OCIUS_BIN_DIR)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\emulator\EmulatorControl.cpp" />
@@ -288,8 +294,8 @@
     <ClInclude Include="..\src\emulator\emulatortype.h" />
     <ClInclude Include="..\src\exe\chart1.h" />
     <ClInclude Include="..\src\exe\pluginmanager.h" />
+    <ClInclude Include="..\src\exe\radar_lib.h" />
     <ClInclude Include="..\src\ocpn_plugin.h" />
-    <ClInclude Include="..\src\radar_exe.h" />
     <ClCompile Include="..\src\ControlsDialog.cpp" />
     <ClInclude Include="..\src\ControlsDialog.h" />
     <ClCompile Include="..\src\GuardZone.cpp" />

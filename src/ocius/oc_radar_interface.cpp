@@ -50,11 +50,12 @@ void OciusDumpVertexImage(int radar) {
   free(buffer);
   wxImage image(x, y);
   image.SetData(e);
-  image.SetOption("quality", 50);
+  image = image.Mirror(false);
+  image.SetOption("quality", 90);
 
   // Write it to a file with a comment of the timestamp
   wxMemoryOutputStream writeBuffer;
-  if (image.Mirror(false).SaveFile(writeBuffer, wxBITMAP_TYPE_JPEG) && writeBuffer.GetOutputStreamBuffer()->GetBufferSize() > 0) {
+  if (image.SaveFile(writeBuffer, wxBITMAP_TYPE_JPEG) && writeBuffer.GetOutputStreamBuffer()->GetBufferSize() > 0) {
     string timestamp = MakeLocalTimeStamp();
     OC_TRACE("ImageSize=%d.time=%s", writeBuffer.GetOutputStreamBuffer()->GetBufferSize(), timestamp.c_str());
     vector<uint8_t> uncommented;

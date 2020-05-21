@@ -42,8 +42,6 @@
     <ClCompile Include="..\src\nmea0183\hdm.cpp" />
     <ClCompile Include="..\src\wxJSON\jsonreader.cpp" />
     <ClCompile Include="..\src\wxJSON\jsonval.cpp" />
-    <ClCompile Include="..\src\ocius\oc_utils.cpp" />
-    <ClCompile Include="..\src\ocius\oc_radar_interface.cpp" />
     <ClCompile Include="..\src\navico\NavicoReceive.cpp" />
     <ClCompile Include="..\src\navico\NavicoControl.cpp" />
     <ClCompile Include="..\src\navico\NavicoControlsDialog.cpp" />
@@ -51,6 +49,12 @@
     <ClCompile Include="..\src\emulator\EmulatorReceive.cpp" />
     <ClCompile Include="..\src\emulator\EmulatorControl.cpp" />
     <ClCompile Include="..\src\emulator\EmulatorControlsDialog.cpp" />
+    <ClCompile Include="..\src\ocius\oc_radar_interface.cpp">
+      <Filter>Source Files\ocius</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ocius\oc_utils.cpp">
+      <Filter>Source Files\ocius</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\exe\chart1.h">
@@ -62,7 +66,6 @@
     <ClInclude Include="..\src\ocpn_plugin.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\radar_exe.h" />
     <ClInclude Include="..\src\ControlsDialog.h" />
     <ClInclude Include="..\src\GuardZone.h" />
     <ClInclude Include="..\src\GuardZoneBogey.h" />
@@ -97,8 +100,6 @@
     <ClInclude Include="..\src\nmea0183\hdt.hpp" />
     <ClInclude Include="..\src\nmea0183\hdg.hpp" />
     <ClInclude Include="..\src\nmea0183\hdm.hpp" />
-    <ClInclude Include="..\src\ocius\oc_utils.h" />
-    <ClInclude Include="..\src\ocius\oc_radar_interface.h" />
     <ClInclude Include="..\src\navico\br24type.h" />
     <ClInclude Include="..\src\navico\br3gtype.h" />
     <ClInclude Include="..\src\navico\br4gatype.h" />
@@ -117,6 +118,15 @@
     <ClInclude Include="..\src\emulator\EmulatorControlsDialog.h" />
     <ClInclude Include="..\src\emulator\EmulatorControlSet.h" />
     <ClInclude Include="..\src\emulator\emulatortype.h" />
+    <ClInclude Include="..\src\ocius\oc_radar_interface.h">
+      <Filter>Source Files\ocius</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ocius\oc_utils.h">
+      <Filter>Source Files\ocius</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\exe\radar_lib.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

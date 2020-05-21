@@ -36,13 +36,13 @@ bool DerivedApp::OnInit()
 ///////////////////////////////////////////////////////////////////////////////
 // MyFrame
 ///////////////////////////////////////////////////////////////////////////////
-MyFrame::MyFrame(wxWindow* parent) : wxFrame(parent, -1, _("Radar"), wxDefaultPosition, wxSize(500, 500), wxDEFAULT_FRAME_STYLE) {
+MyFrame::MyFrame(wxWindow* parent) : wxFrame(parent, -1, _("Radar"), wxDefaultPosition, wxSize(20, 20), wxDEFAULT_FRAME_STYLE) {
   // notify wxAUI which frame to use
   m_mgr.SetManagedWindow(this);
   // tell the manager to "commit" all the changes just made
   //m_mgr.Update();
   g_pauimgr = &m_mgr;
-  m_glChartCanvas = new wxGLCanvas(this, wxID_ANY, NULL, wxDefaultPosition, wxDefaultSize, 0, wxGLCanvasName, wxNullPalette);
+  m_glChartCanvas = new wxGLCanvas(this, wxID_ANY, NULL, wxDefaultPosition, wxSize(100,100), 0, wxGLCanvasName, wxNullPalette);
   m_glContext = new wxGLContext(m_glChartCanvas);
   RenderTimer = new wxTimer(this, wxID_HIGHEST);
 }
@@ -225,6 +225,14 @@ bool radar_start(const char* configFilename, const char* logDir, const char* liv
 // radar_lib interface
 ///////////////////////////////////////////////////////////////////////////////
 
+static RadarPlugin::radar_pi* GetRadarPlugin() {
+  if (g_pi_manager) {
+    RadarPlugin::radar_pi* plugin = g_pi_manager->pPlugin;
+    return plugin;
+  }
+  return nullptr;
+}
+
 static RadarPlugin::RadarControl* GetRadarControl(int radar) {
   if (radar < RADARS) {
     if (g_pi_manager) {
@@ -262,7 +270,15 @@ bool radar_get_tx(int radar) {
   return radar;
 }
 
-int radar_set_range(int radar, int range){
+bool radar_config_save() { 
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    return plugin->SaveConfig();
+  else
+    return false;
+}
+
+int radar_set_range(int radar, int range) {
   auto controller = GetRadarControl(radar);
   if (controller) {
     controller->SetRange(range);
@@ -287,4 +303,24 @@ int radar_get_control(int radar, const char* cont6rol) {
 RadarState radar_get_state(int radar) {
   RadarState state = { false };
   return state;
+}
+
+void radar_set_position(const RadarPosition* pos) {
+  OC_DEBUG("[%s] lat=%.7f,lon=%.7f,cog=%.1f,sog=%.1f,var=%.1f,heading_mag=%.1f,heading_true=%.1f,fix_time=%d,sats=%d", __func__, pos->lat,pos->lon,pos->cog,pos->sog,pos->var,pos->heading_mag,pos->heading_true,pos->fix_time,pos->sats);
+
+  PlugIn_Position_Fix_Ex fix = {};
+
+  fix.Lat = pos->lat;
+  fix.Lon = pos->lon;
+  fix.Cog = pos->cog;
+  fix.Sog = pos->sog;
+  fix.Var = pos->var;
+  fix.Hdm = pos->heading_mag;
+  fix.Hdt = pos->heading_true;
+  fix.FixTime = pos->fix_time / 1000000;
+  fix.nSats = pos->sats;
+
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    plugin->SetPositionFixEx(fix);
 }
