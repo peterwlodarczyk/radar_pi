@@ -51,7 +51,7 @@ void OciusDumpVertexImage(int radar) {
   wxImage image(x, y);
   image.SetData(e);
   image = image.Mirror(false);
-  image.SetOption("quality", 90);
+  image.SetOption("quality", 100);
 
   // Write it to a file with a comment of the timestamp
   wxMemoryOutputStream writeBuffer;
