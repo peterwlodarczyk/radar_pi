@@ -330,7 +330,6 @@ int radar_pi::Init(void) {
   //    we need to create a dummy menu to act as a surrogate parent of the created MenuItems
   //    The Items will be re-parented when added to the real context meenu
 
-#ifdef OPENCPN_PLUGIN
   wxMenu dummy_menu;
 
   wxMenuItem *mi1 = new wxMenuItem(&dummy_menu, -1, _("Show radar"));
@@ -357,7 +356,6 @@ int radar_pi::Init(void) {
   m_context_menu_show = true;
   m_context_menu_arpa = false;
   SetCanvasContextMenuItemViz(m_context_menu_show_id, false);
-#endif
 
   LOG_VERBOSE(wxT("radar_pi: Initialized plugin transmit=%d/%d "), m_settings.show_radar[0], m_settings.show_radar[1]);
 
@@ -458,7 +456,6 @@ void radar_pi::SetDefaults(void) {
 }
 
 bool radar_pi::EnsureRadarSelectionComplete(bool force) {
-#ifdef OPENCPN_PLUGIN
   bool any = false;
   size_t r;
 
@@ -475,9 +472,6 @@ bool radar_pi::EnsureRadarSelectionComplete(bool force) {
 
   LOG_DIALOG(wxT("radar_pi: EnsureRadarSelectionComplete not yet so show selection dialog"));
   return MakeRadarSelection();
-#else
-  return true;
-#endif
 }
 
 bool radar_pi::MakeRadarSelection() {
@@ -1472,6 +1466,7 @@ bool radar_pi::LoadConfig(void) {
       m_settings.control_pos[n] = wxPoint(x, y);
       LOG_DIALOG(wxT("radar_pi: LoadConfig: show_radar[%d]=%d control=%d,%d"), n, v, x, y);
       for (int i = 0; i < GUARD_ZONES; i++) {
+
         pConf->Read(wxString::Format(wxT("Radar%dZone%dStartBearing"), r, i), &ri->m_guard_zone[i]->m_start_bearing, 0);
         pConf->Read(wxString::Format(wxT("Radar%dZone%dEndBearing"), r, i), &ri->m_guard_zone[i]->m_end_bearing, 0);
         pConf->Read(wxString::Format(wxT("Radar%dZone%dOuterRange"), r, i), &ri->m_guard_zone[i]->m_outer_range, 0);
@@ -2175,11 +2170,7 @@ void radar_pi::logBinaryData(const wxString &what, const uint8_t *data, int size
 }
 
 bool radar_pi::IsRadarOnScreen(int radar) {
-#ifdef OPENCPN_PLUGIN
   return m_settings.show && (m_settings.show_radar[radar] || m_radar[radar]->GetOverlayCanvasIndex() > -1);
-#else
-  return true;
-#endif
 }
 
 PLUGIN_END_NAMESPACE
