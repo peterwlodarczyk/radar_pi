@@ -52,6 +52,7 @@ class RadarControl {
    */
   virtual bool Init(radar_pi *pi, RadarInfo *ri, NetworkAddress &interfaceAddress, NetworkAddress &radarAddress) = 0;
 
+  virtual bool IsInitialised() const { return true; }
   /*
    * Ask the radar to switch off.
    */
@@ -78,6 +79,7 @@ class RadarControl {
    */
   virtual bool SetRange(int meters) = 0;
 
+  virtual bool SetControlValue(ControlType controlType, RadarControlState state, int value) = 0;
   /*
    * Modify a radar setting.
    *

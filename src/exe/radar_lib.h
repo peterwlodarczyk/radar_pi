@@ -24,12 +24,44 @@
 
 extern "C" DECL_IMPEXP bool radar_start(const char* configFilename, const char* logDir, const char* liveDir);
 extern "C" DECL_IMPEXP void radar_stop();
-extern "C" DECL_IMPEXP bool radar_set_tx(int radar, bool on);
-extern "C" DECL_IMPEXP bool radar_get_tx(int radar);
-extern "C" DECL_IMPEXP int radar_set_range(int radar, int range);  // range in metres. Auto??a
-extern "C" DECL_IMPEXP int radar_get_range(int radar);
-extern "C" DECL_IMPEXP int radar_set_control(int radar, const char* control, int value);
-extern "C" DECL_IMPEXP int radar_get_control(int radar, const char* control);
+extern "C" DECL_IMPEXP uint8_t radar_get_status();
+extern "C" DECL_IMPEXP bool radar_set_enable(uint8_t radar, bool enable);
+extern "C" DECL_IMPEXP bool radar_get_enable(uint8_t radar);
+
+enum RadarState {
+  OC_RADAR_OFF,
+  OC_RADAR_STANDBY,
+  OC_RADAR_WARMING_UP,
+  OC_RADAR_TIMED_IDLE,
+  OC_RADAR_STOPPING,
+  OC_RADAR_SPINNING_DOWN,
+  OC_RADAR_STARTING,
+  OC_RADAR_SPINNING_UP,
+  OC_RADAR_TRANSMIT
+};
+
+extern "C" DECL_IMPEXP RadarState radar_get_state(uint8_t radar);
+extern "C" DECL_IMPEXP bool radar_set_tx(uint8_t radar, bool on);
+extern "C" DECL_IMPEXP bool radar_get_tx(uint8_t radar);
+extern "C" DECL_IMPEXP double radar_set_range(uint8_t radar, double range);  // range in metres. Auto??a
+extern "C" DECL_IMPEXP double radar_get_range(uint8_t radar);
+
+enum RadarControlState {
+  OC_CS_OFF = -1,
+  OC_CS_MANUAL = 0,
+  OC_CS_AUTO_1,
+  OC_CS_AUTO_2,
+  OC_CS_AUTO_3,
+  OC_CS_AUTO_4,
+  OC_CS_AUTO_5,
+  OC_CS_AUTO_6,
+  OC_CS_AUTO_7,
+  OC_CS_AUTO_8,
+  OC_CS_AUTO_9
+};
+
+extern "C" DECL_IMPEXP bool radar_set_control(uint8_t radar, const char* control, RadarControlState state, int32_t value);
+//extern "C" DECL_IMPEXP bool radar_get_control(uint8_t radar, const char* control, RadarControlState* state, int32_t* value);
 extern "C" DECL_IMPEXP bool radar_config_save();
 
 struct RadarPosition {
@@ -37,18 +69,13 @@ struct RadarPosition {
   double lon; // degrees
   double cog; // degrees
   double sog; // m/s
-  double var; // degrees
-  double heading_mag; // degrees
-  double heading_true; // degrees
-  uint64_t fix_time; // microseconds
+  double heading; // degrees
+  uint64_t timestamp; // microseconds since 1970 UTC
   int sats;
 };
 
 extern "C" DECL_IMPEXP void radar_set_position(const RadarPosition* pos);
 
-struct RadarState {
-  bool on;
-};
-extern "C" DECL_IMPEXP RadarState radar_get_state(int radar);
+
 
 #endif

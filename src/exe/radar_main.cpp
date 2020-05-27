@@ -17,6 +17,7 @@ MyFrame* gFrame = nullptr;
 PlugInManager* g_pi_manager = nullptr;
 extern wxAuiManager* g_pauimgr;
 
+using namespace RadarPlugin;
 
 /*
 class DerivedApp : public wxApp
@@ -221,6 +222,73 @@ bool radar_start(const char* configFilename, const char* logDir, const char* liv
   }
 }
 
+RadarPlugin::ControlType ControlTypeStringToEnum(const char* name) {
+  if (strcmp(name, "antenna_forward") == 0)
+    return CT_ANTENNA_FORWARD;
+  if (strcmp(name, "antenna_starboard") == 0)
+    return CT_ANTENNA_STARBOARD;
+  if (strcmp(name, "main_bang_size") == 0)
+    return CT_MAIN_BANG_SIZE;
+  if (strcmp(name, "orientation") == 0)
+    return CT_ORIENTATION;
+  if (strcmp(name, "center_view") == 0)
+	  return CT_CENTER_VIEW;
+  if (strcmp(name, "overlay_canvas") == 0)
+	  return CT_OVERLAY_CANVAS;
+  if (strcmp(name, "target_on_ppi") == 0)
+	  return CT_TARGET_ON_PPI;
+  if (strcmp(name, "refreshrate") == 0)
+	  return CT_REFRESHRATE;
+  if (strcmp(name, "target_trails") == 0)
+	  return CT_TARGET_TRAILS;
+  if (strcmp(name, "timed_idle") == 0)
+	  return CT_TIMED_IDLE;
+  if (strcmp(name, "timed_run") == 0)
+	  return CT_TIMED_RUN;
+  if (strcmp(name, "trails_motion") == 0)
+	  return CT_TRAILS_MOTION;
+  if (strcmp(name, "antenna_height") == 0)
+	  return CT_ANTENNA_HEIGHT;
+  if (strcmp(name, "bearing_alignment") == 0)
+	  return CT_BEARING_ALIGNMENT;
+  if (strcmp(name, "gain") == 0)
+	  return CT_GAIN;
+  if (strcmp(name, "interference_rejection") == 0)
+	  return CT_INTERFERENCE_REJECTION;
+  if (strcmp(name, "local_interference_rejection") == 0)
+	  return CT_LOCAL_INTERFERENCE_REJECTION;
+  if (strcmp(name, "noise_rejection") == 0)
+	  return CT_NOISE_REJECTION;
+  if (strcmp(name, "no_transmit_end") == 0)
+	  return CT_NO_TRANSMIT_END;
+  if (strcmp(name, "no_transmit_start") == 0)
+	  return CT_NO_TRANSMIT_START;
+  if (strcmp(name, "rain") == 0)
+	  return CT_RAIN;
+  if (strcmp(name, "range") == 0)
+	  return CT_RANGE;
+  if (strcmp(name, "scan_speed") == 0)
+	  return CT_SCAN_SPEED;
+  if (strcmp(name, "sea") == 0)
+	  return CT_SEA;
+  if (strcmp(name, "ftc") == 0)
+	  return CT_FTC;
+  if (strcmp(name, "side_lobe_suppression") == 0)
+	  return CT_SIDE_LOBE_SUPPRESSION;
+  if (strcmp(name, "target_boost") == 0)
+	  return CT_TARGET_BOOST;
+  if (strcmp(name, "target_expansion") == 0)
+	  return CT_TARGET_EXPANSION;
+  if (strcmp(name, "target_separation") == 0)
+	  return CT_TARGET_SEPARATION;
+  if (strcmp(name, "transparency") == 0)
+	  return CT_TRANSPARENCY;
+  if (strcmp(name, "doppler") == 0)
+	  return CT_DOPPLER;
+  return CT_NONE;
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // radar_lib interface
 ///////////////////////////////////////////////////////////////////////////////
@@ -233,7 +301,20 @@ static RadarPlugin::radar_pi* GetRadarPlugin() {
   return nullptr;
 }
 
-static RadarPlugin::RadarControl* GetRadarControl(int radar) {
+static RadarPlugin::RadarInfo* GetRadarInfo(int radar) {
+  if (radar < RADARS) {
+    if (g_pi_manager) {
+      RadarPlugin::radar_pi* plugin = g_pi_manager->pPlugin;
+      if (plugin) {
+        RadarPlugin::RadarInfo* info = plugin->m_radar[radar];
+        return info;
+      }
+    }
+  }
+  return nullptr;
+}
+
+static RadarPlugin::RadarControl* GetRadarController(int radar) {
   if (radar < RADARS) {
     if (g_pi_manager) {
       RadarPlugin::radar_pi* plugin = g_pi_manager->pPlugin;
@@ -241,7 +322,11 @@ static RadarPlugin::RadarControl* GetRadarControl(int radar) {
         RadarPlugin::RadarInfo* info = plugin->m_radar[radar];
         if (info) {
           RadarPlugin::RadarControl* control = info->m_control;
-          return control;
+          if (control && control->IsInitialised())
+            return control;
+          else {
+            return nullptr;
+          }
         }
       }
     }
@@ -254,20 +339,45 @@ void radar_stop() {
     wxGetApp().Close();
 }
 
-bool radar_set_tx(int radar, bool on) { 
-  auto controller = GetRadarControl(radar);
+uint8_t radar_get_status() {
+  return 0;
+}
+bool radar_set_enable(uint8_t radar, bool enable) {
+  return true;
+}
+bool radar_get_enable(uint8_t radar) {
+  return true;
+}
+
+::RadarState radar_get_state(uint8_t radar) {
+  auto info = GetRadarInfo(radar);
+  if (info) {
+    return static_cast<::RadarState>(info->m_state.GetValue());
+  }
+  return OC_RADAR_OFF;
+}
+
+bool radar_set_tx(uint8_t radar, bool on) { 
+  auto controller = GetRadarController(radar);
   if (controller) {
     if (on)
       controller->RadarTxOn();
     else 
       controller->RadarTxOff();
+    return true;
+  }
+  else {
+    return false;
   }
 
-  return true;
 }
 
-bool radar_get_tx(int radar) {
-  return radar;
+bool radar_get_tx(uint8_t radar) {
+  auto info = GetRadarInfo(radar);
+  if (info)
+    return info->m_state.GetValue() == OC_RADAR_TRANSMIT;
+  else
+    return false;
 }
 
 bool radar_config_save() { 
@@ -278,35 +388,30 @@ bool radar_config_save() {
     return false;
 }
 
-int radar_set_range(int radar, int range) {
-  auto controller = GetRadarControl(radar);
+double radar_set_range(uint8_t radar, double range) {
+  auto controller = GetRadarController(radar);
   if (controller) {
     controller->SetRange(range);
   }
   return range;
 }
 
-int radar_get_range(int radar) {
+double radar_get_range(uint8_t radar) {
   return 0;
 }
 
-int radar_set_control(int radar, const char* control, int value) {
-  //auto controller = GetRadarControl(radar);
-  //controller->SetControl(range);
-  return value;
+bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value) {
+  auto controller = GetRadarController(radar);
+  ControlType control_enum = ControlTypeStringToEnum(control_string);
+  return controller->SetControlValue(control_enum, (RadarPlugin::RadarControlState)state, value);
 }
 
-int radar_get_control(int radar, const char* cont6rol) {
-  return 0;
-}
-
-RadarState radar_get_state(int radar) {
-  RadarState state = { false };
-  return state;
-}
+//bool radar_get_control(uint8_t radar, const char* control, ::RadarControlState& state, uint32_t& value){
+//  return false;
+//}
 
 void radar_set_position(const RadarPosition* pos) {
-  OC_DEBUG("[%s] lat=%.7f,lon=%.7f,cog=%.1f,sog=%.1f,var=%.1f,heading_mag=%.1f,heading_true=%.1f,fix_time=%d,sats=%d", __func__, pos->lat,pos->lon,pos->cog,pos->sog,pos->var,pos->heading_mag,pos->heading_true,pos->fix_time,pos->sats);
+  OC_DEBUG("[%s] lat=%.7f,lon=%.7f,cog=%.1f,sog=%.1f,heading=%.1f,fix_time=%d,sats=%d", __func__, pos->lat,pos->lon,pos->cog,pos->sog,pos->heading,pos->timestamp,pos->sats);
 
   PlugIn_Position_Fix_Ex fix = {};
 
@@ -314,10 +419,10 @@ void radar_set_position(const RadarPosition* pos) {
   fix.Lon = pos->lon;
   fix.Cog = pos->cog;
   fix.Sog = pos->sog;
-  fix.Var = pos->var;
-  fix.Hdm = pos->heading_mag;
-  fix.Hdt = pos->heading_true;
-  fix.FixTime = pos->fix_time / 1000000;
+  fix.Var = 0;
+  fix.Hdm = pos->heading;
+  fix.Hdt = pos->heading;
+  fix.FixTime = pos->timestamp / 1000000;
   fix.nSats = pos->sats;
 
   auto plugin = GetRadarPlugin();

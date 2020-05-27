@@ -50,9 +50,11 @@ class NavicoControl : public RadarControl {
   void RadarTxOn();
   bool RadarStayAlive();
   bool SetRange(int meters);
-  bool SetControlValue(ControlType controlType, RadarControlItem &item, RadarControlButton *button);
+  bool SetControlValue(ControlType controlType, RadarControlState state, int value);
+  bool SetControlValue(ControlType controlType, RadarControlItem & item, RadarControlButton * button);
 
  private:
+  bool m_initialised;
   radar_pi *m_pi;
   RadarInfo *m_ri;
   struct sockaddr_in m_addr;

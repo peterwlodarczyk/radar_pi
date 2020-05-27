@@ -45,6 +45,9 @@ static const uint8_t COMMAND_STAY_ON_C[2] = {0x04, 0xc2};
 static const uint8_t COMMAND_STAY_ON_D[2] = {0x05, 0xc2};
 
 NavicoControl::NavicoControl() {
+  m_initialised = false;
+  m_pi = nullptr;
+  m_ri = nullptr;
   m_radar_socket = INVALID_SOCKET;
   m_name = wxT("Navico radar");
 }
@@ -93,6 +96,7 @@ bool NavicoControl::Init(radar_pi *pi, RadarInfo *ri, NetworkAddress &ifadr, Net
     return false;
   }
 
+  m_initialised = true;
   LOG_TRANSMIT(wxT("radar_pi: %s transmit socket open"), m_name.c_str());
   return true;
 }
@@ -125,18 +129,21 @@ bool NavicoControl::TransmitCmd(const uint8_t *msg, int size) {
 }
 
 void NavicoControl::RadarTxOff() {
+  if (!m_initialised) return;
   IF_LOG_AT(LOGLEVEL_VERBOSE | LOGLEVEL_TRANSMIT, wxLogMessage(wxT("radar_pi: %s transmit: turn Off"), m_name.c_str()));
   TransmitCmd(COMMAND_TX_OFF_A, sizeof(COMMAND_TX_OFF_A));
   TransmitCmd(COMMAND_TX_OFF_B, sizeof(COMMAND_TX_OFF_B));
 }
 
 void NavicoControl::RadarTxOn() {
+  if (!m_initialised) return;
   IF_LOG_AT(LOGLEVEL_VERBOSE | LOGLEVEL_TRANSMIT, wxLogMessage(wxT("radar_pi: %s transmit: turn on"), m_name.c_str()));
   TransmitCmd(COMMAND_TX_ON_A, sizeof(COMMAND_TX_ON_A));
   TransmitCmd(COMMAND_TX_ON_B, sizeof(COMMAND_TX_ON_B));
 }
 
 bool NavicoControl::RadarStayAlive() {
+  if (!m_initialised) return false;
   LOG_TRANSMIT(wxT("radar_pi: %s transmit: stay alive"), m_name.c_str());
 
   TransmitCmd(COMMAND_STAY_ON_A, sizeof(COMMAND_STAY_ON_A));
@@ -146,6 +153,7 @@ bool NavicoControl::RadarStayAlive() {
 }
 
 bool NavicoControl::SetRange(int meters) {
+  if (!m_initialised) return false;
   if (meters >= 50 && meters <= 72704 && m_radar_socket != INVALID_SOCKET) {
     unsigned int decimeters = (unsigned int)meters * 10;
     uint8_t pck[] = {0x03,
@@ -160,11 +168,10 @@ bool NavicoControl::SetRange(int meters) {
   return false;
 }
 
-bool NavicoControl::SetControlValue(ControlType controlType, RadarControlItem &item, RadarControlButton *button) {
+bool NavicoControl::SetControlValue(ControlType controlType, RadarControlState state, int value) {
+  if (!m_initialised) return false;
   bool r = false;
 
-  int value = item.GetValue();
-  RadarControlState state = item.GetState();
   int autoValue = 0;
   if (state > RCS_MANUAL) {
     autoValue = state - RCS_MANUAL;
@@ -334,5 +341,16 @@ bool NavicoControl::SetControlValue(ControlType controlType, RadarControlItem &i
 
   return r;
 }
+
+bool NavicoControl::SetControlValue(ControlType controlType, RadarControlItem &item, RadarControlButton *button) {
+  if (!m_initialised) return false;
+
+  int value = item.GetValue();
+  RadarControlState state = item.GetState();
+
+  return SetControlValue(controlType, state, value);
+}
+
+
 
 PLUGIN_END_NAMESPACE
