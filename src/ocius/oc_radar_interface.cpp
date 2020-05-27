@@ -5,6 +5,7 @@
 #include <string>
 
 #include "oc_utils.h"
+#include "oc_lock.h"
 #include "pi_common.h"
 
 using namespace std;
@@ -59,10 +60,14 @@ void OciusDumpVertexImage(int radar) {
   image.SetOption("quality", 100);
 
   string filename = g_OciusLiveDir + '/' + name + "-capture.jpg";
-  if (image.SaveFile(filename.c_str(), wxBITMAP_TYPE_JPEG))
-    OC_DEBUG("Wrote file %s.", filename.c_str());
-  else
-    OC_DEBUG("Failed to write file %s.", filename.c_str());
+  {
+    FileLock f(filename.c_str());
+    CreateFileWithPermissions(filename.c_str(), 0666);
+    if (image.SaveFile(filename.c_str(), wxBITMAP_TYPE_JPEG))
+      OC_DEBUG("Wrote file %s.", filename.c_str());
+    else
+      OC_DEBUG("Failed to write file %s.", filename.c_str());
+  }
   
   // Write it to a file with a comment of the timestamp
   //wxMemoryOutputStream writeBuffer;

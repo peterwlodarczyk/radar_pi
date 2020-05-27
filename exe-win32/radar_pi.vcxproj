@@ -286,6 +286,7 @@
     <ClCompile Include="..\src\emulator\EmulatorReceive.cpp" />
     <ClCompile Include="..\src\exe\pluginmanager.cpp" />
     <ClCompile Include="..\src\exe\radar_main.cpp" />
+    <ClCompile Include="..\src\ocius\oc_lock.cpp" />
     <ClCompile Include="..\src\radar_pi.cpp" />
     <ClInclude Include="..\src\emulator\EmulatorControl.h" />
     <ClInclude Include="..\src\emulator\EmulatorControlsDialog.h" />

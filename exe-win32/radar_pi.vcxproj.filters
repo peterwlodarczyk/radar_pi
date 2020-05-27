@@ -55,6 +55,9 @@
     <ClCompile Include="..\src\ocius\oc_utils.cpp">
       <Filter>Source Files\ocius</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ocius\oc_lock.cpp">
+      <Filter>Source Files\ocius</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\exe\chart1.h">

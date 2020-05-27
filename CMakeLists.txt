@@ -1,5 +1,5 @@
 ##---------------------------------------------------------------------------
-## Plagiarized by: Peter Wlodarczyk for WINDOWS
+/## Plagiarized by: Peter Wlodarczyk for WINDOWS
 ##
 ## Author:      bdbcat aka. dsr (Dave Register)
 ## Copyright:
@@ -73,6 +73,8 @@ SET(SRC_NAVICO
 )
 
 SET(SRC_OCIUS
+            src/ocius/oc_lock.cpp
+            src/ocius/oc_lock.h
             src/ocius/oc_utils.cpp
             src/ocius/oc_utils.h
             src/ocius/oc_radar_interface.cpp
