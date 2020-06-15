@@ -168,25 +168,6 @@ SET(SRC_OC_DP
             src/exe/radar_main.cpp
 )
 
-SET(SRC_OC_DP
-            ../oc_usv/oc_common/oc_args.cpp
-            ../oc_usv/oc_common/oc_buffer.cpp
-            ../oc_usv/oc_common/oc_conf.cpp
-            ../oc_usv/oc_common/oc_dirs.cpp
-            ../oc_usv/oc_common/oc_fileio.cpp
-            ../oc_usv/oc_common/oc_lock.cpp
-            ../oc_usv/oc_common/oc_log4_oc.cpp
-            ../oc_usv/oc_common/oc_noservconf.cpp
-            ../oc_usv/oc_common/oc_pipe.cpp
-            ../oc_usv/oc_common/oc_proc_helpers.cpp
-            ../oc_usv/oc_common/oc_status.cpp
-            ../oc_usv/oc_common/oc_utils.cpp
-            ../oc_usv/oc_common/oc_xmlutils.cpp
-            ../oc_usv/oc_common/wininc.cpp
-            ../oc_usv/oc_dp_radar/oc_dp_radar.cpp
-            src/exe/pluginmanager.cpp
-            src/exe/radar_main.cpp
-)
 
 SET(SRC_NMEA0183
         src/nmea0183/nmea0183.cpp
