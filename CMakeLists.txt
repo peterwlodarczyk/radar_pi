@@ -26,6 +26,8 @@ SET(VERSION_PATCH "5")
 SET(VERSION_DATE "2020-05-15")
 SET(OCPN_MIN_VERSION "ov50")
 
+set (CMAKE_CXX_FLAGS -Wno-psabi)
+
 IF(MSVC)
 SET(wxWidgets_ROOT_DIR "C:/dev/libs/wxWidgets_src")
 SET(wxWidgets_LIB_DIR "C:/dev/libs/wxWidgets_src/lib/vc_dll")
