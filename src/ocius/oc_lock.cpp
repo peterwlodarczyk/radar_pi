@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-//#include "wininc.h"
+#include <unistd.h>
 #endif
 
 //#include "oc_fileio.h"
@@ -135,7 +135,8 @@ FileLock::obtainLock()
 				return b_locked;
 			}
 		}
-		Sleep(1);
+		usleep(1000);
+
 		iCount++;
 	}
 #endif

@@ -1,5 +1,5 @@
 ##---------------------------------------------------------------------------
-/## Plagiarized by: Peter Wlodarczyk for WINDOWS
+## Plagiarized by: Peter Wlodarczyk for WINDOWS
 ##
 ## Author:      bdbcat aka. dsr (Dave Register)
 ## Copyright:
