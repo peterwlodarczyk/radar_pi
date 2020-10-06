@@ -12,7 +12,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
 option(RADAR_EXE "Build radar exe" OFF)
 option(OC_DP "Build ocius daemon proc" OFF)
 option(OPENCPN_PLUGIN "OpenCPN Plugin" OFF)
-option(ENABLE_EMULATOR "Enable Emulator" OFF)
+option(ENABLE_EMULATOR "Enable Emulator" ON)
 
 PROJECT(radar_pi)
 SET(PACKAGE_NAME radar_pi)
