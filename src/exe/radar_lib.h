@@ -40,7 +40,7 @@ enum RadarState {
   OC_RADAR_TRANSMIT
 };
 
-extern "C" DECL_IMPEXP RadarState radar_get_state(uint8_t radar);
+extern "C" DECL_IMPEXP ::RadarState radar_get_state(uint8_t radar);
 extern "C" DECL_IMPEXP bool radar_set_tx(uint8_t radar, bool on);
 extern "C" DECL_IMPEXP bool radar_get_tx(uint8_t radar);
 extern "C" DECL_IMPEXP double radar_set_range(uint8_t radar, double range);  // range in metres. Auto??a
@@ -60,8 +60,8 @@ enum RadarControlState {
   OC_CS_AUTO_9
 };
 
-extern "C" DECL_IMPEXP bool radar_set_control(uint8_t radar, const char* control, RadarControlState state, int32_t value);
-//extern "C" DECL_IMPEXP bool radar_get_control(uint8_t radar, const char* control, RadarControlState* state, int32_t* value);
+extern "C" DECL_IMPEXP bool radar_set_control(uint8_t radar, const char* control, ::RadarControlState state, int32_t value);
+extern "C" DECL_IMPEXP bool radar_get_control(uint8_t radar, const char* control, ::RadarControlState* state, int32_t* value);
 extern "C" DECL_IMPEXP bool radar_config_save();
 
 struct RadarPosition {

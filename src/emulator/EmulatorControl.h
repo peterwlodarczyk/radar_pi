@@ -48,8 +48,10 @@ class EmulatorControl : public RadarControl {
   void RadarTxOn();
   bool RadarStayAlive();
   bool SetRange(int meters);
+  int GetRange();
   bool SetControlValue(ControlType controlType, RadarControlState state, int value);
   bool SetControlValue(ControlType controlType, RadarControlItem &item, RadarControlButton *button);
+  bool GetControlValue(ControlType controlType, RadarControlState& state, int& value);
 
  private:
   radar_pi *m_pi;

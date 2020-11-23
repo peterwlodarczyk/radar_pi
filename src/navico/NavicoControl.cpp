@@ -168,6 +168,11 @@ bool NavicoControl::SetRange(int meters) {
   return false;
 }
 
+int NavicoControl::GetRange()
+{
+  m_ri->m_range.GetValue();
+}
+
 bool NavicoControl::SetControlValue(ControlType controlType, RadarControlState state, int value) {
   if (!m_initialised) return false;
   bool r = false;
@@ -351,6 +356,179 @@ bool NavicoControl::SetControlValue(ControlType controlType, RadarControlItem &i
   return SetControlValue(controlType, state, value);
 }
 
+bool NavicoControl::GetControlValue(ControlType controlType, RadarControlState& state, int& value) {
+  if (!m_initialised) return false;
+  bool r = false;
+
+  switch (controlType) {
+    case CT_NONE:
+    case CT_RANGE:
+    case CT_TIMED_IDLE:
+    case CT_TIMED_RUN:
+    case CT_TRANSPARENCY:
+    case CT_REFRESHRATE:
+    case CT_TARGET_ON_PPI:
+    case CT_TARGET_TRAILS:
+    case CT_TRAILS_MOTION:
+    case CT_MAIN_BANG_SIZE:
+    case CT_MAX:
+    case CT_ORIENTATION:
+    case CT_CENTER_VIEW:
+    case CT_OVERLAY_CANVAS:
+    case CT_ANTENNA_FORWARD:
+    case CT_ANTENNA_STARBOARD:
+    case CT_NO_TRANSMIT_START:
+    case CT_NO_TRANSMIT_END:
+    case CT_FTC:
+      // The above are not settings that are not radar commands or not supported by Navico radar.
+      // Made them explicit so the compiler can catch missing control types.
+      break;
+
+      // Ordering the radar commands by the first byte value.
+      // Some interesting holes here, seems there could be more commands!
+
+    case CT_BEARING_ALIGNMENT: {  
+  // int autoValue = 0;
+  // if (state > RCS_MANUAL) {
+  //   autoValue = state - RCS_MANUAL;
+  // }
+
+
+  //     if (value < 0) {
+  //       value += 360;
+  //     }
+  //     int v = value * 10;
+  //     int v1 = v / 256;
+  //     int v2 = v & 255;
+  //     uint8_t cmd[4] = {0x05, 0xc1, (uint8_t)v2, (uint8_t)v1};
+  //     LOG_VERBOSE(wxT("radar_pi: %s Bearing alignment: %d"), m_name.c_str(), v);
+  //     r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_GAIN: {
+      // int v = (value + 1) * 255 / 100;
+      // if (v > 255) {
+      //   v = 255;
+      // }
+      // uint8_t cmd[] = {0x06, 0xc1, 0, 0, 0, 0, (uint8_t)autoValue, 0, 0, 0, (uint8_t)v};
+      // LOG_VERBOSE(wxT("radar_pi: %s Gain: %d auto %d"), m_name.c_str(), value, autoValue);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_SEA: {
+      // int v = (value + 1) * 255 / 100;
+      // if (v > 255) {
+      //   v = 255;
+      // }
+      // uint8_t cmd[] = {0x06, 0xc1, 0x02, 0, 0, 0, (uint8_t)autoValue, 0, 0, 0, (uint8_t)v};
+      // LOG_VERBOSE(wxT("radar_pi: %s Sea: %d auto %d"), m_name.c_str(), value, autoValue);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_RAIN: {  // Rain Clutter - Manual. Range is 0x01 to 0x50
+      // int v = (value + 1) * 255 / 100;
+      // if (v > 255) {
+      //   v = 255;
+      // }
+      // uint8_t cmd[] = {0x06, 0xc1, 0x04, 0, 0, 0, 0, 0, 0, 0, (uint8_t)v};
+      // LOG_VERBOSE(wxT("radar_pi: %s Rain: %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_SIDE_LOBE_SUPPRESSION: {
+      // int v = value * 256 / 100;
+      // if (v > 255) {
+      //   v = 255;
+      // }
+      // uint8_t cmd[] = {0x6, 0xc1, 0x05, 0, 0, 0, (uint8_t)autoValue, 0, 0, 0, (uint8_t)v};
+      // LOG_VERBOSE(wxT("radar_pi: %s command Tx CT_SIDE_LOBE_SUPPRESSION: %d auto %d"), m_name.c_str(), value, autoValue);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+      // What would command 7 be?
+
+    case CT_INTERFERENCE_REJECTION: {
+      // uint8_t cmd[] = {0x08, 0xc1, (uint8_t)value};
+      // LOG_VERBOSE(wxT("radar_pi: %s Rejection: %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_TARGET_EXPANSION: {
+      // uint8_t cmd[] = {0x09, 0xc1, (uint8_t)value};
+      // LOG_VERBOSE(wxT("radar_pi: %s Target expansion: %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_TARGET_BOOST: {
+      // uint8_t cmd[] = {0x0a, 0xc1, (uint8_t)value};
+      // LOG_VERBOSE(wxT("radar_pi: %s Target boost: %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+      // What would command b through d be?
+
+    case CT_LOCAL_INTERFERENCE_REJECTION: {
+      // if (value < 0) value = 0;
+      // if (value > 3) value = 3;
+      // uint8_t cmd[] = {0x0e, 0xc1, (uint8_t)value};
+      // LOG_VERBOSE(wxT("radar_pi: %s local interference rejection %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_SCAN_SPEED: {
+      // uint8_t cmd[] = {0x0f, 0xc1, (uint8_t)value};
+      // LOG_VERBOSE(wxT("radar_pi: %s Scan speed: %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+      // What would command 10 through 20 be?
+
+    case CT_NOISE_REJECTION: {
+      // uint8_t cmd[] = {0x21, 0xc1, (uint8_t)value};
+      // LOG_VERBOSE(wxT("radar_pi: %s Noise rejection: %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_TARGET_SEPARATION: {
+      // uint8_t cmd[] = {0x22, 0xc1, (uint8_t)value};
+      // LOG_VERBOSE(wxT("radar_pi: %s Target separation: %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+    case CT_DOPPLER: {
+      // uint8_t cmd[] = {0x23, 0xc1, (uint8_t)value};
+      // LOG_VERBOSE(wxT("radar_pi: %s Doppler state: %d"), m_name.c_str(), value);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+
+      // What would command 24 through 2f be?
+
+    case CT_ANTENNA_HEIGHT: {
+      // int v = value * 1000;  // radar wants millimeters, not meters :-)
+      // int v1 = v / 256;
+      // int v2 = v & 255;
+      // uint8_t cmd[10] = {0x30, 0xc1, 0x01, 0, 0, 0, (uint8_t)v2, (uint8_t)v1, 0, 0};
+      // LOG_VERBOSE(wxT("radar_pi: %s Antenna height: %d"), m_name.c_str(), v);
+      // r = TransmitCmd(cmd, sizeof(cmd));
+      break;
+    }
+  }
+
+  return r;
+}
 
 
 PLUGIN_END_NAMESPACE

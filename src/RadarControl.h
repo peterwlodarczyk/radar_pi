@@ -78,6 +78,7 @@ class RadarControl {
    * @returns   true on success, false on failure.
    */
   virtual bool SetRange(int meters) = 0;
+  virtual int GetRange() = 0;
 
   virtual bool SetControlValue(ControlType controlType, RadarControlState state, int value) = 0;
   /*
@@ -89,6 +90,11 @@ class RadarControl {
    * @returns   true on success, false on failure.
    */
   virtual bool SetControlValue(ControlType controlType, RadarControlItem &item, RadarControlButton *button) = 0;
+
+  /*
+   * Get a radar setting.
+   */
+  virtual bool GetControlValue(ControlType controlType, RadarControlState& state, int& value) = 0;
 };
 
 PLUGIN_END_NAMESPACE

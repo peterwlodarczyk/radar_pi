@@ -381,6 +381,7 @@ bool radar_get_tx(uint8_t radar) {
 }
 
 bool radar_config_save() { 
+  OC_DEBUG("[%s]", __func__);
   auto plugin = GetRadarPlugin();
   if (plugin)
     return plugin->SaveConfig();
@@ -392,23 +393,56 @@ double radar_set_range(uint8_t radar, double range) {
   auto controller = GetRadarController(radar);
   if (controller) {
     controller->SetRange(range);
+    range = controller->GetRange();
   }
+  else {
+    range = 0;
+  }
+  OC_DEBUG("[%s]=%f.", __func__, range);
   return range;
 }
 
 double radar_get_range(uint8_t radar) {
-  return 0;
+  int range = 0;
+  auto controller = GetRadarController(radar);
+  if (controller != nullptr) {
+    range = controller->GetRange();
+  }
+  OC_DEBUG("[%s]=%d.", __func__, range);
+  return range;
 }
 
 bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value) {
+  bool r = false;
   auto controller = GetRadarController(radar);
-  ControlType control_enum = ControlTypeStringToEnum(control_string);
-  return controller->SetControlValue(control_enum, (RadarPlugin::RadarControlState)state, value);
+  if (controller != nullptr)
+  {
+    ControlType control_enum = ControlTypeStringToEnum(control_string);
+    r = controller->SetControlValue(control_enum, (RadarPlugin::RadarControlState)state, value);
+  }
+  OC_DEBUG("[%s]=%d.control=f%s.state=%d,value=%d.", __func__, r, control_string, state, value);
+  return r;
 }
 
-//bool radar_get_control(uint8_t radar, const char* control, ::RadarControlState& state, uint32_t& value){
-//  return false;
-//}
+bool radar_get_control(uint8_t radar, const char* control_string, ::RadarControlState* state, int32_t* value){
+  if (state == nullptr || value == nullptr) {
+    OC_DEBUG("[%s]=false.control=%s", __func__, control_string);
+    return false;
+  }
+
+  auto controller = GetRadarController(radar);
+  if (controller == nullptr){
+    OC_DEBUG("[%s]=false.control=%s", __func__, control_string);
+    return false;
+  }
+
+  ControlType control_enum = ControlTypeStringToEnum(control_string);
+  bool ret = controller->GetControlValue(control_enum, *((RadarPlugin::RadarControlState*)state), *value);
+  if (!ret)
+    OC_DEBUG("[%s]=false.control=%s", __func__, control_string);
+  else
+    OC_DEBUG("[%s]=true.control=f%s.state=%d,value=%d.", __func__, control_string, *state, *value);
+}
 
 void radar_set_position(const RadarPosition* pos) {
   OC_DEBUG("[%s] lat=%.7f,lon=%.7f,cog=%.1f,sog=%.1f,heading=%.1f,fix_time=%d,sats=%d", __func__, pos->lat,pos->lon,pos->cog,pos->sog,pos->heading,pos->timestamp,pos->sats);

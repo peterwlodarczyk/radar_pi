@@ -64,6 +64,10 @@ bool EmulatorControl::SetRange(int meters) {
   return true;
 }
 
+int EmulatorControl::GetRange() {
+  return m_ri->m_range.GetValue();
+}
+
 bool EmulatorControl::SetControlValue(ControlType controlType, RadarControlState state, int value) {
   // sends the command to the radar
   bool r = false;
@@ -78,5 +82,10 @@ bool EmulatorControl::SetControlValue(ControlType controlType, RadarControlItem 
   return r;
 }
 
+bool EmulatorControl::GetControlValue(ControlType controlType, RadarControlState& state, int& value) {
+  // gets a value from the radar
+  bool r = false;
+  return r;
+}
 
 PLUGIN_END_NAMESPACE
