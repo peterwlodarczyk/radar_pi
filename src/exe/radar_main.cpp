@@ -160,6 +160,8 @@ int MyApp::OnExit() {
 
 #ifdef RADAR_EXE
 int main(int argc, char* argv[]) {
+  if ( getenv("DISPLAY") == nullptr )
+    setenv("DISPLAY", ":0", 1);
   const char* configFilename;
   if (argc > 1)
     configFilename = argv[1];

@@ -348,6 +348,7 @@ static const bool HasBitCount2[8] = {
 };
 
 #define DEFAULT_OVERLAY_TRANSPARENCY (5)
+#define DEFAULT_CHART_SIZE (512)
 #define MIN_OVERLAY_TRANSPARENCY (0)
 #define MAX_OVERLAY_TRANSPARENCY (9)
 #define MIN_AGE (4)
@@ -365,6 +366,7 @@ struct PersistentSettings {
   RadarControlItem overlay_transparency;           // How transparent is the radar picture over the chart
   int range_index;                                 // index into range array, see RadarInfo.cpp
   int verbose;                                     // Loglevel 0..4.
+  int chart_size;                                  // chart size in pixels
   int guard_zone_threshold;                        // How many blobs must be sent by radar before we fire alarm
   int guard_zone_render_style;                     // 0 = Shading, 1 = Outline, 2 = Shading + Outline
   int guard_zone_timeout;                          // How long before we warn again when bogeys are found

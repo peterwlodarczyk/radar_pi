@@ -236,6 +236,7 @@ int radar_pi::Init(void) {
   // Set default settings before we load config. Prevents random behavior on uninitalized behavior.
   // For instance, LOG_XXX messages before config is loaded.
   m_settings.verbose = 0;
+  m_settings.chart_size = 512;
   m_settings.overlay_transparency = DEFAULT_OVERLAY_TRANSPARENCY;
   m_settings.refreshrate = 1;
   m_settings.threshold_blue = 255;
@@ -264,7 +265,7 @@ int radar_pi::Init(void) {
     m_radar[r] = new RadarInfo(this, r);
     m_settings.show_radar[r] = true;
     m_settings.dock_radar[r] = false;
-    m_settings.window_pos[r] = wxPoint(30 + 540 * r, 120);
+    m_settings.window_pos[r] = wxPoint((m_settings.chart_size + 80) * r, 0);
   }
 
   m_GPS_filter = new GPSKalmanFilter();
@@ -285,6 +286,7 @@ int radar_pi::Init(void) {
     LOG_RECEIVE(wxT("radar_pi: RECEIVE  log is enabled"));
     LOG_GUARD(wxT("radar_pi: GUARD    log is enabled"));
     LOG_ARPA(wxT("radar_pi: ARPA     log is enabled"));
+    LOG_INFO(wxT("radar_pi: ChartSize = %d."), m_settings.chart_size);
   } else {
     wxLogError(wxT("radar_pi: configuration file values initialisation failed"));
     return 0;  // give up
@@ -502,8 +504,8 @@ bool radar_pi::MakeRadarSelection() {
     for (size_t i = 0; i < RT_MAX; i++) {
       if (dlg.m_selected[i]->GetValue()) {
         if (!m_radar[r]) {
-          m_settings.window_pos[r] = wxPoint(100 + 512 * r, 100);
-          m_settings.control_pos[r] = wxDefaultPosition;
+          m_settings.window_pos[r] = wxPoint(m_settings.chart_size * r, 0);
+          m_settings.control_pos[r] = wxPoint(m_settings.chart_size * r, 0);
           CLEAR_RADAR_INFO;
           m_radar[r] = new RadarInfo(this, r);        
         }
@@ -1387,6 +1389,9 @@ bool radar_pi::LoadConfig(void) {
     m_settings.range_units = (RangeUnits)wxMax(wxMin(v, 2), 0);
 
     pConf->Read(wxT("VerboseLog"), &m_settings.verbose, 0);
+    pConf->Read(wxT("ChartSize"), &m_settings.chart_size, DEFAULT_CHART_SIZE);
+    if (m_settings.chart_size == 0)
+      m_settings.chart_size = DEFAULT_CHART_SIZE;
 
     pConf->Read(wxT("RadarCount"), &v, 0);
     M_SETTINGS.radar_count = v;
@@ -1579,6 +1584,7 @@ bool radar_pi::SaveConfig(void) {
     pConf->Write(wxT("TrailsOnOverlay"), m_settings.trails_on_overlay);
     pConf->Write(wxT("Transparency"), m_settings.overlay_transparency.GetValue());
     pConf->Write(wxT("VerboseLog"), m_settings.verbose);
+    pConf->Write(wxT("ChartSize"), m_settings.chart_size);
     pConf->Write(wxT("AISatARPAoffset"), m_settings.AISatARPAoffset);
     pConf->Write(wxT("ColourStrong"), m_settings.strong_colour.GetAsString());
     pConf->Write(wxT("ColourIntermediate"), m_settings.intermediate_colour.GetAsString());
