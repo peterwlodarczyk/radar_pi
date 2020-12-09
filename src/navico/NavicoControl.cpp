@@ -170,7 +170,10 @@ bool NavicoControl::SetRange(int meters) {
 
 int NavicoControl::GetRange()
 {
-  m_ri->m_range.GetValue();
+  if (m_ri)
+    return m_ri->m_range.GetValue();
+  else
+    return 0;
 }
 
 bool NavicoControl::SetControlValue(ControlType controlType, RadarControlState state, int value) {

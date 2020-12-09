@@ -422,7 +422,7 @@ bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControl
     ControlType control_enum = ControlTypeStringToEnum(control_string);
     r = controller->SetControlValue(control_enum, (RadarPlugin::RadarControlState)state, value);
   }
-  OC_DEBUG("[%s]=%d.control=f%s.state=%d,value=%d.", __func__, r, control_string, state, value);
+  OC_DEBUG("[%s]=%d.control=%s.state=%d,value=%d.", __func__, r, control_string, state, value);
   return r;
 }
 
@@ -441,9 +441,12 @@ bool radar_get_control(uint8_t radar, const char* control_string, ::RadarControl
   ControlType control_enum = ControlTypeStringToEnum(control_string);
   bool ret = controller->GetControlValue(control_enum, *((RadarPlugin::RadarControlState*)state), *value);
   if (!ret)
+  {
     OC_DEBUG("[%s]=false.control=%s", __func__, control_string);
-  else
-    OC_DEBUG("[%s]=true.control=f%s.state=%d,value=%d.", __func__, control_string, *state, *value);
+    return false;
+  }
+  OC_DEBUG("[%s]=true.control=%s.state=%d,value=%d.", __func__, control_string, *state, *value);
+  return true;
 }
 
 void radar_set_position(const RadarPosition* pos) {
