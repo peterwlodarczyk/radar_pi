@@ -22,9 +22,17 @@
 #endif
 #include <stdint.h>
 
+enum RadarStatus {
+  OC_RADAR_STATUS_INACTIVE=0,
+  OC_RADAR_STATUS_HEALTHY=1,
+  // OC_RADAR_STATUS_WARN=2,
+  // OC_RADAR_STATUS_DEGRADED=3,
+  OC_RADAR_STATUS_FAULT=4,
+};
+
 extern "C" DECL_IMPEXP bool radar_start(const char* configFilename, const char* logDir, const char* liveDir);
 extern "C" DECL_IMPEXP void radar_stop();
-extern "C" DECL_IMPEXP uint8_t radar_get_status();
+extern "C" DECL_IMPEXP ::RadarStatus radar_get_status();
 extern "C" DECL_IMPEXP bool radar_set_enable(uint8_t radar, bool enable);
 extern "C" DECL_IMPEXP bool radar_get_enable(uint8_t radar);
 

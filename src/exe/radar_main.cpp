@@ -341,8 +341,12 @@ void radar_stop() {
     wxGetApp().Close();
 }
 
-uint8_t radar_get_status() {
-  return 0;
+::RadarStatus radar_get_status() {
+  // TODO: Map to more states. Detect when radar isn't talking.
+  if (radar_get_state(0) == OC_RADAR_OFF)
+    return OC_RADAR_STATUS_INACTIVE;
+  else
+    return OC_RADAR_STATUS_HEALTHY;
 }
 bool radar_set_enable(uint8_t radar, bool enable) {
   return true;
