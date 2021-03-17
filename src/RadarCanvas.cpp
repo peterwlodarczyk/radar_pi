@@ -592,7 +592,7 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
 
   // LAYER 1 - RANGE RINGS AND HEADINGS
   ResetGLViewPort(clientSize);
-  RenderRangeRingsAndHeading(clientSize, radar_radius);
+
 
   PlugIn_ViewPort vp;
   GeoPosition pos;
@@ -681,7 +681,8 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
 
   glPopAttrib();
   glPopMatrix();
-
+  
+  RenderRangeRingsAndHeading(clientSize, radar_radius); //moved down from LAYER 1
   // Do the swapbuffers first, before restoring the context. If we don't then various artifacts
   // occur on MacOS with the radar PPI window getting completely distorted.
   // Also it seems much more logical to call SwapBuffers() *before* going back to the OpenCPN

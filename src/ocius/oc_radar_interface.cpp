@@ -45,25 +45,33 @@ void OciusDumpVertexImage(int radar) {
   OC_TRACE("Vierport:%d,%d,%d,%d.inputSum=%d.\n", viewport[0], viewport[1], viewport[2], viewport[3], inputSum);
 
   int outputSize = x * y * 3;
-  unsigned char *e = (unsigned char *)malloc(outputSize);
-  if (buffer && e) {
+  unsigned char *rgb = (unsigned char *)malloc(outputSize);
+  unsigned char *alpha = (unsigned char *)malloc(x * y);
+  if (buffer && rgb) {
     for (int p = 0; p < x * y; p++) {
-      e[3 * p + 0] = buffer[4 * p + 0];
-      e[3 * p + 1] = buffer[4 * p + 1];
-      e[3 * p + 2] = buffer[4 * p + 2];
+      rgb[3 * p + 0] = buffer[4 * p + 0];
+      rgb[3 * p + 1] = buffer[4 * p + 1];
+      rgb[3 * p + 2] = buffer[4 * p + 2];
+      //todo read in the below from m_settings.ppi_background_colour
+      if (rgb[3 * p + 0] == 0 && rgb[3 * p + 1] == 0 && rgb[3 * p + 2] == 50){ //default background colour in the config.
+        alpha[p] = 0;
+      } else {
+        alpha[p] = buffer[4 * p + 3]; //probably all 255's even though they shouldn't be.
+      }
     }
   }
   free(buffer);
   wxImage image(x, y);
-  image.SetData(e);
+  image.SetData(rgb);
+  image.SetAlpha(alpha);
   image = image.Mirror(false);
   image.SetOption("quality", 100);
 
-  string filename = g_OciusLiveDir + '/' + name + "-capture.jpg";
+  string filename = g_OciusLiveDir + '/' + name + "-capture.png";
   {
     FileLock f(filename.c_str());
     CreateFileWithPermissions(filename.c_str(), 0666);
-    if (image.SaveFile(filename.c_str(), wxBITMAP_TYPE_JPEG))
+    if (image.SaveFile(filename.c_str(), wxBITMAP_TYPE_PNG))
       OC_DEBUG("Wrote file %s.", filename.c_str());
     else
       OC_DEBUG("Failed to write file %s.", filename.c_str());

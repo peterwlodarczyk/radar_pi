@@ -1502,7 +1502,7 @@ bool radar_pi::LoadConfig(void) {
     m_settings.arpa_colour = wxColour(s);
     pConf->Read(wxT("ColourAISText"), &s, "rgb(100,100,100)");
     m_settings.ais_text_colour = wxColour(s);
-    pConf->Read(wxT("ColourPPIBackground"), &s, "rgb(0,0,50)");
+    pConf->Read(wxT("ColourPPIBackground"), &s, "rgba(0,0,50)"); //changed to rgba
     m_settings.ppi_background_colour = wxColour(s);
     pConf->Read(wxT("ColourDopplerApproaching"), &s, "yellow");
     m_settings.doppler_approaching_colour = wxColour(s);

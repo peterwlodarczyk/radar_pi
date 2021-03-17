@@ -54,6 +54,10 @@ extern "C" DECL_IMPEXP bool radar_get_tx(uint8_t radar);
 extern "C" DECL_IMPEXP double radar_set_range(uint8_t radar, double range);  // range in metres. Auto??a
 extern "C" DECL_IMPEXP double radar_get_range(uint8_t radar);
 
+extern "C" DECL_IMPEXP bool radar_set_guardzone_state(uint8_t radar, uint8_t zone, int state);
+extern "C" DECL_IMPEXP bool radar_set_guardzone_type(uint8_t radar, uint8_t zone, int type);
+extern "C" DECL_IMPEXP bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs);
+
 enum RadarControlState {
   OC_CS_OFF = -1,
   OC_CS_MANUAL = 0,
@@ -82,8 +86,46 @@ struct RadarPosition {
   int sats;
 };
 
+struct GuardZoneStatus {
+  double gz1_inner; // meters
+  double gz1_outer; // meters
+  double gz1_start; // degrees
+  double gz1_end; // degrees
+  int gz1_state; // on/off
+  int gz1_type; //GuardZoneType enum
+  int gz1_threshold;
+  double gz2_inner; // meters
+  double gz2_outer; // meters
+  double gz2_start; // degrees
+  double gz2_end; // degrees
+  int gz2_state; // on/off
+  int gz2_type; //GuardZoneType enum
+  int gz2_threshold;
+};
+
+struct RadarControlStatus {
+  int range; //metres
+  int state;
+  int gain; //db
+  int rain; //db
+  int sea; //db
+  int auto_gain; // degrees
+  int auto_rain; // degrees
+  int auto_sea; // on/off
+  int target_trails;
+  int target_boost;
+  int target_expansion;
+  int target_separation;
+  int doppler;
+  int scan_speed;
+  int noise_rejection;
+};
+
 extern "C" DECL_IMPEXP void radar_set_position(const RadarPosition* pos);
 
-
+extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_state(uint8_t radar);
+extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_type(uint8_t radar);
+extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_define(uint8_t radar);
+extern "C" DECL_IMPEXP RadarControlStatus radar_get_control_status(uint8_t radar);
 
 #endif

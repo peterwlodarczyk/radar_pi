@@ -5,7 +5,7 @@
 #include "radar_pi.h"
 #include "RadarInfo.h"
 #include "radar_lib.h"
-
+#include "GuardZone.h"
 //#ifndef WX_PRECOMP
 //#include "wx/wx.h"
 //#endif
@@ -472,3 +472,143 @@ void radar_set_position(const RadarPosition* pos) {
   if (plugin)
     plugin->SetPositionFixEx(fix);
 }
+
+bool radar_set_guardzone_state(uint8_t radar, uint8_t zone, int state){ 
+  //enabling guard zone. [This actually just enables the ALARM for the respective guardzone]
+  //handle set guardzone? See Controls Dialog setGuardZoneVisibility? / ShowGuardZone?
+  auto info = GetRadarInfo(radar);
+  if (info == nullptr)
+  {
+    return false;
+  }
+  auto m_guard_zone = info->m_guard_zone[zone];
+  m_guard_zone->m_show_time = time(0);
+  m_guard_zone->SetAlarmOn(state);
+  return true;
+}
+
+bool radar_set_guardzone_type(uint8_t radar, uint8_t zone, int type){
+  auto info = GetRadarInfo(radar); //hopefully returns a RadarInfo? RadarInfo then contains 
+  if (info == nullptr)
+  {
+    return false;
+  }
+  auto m_guard_zone = info->m_guard_zone[zone]; // do i need auto's here??
+  m_guard_zone->m_show_time = time(0);
+  m_guard_zone->SetType((RadarPlugin::GuardZoneType)type); //mode should be 0 or 1 for arc / circle -> based ont he GuardZoneType enum
+  return true;
+}
+
+
+bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //change this defintion.
+  //unsure how they pick which radar | zone the below settings apply to... As it's done through the selection of the menu.
+  
+  //taken from on range X click's 
+  //assume the array of range is in meters.
+  auto info = GetRadarInfo(radar); //At this point this is a RadarInfo? -> It's ginvg me a RadarControl not RadarInfo
+  if (info == nullptr)
+  {
+    return false;
+  }
+
+  auto m_guard_zone = info->m_guard_zone[zone];
+  m_guard_zone->m_show_time = time(0);
+
+  int inner = defs[0];
+  int outer = defs[1];
+  int start_bearing = defs[2];
+  int end_bearing = defs[3];
+
+  MOD_DEGREES(start_bearing);
+  MOD_DEGREES(end_bearing);
+  while (start_bearing < 0) {
+    start_bearing += 360;
+  }
+  while (end_bearing < 0){
+    end_bearing += 360;
+  }
+
+  m_guard_zone->SetInnerRange(inner);
+  m_guard_zone->SetOuterRange(outer);
+  m_guard_zone->SetStartBearing(start_bearing);
+  m_guard_zone->SetEndBearing(end_bearing);
+  return true;
+}
+
+GuardZoneStatus radar_get_guardzone_define(uint8_t radar)
+{
+  struct GuardZoneStatus pkt = {};
+  auto info = GetRadarInfo(radar);
+  if (info == nullptr){
+    return pkt;
+  }
+
+  auto gz1 = info->m_guard_zone[0];
+  auto gz2 = info->m_guard_zone[1];
+  pkt.gz1_inner = gz1->m_inner_range;
+  pkt.gz1_outer = gz1->m_outer_range;
+  pkt.gz1_start = gz1->m_start_bearing;
+  pkt.gz1_end = gz1->m_end_bearing;
+  pkt.gz2_inner = gz2->m_inner_range;
+  pkt.gz2_outer = gz2->m_outer_range;
+  pkt.gz2_start = gz2->m_start_bearing;
+  pkt.gz2_end = gz2->m_end_bearing;
+  return pkt;
+}
+
+GuardZoneStatus radar_get_guardzone_type(uint8_t radar)
+{
+  struct GuardZoneStatus pkt = {};
+  auto info = GetRadarInfo(radar);
+  if (info == nullptr){
+    return pkt;
+  }
+  auto gz1 = info->m_guard_zone[0];
+  auto gz2 = info->m_guard_zone[1];
+  pkt.gz1_type = gz1->m_type;
+  pkt.gz2_type = gz2->m_type;
+  return pkt;
+}
+
+GuardZoneStatus radar_get_guardzone_state(uint8_t radar)
+{
+  struct GuardZoneStatus pkt = {};
+  auto info = GetRadarInfo(radar);
+  if (info == nullptr){
+    return pkt;
+  }
+  auto gz1 = info->m_guard_zone[0];
+  auto gz2 = info->m_guard_zone[1];
+  pkt.gz1_type = gz1->m_alarm_on;
+  pkt.gz2_type = gz2->m_alarm_on;
+  return pkt;
+}
+
+RadarControlStatus radar_get_control_status(uint8_t radar) {
+  auto controller = GetRadarController(radar);
+  auto info = GetRadarInfo(radar);
+  struct RadarControlStatus pkt = {};
+
+  if (info == nullptr || controller == nullptr){
+    return pkt;
+  }
+  
+  //I believe the getstates return an enum....?
+  pkt.state = radar_get_state(radar);
+  pkt.range = radar_get_range(radar);
+  pkt.gain = info->m_gain.GetValue(); 
+  pkt.sea = info->m_sea.GetValue();
+  pkt.gain = info->m_gain.GetValue();
+  pkt.auto_gain = 0; //todo
+  pkt.auto_rain = 0; //todo 
+  pkt.auto_sea = 0; //todo 
+  pkt.target_trails = info->m_target_trails.GetState();
+  pkt.target_boost =info->m_target_boost.GetState();
+  pkt.target_expansion = info->m_target_expansion.GetState();
+  pkt.target_separation = info->m_target_separation.GetState();
+  pkt.doppler = info->m_doppler.GetState();
+  pkt.scan_speed = info->m_scan_speed.GetState();
+  pkt.noise_rejection = info->m_noise_rejection.GetState();
+  return pkt;
+}
+
