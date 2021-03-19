@@ -612,3 +612,11 @@ RadarControlStatus radar_get_control_status(uint8_t radar) {
   return pkt;
 }
 
+bool check_guardzone_alarm(uint8_t radar){
+  auto info = GetRadarInfo(radar);
+  if (info)
+    if (info->m_pi)
+      if (info->m_pi->m_guard_bogey_seen) //doesn't check which zone triggered??
+        return true;
+  return false;
+}

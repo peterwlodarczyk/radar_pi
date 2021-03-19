@@ -64,6 +64,7 @@ void OciusDumpVertexImage(int radar) {
   wxImage image(x, y);
   image.SetData(rgb);
   image.SetAlpha(alpha);
+  
   image = image.Mirror(false);
   image.SetOption("quality", 100);
 
