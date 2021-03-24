@@ -140,5 +140,4 @@ extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_define(uint8_t radar)
 extern "C" DECL_IMPEXP RadarControlStatus radar_get_control_status(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneContactReport radar_get_guardzone_status(uint8_t radar);
 bool check_guardzone_alarm(uint8_t radar);
-
 #endif

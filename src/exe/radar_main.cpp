@@ -426,8 +426,7 @@ bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarCo
   bool r = false;
   auto info = GetRadarInfo(radar);
   RadarControlItem item; //todo, fake an item with the value we need.
-  item = value; //and set the value up as needed. 
-  //item.Update(value, state)
+  item.Update(value, (RadarPlugin::RadarControlState) state);
   //RadarControlButton button; //i don't think this gets used by the target trails function - so make it an empty button.
 
   if (info != nullptr)
@@ -619,10 +618,10 @@ RadarControlStatus radar_get_control_status(uint8_t radar) {
   pkt.range = radar_get_range(radar);
   pkt.gain = info->m_gain.GetValue(); 
   pkt.sea = info->m_sea.GetValue();
-  pkt.gain = info->m_gain.GetValue();
-  pkt.auto_gain = 0; //todo
-  pkt.auto_rain = 0; //todo 
-  pkt.auto_sea = 0; //todo 
+  pkt.rain = info->m_rain.GetValue();
+  pkt.auto_gain = info->m_gain.GetState();
+  pkt.auto_sea = info->m_sea.GetState(); 
+  pkt.auto_rain = info->m_rain.GetState();
   pkt.target_trails = info->m_target_trails.GetState();
   pkt.target_boost =info->m_target_boost.GetState();
   pkt.target_expansion = info->m_target_expansion.GetState();
