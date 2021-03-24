@@ -73,6 +73,7 @@ enum RadarControlState {
 };
 
 extern "C" DECL_IMPEXP bool radar_set_control(uint8_t radar, const char* control, ::RadarControlState state, int32_t value);
+extern "C" DECL_IMPEXP bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value);
 extern "C" DECL_IMPEXP bool radar_get_control(uint8_t radar, const char* control, ::RadarControlState* state, int32_t* value);
 extern "C" DECL_IMPEXP bool radar_config_save();
 
@@ -120,6 +121,16 @@ struct RadarControlStatus {
   int scan_speed;
   int noise_rejection;
 };
+struct GuardZoneContactReport {
+  int sensor_type; //radar enum
+  int sensor_id; //guardzone int
+  int contact_id; //increment when alarm goes true.
+  int init_time; //start contact time.
+  int info_time; //current time
+  int our_lat; //our pos from mavlink messages.
+  int our_lon; //our pos from mavlink messages.
+  int our_hdg; //our pos from mavlink messages.
+};
 
 extern "C" DECL_IMPEXP void radar_set_position(const RadarPosition* pos);
 
@@ -127,6 +138,7 @@ extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_state(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_type(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_define(uint8_t radar);
 extern "C" DECL_IMPEXP RadarControlStatus radar_get_control_status(uint8_t radar);
+extern "C" DECL_IMPEXP GuardZoneContactReport radar_get_guardzone_status(uint8_t radar);
 bool check_guardzone_alarm(uint8_t radar);
 
 #endif

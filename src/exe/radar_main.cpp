@@ -6,6 +6,9 @@
 #include "RadarInfo.h"
 #include "radar_lib.h"
 #include "GuardZone.h"
+#include "RadarControlItem.h" //control items
+#include "ControlsDialog.h" //control buttons
+
 //#ifndef WX_PRECOMP
 //#include "wx/wx.h"
 //#endif
@@ -418,6 +421,24 @@ double radar_get_range(uint8_t radar) {
   return range;
 }
 
+bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value){
+  //note it might be possible to replace the set_control calls here with virtually pressing the associated button.
+  bool r = false;
+  auto info = GetRadarInfo(radar);
+  RadarControlItem item; //todo, fake an item with the value we need.
+  item = value; //and set the value up as needed. 
+  //item.Update(value, state)
+  //RadarControlButton button; //i don't think this gets used by the target trails function - so make it an empty button.
+
+  if (info != nullptr)
+  {
+    ControlType control_enum = ControlTypeStringToEnum(control_string);
+    r = info->SetControlValue(control_enum, item, nullptr); //fake a button and hope it doesn't break things?
+  }
+  OC_DEBUG("[%s]=%d.control_item=%s.state=%d,value=%d.", __func__, r, control_string, state, value);
+  return r;
+}
+
 bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value) {
   bool r = false;
   auto controller = GetRadarController(radar);
@@ -616,7 +637,27 @@ bool check_guardzone_alarm(uint8_t radar){
   auto info = GetRadarInfo(radar);
   if (info)
     if (info->m_pi)
-      if (info->m_pi->m_guard_bogey_seen) //doesn't check which zone triggered??
+      if (info->m_pi->m_guard_bogey_seen) //doesn't check which zone triggered
         return true;
   return false;
+}
+
+GuardZoneContactReport radar_get_guardzone_status(uint8_t radar)
+{
+  struct GuardZoneContactReport pkt = {};
+  auto info = GetRadarInfo(radar);
+  auto plugin = GetRadarPlugin();
+  if (info == nullptr || plugin == nullptr){
+    return pkt;
+  }
+  auto gps = plugin->m_expected_position;
+  pkt.info_time = time(0); //should be the current time.
+	//pkt.init_time = alarm;//time of first contact. 
+	pkt.sensor_id = 0; //radar a vs radar b
+	pkt.contact_id = 0; //increment in get gz state?
+	pkt.our_lat = gps.pos.lat;//todo, pull/update from mavlink message case.
+	pkt.our_lon = gps.pos.lon;
+	//contact_info.our_hdg = info->m_true_heading_info; //todo, this is the wrong heading. :(
+
+  return pkt;
 }
