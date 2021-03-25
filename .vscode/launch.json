@@ -24,6 +24,58 @@
             ],
             "miDebuggerPath": "/usr/bin/gdb",
             "logging": { "trace": true, "traceResponse": true }
+        },
+        {
+            "name": "oc_server",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/odroid/src/oc_usv/build/bin/oc_server",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "ignore SIGILL",
+                    "text": "handle SIGILL nostop",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb",
+            "logging": { "trace": true, "traceResponse": true }
+        },
+        {
+            "name": "oc_capture",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/odroid/src/oc_usv/build/bin/oc_capture",
+            "args": ["-c", "Radara", "-dm"],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "ignore SIGILL",
+                    "text": "handle SIGILL nostop",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb",
+            "logging": { "trace": true, "traceResponse": true }
         }
-            ]
+    ]
 }

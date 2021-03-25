@@ -621,7 +621,7 @@ void RadarInfo::RequestRadarState(RadarState state) {
 
 void RadarInfo::RenderGuardZone() {
   int start_bearing = 0, end_bearing = 0;
-  GLubyte red = 0, green = 200, blue = 0, alpha = 50;
+  GLubyte red = 0, green = 255, blue = 0, alpha = 55; //todo make this read from m_settings?
 
   for (size_t z = 0; z < GUARD_ZONES; z++) {
     if (m_guard_zone[z]->m_alarm_on || m_guard_zone[z]->m_arpa_on || m_guard_zone[z]->m_show_time + 5 > time(0)) {
@@ -649,7 +649,7 @@ void RadarInfo::RenderGuardZone() {
 
     red = 0;
     green = 0;
-    blue = 200;
+    blue = 255;
   }
 
   start_bearing = m_no_transmit_start.GetValue();

@@ -599,8 +599,8 @@ GuardZoneStatus radar_get_guardzone_state(uint8_t radar)
   }
   auto gz1 = info->m_guard_zone[0];
   auto gz2 = info->m_guard_zone[1];
-  pkt.gz1_type = gz1->m_alarm_on;
-  pkt.gz2_type = gz2->m_alarm_on;
+  pkt.gz1_state = gz1->m_alarm_on;
+  pkt.gz2_state = gz2->m_alarm_on;
   return pkt;
 }
 
@@ -622,13 +622,13 @@ RadarControlStatus radar_get_control_status(uint8_t radar) {
   pkt.auto_gain = info->m_gain.GetState();
   pkt.auto_sea = info->m_sea.GetState(); 
   pkt.auto_rain = info->m_rain.GetState();
-  pkt.target_trails = info->m_target_trails.GetState();
-  pkt.target_boost =info->m_target_boost.GetState();
-  pkt.target_expansion = info->m_target_expansion.GetState();
-  pkt.target_separation = info->m_target_separation.GetState();
-  pkt.doppler = info->m_doppler.GetState();
-  pkt.scan_speed = info->m_scan_speed.GetState();
-  pkt.noise_rejection = info->m_noise_rejection.GetState();
+  pkt.target_trails = info->m_target_trails.GetValue();
+  pkt.target_boost =info->m_target_boost.GetValue();
+  pkt.target_expansion = (info->m_target_expansion.GetValue() > 0) ? 1 : 0;  //currently a bug in the target_sepation interface that save value "on" as "high"
+  pkt.target_separation = info->m_target_separation.GetValue();
+  pkt.doppler = info->m_doppler.GetValue();
+  pkt.scan_speed = info->m_scan_speed.GetValue();
+  pkt.noise_rejection = info->m_noise_rejection.GetValue();
   return pkt;
 }
 
