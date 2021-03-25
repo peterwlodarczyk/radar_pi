@@ -122,8 +122,8 @@ struct RadarControlStatus {
   int noise_rejection;
 };
 struct GuardZoneContactReport {
-  int sensor_type; //radar enum
-  int sensor_id; //guardzone int
+  int sensor_type; //radar enum //actually needs to be 7 for radar
+  int sensor_id; //enum(GuardZone, ARPA, MARPA)
   int contact_id; //increment when alarm goes true.
   int init_time; //start contact time.
   int info_time; //current time
@@ -131,6 +131,22 @@ struct GuardZoneContactReport {
   int our_lon; //our pos from mavlink messages.
   int our_hdg; //our pos from mavlink messages.
 };
+
+struct ARPAContactReport {//todo 
+  int sensor_type; //radar enum //actually needs to be 7 for radar
+  int sensor_id; //enum(GuardZone, ARPA, MARPA)
+  int contact_id; //increment when alarm goes true.
+  int init_time; //start contact time.
+  int info_time; //current time
+  int lat; //target pos
+  int lon; //target pos
+  int cog; //target cog
+  int sog; //target sog
+  int our_lat; //our pos from mavlink messages.
+  int our_lon; //our pos from mavlink messages.
+  int our_hdg; //our pos from mavlink messages.
+};
+
 
 extern "C" DECL_IMPEXP void radar_set_position(const RadarPosition* pos);
 

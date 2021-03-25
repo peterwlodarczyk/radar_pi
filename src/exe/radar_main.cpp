@@ -485,7 +485,7 @@ void radar_set_position(const RadarPosition* pos) {
   fix.Var = 0;
   fix.Hdm = pos->heading;
   fix.Hdt = pos->heading;
-  fix.FixTime = pos->timestamp / 1000000;
+  fix.FixTime = pos->timestamp; //now in seconds.
   fix.nSats = pos->sats;
 
   auto plugin = GetRadarPlugin();
@@ -637,6 +637,7 @@ bool check_guardzone_alarm(uint8_t radar){
   if (info)
     if (info->m_pi)
       if (info->m_pi->m_guard_bogey_seen) //doesn't check which zone triggered
+        //todo findout why this causes segfaults unpredictably. (only noticed them while debugging....)
         return true;
   return false;
 }
@@ -649,13 +650,15 @@ GuardZoneContactReport radar_get_guardzone_status(uint8_t radar)
   if (info == nullptr || plugin == nullptr){
     return pkt;
   }
-  auto gps = plugin->m_expected_position;
+
+  GeoPosition gps;
+	info->GetRadarPosition(&gps);
   pkt.info_time = time(0); //should be the current time.
 	//pkt.init_time = alarm;//time of first contact. 
 	pkt.sensor_id = 0; //radar a vs radar b
 	pkt.contact_id = 0; //increment in get gz state?
-	pkt.our_lat = gps.pos.lat;//todo, pull/update from mavlink message case.
-	pkt.our_lon = gps.pos.lon;
+	pkt.our_lat = gps.lat;//todo, pull/update from mavlink message case.
+	pkt.our_lon = gps.lon;
 	//contact_info.our_hdg = info->m_true_heading_info; //todo, this is the wrong heading. :(
 
   return pkt;
