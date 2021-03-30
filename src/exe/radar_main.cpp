@@ -8,6 +8,7 @@
 #include "GuardZone.h"
 #include "RadarControlItem.h" //control items
 #include "ControlsDialog.h" //control buttons
+#include "RadarMarpa.h" //contains arpatarget class
 
 //#ifndef WX_PRECOMP
 //#include "wx/wx.h"
@@ -507,6 +508,20 @@ bool radar_set_guardzone_state(uint8_t radar, uint8_t zone, int state){
   return true;
 }
 
+bool radar_set_guardzone_arpa(uint8_t radar, uint8_t zone, int state){ 
+  //enabling guard zone. [This actually just enables the ALARM for the respective guardzone]
+  //handle set guardzone? See Controls Dialog setGuardZoneVisibility? / ShowGuardZone?
+  auto info = GetRadarInfo(radar);
+  if (info == nullptr)
+  {
+    return false;
+  }
+  auto m_guard_zone = info->m_guard_zone[zone];
+  m_guard_zone->m_show_time = time(0);
+  m_guard_zone->SetArpaOn(state);
+  return true;
+}
+
 bool radar_set_guardzone_type(uint8_t radar, uint8_t zone, int type){
   auto info = GetRadarInfo(radar); //hopefully returns a RadarInfo? RadarInfo then contains 
   if (info == nullptr)
@@ -660,6 +675,88 @@ GuardZoneContactReport radar_get_guardzone_status(uint8_t radar)
 	pkt.our_lat = gps.lat;//todo, pull/update from mavlink message case.
 	pkt.our_lon = gps.lon;
 	//contact_info.our_hdg = info->m_true_heading_info; //todo, this is the wrong heading. :(
+
+  return pkt;
+}
+
+bool radar_marpa_aquire(uint8_t radar, int bearing, int range){
+  auto info = GetRadarInfo(radar); 
+  if (info == nullptr){
+    return false;
+  }
+  //Bearing, Range -> Polar //todo
+  //ExtendedPosition target_pos info->m_arpa->Polar2Pos(Polar, LastKnown pos)
+  //status = ACQUIRE0 //find enum
+  //info->m_arpa->AcquireNewMARPATarget(target_pos, status); //should just aquire the target.
+  return true;
+}
+
+bool radar_marpa_delete(uint8_t radar, int bearing, int range){
+  auto info = GetRadarInfo(radar); 
+  if (info == nullptr){
+    return false;
+  }
+  //Bearing, Range -> Polar //todo
+  //ExtendedPosition target_pos info->m_arpa->Polar2Pos(Polar, LastKnown pos)
+  //status = FOR_DELETION //find enum
+  //info->m_arpa->AcquireNewMARPATarget(target_pos, status); //should just aquire the target.
+  return true;
+}
+
+bool radar_marpa_delete_all(uint8_t radar){
+  auto info = GetRadarInfo(radar); 
+  if (info == nullptr){
+    return false;
+  }
+  info->m_arpa->DeleteAllTargets(); //should just delete all targets
+  return true;
+}
+
+
+//todo get target list function
+ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){
+  //fill in the data for the report 
+  ARPAContactReport pkt = {};
+  auto info = GetRadarInfo(radar);
+  if (info == nullptr){
+    return pkt;
+  }
+
+  if ( i >= 100) //incorrect value.
+    return pkt; 
+
+  //below is invalid use of incomplete class?
+  auto target = info->m_arpa->m_targets[i]; //m_targets was originally private
+  if (target == nullptr){
+    return pkt;
+  }
+  //we now have a bunch of info from target -> X
+
+  //not sure if we have exposed enough of the marpa info, might need to make more bits public or move this to inside RadarMarpa
+  if (target->m_automatic){
+  //todo define this enum somewhere. {GuardZone, Arpa, Marpa}
+    pkt.sensor_type = 1; //true for ARPA
+  } else {
+    pkt.sensor_type = 2; //false for MARPA
+  }
+  pkt.contact_id = target->m_target_id;
+  pkt.init_time = time(0) - (int) target->m_refresh.GetValue(); //probably casting wrong.
+  pkt.info_time = time(0);
+  pkt.lat = target->m_position.pos.lat;
+  pkt.lon = target->m_position.pos.lon;
+  pkt.sog = target->m_speed_kn;
+  pkt.cog = target->m_course;
+  GeoPosition gps;
+	info->GetRadarPosition(&gps);
+  /*
+  Polar p = info->m_arpa->Pos2Polar(target.pos, gps);
+  pkt.range = pol->r / info->m_pixels_per_meter / 1852.; //eqns from PassARPAtoOCPN
+  pkt.bearing = pol->angle * 360. / info->m_spokes;
+  */
+  pkt.phase = target->m_status; //a target_status (Q, T, L) for acquring active lost.
+  pkt.our_lat = gps.lat; 
+  pkt.our_lon = gps.lon;
+  //pkt.hdg;
 
   return pkt;
 }

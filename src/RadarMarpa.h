@@ -104,6 +104,7 @@ class ArpaTarget {
   RadarInfo* m_ri;
   radar_pi* m_pi;
   KalmanFilter* m_kalman;
+ public: //exposing info that mavlink wants.
   int m_target_id;
   target_status m_status;
   // radar position at time of last target fix, the polars in the contour refer to this origin
@@ -112,6 +113,7 @@ class ArpaTarget {
   double m_speed_kn;            // Average speed of target. TODO: Merge with m_position.speed?
   wxLongLong m_refresh;         // time of last refresh
   double m_course;
+ private:
   int m_stationary;  // number of sweeps target was stationary
   int m_lost_count;
   bool m_check_for_duplicate;
@@ -121,6 +123,7 @@ class ArpaTarget {
   int m_contour_length;
   Polar m_max_angle, m_min_angle, m_max_r, m_min_r;  // charasterictics of contour
   Polar m_expected;
+ public:
   bool m_automatic;  // True for ARPA, false for MARPA.
 
   ExtendedPosition Polar2Pos(Polar pol, ExtendedPosition own_ship);
@@ -148,8 +151,11 @@ class RadarArpa {
 
  private:
   int m_number_of_targets;
-  ArpaTarget* m_targets[MAX_NUMBER_OF_TARGETS];
 
+ public://exposing m_targets for the mavlink interface.
+  ArpaTarget* m_targets[MAX_NUMBER_OF_TARGETS];
+ private:
+ 
   radar_pi* m_pi;
   RadarInfo* m_ri;
 
