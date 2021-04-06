@@ -64,10 +64,11 @@ void OciusDumpVertexImage(int radar) {
   wxImage image(x, y);
   image.SetData(rgb);
   image.SetAlpha(alpha);
-  
-  image = image.Mirror(false);
-  image.SetOption("quality", 100);
 
+  image = image.Mirror(false);
+  //image.SetOption("quality", 100); //only used for jpg.
+  image.SetOption(wxIMAGE_OPTION_PNG_BITDEPTH, 4); //Should reduce size a bunch. Changes colours.
+  image.SetOption(wxIMAGE_OPTION_PNG_COMPRESSION_LEVEL, 9); //max compression level.
   string filename = g_OciusLiveDir + '/' + name + "-capture.png";
   {
     FileLock f(filename.c_str());

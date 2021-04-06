@@ -92,7 +92,6 @@ struct RadarPosition {
   uint64_t timestamp; // microseconds since 1970 UTC
   int sats;
 };
-
 struct GuardZoneStatus {
   double gz1_inner; // meters
   double gz1_outer; // meters
@@ -128,9 +127,9 @@ struct RadarControlStatus {
   int noise_rejection;
 };
 struct GuardZoneContactReport {
-  int sensor_type; //radar enum //actually needs to be 7 for radar
-  int sensor_id; //enum(GuardZone, ARPA, MARPA)
-  int contact_id; //increment when alarm goes true.
+  int sensortype; //radar enum //actually needs to be 7 for radar
+  int sensorid; //enum(GuardZone, ARPA, MARPA)
+  int contactid; //increment when alarm goes true.
   int init_time; //start contact time.
   int info_time; //current time
   int our_lat; //our pos from mavlink messages.
@@ -139,9 +138,9 @@ struct GuardZoneContactReport {
 };
 
 struct ARPAContactReport {
-  int sensor_type; //radar enum //actually needs to be 7 for radar
-  int sensor_id; //enum(GuardZone, ARPA, MARPA) ->  m_automatic
-  int contact_id; // [m_target_id]
+  int sensortype; //radar enum //actually needs to be 7 for radar
+  int sensorid; //enum(GuardZone, ARPA, MARPA) ->  m_automatic
+  int contactid; // [m_target_id]
   int init_time; //start contact time.
   int info_time; //current time
   //some of the data is here PassARPAtoOCPN
@@ -157,14 +156,13 @@ struct ARPAContactReport {
   int phase; //state of tracking.
 };
 
-
 extern "C" DECL_IMPEXP void radar_set_position(const RadarPosition* pos);
-
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_state(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_type(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_define(uint8_t radar);
 extern "C" DECL_IMPEXP RadarControlStatus radar_get_control_status(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneContactReport radar_get_guardzone_status(uint8_t radar);
 extern "C" DECL_IMPEXP ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i);
-bool check_guardzone_alarm(uint8_t radar);
+extern "C" DECL_IMPEXP bool check_guardzone_alarm(uint8_t radar);
+
 #endif

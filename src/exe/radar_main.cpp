@@ -9,6 +9,10 @@
 #include "RadarControlItem.h" //control items
 #include "ControlsDialog.h" //control buttons
 #include "RadarMarpa.h" //contains arpatarget class
+#include "Kalman.h" //the Polar def.
+
+static ExtendedPosition RadarPolar2Pos(uint8_t radar, const RadarPlugin::Polar& pol, const ExtendedPosition& own_ship);
+static RadarPlugin::Polar RadarPos2Polar(uint8_t radar, const ExtendedPosition& p, const ExtendedPosition& own_ship);
 
 //#ifndef WX_PRECOMP
 //#include "wx/wx.h"
@@ -670,8 +674,8 @@ GuardZoneContactReport radar_get_guardzone_status(uint8_t radar)
 	info->GetRadarPosition(&gps);
   pkt.info_time = time(0); //should be the current time.
 	//pkt.init_time = alarm;//time of first contact. 
-	pkt.sensor_id = 0; //radar a vs radar b
-	pkt.contact_id = 0; //increment in get gz state?
+	pkt.sensorid = 0; //radar a vs radar b
+	pkt.contactid = 0; //increment in get gz state?
 	pkt.our_lat = gps.lat;//todo, pull/update from mavlink message case.
 	pkt.our_lon = gps.lon;
 	//contact_info.our_hdg = info->m_true_heading_info; //todo, this is the wrong heading. :(
@@ -680,14 +684,23 @@ GuardZoneContactReport radar_get_guardzone_status(uint8_t radar)
 }
 
 bool radar_marpa_aquire(uint8_t radar, int bearing, int range){
+  auto plugin = GetRadarPlugin();
   auto info = GetRadarInfo(radar); 
-  if (info == nullptr){
+  if (info == nullptr || plugin == nullptr){
     return false;
   }
-  //Bearing, Range -> Polar //todo
-  //ExtendedPosition target_pos info->m_arpa->Polar2Pos(Polar, LastKnown pos)
-  //status = ACQUIRE0 //find enum
-  //info->m_arpa->AcquireNewMARPATarget(target_pos, status); //should just aquire the target.
+  Polar pol;
+  pol.angle = bearing;
+  pol.r = range; //hopefully this works okay?
+  pol.time = wxGetUTCTimeMillis(); //now.
+
+  GeoPosition gps;
+	info->GetRadarPosition(&gps);
+  ExtendedPosition curr;
+  curr.pos = gps;
+
+  ExtendedPosition target_pos = RadarPolar2Pos(radar, pol, curr);
+  info->m_arpa->AcquireNewMARPATarget(target_pos); //should just aquire the target.
   return true;
 }
 
@@ -696,10 +709,18 @@ bool radar_marpa_delete(uint8_t radar, int bearing, int range){
   if (info == nullptr){
     return false;
   }
-  //Bearing, Range -> Polar //todo
-  //ExtendedPosition target_pos info->m_arpa->Polar2Pos(Polar, LastKnown pos)
-  //status = FOR_DELETION //find enum
-  //info->m_arpa->AcquireNewMARPATarget(target_pos, status); //should just aquire the target.
+  Polar pol;
+  pol.angle = bearing;
+  pol.r = range; //hopefully this works okay?
+  pol.time = wxGetUTCTimeMillis(); //now.
+
+  GeoPosition gps;
+	info->GetRadarPosition(&gps);
+  ExtendedPosition curr;
+  curr.pos = gps;
+
+  ExtendedPosition target_pos = RadarPolar2Pos(radar, pol, curr);
+  info->m_arpa->DeleteTarget(target_pos); //should just aquire the target.
   return true;
 }
 
@@ -722,7 +743,7 @@ ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){
     return pkt;
   }
 
-  if ( i >= 100) //incorrect value.
+  if (i >= 100) //incorrect value.
     return pkt; 
 
   //below is invalid use of incomplete class?
@@ -735,11 +756,11 @@ ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){
   //not sure if we have exposed enough of the marpa info, might need to make more bits public or move this to inside RadarMarpa
   if (target->m_automatic){
   //todo define this enum somewhere. {GuardZone, Arpa, Marpa}
-    pkt.sensor_type = 1; //true for ARPA
+    pkt.sensorid = 1; //true for ARPA
   } else {
-    pkt.sensor_type = 2; //false for MARPA
+    pkt.sensorid = 2; //false for MARPA
   }
-  pkt.contact_id = target->m_target_id;
+  pkt.contactid = target->m_target_id;
   pkt.init_time = time(0) - (int) target->m_refresh.GetValue(); //probably casting wrong.
   pkt.info_time = time(0);
   pkt.lat = target->m_position.pos.lat;
@@ -748,15 +769,54 @@ ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){
   pkt.cog = target->m_course;
   GeoPosition gps;
 	info->GetRadarPosition(&gps);
-  /*
-  Polar p = info->m_arpa->Pos2Polar(target.pos, gps);
-  pkt.range = pol->r / info->m_pixels_per_meter / 1852.; //eqns from PassARPAtoOCPN
-  pkt.bearing = pol->angle * 360. / info->m_spokes;
-  */
+  ExtendedPosition curr;
+  curr.pos = gps;
+
+  Polar pol = RadarPos2Polar(radar, target->m_position, curr);
+  pkt.range = pol.r / info->m_pixels_per_meter / 1852.; //eqns from PassARPAtoOCPN
+  pkt.bearing = pol.angle * 360. / info->m_spokes;
+  
   pkt.phase = target->m_status; //a target_status (Q, T, L) for acquring active lost.
   pkt.our_lat = gps.lat; 
   pkt.our_lon = gps.lon;
-  //pkt.hdg;
 
   return pkt;
+}
+
+ExtendedPosition RadarPolar2Pos(uint8_t radar, const RadarPlugin::Polar& pol, const ExtendedPosition& own_ship) {
+  //just simplifying stuff by moving this here and getting the m_ri through the getter function.
+
+  // The "own_ship" in the function call can be the position at an earlier time than the current position
+  // converts in a radar image angular data r ( 0 - max_spoke_len ) and angle (0 - max_spokes) to position (lat, lon)
+  // based on the own ship position own_ship
+  ExtendedPosition pos;
+  auto m_ri = GetRadarInfo(radar);
+  if (m_ri == nullptr){
+    return pos; //empty.
+  }
+
+  pos.pos.lat = own_ship.pos.lat + ((double)pol.r / m_ri->m_pixels_per_meter)  // Scale to fraction of distance from radar
+                                       * cos(deg2rad(SCALE_SPOKES_TO_DEGREES(pol.angle))) / 60. / 1852.;
+  pos.pos.lon = own_ship.pos.lon + ((double)pol.r / m_ri->m_pixels_per_meter)  // Scale to fraction of distance to radar
+                                       * sin(deg2rad(SCALE_SPOKES_TO_DEGREES(pol.angle))) / cos(deg2rad(own_ship.pos.lat)) / 60. /
+                                       1852.;
+  return pos;
+}
+
+Polar RadarPos2Polar(uint8_t radar, const ExtendedPosition& p, const ExtendedPosition& own_ship) {
+   //just simplifying stuff by moving this here and getting the m_ri through the getter function.
+
+  Polar pol;
+  auto m_ri = GetRadarInfo(radar);
+  if (m_ri == nullptr){
+    return pol;
+  }
+
+  double dif_lat = p.pos.lat;
+  dif_lat -= own_ship.pos.lat;
+  double dif_lon = (p.pos.lon - own_ship.pos.lon) * cos(deg2rad(own_ship.pos.lat));
+  pol.r = (int)(sqrt(dif_lat * dif_lat + dif_lon * dif_lon) * 60. * 1852. * m_ri->m_pixels_per_meter + 1);
+  pol.angle = (int)((atan2(dif_lon, dif_lat)) * (double)m_ri->m_spokes / (2. * PI) + 1);  // + 1 to minimize rounding errors
+  if (pol.angle < 0) pol.angle += m_ri->m_spokes;
+  return pol;
 }

@@ -552,7 +552,7 @@ bool radar_pi::MakeRadarSelection() {
     TimedControlUpdate();
   }
   m_initialized = true;
-  SaveConfig();
+  //SaveConfig(); //Testing disabling this save, to see if we still lose the radar pi IP addresses in the config file if the radar process is running without the radar turned on.
   return ret;
 }
 
