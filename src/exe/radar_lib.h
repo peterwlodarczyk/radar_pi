@@ -132,8 +132,8 @@ struct GuardZoneContactReport {
   int contactid; //increment when alarm goes true.
   int init_time; //start contact time.
   int info_time; //current time
-  int our_lat; //our pos from mavlink messages.
-  int our_lon; //our pos from mavlink messages.
+  float our_lat; //our pos from mavlink messages.
+  float our_lon; //our pos from mavlink messages.
   int our_hdg; //our pos from mavlink messages.
 };
 
@@ -144,12 +144,12 @@ struct ARPAContactReport {
   int init_time; //start contact time.
   int info_time; //current time
   //some of the data is here PassARPAtoOCPN
-  int lat; //target pos m_position.lat
-  int lon; //target pos m_position.lon
-  int cog; //target cog [m_course]
-  int sog; //target sog [m_speed_kn]
-  int our_lat; //our pos from mavlink messages.
-  int our_lon; //our pos from mavlink messages.
+  float lat; //target pos m_position.lat
+  float lon; //target pos m_position.lon
+  float cog; //target cog [m_course]
+  float sog; //target sog [m_speed_kn]
+  float our_lat; //our pos from mavlink messages.
+  float our_lon; //our pos from mavlink messages.
   int our_hdg; //our pos from mavlink messages.
   double bearing; //bearing = pol->angle * 360. / m_ri->m_spokes;
   double range; //dist = pol->r / m_ri->m_pixels_per_meter / 1852.
