@@ -81,6 +81,8 @@ SET(SRC_OCIUS
             src/ocius/oc_utils.h
             src/ocius/oc_radar_interface.cpp
             src/ocius/oc_radar_interface.h
+            src/ocius/opngreduc.c
+            src/ocius/opngreduc.h
 )
 
 SET(SRC_RADAR
