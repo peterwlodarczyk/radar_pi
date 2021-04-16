@@ -192,7 +192,7 @@ void OciusDumpVertexImage(int radar) {
     FileLock f(filename.c_str());
     if (f.locked())
     {
-      //CreateFileWithPermissions(filename.c_str(), 0666);
+      CreateFileWithPermissions(filename.c_str(), 0666);
       write_png_file((char*) filename.c_str(), info_ptr, row_pointers);
       /*
       if (image.SaveFile(filename.c_str(), wxBITMAP_TYPE_PNG))

@@ -618,8 +618,9 @@ GuardZoneStatus radar_get_guardzone_state(uint8_t radar)
   }
   auto gz1 = info->m_guard_zone[0];
   auto gz2 = info->m_guard_zone[1];
-  pkt.gz1_state = gz1->m_alarm_on;
-  pkt.gz2_state = gz2->m_alarm_on;
+  pkt.gz1_state = ((gz1->m_alarm_on << 1) | (gz1->m_arpa_on << 2));
+  pkt.gz2_state = ((gz2->m_alarm_on << 1) | (gz2->m_arpa_on << 2)); //ask matt. 
+
   return pkt;
 }
 
@@ -754,11 +755,13 @@ ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){
   //we now have a bunch of info from target -> X
 
   //not sure if we have exposed enough of the marpa info, might need to make more bits public or move this to inside RadarMarpa
+  pkt.sensorid = radar; //0,1 A,B
+  
   if (target->m_automatic){
   //todo define this enum somewhere. {GuardZone, Arpa, Marpa}
-    pkt.sensorid = 1; //true for ARPA
+    pkt.sensortype = 12; //SENSOR_TYPE_RADAR_ARPA; //true for ARPA
   } else {
-    pkt.sensorid = 2; //false for MARPA
+    pkt.sensortype = 13; //SENSOR_TYPE_RADAR_MARPA; //false for MARPA
   }
   pkt.contactid = target->m_target_id;
   pkt.init_time = time(0) - (int) target->m_refresh.GetValue(); //probably casting wrong.
