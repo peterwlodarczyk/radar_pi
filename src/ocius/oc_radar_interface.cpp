@@ -25,7 +25,7 @@ png_bytep * row_pointers = nullptr;
 
 void malloc_row_buffers(){ //called on first image save and if width/height changes
   OC_DEBUG("[malloc_row_buffers]");
-  //free everything before allocing again.
+  //free everything before mallocing again.
   if (row_pointers != nullptr)
   {
     for (int i = 0; i < height; i ++){ //is is possible this isn't free'ing everything. ?
@@ -104,7 +104,7 @@ void write_png_file(char* file_name, png_infop info_ptr, png_bytep * row_pointer
 		abort_("[write_png_file] Error during end of write");
 
 	png_write_end(png_ptr, NULL);
-  png_destroy_write_struct(&png_ptr, &info_ptr);
+  png_destroy_write_struct(&png_ptr, &info_ptr); //also destorys the info_ptr. 
 	fclose(fp);
 }
 
