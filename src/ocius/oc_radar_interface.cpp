@@ -45,74 +45,79 @@ void malloc_row_buffers(){ //called on first image save and if width/height chan
   }
 }
 
-void abort_(const char * s, ...)
+bool write_png_file(char* file_name, png_infop info_ptr, png_bytep * row_pointers)
 {
-	va_list args;
-	va_start(args, s);
-	vfprintf(stderr, s, args);
-	fprintf(stderr, "\n");
-	va_end(args);
-  abort();
-}
-
-
-void write_png_file(char* file_name, png_infop info_ptr, png_bytep * row_pointers)
-{
-  if (buffer == nullptr || row_pointers == nullptr) 
-  {
+  if (buffer == nullptr || row_pointers == nullptr) {
     malloc_row_buffers(); //first time we have run this save function allocate what we will use.
   }
- 
-	/* create file */
-	FILE *fp = fopen(file_name, "wb");
-	if (!fp)
-		abort_("[write_png_file] File %s could not be opened for writing", file_name);
+
+  /* create file */
+  FILE *fp = fopen(file_name, "wb");
+  if (!fp) {
+    OC_DEBUG("[write_png_file] File %s could not be opened for writing", file_name);
+    abort();
+  }
+
+  if (!info_ptr) { //should already exist - given to us in function call.
+    OC_DEBUG("[read_png_file] png_create_info_struct failed");
+    abort();
+  }
 
   png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+  if (!png_ptr) {
+    OC_DEBUG("[write_png_file] png_create_write_struct failed");
+    abort();
+  }
 
-	if (!png_ptr)
-		abort_("[write_png_file] png_create_write_struct failed");
+  if (setjmp(png_jmpbuf(png_ptr))) {
+    OC_DEBUG("[write_png_file] Error during init_io");
+    png_destroy_write_struct(&png_ptr, &info_ptr);
+    abort();
+  }
 
-	if (!info_ptr) //should already exist - given to us in function call.
-		abort_("[read_png_file] png_create_info_struct failed");
-
-	if (setjmp(png_jmpbuf(png_ptr)))
-		abort_("[write_png_file] Error during init_io");
-
-	png_init_io(png_ptr, fp);
+  png_init_io(png_ptr, fp);
   
-	/* write header */
-	if (setjmp(png_jmpbuf(png_ptr)))
-		abort_("[write_png_file] Error during writing header");
+  /* write header */
+  if (setjmp(png_jmpbuf(png_ptr))) {
+    OC_DEBUG("[write_png_file] Error during writing header");
+    abort();
+  }
 
   int color_type = png_get_color_type(png_ptr, info_ptr);
-	int bit_depth = png_get_bit_depth(png_ptr, info_ptr);
+  int bit_depth = png_get_bit_depth(png_ptr, info_ptr);
 
 #if 0
-	png_set_IHDR(png_ptr, info_ptr, width, height,
-			bit_depth, color_type, PNG_INTERLACE_NONE,
-			PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+  png_set_IHDR(png_ptr, info_ptr, width, height,
+      bit_depth, color_type, PNG_INTERLACE_NONE,
+      PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 #endif
-	png_write_info(png_ptr, info_ptr);
-	/* write bytes */
-	if (setjmp(png_jmpbuf(png_ptr)))
-		abort_("[write_png_file] Error during writing bytes");
+  png_write_info(png_ptr, info_ptr);
+  /* write bytes */
+  if (setjmp(png_jmpbuf(png_ptr))) {
+    OC_DEBUG("[write_png_file] Error during writing bytes");
+    abort();
+  }
 
-	png_write_image(png_ptr, row_pointers);
-	/* end write */
-	if (setjmp(png_jmpbuf(png_ptr)))
-		abort_("[write_png_file] Error during end of write");
+  png_write_image(png_ptr, row_pointers);
+  /* end write */
+  if (setjmp(png_jmpbuf(png_ptr))) {
+    OC_DEBUG("[write_png_file] Error during end of write");
+    abort();
+  }
 
-	png_write_end(png_ptr, NULL);
+  png_write_end(png_ptr, NULL);
   png_destroy_write_struct(&png_ptr, &info_ptr); //also destorys the info_ptr. 
-	fclose(fp);
+  fclose(fp);
+  return true;
 }
 
-void OciusDumpVertexImage(int radar) {
+bool OciusDumpVertexImage(int radar) 
+{
   system_clock::time_point now = system_clock::now();
   if (now < next_update) 
-    return;
+    return false;
 
+  bool ret = false;
   next_update = now + milliseconds(100);
   string name;
   if (radar == 1)
@@ -125,19 +130,18 @@ void OciusDumpVertexImage(int radar) {
 
   GLint viewport[4];
   glGetIntegerv(GL_VIEWPORT, viewport);
-  if (width != viewport[2] || height != viewport[3])
-  {
+  if (width != viewport[2] || height != viewport[3]) {
     width = viewport[2];
     height = viewport[3];
     inputSize = width*height * 4;
     //width/height changed so remake the structs.
     malloc_row_buffers(); 
   }
- 
+
   glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
   //set the transparent sections based on the 0,0,50 (initial background settings)
-  if (buffer){
-    for (int p = 0; p < width * height * 4; p += 4){ //for each RGBA section
+  if (buffer) {
+    for (int p = 0; p < width * height * 4; p += 4) { //for each RGBA section
       if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50){ //default background colour in the config.
       //todo check if there is a better way to do the above check (compare bits of the whole section?)
         buffer[p + 3] = 0;
@@ -148,17 +152,23 @@ void OciusDumpVertexImage(int radar) {
   //use opting to evaluate image compression. 
   // optipng -full image.png specifies the best output format for the image.
   //todo reduce the total colours used in the radar to < 8 to reduce file size again.
-  for (int i = 0; i < height; i ++){
+  for (int i = 0; i < height; i ++) {
     memcpy(row_pointers[i], buffer + ((height*width*4) - ((i+1)*width*4)), width*4); //mirroring the image as we allocate
   }
-  if(1)
-  {
+  if(1) {
     png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if (!png_ptr)
-      abort_("[read_png_file] png_create_read_struct failed");
+    {
+      OC_DEBUG("[OciusDumpVertexImage] png_create_read_struct failed");
+      abort();
+    }
     png_infop info_ptr = png_create_info_struct(png_ptr);
     if (!info_ptr)
-      abort_("[read_png_file] png_create_info_struct failed");
+    {
+      OC_DEBUG("[OciusDumpVertexImage] png_create_info_struct failed");
+      abort();
+    }
+
     // //png_bytep is a typedef unsigned char png_byte5  
     png_set_IHDR(png_ptr, info_ptr, width, height, 8, PNG_COLOR_TYPE_RGB_ALPHA, PNG_INTERLACE_NONE , PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
     png_set_rows(png_ptr, info_ptr, row_pointers);
@@ -168,14 +178,21 @@ void OciusDumpVertexImage(int radar) {
     string filename = g_OciusLiveDir + '/' + name + "-capture.png";
     {
       FileLock f(filename.c_str());
-      if (f.locked())
-      {
-        CreateFileWithPermissions(filename.c_str(), 0666);
-        write_png_file((char*) filename.c_str(), info_ptr, row_pointers);
+      if (f.locked()) {
+        // The file must be readable by the camera capture process
+        if (!CreateFileWithPermissions(filename.c_str(), 0666))
+        {
+          OC_DEBUG("[OciusDumpVertexImage] Failed to create png for %s.", filename.c_str());
+        }
+        else
+        {
+          ret = write_png_file((char*) filename.c_str(), info_ptr, row_pointers);
+        }
       }
     }
     
     png_destroy_read_struct(&png_ptr, nullptr, nullptr); //note info_ptr already destroyed
-    }
-  OC_TRACE("[OciusDumpVertexImage]<<");
+  }
+  OC_TRACE("[OciusDumpVertexImage]=%d.<<", ret);
+  return ret;
 }

@@ -10,7 +10,7 @@ void OC_DEBUG(const char* format, ...);
 
 std::string MakeLocalTimeStamp();
 std::vector<uint8_t> JpegAppendComment(const std::vector<uint8_t>& input, const std::string& timestamp, const std::string& camera);
-void CreateFileWithPermissions(const char* filename, int mode);
+bool CreateFileWithPermissions(const char* filename, int mode);
 std::vector<uint8_t> readfile(const char* filename);
 
 #endif

@@ -271,7 +271,9 @@ void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotat
       glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(VertexPoint), &line->points[0].red);
       glDrawArrays(GL_TRIANGLES, 0, line->count);
     }
-    OciusDumpVertexImage(m_ri->m_radar);
+
+    if (OciusDumpVertexImage(m_ri->m_radar))
+      ++m_ri->m_image_write_count;
     glPopMatrix();
   }
   glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays

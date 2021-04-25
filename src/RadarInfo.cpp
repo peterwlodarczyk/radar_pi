@@ -69,6 +69,7 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   m_stayalive_timeout = 0;
   m_radar_timeout = 0;
   m_data_timeout = 0;
+  m_image_write_count = 0;
   m_history = 0;
   m_polar_lookup = 0;
   m_spokes = 0;

@@ -426,10 +426,30 @@ double radar_get_range(uint8_t radar) {
   return range;
 }
 
+// the number of spoked received
+uint32_t radar_get_spoke_count(uint8_t radar)
+{
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return info->m_statistics.spokes;
+}
+
+// the number of time a radar image has been successfully writen
+uint32_t radar_get_image_count(uint8_t radar)
+{
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return  info->m_image_write_count;
+}
+
 bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value){
   //note it might be possible to replace the set_control calls here with virtually pressing the associated button.
   bool r = false;
-  auto info = GetRadarInfo(radar);
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
   RadarControlItem item; //todo, fake an item with the value we need.
   item.Update(value, (RadarPlugin::RadarControlState) state);
   //RadarControlButton button; //i don't think this gets used by the target trails function - so make it an empty button.

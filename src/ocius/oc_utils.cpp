@@ -82,25 +82,29 @@ static void LogWrite(const char* t, const char* str) {
     }
   }
 
-  void OC_DEBUG(const char* format, ...) {
-    if (!Enabled) return;
+void OC_DEBUG(const char* format, ...) {
+  if (!Enabled) return;
 
-    char achDebug[4096];
-    va_list args;
-    va_start(args, format);
-    vsnprintf(achDebug, sizeof(achDebug), format, args);
-    va_end(args);
-    LogWrite("DEBUG", achDebug);
-  }
+  char achDebug[4096];
+  va_list args;
+  va_start(args, format);
+  vsnprintf(achDebug, sizeof(achDebug), format, args);
+  va_end(args);
+  LogWrite("DEBUG", achDebug);
+}
 
-  void CreateFileWithPermissions(const char* filename, int mode) {
+bool CreateFileWithPermissions(const char* filename, int mode) {
+  bool ret = false;
 #ifndef WIN32
-    if (access(filename, 0)) {
-      mode_t old_mask = umask(0);
-      int hf = open(filename, O_RDWR | O_CREAT, 0666);
-      if (hf) close(hf);
-      umask(old_mask);
+  if (access(filename, 0)) {
+    mode_t old_mask = umask(0);
+    int hf = open(filename, O_RDWR | O_CREAT, mode);
+    if (hf) {
+        close(hf);
+        ret = true;
     }
+    umask(old_mask);
+  }
 #endif
-  return;
+  return ret;
 }
