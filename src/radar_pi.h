@@ -445,6 +445,7 @@ class radar_pi : public opencpn_plugin_116, public wxEvtHandler {
   ~radar_pi();
   // void PrepareRadarImage(int angle); remove?
 
+  static uint32_t s_oc_statistics_activity_count;
   //    The required PlugIn Methods
   int Init(void);
   bool DeInit(void);

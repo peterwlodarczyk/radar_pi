@@ -1057,6 +1057,10 @@ void radar_pi::TimedControlUpdate() {
   // nmea = wxT("$GPRMC,123519,A,5326.038,N,00611.000,E,022.4,,230394,,W,*41<0x0D><0x0A>");
   // PushNMEABuffer(nmea);
 
+  {
+    extern uint32_t g_oc_statistics_activity_count;
+    radar_pi::s_oc_statistics_activity_count  = g_oc_statistics_activity_count;
+  }
   m_notify_time_ms = now;
 
   bool updateAllControls = m_notify_control_dialog;
@@ -1223,6 +1227,8 @@ bool radar_pi::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp) {
   SetOpenGLMode(OPENGL_OFF);
   return true;
 }
+
+uint32_t radar_pi::s_oc_statistics_activity_count = 0;
 
 // Called by Plugin Manager on main system process cycle
 

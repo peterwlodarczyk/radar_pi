@@ -81,6 +81,7 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   m_status_text_hide = false;
   CLEAR_STRUCT(m_statistics);
   CLEAR_STRUCT(m_course_log);
+  CLEAR_STRUCT(m_oc_statistics);
 
   m_mouse_pos.lat = NAN;
   m_mouse_pos.lon = NAN;

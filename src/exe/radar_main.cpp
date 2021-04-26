@@ -426,6 +426,34 @@ double radar_get_range(uint8_t radar) {
   return range;
 }
 
+// the number of spoked received
+uint32_t radar_get_activity_count()
+{
+  return radar_pi::s_oc_statistics_activity_count;
+  return 0;
+}
+
+
+// the number of spoked received
+uint32_t radar_get_spoke_count(uint8_t radar)
+{
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return info->m_oc_statistics.spoke_count;
+}
+
+// the number of time a radar image has been successfully writen
+uint32_t radar_get_image_count(uint8_t radar)
+{
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return  info->m_oc_statistics.image_write_count;
+}
+
 bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value){
   //note it might be possible to replace the set_control calls here with virtually pressing the associated button.
   bool r = false;

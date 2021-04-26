@@ -22,7 +22,6 @@ int inputSize = width*height * 4;
 unsigned char *buffer = nullptr;
 png_bytep * row_pointers = nullptr;
 
-
 void malloc_row_buffers(){ //called on first image save and if width/height changes
   OC_DEBUG("[malloc_row_buffers]");
   //free everything before mallocing again.
@@ -109,6 +108,7 @@ void write_png_file(char* file_name, png_infop info_ptr, png_bytep * row_pointer
 }
 
 void OciusDumpVertexImage(int radar) {
+  bool ret = false;
   system_clock::time_point now = system_clock::now();
   if (now < next_update) 
     return;
@@ -148,11 +148,10 @@ void OciusDumpVertexImage(int radar) {
   //use opting to evaluate image compression. 
   // optipng -full image.png specifies the best output format for the image.
   //todo reduce the total colours used in the radar to < 8 to reduce file size again.
-  for (int i = 0; i < height; i ++){
+  for (int i = 0; i < height; i ++) {
     memcpy(row_pointers[i], buffer + ((height*width*4) - ((i+1)*width*4)), width*4); //mirroring the image as we allocate
   }
-  if(1)
-  {
+  if(1) {
     png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     if (!png_ptr)
       abort_("[read_png_file] png_create_read_struct failed");
@@ -168,14 +167,12 @@ void OciusDumpVertexImage(int radar) {
     string filename = g_OciusLiveDir + '/' + name + "-capture.png";
     {
       FileLock f(filename.c_str());
-      if (f.locked())
-      {
-        CreateFileWithPermissions(filename.c_str(), 0666);
-        write_png_file((char*) filename.c_str(), info_ptr, row_pointers);
+      if (f.locked()) {
+        (void)CreateFileWithPermissions(filename.c_str(), 0666);
+        ret = write_png_file((char*) filename.c_str(), info_ptr, row_pointers);
       }
     }
-    
     png_destroy_read_struct(&png_ptr, nullptr, nullptr); //note info_ptr already destroyed
-    }
-  OC_TRACE("[OciusDumpVertexImage]<<");
+  }
+  OC_TRACE("[OciusDumpVertexImage]ret=%d.<<", ret);
 }

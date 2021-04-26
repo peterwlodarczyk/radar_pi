@@ -158,6 +158,12 @@ class RadarInfo {
   double m_ebl[ORIENTATION_NUMBER][BEARING_LINES];
   double m_vrm[BEARING_LINES];
   receive_statistics m_statistics;
+  struct oc_statistics
+  {
+    uint32_t image_write_count; // The number of images that have been written
+    uint32_t spoke_count; // The number of spokes
+  }; 
+  oc_statistics m_oc_statistics;
 
   struct line_history {
     uint8_t *line;
