@@ -53,7 +53,7 @@ extern "C" DECL_IMPEXP bool radar_set_tx(uint8_t radar, bool on);
 extern "C" DECL_IMPEXP bool radar_get_tx(uint8_t radar);
 extern "C" DECL_IMPEXP double radar_set_range(uint8_t radar, double range);  // range in metres. Auto??a
 extern "C" DECL_IMPEXP double radar_get_range(uint8_t radar);
-extern "C" DECL_IMPEXP uint32_t radar_get_activity_count(); // Across all radars. Reports and spokes
+extern "C" DECL_IMPEXP uint32_t radar_get_activity_count(); // Across all radars. Should 
 extern "C" DECL_IMPEXP uint32_t radar_get_spoke_count(uint8_t radar); // the number of spoked received
 extern "C" DECL_IMPEXP uint32_t radar_get_image_count(uint8_t radar); // the number of time a radar image has been successfully writen
 
