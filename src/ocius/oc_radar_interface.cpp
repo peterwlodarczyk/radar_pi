@@ -55,8 +55,9 @@ void abort_(const char * s, ...)
 }
 
 
-void write_png_file(char* file_name, png_infop info_ptr, png_bytep * row_pointers)
+bool write_png_file(char* file_name, png_infop info_ptr, png_bytep * row_pointers)
 {
+  bool ret = false;
   if (buffer == nullptr || row_pointers == nullptr) 
   {
     malloc_row_buffers(); //first time we have run this save function allocate what we will use.
@@ -105,6 +106,8 @@ void write_png_file(char* file_name, png_infop info_ptr, png_bytep * row_pointer
 	png_write_end(png_ptr, NULL);
   png_destroy_write_struct(&png_ptr, &info_ptr); //also destorys the info_ptr. 
 	fclose(fp);
+  ret = true;
+  return true;
 }
 
 void OciusDumpVertexImage(int radar) {
@@ -168,6 +171,7 @@ void OciusDumpVertexImage(int radar) {
     {
       FileLock f(filename.c_str());
       if (f.locked()) {
+        // The file must be readable by the camera capture process
         (void)CreateFileWithPermissions(filename.c_str(), 0666);
         ret = write_png_file((char*) filename.c_str(), info_ptr, row_pointers);
       }
