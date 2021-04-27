@@ -13,7 +13,8 @@ using namespace std::chrono;
 
 extern std::string g_OciusLiveDir;
 
-static system_clock::time_point next_update = system_clock::now();
+static system_clock::time_point next_update[2];
+// TODO: We should probably use seperate values for each radar here
 static int oc_count = 0;
 static int height = 0;
 static int width = 0; 
@@ -116,9 +117,9 @@ static bool write_png_file(const char* file_name, png_infop info_ptr, png_bytep 
 bool OciusDumpVertexImage(int radar) {
   bool ret = false;
   system_clock::time_point now = system_clock::now();
-  if (now < next_update) 
+  if (now < next_update[radar]) 
     return false;
-  next_update = now + milliseconds(200);
+  next_update[radar] = now + milliseconds(200);
   string name;
   if (radar == 1)
     name = string("radarb");
