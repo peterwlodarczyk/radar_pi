@@ -138,6 +138,8 @@ enum LookupSpokeEnum {
 
 static uint8_t lookupData[6][256];
 
+uint32_t g_oc_statistics_activity_count = 0; // Any packet received. Spoke or report.
+
 NavicoReceive::NavicoReceive(radar_pi *pi, RadarInfo *ri, NetworkAddress reportAddr, NetworkAddress dataAddr, NetworkAddress sendAddr)
     : RadarReceive(pi, ri) {
   m_info.serialNr = wxT(" ");
@@ -238,6 +240,7 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
   m_ri->m_state.Update(RADAR_TRANSMIT);
 
   m_ri->m_statistics.packets++;
+
   if (len < sizeof(packet->frame_hdr)) {
     // The packet is so small it contains no scan_lines, quit!
     m_ri->m_statistics.broken_packets++;
@@ -260,6 +263,8 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
     // Validate the spoke
     int spoke = line->common.scan_number[0] | (line->common.scan_number[1] << 8);
     m_ri->m_statistics.spokes++;
+    m_ri->m_oc_statistics.spoke_count++;
+
     if (line->common.headerLen != 0x18) {
       LOG_RECEIVE(wxT("radar_pi: strange header length %d"), line->common.headerLen);
       // Do not draw something with this...
@@ -565,6 +570,7 @@ void *NavicoReceive::Entry(void) {
         r = recvfrom(dataSocket, (char *)data, sizeof(data), 0, (struct sockaddr *)&rx_addr, &rx_len);
         if (r > 0) {
           ProcessFrame(data, (size_t)r);
+          ++g_oc_statistics_activity_count;
           no_data_timeout = -15;
           no_spoke_timeout = -5;
         }
@@ -600,6 +606,7 @@ void *NavicoReceive::Entry(void) {
               }
             }
             no_data_timeout = SECONDS_SELECT(-15);
+            ++g_oc_statistics_activity_count;
           }
         }
         else {
