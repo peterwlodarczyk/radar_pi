@@ -405,7 +405,7 @@ bool radar_pi::DeInit(void) {
     m_bogey_dialog = 0;
   }
 
-  SaveConfig();
+  //SaveConfig();
 
   RemoveCanvasContextMenuItem(m_context_menu_show_id);
   RemoveCanvasContextMenuItem(m_context_menu_hide_id);
@@ -1547,7 +1547,7 @@ bool radar_pi::LoadConfig(void) {
 
     m_settings.max_age = wxMax(wxMin(m_settings.max_age, MAX_AGE), MIN_AGE);
 
-    SaveConfig();
+    //SaveConfig();
     return true;
   }
   return false;
