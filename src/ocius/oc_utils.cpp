@@ -13,6 +13,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <chrono>
 
 #include "oc_utils.h"
 
@@ -108,3 +109,59 @@ bool CreateFileWithPermissions(const char* filename, int mode) {
 #endif
   return ret;
 }
+
+double TimeInSeconds()
+{
+    return 0;//std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count() / 1000000.0;
+}
+
+class TimerT
+{
+  public:
+    void Start()
+    {
+      start_ = TimeInSeconds();
+    }
+
+    void Stop()
+    {
+      stop_ = TimeInSeconds();
+      period_ = stop_ - start_;
+      if (period_ < min_)
+        min_ = period_;
+      if (period_ > max_)
+        max_ = period_;
+      sum_ += period_;
+      ++count_;
+    }
+
+    double GetPeriod() const { return period_; }
+    double GetAccumulated() const { return sum_; }
+    double GetMin() const { return min_; }
+    double GetMax() const { return max_; }
+    double GetMean() const 
+    {
+      if (count_ == 0)
+        return 0;
+      else
+        return sum_ / count_;
+    }
+
+    double period_ = 0.0;
+    double min_ = 10000000000000.0;
+    double max_ = 0.0;
+    double sum_ = 0.0;
+    uint32_t count_ = 0;
+
+    double start_ = 0.0;
+    double stop_ = 0.0;
+};
+
+std::string to_string(const TimerT& t)
+{
+  char buf[500];
+  sprintf(buf, "Last=%.6f,Mean=%.6f,Min=%.6f,Max=%.6f,Count=%u,Accumulated=%.1f", t.period_, t.GetMean(), t.min_, t.max_, t.count_, t.sum_);
+  return std::string(buf);
+}
+
+
