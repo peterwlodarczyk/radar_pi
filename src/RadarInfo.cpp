@@ -41,6 +41,7 @@
 #include "RadarReceive.h"
 #include "TrailBuffer.h"
 #include "drawutil.h"
+#include "ocius/oc_utils.h"
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -431,6 +432,8 @@ void RadarInfo::ResetSpokes() {
 void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint8_t *data, size_t len, int range_meters,
                                   wxLongLong time_rec) {
   int orientation;
+  TimerGuardT tg(Timers()[3]);
+  //OC_DEBUG("[RadarInfo::ProcessRadarSpoke] angle=%d. >>", angle);
   LOG_VERBOSE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
 
   // calculate course as the moving average of m_hdt over one revolution
@@ -524,6 +527,7 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
   if (m_draw_panel.draw) {
     m_draw_panel.draw->ProcessRadarSpoke(4, stabilized_mode ? bearing : angle, data, len, m_history[bearing].pos);
   }
+  //OC_DEBUG("[RadarInfo::ProcessRadarSpoke] angle=%d. <<", angle);
 }
 
 void RadarInfo::SampleCourse(int angle) {

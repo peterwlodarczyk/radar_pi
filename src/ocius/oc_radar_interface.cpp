@@ -115,11 +115,13 @@ static bool write_png_file(const char* file_name, png_infop info_ptr, png_bytep 
 }
 
 bool OciusDumpVertexImage(int radar) {
+  TimerGuardT tg(Timers()[2]);
   bool ret = false;
   system_clock::time_point now = system_clock::now();
   if (now < next_update[radar]) 
     return false;
-  next_update[radar] = now + milliseconds(200);
+
+  next_update[radar] = now + milliseconds(1000);
   string name;
   if (radar == 1)
     name = string("radarb");

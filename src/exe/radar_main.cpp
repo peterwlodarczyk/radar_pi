@@ -768,29 +768,30 @@ ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){
   //fill in the data for the report 
   ARPAContactReport pkt = {};
   auto info = GetRadarInfo(radar);
-  if (info == nullptr){
+  if (info == nullptr)
     return pkt;
-  }
 
   if (i >= 100) //incorrect value.
     return pkt; 
 
   //below is invalid use of incomplete class?
-  auto target = info->m_arpa->m_targets[i]; //m_targets was originally private
-  if (target == nullptr){
+  ArpaTarget* target = nullptr;
+  if (info && info->m_arpa)
+    target = info->m_arpa->m_targets[i]; //m_targets was originally private
+  if (target == nullptr)
     return pkt;
-  }
+  
   //we now have a bunch of info from target -> X
 
   //not sure if we have exposed enough of the marpa info, might need to make more bits public or move this to inside RadarMarpa
   pkt.sensorid = radar; //0,1 A,B
   
-  if (target->m_automatic){
   //todo define this enum somewhere. {GuardZone, Arpa, Marpa}
+  if (target->m_automatic)
     pkt.sensortype = 12; //SENSOR_TYPE_RADAR_ARPA; //true for ARPA
-  } else {
+  else
     pkt.sensortype = 13; //SENSOR_TYPE_RADAR_MARPA; //false for MARPA
-  }
+
   pkt.contactid = target->m_target_id;
   pkt.init_time = time(0) - (int) target->m_refresh.GetValue(); //probably casting wrong.
   pkt.info_time = time(0);

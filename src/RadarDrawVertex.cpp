@@ -33,7 +33,7 @@
 #include "RadarCanvas.h"
 #include "RadarInfo.h"
 #include "ocius/oc_radar_interface.h"
-
+#include "ocius/oc_utils.h"
 PLUGIN_BEGIN_NAMESPACE
 
 bool RadarDrawVertex::Init(size_t spokes, size_t spoke_len_max) {
@@ -229,6 +229,7 @@ void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rot
 }
 
 void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotate) {
+  //TimerGuardT t(Timers()[0]);
   double offset_lat = 0.;
   double offset_lon = 0.;
   double prev_offset_lat = 0.;

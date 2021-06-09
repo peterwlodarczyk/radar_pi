@@ -112,56 +112,49 @@ bool CreateFileWithPermissions(const char* filename, int mode) {
 
 double TimeInSeconds()
 {
-    return 0;//std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count() / 1000000.0;
+    return std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count() / 1000000.0;
 }
 
-class TimerT
+uint64_t TimeInMicros()
 {
-  public:
-    void Start()
-    {
-      start_ = TimeInSeconds();
-    }
+    return std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count();
+}
 
-    void Stop()
-    {
-      stop_ = TimeInSeconds();
-      period_ = stop_ - start_;
-      if (period_ < min_)
-        min_ = period_;
-      if (period_ > max_)
-        max_ = period_;
-      sum_ += period_;
-      ++count_;
-    }
-
-    double GetPeriod() const { return period_; }
-    double GetAccumulated() const { return sum_; }
-    double GetMin() const { return min_; }
-    double GetMax() const { return max_; }
-    double GetMean() const 
-    {
-      if (count_ == 0)
-        return 0;
-      else
-        return sum_ / count_;
-    }
-
-    double period_ = 0.0;
-    double min_ = 10000000000000.0;
-    double max_ = 0.0;
-    double sum_ = 0.0;
-    uint32_t count_ = 0;
-
-    double start_ = 0.0;
-    double stop_ = 0.0;
-};
+TimerT Timer0("Timer0");
+void LogTimers()
+{
+  OC_DEBUG("Timers-----------------");
+  for ( auto& t : Timers())
+     OC_DEBUG("%s", to_string(t).c_str());
+  OC_DEBUG("%s", to_string(Timer0).c_str());
+  OC_DEBUG("-----------------");
+}
 
 std::string to_string(const TimerT& t)
 {
   char buf[500];
-  sprintf(buf, "Last=%.6f,Mean=%.6f,Min=%.6f,Max=%.6f,Count=%u,Accumulated=%.1f", t.period_, t.GetMean(), t.min_, t.max_, t.count_, t.sum_);
+  sprintf(buf, "Percent=%.1f,%s:Last=%.6f,Mean=%.4f,Percent=%.1f,Min=%.4f,Max=%.4f,Count=%u,Accumulated=%.1f", 
+    t.percent_, 
+    t.GetName().c_str(), 
+    t.GetPeriod(), 
+    t.GetMean(), 
+    t.GetMin(), 
+    t.GetMax(), 
+    t.count_, 
+    t.GetAccumulated());
   return std::string(buf);
 }
 
-
+static std::vector<TimerT> Timers_;
+std::vector<TimerT>& Timers()
+{
+  if (Timers_.size() == 0)
+  {
+    Timers_.push_back(TimerT("PlugInManager::RenderAllGLCanvasOverlayPlugIns"));  // 0
+    Timers_.push_back(TimerT("RadarCanvas::Render"));  // 1
+    Timers_.push_back(TimerT("OciusDumpVertexImage")); // 2
+    Timers_.push_back(TimerT("RadarInfo::ProcessRadarSpoke")); // 3
+    Timers_.push_back(TimerT("NavicoReceive::ProcessFrame")); // 4
+  }
+  return Timers_;
+}

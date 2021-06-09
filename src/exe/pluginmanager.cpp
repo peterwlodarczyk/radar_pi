@@ -53,7 +53,7 @@
 #include <wx/wx.h>
 #include <wx/zipstrm.h>
 #include <wx/zstream.h>
-
+#include "ocius/oc_utils.h"
 #ifndef __WXMSW__
 #include <cxxabi.h>
 #endif  // __WXMSW__
@@ -2206,8 +2206,11 @@ bool PlugInManager::RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const
     }
   }
 #endif
-  PlugIn_ViewPort pivp = CreatePlugInViewport();
-  pPlugin->RenderGLOverlayMultiCanvas(pcontext, &pivp, canvasIndex);
+  {
+    TimerGuardT tg(Timers()[0]);
+    PlugIn_ViewPort pivp = CreatePlugInViewport();
+    pPlugin->RenderGLOverlayMultiCanvas(pcontext, &pivp, canvasIndex);
+  }
   return true;
 }
 

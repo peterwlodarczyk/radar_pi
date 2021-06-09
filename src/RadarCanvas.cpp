@@ -33,6 +33,7 @@
 #include "RadarInfo.h"
 #include "TextureFont.h"
 #include "drawutil.h"
+#include "ocius/oc_utils.h"
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -519,12 +520,15 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
   if (!IsShown() || !m_pi->IsInitialized()) {
     return;
   }
+  TimerGuardT tg(Timers()[1]);
+  OC_DEBUG("[RadarCanvas::Render]>>");
 
   const wxSize clientSize = GetClientSize();
   wxPaintDC(this);  // only to be used in paint events. use wxClientDC to paint
                     // outside the paint event
 
   if (!m_pi->IsOpenGLEnabled()) {
+    OC_DEBUG("[RadarCanvas::Render]<<");
     return;
   }
   LOG_VERBOSE(wxT("radar_pi: %s render OpenGL canvas %d by %d "), m_ri->m_name.c_str(), clientSize.GetWidth(),
@@ -667,6 +671,7 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
   }
   glMatrixMode(GL_MODELVIEW);  // Reset matrick stack target back to GL_MODELVIEW
 
+
   m_ri->RenderRadarImage1(wxPoint(0, 0), m_ri->m_panel_zoom / m_ri->m_range.GetValue(), 0.0, false);
 
   // LAYER 5 - TEXTS & CURSOR
@@ -766,6 +771,7 @@ void RadarCanvas::OnMouseClickUp(wxMouseEvent &event) {
     }
   }
   event.Skip();
+  OC_DEBUG("[RadarCanvas::Render]<<");
 }
 
 void RadarCanvas::OnMouseClickDown(wxMouseEvent &event) {

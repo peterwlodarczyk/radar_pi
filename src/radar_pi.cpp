@@ -1012,6 +1012,7 @@ void radar_pi::ScheduleWindowRefresh() {
 }
 
 void radar_pi::OnTimerNotify(wxTimerEvent &event) {
+  OC_DEBUG("[radar_pi::OnTimerNotify]>>");
   if (!EnsureRadarSelectionComplete(false)) {
     return;
   }
@@ -1037,19 +1038,29 @@ void radar_pi::OnTimerNotify(wxTimerEvent &event) {
       }
     }
   }
+  OC_DEBUG("[radar_pi::OnTimerNotify]<<");
 }
 
 // Called between 1 and 10 times per second by RenderGLOverlay call
 void radar_pi::TimedControlUpdate() {
+  OC_DEBUG("[radar_pi::TimedControlUpdate]>>");
   wxLongLong now = wxGetUTCTimeMillis();
   if (!m_notify_control_dialog && !TIMED_OUT(now, m_notify_time_ms + 500)) {
+    OC_DEBUG("[radar_pi::TimedControlUpdate]<<");
     return;  // Don't run this more often than 2 times per second
   }
   // following is to prevent crash in RadarPanel::ShowFrame on m_aui_mgr->Update() line 222,
   if (m_max_canvas <= 0 || (m_max_canvas > 1 && m_current_canvas_index == 0)) {
+    OC_DEBUG("[radar_pi::TimedControlUpdate]<<");
     return;
   }
 
+  static wxLongLong LogProfileTime = 0;
+  if (TIMED_OUT(now, LogProfileTime + 2000))
+  {
+    LogTimers();
+    LogProfileTime = now;
+  }
   //// for overlay testing only, simple trick to get position and heading
   // wxString nmea;
   // nmea = wxT("$APHDM,000.0,M*33<0x0D><0x0A>");
@@ -1177,6 +1188,7 @@ void radar_pi::TimedControlUpdate() {
 
   UpdateAllControlStates(updateAllControls);
   UpdateState();
+  OC_DEBUG("[radar_pi::TimedControlUpdate]<<");
 }
 
 void radar_pi::UpdateAllControlStates(bool all) {
@@ -1233,11 +1245,13 @@ uint32_t radar_pi::s_oc_statistics_activity_count = 0;
 // Called by Plugin Manager on main system process cycle
 
 bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort *vp, int canvasIndex) {
+  OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]>>");
   GeoPosition radar_pos;
   // prevent this being called recursively
   // no critical section locker (will wait), better to return immediately
   if (m_render_busy) {
     LOG_INFO(wxT("error render busy"));
+    OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]<<");
     return true;
   }
   m_render_busy = true;
@@ -1268,11 +1282,13 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
   m_max_canvas = GetCanvasCount();
   if (m_max_canvas <= 0 || m_current_canvas_index >= m_max_canvas) {
     m_render_busy = false;
+    OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]<<");
     return true;
   }
 
   if (!m_initialized) {
     m_render_busy = false;
+    OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]<<");
     return true;
   }
 
@@ -1370,6 +1386,7 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
   }
   TimedControlUpdate();
   m_render_busy = false;
+  OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]<<");
   return true;
 }
 
