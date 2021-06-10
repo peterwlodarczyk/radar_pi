@@ -2207,10 +2207,8 @@ bool PlugInManager::RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const
     }
   }
 #endif
-  {
-    PlugIn_ViewPort pivp = CreatePlugInViewport();
-    pPlugin->RenderGLOverlayMultiCanvas(pcontext, &pivp, canvasIndex);
-  }
+  PlugIn_ViewPort pivp = CreatePlugInViewport();
+  pPlugin->RenderGLOverlayMultiCanvas(pcontext, &pivp, canvasIndex);
   return true;
 }
 
