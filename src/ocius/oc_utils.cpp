@@ -125,17 +125,20 @@ void LogTimers()
 {
   OC_DEBUG("Timers-----------------");
   for ( auto& t : Timers())
-     OC_DEBUG("%s", to_string(t).c_str());
-  OC_DEBUG("%s", to_string(Timer0).c_str());
+     if (t.should_log_)
+      OC_DEBUG("%s", to_string(t).c_str());
+  if (Timer0.should_log_)
+    OC_DEBUG("%s", to_string(Timer0).c_str());
   OC_DEBUG("-----------------");
 }
 
 std::string to_string(const TimerT& t)
 {
   char buf[500];
-  sprintf(buf, "Percent=%.1f,%s:Last=%.6f,Mean=%.4f,Percent=%.1f,Min=%.4f,Max=%.4f,Count=%u,Accumulated=%.1f", 
-    t.percent_, 
+  sprintf(buf, "[%25.25s]:Load=%5.1f,Rate=%6.1f,Last=%6.4f,Mean=%6.4f,Min=%6.4f,Max=%6.4f,Count=%5u,Accumulated=%6.1f", 
     t.GetName().c_str(), 
+    t.GetLoad(), 
+    t.GetRate(), 
     t.GetPeriod(), 
     t.GetMean(), 
     t.GetMin(), 
@@ -145,16 +148,70 @@ std::string to_string(const TimerT& t)
   return std::string(buf);
 }
 
-static std::vector<TimerT> Timers_;
+void TimerT::Stop()
+{
+  uint64_t now = TimeInMicros();
+  stop_ = now;
+  //OC_DEBUG("Start=%llu", stop_);
+  period_ = stop_ - start_;
+  //OC_DEBUG("Period=%llu", period_);
+  if (period_ < min_)
+    min_ = period_;
+  if (period_ > max_)
+    max_ = period_;
+  sum_ += period_;
+  ++count_;
+
+  // Update the percentage rate.
+  if (update_time_ == 0)
+  {
+    update_time_ = now;
+    sum0_ = sum_;
+    count0_ = count_;
+  }
+  else
+  {
+    int time_diff = now - update_time_;
+    if (time_diff > 5000000)
+    {
+      load_ = (sum_ - sum0_) * 100.0 / time_diff;
+      update_time_ = now;
+      rate_ = (count_ - count0_) * 1000000.0 / time_diff;
+
+      sum0_ = sum_;
+      count0_ = count_;
+    }
+  }
+}
+
 std::vector<TimerT>& Timers()
 {
+  static std::vector<TimerT> Timers_;
   if (Timers_.size() == 0)
   {
-    Timers_.push_back(TimerT("PlugInManager::RenderAllGLCanvasOverlayPlugIns"));  // 0
-    Timers_.push_back(TimerT("RadarCanvas::Render"));  // 1
-    Timers_.push_back(TimerT("OciusDumpVertexImage")); // 2
-    Timers_.push_back(TimerT("RadarInfo::ProcessRadarSpoke")); // 3
-    Timers_.push_back(TimerT("NavicoReceive::ProcessFrame")); // 4
+    // MyFrame::OnRenderTimer
+    Timers_.push_back(TimerT("PlugInManager::RenderAllGLCanvasOverlayPlugIns", true));  // 0
+    // RadarCanvas::Render
+    Timers_.push_back(TimerT("RadarCanvas::Render0", true));  // 1
+    Timers_.push_back(TimerT("RadarCanvas::Render1", true));  // 2
+    Timers_.push_back(TimerT("RadarCanvas::Render2", true));  // 3
+    Timers_.push_back(TimerT("RadarCanvas::Render3", true));  // 4
+    Timers_.push_back(TimerT("RadarCanvas::Render4", true));  // 5
+    Timers_.push_back(TimerT("RadarCanvas::Render5", true));  // 6
+    Timers_.push_back(TimerT("RadarCanvas::Render6", true));  // 7
+    Timers_.push_back(TimerT("radar_pi::RenderGLOverlayMultiCanvas", true)); // 8
+    Timers_.push_back(TimerT("RadarArpa::RefreshArpaTargets", true)); // 9
+    Timers_.push_back(TimerT("RadarDrawVertex::DrawRadarOverlayImage")); // 10
+    Timers_.push_back(TimerT("RadarDrawVertex::DrawRadarPanelImage")); // 11
+    Timers_.push_back(TimerT("OciusDumpVertexImage", true)); // 12
+    // NavicoReceive::ProcessFrame
+    Timers_.push_back(TimerT("NavicoReceive::ProcessFrame")); // 13
+    Timers_.push_back(TimerT("RadarInfo::ProcessRadarSpoke")); // 14
   }
   return Timers_;
+}
+
+TimerT& Timer(int timer)
+{
+  return Timers()[timer];
 }

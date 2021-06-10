@@ -1056,7 +1056,7 @@ void radar_pi::TimedControlUpdate() {
   }
 
   static wxLongLong LogProfileTime = 0;
-  if (TIMED_OUT(now, LogProfileTime + 2000))
+  if (TIMED_OUT(now, LogProfileTime + 5000))
   {
     LogTimers();
     LogProfileTime = now;
@@ -1245,13 +1245,12 @@ uint32_t radar_pi::s_oc_statistics_activity_count = 0;
 // Called by Plugin Manager on main system process cycle
 
 bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort *vp, int canvasIndex) {
-  OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]>>");
+  TimerGuardT tg(RADAR_PI_RENDERGLOVERLAYMULTICANVAS);
   GeoPosition radar_pos;
   // prevent this being called recursively
   // no critical section locker (will wait), better to return immediately
   if (m_render_busy) {
     LOG_INFO(wxT("error render busy"));
-    OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]<<");
     return true;
   }
   m_render_busy = true;
@@ -1282,13 +1281,11 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
   m_max_canvas = GetCanvasCount();
   if (m_max_canvas <= 0 || m_current_canvas_index >= m_max_canvas) {
     m_render_busy = false;
-    OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]<<");
     return true;
   }
 
   if (!m_initialized) {
     m_render_busy = false;
-    OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]<<");
     return true;
   }
 
@@ -1386,7 +1383,6 @@ bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort
   }
   TimedControlUpdate();
   m_render_busy = false;
-  OC_DEBUG("[radar_pi::RenderGLOverlayMultiCanvas]<<");
   return true;
 }
 

@@ -2161,6 +2161,7 @@ bool PlugInManager::RenderAllCanvasOverlayPlugIns(ocpnDC &dc, const ViewPort &vp
 #endif
 
 bool PlugInManager::RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const PlugIn_ViewPort &vp, int canvasIndex) {
+  TimerGuardT tg(Timer(PLUGINMANAGER_RENDERALLGLCANVASOVERLAYPLUGINS));
 #ifdef OPENCPN_EXE
   for (unsigned int i = 0; i < plugin_array.GetCount(); i++) {
     PlugInContainer *pic = plugin_array[i];
@@ -2207,7 +2208,6 @@ bool PlugInManager::RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const
   }
 #endif
   {
-    TimerGuardT tg(Timers()[0]);
     PlugIn_ViewPort pivp = CreatePlugInViewport();
     pPlugin->RenderGLOverlayMultiCanvas(pcontext, &pivp, canvasIndex);
   }

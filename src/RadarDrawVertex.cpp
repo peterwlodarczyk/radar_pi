@@ -184,6 +184,7 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
 }
 
 void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rotate) {
+  TimerGuardT tg(RADARDRAWVERTEX_DRAWRADAROVERLAYIMAGE);
   wxPoint boat_center;
   GeoPosition posi;
   if (!m_ri->GetRadarPosition(&posi)) {
@@ -229,7 +230,7 @@ void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rot
 }
 
 void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotate) {
-  //TimerGuardT t(Timers()[0]);
+  TimerGuardT tg(RADARDRAWVERTEX_DRAWRADARPANELIMAGE);
   double offset_lat = 0.;
   double offset_lon = 0.;
   double prev_offset_lat = 0.;

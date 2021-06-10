@@ -520,15 +520,14 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
   if (!IsShown() || !m_pi->IsInitialized()) {
     return;
   }
-  TimerGuardT tg(Timers()[1]);
-  OC_DEBUG("[RadarCanvas::Render]>>");
+  TimerGuardT tg0(RADARCANVAS_RENDER0);
 
+  Timer(RADARCANVAS_RENDER1).Start();
   const wxSize clientSize = GetClientSize();
   wxPaintDC(this);  // only to be used in paint events. use wxClientDC to paint
                     // outside the paint event
 
   if (!m_pi->IsOpenGLEnabled()) {
-    OC_DEBUG("[RadarCanvas::Render]<<");
     return;
   }
   LOG_VERBOSE(wxT("radar_pi: %s render OpenGL canvas %d by %d "), m_ri->m_name.c_str(), clientSize.GetWidth(),
@@ -596,7 +595,9 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
 
   // LAYER 1 - RANGE RINGS AND HEADINGS
   ResetGLViewPort(clientSize);
+  Timer(RADARCANVAS_RENDER1).Stop();
 
+  Timer(RADARCANVAS_RENDER2).Start();
 
   PlugIn_ViewPort vp;
   GeoPosition pos;
@@ -655,11 +656,15 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
     glPopMatrix();
   }
 
+  Timer(RADARCANVAS_RENDER2).Stop();
+  Timer(RADARCANVAS_RENDER3).Start();
   // LAYER 3 - EBL & VRM
 
   ResetGLViewPort(clientSize);
   Render_EBL_VRM(clientSize, radar_radius);
+  Timer(RADARCANVAS_RENDER3).Stop();
 
+  Timer(RADARCANVAS_RENDER4).Start();
   // LAYER 4 - RADAR RETURNS
   glViewport(0, 0, clientSize.GetWidth(), clientSize.GetHeight());
   glMatrixMode(GL_PROJECTION);  // Next two operations on the project matrix stack
@@ -674,19 +679,26 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
 
   m_ri->RenderRadarImage1(wxPoint(0, 0), m_ri->m_panel_zoom / m_ri->m_range.GetValue(), 0.0, false);
 
-  // LAYER 5 - TEXTS & CURSOR
-  ResetGLViewPort(clientSize);
-  RenderTexts(clientSize);
-  glPushMatrix();
+  Timer(RADARCANVAS_RENDER4).Stop();
+  bool enableLayer5TextsAndCursor = true;
+  if (enableLayer5TextsAndCursor)
+  {
+    TimerGuardT thg(RADARCANVAS_RENDER5);
+    // LAYER 5 - TEXTS & CURSOR
+    ResetGLViewPort(clientSize);
+    RenderTexts(clientSize);
+    glPushMatrix();
 
-  glTranslated(m_ri->m_off_center.x + m_ri->m_drag.x, m_ri->m_off_center.y + m_ri->m_drag.y, 0.);
-  RenderCursor(clientSize, radar_radius);
-  RenderChartCursor(clientSize, radar_radius);  // dynamic cursor coupled to chart cursor
-  glPopMatrix();
+    glTranslated(m_ri->m_off_center.x + m_ri->m_drag.x, m_ri->m_off_center.y + m_ri->m_drag.y, 0.);
+    RenderCursor(clientSize, radar_radius);
+    RenderChartCursor(clientSize, radar_radius);  // dynamic cursor coupled to chart cursor
+    glPopMatrix();
 
-  glPopAttrib();
-  glPopMatrix();
+    glPopAttrib();
+    glPopMatrix();
+  }
   
+  Timer(RADARCANVAS_RENDER6).Start();
   RenderRangeRingsAndHeading(clientSize, radar_radius); //moved down from LAYER 1
   // Do the swapbuffers first, before restoring the context. If we don't then various artifacts
   // occur on MacOS with the radar PPI window getting completely distorted.
@@ -708,6 +720,7 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
   } else {
     SetCurrent(*m_zero_context);  // Make sure OpenCPN -at least- doesn't overwrite our context info
   }
+  Timer(RADARCANVAS_RENDER6).Stop();
 }
 
 void RadarCanvas::OnMouseMotion(wxMouseEvent &event) {
@@ -771,7 +784,6 @@ void RadarCanvas::OnMouseClickUp(wxMouseEvent &event) {
     }
   }
   event.Skip();
-  OC_DEBUG("[RadarCanvas::Render]<<");
 }
 
 void RadarCanvas::OnMouseClickDown(wxMouseEvent &event) {
