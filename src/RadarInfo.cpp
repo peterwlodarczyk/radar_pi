@@ -639,7 +639,7 @@ void RadarInfo::RenderGuardZone() {
           DrawOutlineArc(m_guard_zone[z]->m_outer_range, m_guard_zone[z]->m_inner_range, start_bearing, end_bearing, true);
           break;
         case 2:
-          glColor4ub(red, green, blue, alpha);
+          glColor4ub(red, green, blue, 128);
           DrawOutlineArc(m_guard_zone[z]->m_outer_range, m_guard_zone[z]->m_inner_range, start_bearing, end_bearing, false);
         // fall thru
         default:

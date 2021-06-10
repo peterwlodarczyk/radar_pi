@@ -147,6 +147,12 @@ bool OciusDumpVertexImage(int radar) {
       //todo check if there is a better way to do the above check (compare bits of the whole section?)
         buffer[p + 3] = 0;
       }
+      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 94) { //GZ B colour?
+        buffer[p + 3] = 30;
+      }
+      if (buffer[p + 0] == 0 && buffer[p + 1] == 55 && buffer[p + 2] == 39) { // GZ A colour
+        buffer[p + 3] = 30;
+      }
     }
   }
 
