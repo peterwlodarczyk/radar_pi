@@ -143,14 +143,14 @@ bool OciusDumpVertexImage(int radar) {
   //set the transparent sections based on the 0,0,50 (initial background settings)
   if (buffer) {
     for (int p = 0; p < width * height * 4; p += 4) { //for each RGBA section
-      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50){ //default background colour in the config.
+      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50) { //default background colour in the config.
       //todo check if there is a better way to do the above check (compare bits of the whole section?)
         buffer[p + 3] = 0;
-      }
-      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 94) { //GZ B colour?
+      } else if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 94) { //GZ B colour
         buffer[p + 3] = 30;
-      }
-      if (buffer[p + 0] == 0 && buffer[p + 1] == 55 && buffer[p + 2] == 39) { // GZ A colour
+      } else if (buffer[p + 0] == 0 && buffer[p + 1] == 55 && buffer[p + 2] == 39) { // GZ A colour
+        buffer[p + 3] = 30;
+      } else if (buffer[p + 0] == 0 && buffer[p + 1] == 43 && buffer[p + 2] == 86) { // GZ overlapping colour
         buffer[p + 3] = 30;
       }
     }
