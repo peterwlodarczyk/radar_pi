@@ -41,6 +41,7 @@
 #include "RadarReceive.h"
 #include "TrailBuffer.h"
 #include "drawutil.h"
+#include "ocius/oc_utils.h"
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -69,6 +70,8 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   m_stayalive_timeout = 0;
   m_radar_timeout = 0;
   m_data_timeout = 0;
+
+
   m_history = 0;
   m_polar_lookup = 0;
   m_spokes = 0;
@@ -82,6 +85,10 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   CLEAR_STRUCT(m_statistics);
   CLEAR_STRUCT(m_course_log);
   CLEAR_STRUCT(m_oc_statistics);
+  m_oc_render_count = 0;
+  m_oc_render_decimation = 1;
+  m_oc_image_count = 0;
+  m_oc_image_decimation = 1;
 
   m_mouse_pos.lat = NAN;
   m_mouse_pos.lon = NAN;
@@ -430,8 +437,21 @@ void RadarInfo::ResetSpokes() {
  */
 void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint8_t *data, size_t len, int range_meters,
                                   wxLongLong time_rec) {
+  ProfilerGuardT tg(RADARINFO_PROCESSRADARSPOKE);
   int orientation;
   LOG_VERBOSE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
+  if (angle==0 && m_radar == 0)
+  {
+    static auto previous = wxLongLong(0);
+    auto now = wxGetUTCTimeMillis();
+    if (previous != 0)
+    {
+      int period = (now - previous).GetLo();
+      double rate = 1000.0 / period;
+      OC_TRACE("[RadarInfo::ProcessRadarSpoke] period=%d.angle=%d.Rate=%.5f", period, angle, rate);
+    }
+    previous = now;
+  }
 
   // calculate course as the moving average of m_hdt over one revolution
   SampleCourse(angle);  // used for course_up mode
@@ -639,7 +659,7 @@ void RadarInfo::RenderGuardZone() {
           DrawOutlineArc(m_guard_zone[z]->m_outer_range, m_guard_zone[z]->m_inner_range, start_bearing, end_bearing, true);
           break;
         case 2:
-          glColor4ub(red, green, blue, alpha);
+          glColor4ub(red, green, blue, 128);
           DrawOutlineArc(m_guard_zone[z]->m_outer_range, m_guard_zone[z]->m_inner_range, start_bearing, end_bearing, false);
         // fall thru
         default:

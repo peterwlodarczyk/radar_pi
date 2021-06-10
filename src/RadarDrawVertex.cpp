@@ -33,7 +33,7 @@
 #include "RadarCanvas.h"
 #include "RadarInfo.h"
 #include "ocius/oc_radar_interface.h"
-
+#include "ocius/oc_utils.h"
 PLUGIN_BEGIN_NAMESPACE
 
 bool RadarDrawVertex::Init(size_t spokes, size_t spoke_len_max) {
@@ -184,6 +184,7 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
 }
 
 void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rotate) {
+  ProfilerGuardT tg(RADARDRAWVERTEX_DRAWRADAROVERLAYIMAGE);
   wxPoint boat_center;
   GeoPosition posi;
   if (!m_ri->GetRadarPosition(&posi)) {
@@ -229,6 +230,7 @@ void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rot
 }
 
 void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotate) {
+  ProfilerGuardT tg(RADARDRAWVERTEX_DRAWRADARPANELIMAGE);
   double offset_lat = 0.;
   double offset_lon = 0.;
   double prev_offset_lat = 0.;
@@ -271,8 +273,14 @@ void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotat
       glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(VertexPoint), &line->points[0].red);
       glDrawArrays(GL_TRIANGLES, 0, line->count);
     }
-    if (OciusDumpVertexImage(m_ri->m_radar))
-      m_ri->m_oc_statistics.image_write_count++;
+
+    // OCIUS
+    if (m_ri->m_oc_image_decimation > 0 && ++m_ri->m_oc_image_count % m_ri->m_oc_image_decimation == 0)
+    {
+      if (OciusDumpVertexImage(m_ri->m_radar))
+        m_ri->m_oc_statistics.image_write_count++;
+    }
+
     glPopMatrix();
   }
   glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays

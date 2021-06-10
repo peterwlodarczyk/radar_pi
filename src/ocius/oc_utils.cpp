@@ -13,12 +13,13 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <chrono>
 
 #include "oc_utils.h"
 
 using namespace std;
 
-static bool Enabled = true;
+static bool LogEnabled = true;
 string MakeLocalTimeStamp() {
   char achTemp[256];
   achTemp[0] = '\0';
@@ -83,7 +84,7 @@ static void LogWrite(const char* t, const char* str) {
   }
 
 void OC_DEBUG(const char* format, ...) {
-  if (!Enabled) return;
+  if (!LogEnabled) return;
 
   char achDebug[4096];
   va_list args;
@@ -107,4 +108,126 @@ bool CreateFileWithPermissions(const char* filename, int mode) {
   }
 #endif
   return ret;
+}
+
+double TimeInSeconds()
+{
+    return std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count() / 1000000.0;
+}
+
+uint64_t TimeInMicros()
+{
+    return std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count();
+}
+
+void LogProfilers()
+{
+  if (!ProfilerT::Enabled)
+    return;
+  OC_DEBUG("Profilers-----------------");
+  for ( auto& t : Profilers())
+    if (t.should_log_)
+      OC_DEBUG("%s", to_string(t).c_str());
+  OC_DEBUG("-----------------");
+}
+
+std::string to_string(const ProfilerT& t)
+{
+  char buf[500];
+  sprintf(buf, "[%25.25s]:Load=%6.2f,Rate=%7.2f,Last=%6.4f,Mean=%6.4f,Min=%6.4f,Max=%6.4f,Count=%5u,Accumulated=%6.1f", 
+    t.GetName().c_str(), 
+    t.GetLoad(), 
+    t.GetRate(), 
+    t.GetPeriod(), 
+    t.GetMean(), 
+    t.GetMin(), 
+    t.GetMax(), 
+    t.count_, 
+    t.GetAccumulated());
+  return std::string(buf);
+}
+
+bool ProfilerT::Enabled = false;
+
+void ProfilerT::Enable(bool enable)
+{
+  ProfilerT::Enabled = enable;
+}
+void ProfilerT::Stop()
+{
+  uint64_t now = TimeInMicros();
+  stop_ = now;
+  //OC_DEBUG("Start=%llu", stop_);
+  period_ = stop_ - start_;
+  //OC_DEBUG("Period=%llu", period_);
+  if (period_ < min_)
+    min_ = period_;
+  if (period_ > max_)
+    max_ = period_;
+  sum_ += period_;
+  ++count_;
+
+  // Update the percentage rate.
+  if (update_time_ == 0)
+  {
+    update_time_ = now;
+    sum0_ = sum_;
+    count0_ = count_;
+  }
+  else
+  {
+    int time_diff = now - update_time_;
+    if (time_diff > 5000000)
+    {
+      load_ = (sum_ - sum0_) * 100.0 / time_diff;
+      update_time_ = now;
+      rate_ = (count_ - count0_) * 1000000.0 / time_diff;
+
+      sum0_ = sum_;
+      count0_ = count_;
+    }
+  }
+}
+
+std::vector<ProfilerT>& Profilers()
+{
+  static std::vector<ProfilerT> Profilers_;
+  if (!ProfilerT::Enabled)
+    return Profilers_;
+  if (Profilers_.size() == 0)
+  {
+    // MyFrame::OnRenderProfiler
+    Profilers_.push_back(ProfilerT("PlugInManager::RenderAllGLCanvasOverlayPlugIns", true));  // 0
+    // RadarCanvas::Render
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render0", true));  // 1
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render1", true));  // 2
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render2", true));  // 3
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render3", true));  // 4
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render4", true));  // 5
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render5", true));  // 6
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render6", true));  // 7
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render7", true));  // 8
+    Profilers_.push_back(ProfilerT("radar_pi::RenderGLOverlayMultiCanvas", true)); // 9
+    Profilers_.push_back(ProfilerT("RadarArpa::RefreshArpaTargets", true)); // 10
+    Profilers_.push_back(ProfilerT("RadarDrawVertex::DrawRadarOverlayImage")); // 11
+    Profilers_.push_back(ProfilerT("RadarDrawVertex::DrawRadarPanelImage")); // 12
+    Profilers_.push_back(ProfilerT("OciusDumpVertexImage", true)); // 13
+    // NavicoReceive::ProcessFrame
+    Profilers_.push_back(ProfilerT("NavicoReceive::ProcessFrame")); // 14
+    Profilers_.push_back(ProfilerT("RadarInfo::ProcessRadarSpoke")); // 15
+  }
+  return Profilers_;
+}
+
+ProfilerT& Profiler(int timer)
+{
+  if (!ProfilerT::Enabled)
+  {
+    static ProfilerT dummy;
+    return dummy;
+  }
+  else
+  {
+    return Profilers()[timer];
+  }
 }

@@ -13,7 +13,6 @@ using namespace std::chrono;
 
 extern std::string g_OciusLiveDir;
 
-static system_clock::time_point next_update[2];
 // TODO: We should probably use seperate values for each radar here
 static int oc_count = 0;
 static int height = 0;
@@ -115,11 +114,10 @@ static bool write_png_file(const char* file_name, png_infop info_ptr, png_bytep 
 }
 
 bool OciusDumpVertexImage(int radar) {
-  bool ret = false;
-  system_clock::time_point now = system_clock::now();
-  if (now < next_update[radar]) 
+  if (radar < 0 || radar > 1)
     return false;
-  next_update[radar] = now + milliseconds(200);
+  ProfilerGuardT tg(OCIUSDUMPVERTEXIMAGE);
+  bool ret = false;
   string name;
   if (radar == 1)
     name = string("radarb");
@@ -143,9 +141,15 @@ bool OciusDumpVertexImage(int radar) {
   //set the transparent sections based on the 0,0,50 (initial background settings)
   if (buffer) {
     for (int p = 0; p < width * height * 4; p += 4) { //for each RGBA section
-      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50){ //default background colour in the config.
+      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50) { //default background colour in the config.
       //todo check if there is a better way to do the above check (compare bits of the whole section?)
         buffer[p + 3] = 0;
+      } else if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 94) { //GZ B colour
+        buffer[p + 3] = 30;
+      } else if (buffer[p + 0] == 0 && buffer[p + 1] == 55 && buffer[p + 2] == 39) { // GZ A colour
+        buffer[p + 3] = 30;
+      } else if (buffer[p + 0] == 0 && buffer[p + 1] == 43 && buffer[p + 2] == 86) { // GZ overlapping colour
+        buffer[p + 3] = 30;
       }
     }
   }
@@ -188,7 +192,5 @@ bool OciusDumpVertexImage(int radar) {
     }
   }
   png_destroy_read_struct(&png_read_ptr, nullptr, nullptr); //note info_ptr already destroyed
-
-  OC_TRACE("[OciusDumpVertexImage]ret=%d.<<", ret);
   return ret;
 }

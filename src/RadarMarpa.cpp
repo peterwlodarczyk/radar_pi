@@ -35,6 +35,7 @@
 #include "RadarInfo.h"
 #include "drawutil.h"
 #include "radar_pi.h"
+#include "ocius/oc_utils.h"
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -667,6 +668,7 @@ void RadarArpa::CleanUpLostTargets() {
 }
 
 void RadarArpa::RefreshArpaTargets() {
+  ProfilerGuardT tg(RADARARPA_REFRESHARPATARGETS);
   CleanUpLostTargets();
   int target_to_delete = -1;
   // find a target with status FOR_DELETION if it is there

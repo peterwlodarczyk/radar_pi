@@ -1012,6 +1012,7 @@ void radar_pi::ScheduleWindowRefresh() {
 }
 
 void radar_pi::OnTimerNotify(wxTimerEvent &event) {
+  OC_DEBUG("[radar_pi::OnTimerNotify]>>");
   if (!EnsureRadarSelectionComplete(false)) {
     return;
   }
@@ -1037,6 +1038,7 @@ void radar_pi::OnTimerNotify(wxTimerEvent &event) {
       }
     }
   }
+  OC_DEBUG("[radar_pi::OnTimerNotify]<<");
 }
 
 // Called between 1 and 10 times per second by RenderGLOverlay call
@@ -1050,6 +1052,12 @@ void radar_pi::TimedControlUpdate() {
     return;
   }
 
+  static wxLongLong LogProfileTime = 0;
+  if (TIMED_OUT(now, LogProfileTime + 5000))
+  {
+    LogProfilers();
+    LogProfileTime = now;
+  }
   //// for overlay testing only, simple trick to get position and heading
   // wxString nmea;
   // nmea = wxT("$APHDM,000.0,M*33<0x0D><0x0A>");
@@ -1233,6 +1241,7 @@ uint32_t radar_pi::s_oc_statistics_activity_count = 0;
 // Called by Plugin Manager on main system process cycle
 
 bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort *vp, int canvasIndex) {
+  ProfilerGuardT tg(RADAR_PI_RENDERGLOVERLAYMULTICANVAS);
   GeoPosition radar_pos;
   // prevent this being called recursively
   // no critical section locker (will wait), better to return immediately

@@ -53,7 +53,7 @@
 #include <wx/wx.h>
 #include <wx/zipstrm.h>
 #include <wx/zstream.h>
-
+#include "ocius/oc_utils.h"
 #ifndef __WXMSW__
 #include <cxxabi.h>
 #endif  // __WXMSW__
@@ -2161,6 +2161,7 @@ bool PlugInManager::RenderAllCanvasOverlayPlugIns(ocpnDC &dc, const ViewPort &vp
 #endif
 
 bool PlugInManager::RenderAllGLCanvasOverlayPlugIns(wxGLContext *pcontext, const PlugIn_ViewPort &vp, int canvasIndex) {
+  ProfilerGuardT tg(Profiler(PLUGINMANAGER_RENDERALLGLCANVASOVERLAYPLUGINS));
 #ifdef OPENCPN_EXE
   for (unsigned int i = 0; i < plugin_array.GetCount(); i++) {
     PlugInContainer *pic = plugin_array[i];
