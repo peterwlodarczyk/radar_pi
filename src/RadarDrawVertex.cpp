@@ -275,14 +275,10 @@ void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotat
     }
 
     // OCIUS
+    if (m_oc_image_decimation > 0 && ++m_ri->m_oc_image_count % m_oc_image_decimation == 0)
     {
-      wxLongLong now_millis = wxGetUTCTimeMillis();
-      if (now_millis >= m_ri->m_oc_image_update_millis + m_ri->m_oc_image_period_millis)
-      {
-        if (OciusDumpVertexImage(m_ri->m_radar))
-          m_ri->m_oc_statistics.image_write_count++;
-        m_ri->m_oc_image_period_millis = now_millis;
-      }
+      if (OciusDumpVertexImage(m_ri->m_radar))
+        m_ri->m_oc_statistics.image_write_count++;
     }
 
     glPopMatrix();

@@ -136,7 +136,7 @@ bool MyApp::OnInit() {
   OC_DEBUG("[MyApp::OnInit]<<");
   g_pi_manager->LoadAllPlugIns(true, true);
 
-  static const int INTERVAL = 250;  // milliseconds
+  static const int INTERVAL = 1000;  // milliseconds
   gFrame->RenderTimer->Start(INTERVAL);
 
   gFrame->Show(true);
@@ -313,7 +313,7 @@ static RadarPlugin::radar_pi* GetRadarPlugin() {
 }
 
 static RadarPlugin::RadarInfo* GetRadarInfo(int radar) {
-  if (radar < RADARS) {
+  if (radar > 0 && radar < RADARS) {
     if (g_pi_manager) {
       RadarPlugin::radar_pi* plugin = g_pi_manager->pPlugin;
       if (plugin) {
@@ -326,7 +326,7 @@ static RadarPlugin::RadarInfo* GetRadarInfo(int radar) {
 }
 
 static RadarPlugin::RadarControl* GetRadarController(int radar) {
-  if (radar < RADARS) {
+  if (radar > 0 && radar < RADARS) {
     if (g_pi_manager) {
       RadarPlugin::radar_pi* plugin = g_pi_manager->pPlugin;
       if (plugin) {
@@ -428,16 +428,14 @@ double radar_get_range(uint8_t radar) {
 }
 
 // the number of spoked received
-uint32_t radar_get_activity_count()
-{
+uint32_t radar_get_activity_count() {
   return radar_pi::s_oc_statistics_activity_count;
   return 0;
 }
 
 
 // the number of spoked received
-uint32_t radar_get_spoke_count(uint8_t radar)
-{
+uint32_t radar_get_spoke_count(uint8_t radar) {
   RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
   if (info == nullptr)
     return 0;
@@ -446,8 +444,7 @@ uint32_t radar_get_spoke_count(uint8_t radar)
 }
 
 // the number of time a radar image has been successfully writen
-uint32_t radar_get_image_count(uint8_t radar)
-{
+uint32_t radar_get_image_count(uint8_t radar) {
   RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
   if (info == nullptr)
     return 0;
@@ -463,8 +460,7 @@ bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarCo
   item.Update(value, (RadarPlugin::RadarControlState) state);
   //RadarControlButton button; //i don't think this gets used by the target trails function - so make it an empty button.
 
-  if (info != nullptr)
-  {
+  if (info != nullptr) {
     ControlType control_enum = ControlTypeStringToEnum(control_string);
     r = info->SetControlValue(control_enum, item, nullptr); //fake a button and hope it doesn't break things?
   }
@@ -475,8 +471,7 @@ bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarCo
 bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value) {
   bool r = false;
   auto controller = GetRadarController(radar);
-  if (controller != nullptr)
-  {
+  if (controller != nullptr) {
     ControlType control_enum = ControlTypeStringToEnum(control_string);
     r = controller->SetControlValue(control_enum, (RadarPlugin::RadarControlState)state, value);
   }
@@ -498,8 +493,7 @@ bool radar_get_control(uint8_t radar, const char* control_string, ::RadarControl
 
   ControlType control_enum = ControlTypeStringToEnum(control_string);
   bool ret = controller->GetControlValue(control_enum, *((RadarPlugin::RadarControlState*)state), *value);
-  if (!ret)
-  {
+  if (!ret) {
     OC_DEBUG("[%s]=false.control=%s", __func__, control_string);
     return false;
   }
@@ -532,9 +526,8 @@ bool radar_set_guardzone_state(uint8_t radar, uint8_t zone, int state){
   //handle set guardzone? See Controls Dialog setGuardZoneVisibility? / ShowGuardZone?
   auto info = GetRadarInfo(radar);
   if (info == nullptr)
-  {
     return false;
-  }
+
   auto m_guard_zone = info->m_guard_zone[zone];
   m_guard_zone->m_show_time = time(0);
   m_guard_zone->SetAlarmOn(state);
@@ -546,9 +539,7 @@ bool radar_set_guardzone_arpa(uint8_t radar, uint8_t zone, int state){
   //handle set guardzone? See Controls Dialog setGuardZoneVisibility? / ShowGuardZone?
   auto info = GetRadarInfo(radar);
   if (info == nullptr)
-  {
     return false;
-  }
   auto m_guard_zone = info->m_guard_zone[zone];
   m_guard_zone->m_show_time = time(0);
   m_guard_zone->SetArpaOn(state);
@@ -558,15 +549,12 @@ bool radar_set_guardzone_arpa(uint8_t radar, uint8_t zone, int state){
 bool radar_set_guardzone_type(uint8_t radar, uint8_t zone, int type){
   auto info = GetRadarInfo(radar); //hopefully returns a RadarInfo? RadarInfo then contains 
   if (info == nullptr)
-  {
     return false;
-  }
   auto m_guard_zone = info->m_guard_zone[zone]; // do i need auto's here??
   m_guard_zone->m_show_time = time(0);
   m_guard_zone->SetType((RadarPlugin::GuardZoneType)type); //mode should be 0 or 1 for arc / circle -> based ont he GuardZoneType enum
   return true;
 }
-
 
 bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //change this defintion.
   //unsure how they pick which radar | zone the below settings apply to... As it's done through the selection of the menu.
@@ -575,9 +563,7 @@ bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //chang
   //assume the array of range is in meters.
   auto info = GetRadarInfo(radar); //At this point this is a RadarInfo? -> It's ginvg me a RadarControl not RadarInfo
   if (info == nullptr)
-  {
     return false;
-  }
 
   auto m_guard_zone = info->m_guard_zone[zone];
   m_guard_zone->m_show_time = time(0);
@@ -603,14 +589,12 @@ bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //chang
   return true;
 }
 
-GuardZoneStatus radar_get_guardzone_define(uint8_t radar)
-{
+GuardZoneStatus radar_get_guardzone_define(uint8_t radar) {
   struct GuardZoneStatus pkt = {};
   auto info = GetRadarInfo(radar);
-  if (info == nullptr){
+  if (info == nullptr)
     return pkt;
-  }
-
+  
   auto gz1 = info->m_guard_zone[0];
   auto gz2 = info->m_guard_zone[1];
   pkt.gz1_inner = gz1->m_inner_range;
@@ -624,13 +608,11 @@ GuardZoneStatus radar_get_guardzone_define(uint8_t radar)
   return pkt;
 }
 
-GuardZoneStatus radar_get_guardzone_type(uint8_t radar)
-{
+GuardZoneStatus radar_get_guardzone_type(uint8_t radar) {
   struct GuardZoneStatus pkt = {};
   auto info = GetRadarInfo(radar);
-  if (info == nullptr){
+  if (info == nullptr)
     return pkt;
-  }
   auto gz1 = info->m_guard_zone[0];
   auto gz2 = info->m_guard_zone[1];
   pkt.gz1_type = gz1->m_type;
@@ -754,35 +736,28 @@ bool radar_marpa_delete(uint8_t radar, int bearing, int range){
   return true;
 }
 
-void radar_enable_profiling(bool enable)
-{
+void radar_enable_profiling(bool enable) {
   ProfilerT::Enable(enable);
 }
 
-uint8_t radar_set_render_decimation(uint8_t radar, uint8_t decimation)
-{
-  if (radar < 0 || radar > 1)
-    return 0;
-
-  auto ri = GetRadarInfo(radar);
-
-  if (decimation < 1)
-    decimation = 1;
-  ri->m_oc_render_decimation = decimation;
+float radar_set_update_rate(float hz) {
+  int image_period_millis = static_cast<int>(1000 / hz + 0.5);
+  gFrame->RenderTimer->Start(image_period_millis);
+  return hz;
 }
 
-float radar_set_image_rate(uint8_t  radar, float hz)
-{
-  if (radar < 0 || radar > 1)
-    return 0.0f;
+void radar_set_render_decimate(uint8_t radar, uint8_t decimation_rate) {
+  RadarPlugin::RadarInfo* ri = GetRadarInfo(radar);
+  if (ri == nullptr)
+    return;
+  ri->m_oc_render_decimation = decimation_rate;
+}
 
-  auto ri = GetRadarInfo(radar);
-
-  if (hz > 8)
-    hz = 8;
-
-  ri->m_oc_image_update_millis = 0;
-  ri->m_oc_image_period_millis =  static_cast<int>(1000 / hz + 0.5);
+void radar_set_image_decimate(uint8_t radar, uint8_t decimation_rate) {
+  RadarPlugin::RadarInfo* ri = GetRadarInfo(radar);
+  if (ri == nullptr)
+    return;
+  ri->m_oc_image_decimation = decimation_rate;
 }
 
 bool radar_marpa_delete_all(uint8_t radar){

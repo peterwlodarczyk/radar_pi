@@ -86,9 +86,9 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   CLEAR_STRUCT(m_course_log);
   CLEAR_STRUCT(m_oc_statistics);
   m_oc_render_count = 0;
-  m_oc_render_decimation = 4;
-  m_oc_image_period_millis = 1000;
-  m_oc_image_update_millis = 0;
+  m_oc_render_decimation = 1;
+  m_oc_image_count = 0;
+  m_oc_image_decimation = 1;
 
   m_mouse_pos.lat = NAN;
   m_mouse_pos.lon = NAN;

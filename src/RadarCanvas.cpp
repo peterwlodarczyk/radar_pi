@@ -516,12 +516,10 @@ static void ResetGLViewPort(const wxSize &size) {
   glMatrixMode(GL_MODELVIEW);  // Reset matrick stack target back to GL_MODELVIEW
 }
 
-// RadarCanvas::Render usually get called at 8 Hz
 void RadarCanvas::Render(wxPaintEvent &evt) {
-  {
-    if (++m_ri->m_oc_render_count % m_ri->m_oc_render_decimation != 0)
-      return;
-  }
+  // For the particular radar we can get called at a lower rate
+  if (m_ri->m_oc_render_decimation > 0 && ++m_ri->m_oc_render_count % m_ri->m_oc_render_decimation == 0)
+     return;
   if (!IsShown() || !m_pi->IsInitialized()) {
     return;
   }
