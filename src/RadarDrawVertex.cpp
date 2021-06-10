@@ -184,7 +184,7 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
 }
 
 void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rotate) {
-  TimerGuardT tg(RADARDRAWVERTEX_DRAWRADAROVERLAYIMAGE);
+  ProfilerGuardT tg(RADARDRAWVERTEX_DRAWRADAROVERLAYIMAGE);
   wxPoint boat_center;
   GeoPosition posi;
   if (!m_ri->GetRadarPosition(&posi)) {
@@ -230,7 +230,7 @@ void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rot
 }
 
 void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotate) {
-  TimerGuardT tg(RADARDRAWVERTEX_DRAWRADARPANELIMAGE);
+  ProfilerGuardT tg(RADARDRAWVERTEX_DRAWRADARPANELIMAGE);
   double offset_lat = 0.;
   double offset_lon = 0.;
   double prev_offset_lat = 0.;
@@ -273,8 +273,18 @@ void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotat
       glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(VertexPoint), &line->points[0].red);
       glDrawArrays(GL_TRIANGLES, 0, line->count);
     }
-    if (OciusDumpVertexImage(m_ri->m_radar))
-      m_ri->m_oc_statistics.image_write_count++;
+
+    // OCIUS
+    {
+      wxLongLong now_millis = wxGetUTCTimeMillis();
+      if (now_millis >= m_ri->m_oc_image_update_millis + m_ri->m_oc_image_period_millis)
+      {
+        if (OciusDumpVertexImage(m_ri->m_radar))
+          m_ri->m_oc_statistics.image_write_count++;
+        m_ri->m_oc_image_period_millis = now_millis;
+      }
+    }
+
     glPopMatrix();
   }
   glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays

@@ -65,6 +65,9 @@ extern "C" DECL_IMPEXP bool radar_marpa_aquire(uint8_t radar, int bearing, int r
 extern "C" DECL_IMPEXP bool radar_marpa_delete(uint8_t radar, int bearing, int range);
 extern "C" DECL_IMPEXP bool radar_marpa_delete_all(uint8_t radar);
 
+extern "C" DECL_IMPEXP void radar_enable_profiling(bool enable);
+extern "C" DECL_IMPEXP uint8_t radar_set_render_decimation(uint8_t radar, uint8_t decimation); // A value 1 will render at 8hz
+extern "C" DECL_IMPEXP float radar_set_image_rate(uint8_t radar, float hz);
 
 
 enum RadarControlState {

@@ -70,6 +70,8 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   m_stayalive_timeout = 0;
   m_radar_timeout = 0;
   m_data_timeout = 0;
+
+
   m_history = 0;
   m_polar_lookup = 0;
   m_spokes = 0;
@@ -83,6 +85,10 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   CLEAR_STRUCT(m_statistics);
   CLEAR_STRUCT(m_course_log);
   CLEAR_STRUCT(m_oc_statistics);
+  m_oc_render_count = 0;
+  m_oc_render_decimation = 4;
+  m_oc_image_period_millis = 1000;
+  m_oc_image_update_millis = 0;
 
   m_mouse_pos.lat = NAN;
   m_mouse_pos.lon = NAN;
@@ -431,7 +437,7 @@ void RadarInfo::ResetSpokes() {
  */
 void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint8_t *data, size_t len, int range_meters,
                                   wxLongLong time_rec) {
-  TimerGuardT tg(RADARINFO_PROCESSRADARSPOKE);
+  ProfilerGuardT tg(RADARINFO_PROCESSRADARSPOKE);
   int orientation;
   LOG_VERBOSE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
 

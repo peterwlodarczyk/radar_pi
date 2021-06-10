@@ -668,7 +668,7 @@ void RadarArpa::CleanUpLostTargets() {
 }
 
 void RadarArpa::RefreshArpaTargets() {
-  TimerGuardT tg(RADARARPA_REFRESHARPATARGETS);
+  ProfilerGuardT tg(RADARARPA_REFRESHARPATARGETS);
   CleanUpLostTargets();
   int target_to_delete = -1;
   // find a target with status FOR_DELETION if it is there

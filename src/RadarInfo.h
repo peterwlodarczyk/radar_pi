@@ -164,6 +164,10 @@ class RadarInfo {
     uint32_t spoke_count; // The number of spokes
   }; 
   oc_statistics m_oc_statistics;
+  int m_oc_render_decimation;
+  int m_oc_render_count;
+  wxLongLong m_oc_image_period_millis;
+  wxLongLong m_oc_image_update_millis;
 
   struct line_history {
     uint8_t *line;

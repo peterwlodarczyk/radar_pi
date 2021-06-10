@@ -1058,7 +1058,7 @@ void radar_pi::TimedControlUpdate() {
   static wxLongLong LogProfileTime = 0;
   if (TIMED_OUT(now, LogProfileTime + 5000))
   {
-    LogTimers();
+    LogProfilers();
     LogProfileTime = now;
   }
   //// for overlay testing only, simple trick to get position and heading
@@ -1245,7 +1245,12 @@ uint32_t radar_pi::s_oc_statistics_activity_count = 0;
 // Called by Plugin Manager on main system process cycle
 
 bool radar_pi::RenderGLOverlayMultiCanvas(wxGLContext *pcontext, PlugIn_ViewPort *vp, int canvasIndex) {
-  TimerGuardT tg(RADAR_PI_RENDERGLOVERLAYMULTICANVAS);
+  // {
+  //   static int RenderCount = 0;
+  //   if (++RenderCount / 8 != 0)
+  //     return;
+  // }
+  ProfilerGuardT tg(RADAR_PI_RENDERGLOVERLAYMULTICANVAS);
   GeoPosition radar_pos;
   // prevent this being called recursively
   // no critical section locker (will wait), better to return immediately

@@ -15,10 +15,10 @@ std::vector<uint8_t> readfile(const char* filename);
 double TimeInSeconds();
 uint64_t TimeInMicros();
 
-class TimerT
+class ProfilerT
 {
   public:
-    TimerT(const char* name = "", bool log_entry_exit = false, bool should_log = true)
+    ProfilerT(const char* name = "", bool log_entry_exit = false, bool should_log = true)
         : name_(name),
         should_log_(should_log),
         log_entry_exit_(log_entry_exit)
@@ -26,11 +26,12 @@ class TimerT
     }
     void Start()
     {
-      start_ = TimeInMicros();
-      //OC_DEBUG("Start=%llu", start_);
+      if (Enabled)
+        start_ = TimeInMicros();
     }
-
     void Stop();
+
+    static void Enable(bool enable);
 
     const std::string& GetName() const { return name_; }
     double GetPeriod() const { return period_ / 1000000.0; }
@@ -63,9 +64,10 @@ class TimerT
     double rate_ = 0;
     bool should_log_ = true;
     bool log_entry_exit_ = false;
+    static bool Enabled;
 };
 
-void LogTimers();
+void LogProfilers();
 
 #define PLUGINMANAGER_RENDERALLGLCANVASOVERLAYPLUGINS 0
 #define RADARCANVAS_RENDER0 1
@@ -75,47 +77,57 @@ void LogTimers();
 #define RADARCANVAS_RENDER4 5
 #define RADARCANVAS_RENDER5 6
 #define RADARCANVAS_RENDER6 7
-#define RADAR_PI_RENDERGLOVERLAYMULTICANVAS 8
-#define RADARARPA_REFRESHARPATARGETS 9
-#define RADARDRAWVERTEX_DRAWRADAROVERLAYIMAGE 10
-#define RADARDRAWVERTEX_DRAWRADARPANELIMAGE 11
-#define OCIUSDUMPVERTEXIMAGE 12
-#define NAVICORECEIVE_PROCESSFRAME 13
-#define RADARINFO_PROCESSRADARSPOKE 14
+#define RADARCANVAS_RENDER7 8
+#define RADAR_PI_RENDERGLOVERLAYMULTICANVAS 9
+#define RADARARPA_REFRESHARPATARGETS 10
+#define RADARDRAWVERTEX_DRAWRADAROVERLAYIMAGE 11
+#define RADARDRAWVERTEX_DRAWRADARPANELIMAGE 12
+#define OCIUSDUMPVERTEXIMAGE 13
+#define NAVICORECEIVE_PROCESSFRAME 14
+#define RADARINFO_PROCESSRADARSPOKE 15
 
-std::vector<TimerT>& Timers();
-TimerT& Timer(int timer);
-extern TimerT Timer0;
+std::vector<ProfilerT>& Profilers();
+ProfilerT& Profiler(int timer);
 
-class TimerGuardT
+class ProfilerGuardT
 {
   public:
-    TimerGuardT(int t)
-     : t_(Timer(t))
+    ProfilerGuardT(int t)
+     : t_(Profiler(t))
     {
-      if (t_.log_entry_exit_)
-        OC_TRACE("[%s]>>", t_.name_.c_str());
-      t_.Start();
+      if (ProfilerT::Enabled)
+      {
+        if (t_.log_entry_exit_)
+          OC_TRACE("[%s]>>", t_.name_.c_str());
+        t_.Start();
+      }
     }
 
-    TimerGuardT(TimerT& t)
+    ProfilerGuardT(ProfilerT& t)
      : t_(t)
     {
-      if (t_.log_entry_exit_)
-        OC_TRACE("[%s]>>", t_.name_.c_str());
-      t_.Start();
+      if (ProfilerT::Enabled)
+      {
+        if (t_.log_entry_exit_)
+          OC_TRACE("[%s]>>", t_.name_.c_str());
+        t_.Start();
+      }
     }
 
-    ~TimerGuardT()
+    ~ProfilerGuardT()
     {
+      if (ProfilerT::Enabled)
+      {
         t_.Stop();
         if (t_.log_entry_exit_)
           OC_TRACE("[%s]<<", t_.name_.c_str());
+      }
     }
 
-    TimerT& t_;
+  private:
+    ProfilerT& t_;
 };
 
-std::string to_string(const TimerT& t);
+std::string to_string(const ProfilerT& t);
 
 #endif

@@ -10,6 +10,7 @@
 #include "ControlsDialog.h" //control buttons
 #include "RadarMarpa.h" //contains arpatarget class
 #include "Kalman.h" //the Polar def.
+#include "ocius/oc_utils.h"
 
 static ExtendedPosition RadarPolar2Pos(uint8_t radar, const RadarPlugin::Polar& pol, const ExtendedPosition& own_ship);
 static RadarPlugin::Polar RadarPos2Polar(uint8_t radar, const ExtendedPosition& p, const ExtendedPosition& own_ship);
@@ -751,6 +752,37 @@ bool radar_marpa_delete(uint8_t radar, int bearing, int range){
   ExtendedPosition target_pos = RadarPolar2Pos(radar, pol, curr);
   info->m_arpa->DeleteTarget(target_pos); //should just aquire the target.
   return true;
+}
+
+void radar_enable_profiling(bool enable)
+{
+  ProfilerT::Enable(enable);
+}
+
+uint8_t radar_set_render_decimation(uint8_t radar, uint8_t decimation)
+{
+  if (radar < 0 || radar > 1)
+    return 0;
+
+  auto ri = GetRadarInfo(radar);
+
+  if (decimation < 1)
+    decimation = 1;
+  ri->m_oc_render_decimation = decimation;
+}
+
+float radar_set_image_rate(uint8_t  radar, float hz)
+{
+  if (radar < 0 || radar > 1)
+    return 0.0f;
+
+  auto ri = GetRadarInfo(radar);
+
+  if (hz > 8)
+    hz = 8;
+
+  ri->m_oc_image_update_millis = 0;
+  ri->m_oc_image_period_millis =  static_cast<int>(1000 / hz + 0.5);
 }
 
 bool radar_marpa_delete_all(uint8_t radar){

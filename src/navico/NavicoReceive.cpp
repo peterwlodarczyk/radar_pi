@@ -226,7 +226,7 @@ void NavicoReceive::InitializeLookupData() {
 // from the radar up to the range indicated in the packet.
 //
 void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
-  TimerGuardT tg(NAVICORECEIVE_PROCESSFRAME);
+  ProfilerGuardT tg(NAVICORECEIVE_PROCESSFRAME);
   time_t now = time(0);
 
   // log_line.time_rec = wxGetUTCTimeMillis();

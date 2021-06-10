@@ -120,19 +120,18 @@ uint64_t TimeInMicros()
     return std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count();
 }
 
-TimerT Timer0("Timer0");
-void LogTimers()
+void LogProfilers()
 {
-  OC_DEBUG("Timers-----------------");
-  for ( auto& t : Timers())
-     if (t.should_log_)
+  if (!ProfilerT::Enabled)
+    return;
+  OC_DEBUG("Profilers-----------------");
+  for ( auto& t : Profilers())
+    if (t.should_log_)
       OC_DEBUG("%s", to_string(t).c_str());
-  if (Timer0.should_log_)
-    OC_DEBUG("%s", to_string(Timer0).c_str());
   OC_DEBUG("-----------------");
 }
 
-std::string to_string(const TimerT& t)
+std::string to_string(const ProfilerT& t)
 {
   char buf[500];
   sprintf(buf, "[%25.25s]:Load=%5.1f,Rate=%6.1f,Last=%6.4f,Mean=%6.4f,Min=%6.4f,Max=%6.4f,Count=%5u,Accumulated=%6.1f", 
@@ -148,7 +147,13 @@ std::string to_string(const TimerT& t)
   return std::string(buf);
 }
 
-void TimerT::Stop()
+bool ProfilerT::Enabled = true;
+
+void ProfilerT::Enable(bool enable)
+{
+  Enabled = enable;
+}
+void ProfilerT::Stop()
 {
   uint64_t now = TimeInMicros();
   stop_ = now;
@@ -184,34 +189,45 @@ void TimerT::Stop()
   }
 }
 
-std::vector<TimerT>& Timers()
+std::vector<ProfilerT>& Profilers()
 {
-  static std::vector<TimerT> Timers_;
-  if (Timers_.size() == 0)
+  static std::vector<ProfilerT> Profilers_;
+  if (!ProfilerT::Enabled)
+    return Profilers_;
+  if (Profilers_.size() == 0)
   {
-    // MyFrame::OnRenderTimer
-    Timers_.push_back(TimerT("PlugInManager::RenderAllGLCanvasOverlayPlugIns", true));  // 0
+    // MyFrame::OnRenderProfiler
+    Profilers_.push_back(ProfilerT("PlugInManager::RenderAllGLCanvasOverlayPlugIns", true));  // 0
     // RadarCanvas::Render
-    Timers_.push_back(TimerT("RadarCanvas::Render0", true));  // 1
-    Timers_.push_back(TimerT("RadarCanvas::Render1", true));  // 2
-    Timers_.push_back(TimerT("RadarCanvas::Render2", true));  // 3
-    Timers_.push_back(TimerT("RadarCanvas::Render3", true));  // 4
-    Timers_.push_back(TimerT("RadarCanvas::Render4", true));  // 5
-    Timers_.push_back(TimerT("RadarCanvas::Render5", true));  // 6
-    Timers_.push_back(TimerT("RadarCanvas::Render6", true));  // 7
-    Timers_.push_back(TimerT("radar_pi::RenderGLOverlayMultiCanvas", true)); // 8
-    Timers_.push_back(TimerT("RadarArpa::RefreshArpaTargets", true)); // 9
-    Timers_.push_back(TimerT("RadarDrawVertex::DrawRadarOverlayImage")); // 10
-    Timers_.push_back(TimerT("RadarDrawVertex::DrawRadarPanelImage")); // 11
-    Timers_.push_back(TimerT("OciusDumpVertexImage", true)); // 12
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render0", true));  // 1
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render1", true));  // 2
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render2", true));  // 3
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render3", true));  // 4
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render4", true));  // 5
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render5", true));  // 6
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render6", true));  // 7
+    Profilers_.push_back(ProfilerT("RadarCanvas::Render7", true));  // 8
+    Profilers_.push_back(ProfilerT("radar_pi::RenderGLOverlayMultiCanvas", true)); // 9
+    Profilers_.push_back(ProfilerT("RadarArpa::RefreshArpaTargets", true)); // 10
+    Profilers_.push_back(ProfilerT("RadarDrawVertex::DrawRadarOverlayImage")); // 11
+    Profilers_.push_back(ProfilerT("RadarDrawVertex::DrawRadarPanelImage")); // 12
+    Profilers_.push_back(ProfilerT("OciusDumpVertexImage", true)); // 13
     // NavicoReceive::ProcessFrame
-    Timers_.push_back(TimerT("NavicoReceive::ProcessFrame")); // 13
-    Timers_.push_back(TimerT("RadarInfo::ProcessRadarSpoke")); // 14
+    Profilers_.push_back(ProfilerT("NavicoReceive::ProcessFrame")); // 14
+    Profilers_.push_back(ProfilerT("RadarInfo::ProcessRadarSpoke")); // 15
   }
-  return Timers_;
+  return Profilers_;
 }
 
-TimerT& Timer(int timer)
+ProfilerT& Profiler(int timer)
 {
-  return Timers()[timer];
+  if (!Enabled)
+  {
+    static ProfilerT dummy;
+    return dummy;
+  }
+  else
+  {
+    return Profilers()[timer];
+  }
 }
