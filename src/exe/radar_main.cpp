@@ -28,6 +28,12 @@ extern wxAuiManager* g_pauimgr;
 
 using namespace RadarPlugin;
 
+// milliseconds - 
+// slow 1750ms/0.057Hz 
+// medium 1257ms/0.796Hz
+// fast 1003ms/0.994Hz 
+static int update_period_ms = 1750;
+
 /*
 class DerivedApp : public wxApp
 {
@@ -136,8 +142,7 @@ bool MyApp::OnInit() {
   OC_DEBUG("[MyApp::OnInit]<<");
   g_pi_manager->LoadAllPlugIns(true, true);
 
-  static const int INTERVAL = 1000;  // milliseconds
-  gFrame->RenderTimer->Start(INTERVAL);
+  gFrame->RenderTimer->Start(update_period_ms);
 
   gFrame->Show(true);
 
@@ -736,30 +741,6 @@ bool radar_marpa_delete(uint8_t radar, int bearing, int range){
   return true;
 }
 
-void radar_enable_profiling(bool enable) {
-  ProfilerT::Enable(enable);
-}
-
-float radar_set_update_rate(float hz) {
-  int image_period_millis = static_cast<int>(1000 / hz + 0.5);
-  gFrame->RenderTimer->Start(image_period_millis);
-  return hz;
-}
-
-void radar_set_render_decimate(uint8_t radar, uint8_t decimation_rate) {
-  RadarPlugin::RadarInfo* ri = GetRadarInfo(radar);
-  if (ri == nullptr)
-    return;
-  ri->m_oc_render_decimation = decimation_rate;
-}
-
-void radar_set_image_decimate(uint8_t radar, uint8_t decimation_rate) {
-  RadarPlugin::RadarInfo* ri = GetRadarInfo(radar);
-  if (ri == nullptr)
-    return;
-  ri->m_oc_image_decimation = decimation_rate;
-}
-
 bool radar_marpa_delete_all(uint8_t radar){
   auto info = GetRadarInfo(radar); 
   if (info == nullptr){
@@ -769,6 +750,47 @@ bool radar_marpa_delete_all(uint8_t radar){
   return true;
 }
 
+void radar_enable_profiling(bool enable) {
+  ProfilerT::Enable(enable);
+}
+
+uint32_t radar_set_update_period(uint32_t period_ms) {
+  update_period_ms = period_ms;
+  gFrame->RenderTimer->Start(update_period_ms);
+  return update_period_ms;
+}
+
+uint32_t radar_get_update_period(){
+  return update_period_ms;
+}
+
+void radar_set_render_decimate(uint8_t radar, uint8_t decimation_rate) {
+  RadarPlugin::RadarInfo* ri = GetRadarInfo(radar);
+  if (ri == nullptr)
+    return;
+  ri->m_oc_render_decimation = decimation_rate;
+}
+
+uint8_t radar_get_render_decimate(uint8_t radar){
+  RadarPlugin::RadarInfo* ri = GetRadarInfo(radar);
+  if (ri == nullptr)
+    return 0;
+  return static_cast<uint8_t>(ri->m_oc_render_decimation);
+}
+
+void radar_set_image_decimate(uint8_t radar, uint8_t decimation_rate) {
+  RadarPlugin::RadarInfo* ri = GetRadarInfo(radar);
+  if (ri == nullptr)
+    return;
+  ri->m_oc_image_decimation = decimation_rate;
+}
+
+uint8_t radar_get_image_decimate(uint8_t radar){
+  RadarPlugin::RadarInfo* ri = GetRadarInfo(radar);
+  if (ri == nullptr)
+    return 0;
+  return static_cast<uint8_t>(ri->m_oc_image_decimation);
+}
 
 //todo get target list function
 ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){

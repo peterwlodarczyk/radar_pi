@@ -66,9 +66,12 @@ extern "C" DECL_IMPEXP bool radar_marpa_delete(uint8_t radar, int bearing, int r
 extern "C" DECL_IMPEXP bool radar_marpa_delete_all(uint8_t radar);
 
 extern "C" DECL_IMPEXP void radar_enable_profiling(bool enable);
-extern "C" DECL_IMPEXP float radar_set_update_rate(float hz);
+extern "C" DECL_IMPEXP uint32_t radar_set_update_period(uint32_t period_ms);
+extern "C" DECL_IMPEXP uint32_t radar_get_update_period();
 extern "C" DECL_IMPEXP void radar_set_render_decimate(uint8_t radar, uint8_t decimate_rate); // Reduces the update_rate
+extern "C" DECL_IMPEXP uint8_t radar_get_render_decimate(uint8_t radar);
 extern "C" DECL_IMPEXP void radar_set_image_decimate(uint8_t radar, uint8_t decimate_rate); // Reduces the render rate
+extern "C" DECL_IMPEXP uint8_t radar_get_image_decimate(uint8_t radar);
 
 enum RadarControlState {
   OC_CS_OFF = -1,

@@ -518,8 +518,8 @@ static void ResetGLViewPort(const wxSize &size) {
 
 void RadarCanvas::Render(wxPaintEvent &evt) {
   // For the particular radar we can get called at a lower rate
-  if (m_ri->m_oc_render_decimation > 0 && ++m_ri->m_oc_render_count % m_ri->m_oc_render_decimation == 0)
-     return;
+   if (m_ri->m_oc_render_decimation > 0 && ++m_ri->m_oc_render_count % m_ri->m_oc_render_decimation != 0)
+      return;
   if (!IsShown() || !m_pi->IsInitialized()) {
     return;
   }

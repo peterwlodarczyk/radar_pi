@@ -134,7 +134,7 @@ void LogProfilers()
 std::string to_string(const ProfilerT& t)
 {
   char buf[500];
-  sprintf(buf, "[%25.25s]:Load=%5.1f,Rate=%6.1f,Last=%6.4f,Mean=%6.4f,Min=%6.4f,Max=%6.4f,Count=%5u,Accumulated=%6.1f", 
+  sprintf(buf, "[%25.25s]:Load=%6.2f,Rate=%7.2f,Last=%6.4f,Mean=%6.4f,Min=%6.4f,Max=%6.4f,Count=%5u,Accumulated=%6.1f", 
     t.GetName().c_str(), 
     t.GetLoad(), 
     t.GetRate(), 

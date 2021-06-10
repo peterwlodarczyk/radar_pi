@@ -440,6 +440,18 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
   ProfilerGuardT tg(RADARINFO_PROCESSRADARSPOKE);
   int orientation;
   LOG_VERBOSE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
+  if (angle==0 && m_radar == 0)
+  {
+    static auto previous = wxLongLong(0);
+    auto now = wxGetUTCTimeMillis();
+    if (previous != 0)
+    {
+      int period = (now - previous).GetLo();
+      double rate = 1000.0 / period;
+      OC_TRACE("[RadarInfo::ProcessRadarSpoke] period=%d.angle=%d.Rate=%.5f", period, angle, rate);
+    }
+    previous = now;
+  }
 
   // calculate course as the moving average of m_hdt over one revolution
   SampleCourse(angle);  // used for course_up mode
