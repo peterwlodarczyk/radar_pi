@@ -19,7 +19,7 @@
 
 using namespace std;
 
-static bool Enabled = true;
+static bool LogEnabled = true;
 string MakeLocalTimeStamp() {
   char achTemp[256];
   achTemp[0] = '\0';
@@ -84,7 +84,7 @@ static void LogWrite(const char* t, const char* str) {
   }
 
 void OC_DEBUG(const char* format, ...) {
-  if (!Enabled) return;
+  if (!LogEnabled) return;
 
   char achDebug[4096];
   va_list args;
@@ -147,11 +147,11 @@ std::string to_string(const ProfilerT& t)
   return std::string(buf);
 }
 
-bool ProfilerT::Enabled = true;
+bool ProfilerT::Enabled = false;
 
 void ProfilerT::Enable(bool enable)
 {
-  Enabled = enable;
+  ProfilerT::Enabled = enable;
 }
 void ProfilerT::Stop()
 {
@@ -221,7 +221,7 @@ std::vector<ProfilerT>& Profilers()
 
 ProfilerT& Profiler(int timer)
 {
-  if (!Enabled)
+  if (!ProfilerT::Enabled)
   {
     static ProfilerT dummy;
     return dummy;
