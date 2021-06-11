@@ -318,7 +318,7 @@ static RadarPlugin::radar_pi* GetRadarPlugin() {
 }
 
 static RadarPlugin::RadarInfo* GetRadarInfo(int radar) {
-  if (radar > 0 && radar < RADARS) {
+  if (radar >= 0 && radar < RADARS) {
     if (g_pi_manager) {
       RadarPlugin::radar_pi* plugin = g_pi_manager->pPlugin;
       if (plugin) {
@@ -331,7 +331,7 @@ static RadarPlugin::RadarInfo* GetRadarInfo(int radar) {
 }
 
 static RadarPlugin::RadarControl* GetRadarController(int radar) {
-  if (radar > 0 && radar < RADARS) {
+  if (radar >= 0 && radar < RADARS) {
     if (g_pi_manager) {
       RadarPlugin::radar_pi* plugin = g_pi_manager->pPlugin;
       if (plugin) {
