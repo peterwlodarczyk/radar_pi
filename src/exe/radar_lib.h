@@ -128,6 +128,7 @@ struct RadarControlStatus {
   int auto_rain; // degrees
   int auto_sea; // on/off
   int target_trails;
+  int target_trails_state;
   int target_boost;
   int target_expansion;
   int target_separation;

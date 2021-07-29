@@ -649,7 +649,7 @@ RadarControlStatus radar_get_control_status(uint8_t radar) {
     return pkt;
   }
   
-  //I believe the getstates return an enum....?
+  //states are an enum defi
   pkt.state = radar_get_state(radar);
   pkt.range = radar_get_range(radar);
   pkt.gain = info->m_gain.GetValue(); 
@@ -658,8 +658,20 @@ RadarControlStatus radar_get_control_status(uint8_t radar) {
   pkt.auto_gain = info->m_gain.GetState();
   pkt.auto_sea = info->m_sea.GetState(); 
   pkt.auto_rain = info->m_rain.GetState();
-  pkt.target_trails = info->m_target_trails.GetValue();
-  pkt.target_boost =info->m_target_boost.GetValue();
+  if (info->m_target_trails.GetState() == -1)  //RC_OFF
+	{ 
+		pkt.target_trails = 0; 
+	}
+	else
+	{
+    int index = info->m_target_trails.GetValue();
+    if(index >= 0)
+    {
+      int actual [7] = {15, 30, 60, 180, 300, 600, 601}; //restating an enum that exists elsewhere here. bad practice. 
+      pkt.target_trails = actual[index];
+    }
+	}
+  pkt.target_boost = info->m_target_boost.GetValue();
   pkt.target_expansion = (info->m_target_expansion.GetValue() > 0) ? 1 : 0;  //currently a bug in the target_sepation interface that save value "on" as "high"
   pkt.target_separation = info->m_target_separation.GetValue();
   pkt.doppler = info->m_doppler.GetValue();
