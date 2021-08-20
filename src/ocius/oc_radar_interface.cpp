@@ -124,7 +124,7 @@ bool OciusDumpVertexImage(int radar) {
   else
     name = string("radara");
 
-  OC_DEBUG("[%s] %s:%d>>", __func__, name.c_str(), oc_count);
+  OC_TRACE("[%s] %s:%d>>", __func__, name.c_str(), oc_count);
   ++oc_count;
 
   GLint viewport[4];
@@ -164,13 +164,13 @@ bool OciusDumpVertexImage(int radar) {
   png_structp png_read_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
   if (!png_read_ptr)
   {
-    OC_DEBUG("[read_png_file] png_create_read_struct failed");
+    OC_TRACE("[read_png_file] png_create_read_struct failed");
     return false;
   }
   png_infop info_ptr = png_create_info_struct(png_read_ptr);
   if (!info_ptr)
   {
-    OC_DEBUG("[read_png_file] png_create_info_struct failed");
+    OC_TRACE("[read_png_file] png_create_info_struct failed");
     return false;
   }
   // //png_bytep is a typedef unsigned char png_byte5  

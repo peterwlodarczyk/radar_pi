@@ -11,6 +11,7 @@
 #include "RadarMarpa.h" //contains arpatarget class
 #include "Kalman.h" //the Polar def.
 #include "ocius/oc_utils.h"
+#include <chrono> 
 
 static ExtendedPosition RadarPolar2Pos(uint8_t radar, const RadarPlugin::Polar& pol, const ExtendedPosition& own_ship);
 static RadarPlugin::Polar RadarPos2Polar(uint8_t radar, const ExtendedPosition& p, const ExtendedPosition& own_ship);
@@ -70,13 +71,11 @@ MyFrame::~MyFrame() {
 }
 
 void MyFrame::OnRenderTimer(wxTimerEvent&) {
-  LOG_INFO("[MyFrame::OnRenderTimer].");
   if (g_pi_manager) 
     g_pi_manager->RenderAllGLCanvasOverlayPlugIns(m_glContext, CreatePlugInViewport(), 0);
 }
 
 void MyFrame::OnCloseWindow(wxCloseEvent&) {
-  LOG_INFO("[MyFrame::OnClose].");
   RenderTimer->Stop();
   if (g_pi_manager) {
     g_pi_manager->UnLoadAllPlugIns();
@@ -428,7 +427,7 @@ double radar_get_range(uint8_t radar) {
   if (controller != nullptr) {
     range = controller->GetRange();
   }
-  OC_DEBUG("[%s]=%d.", __func__, range);
+  OC_TRACE("[%s]=%d.", __func__, range);
   return range;
 }
 
@@ -507,7 +506,7 @@ bool radar_get_control(uint8_t radar, const char* control_string, ::RadarControl
 }
 
 void radar_set_position(const RadarPosition* pos) {
-  OC_DEBUG("[%s] lat=%.7f,lon=%.7f,cog=%.1f,sog=%.1f,heading=%.1f,fix_time=%d,sats=%d", __func__, pos->lat,pos->lon,pos->cog,pos->sog,pos->heading,pos->timestamp,pos->sats);
+  OC_TRACE("[%s] lat=%.7f,lon=%.7f,cog=%.1f,sog=%.1f,heading=%.1f,fix_time=%d,sats=%d", __func__, pos->lat,pos->lon,pos->cog,pos->sog,pos->heading,pos->timestamp,pos->sats);
 
   PlugIn_Position_Fix_Ex fix = {};
 
@@ -701,55 +700,44 @@ GuardZoneContactReport radar_get_guardzone_status(uint8_t radar)
 
   GeoPosition gps;
 	info->GetRadarPosition(&gps);
-  pkt.info_time = time(0); //should be the current time.
+  pkt.info_time = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count(); //time(0); //should be the current time.
 	//pkt.init_time = alarm;//time of first contact. 
 	pkt.sensorid = 0; //radar a vs radar b
 	pkt.contactid = 0; //increment in get gz state?
 	pkt.our_lat = gps.lat;//todo, pull/update from mavlink message case.
 	pkt.our_lon = gps.lon;
-	//contact_info.our_hdg = info->m_true_heading_info; //todo, this is the wrong heading. :(
+	
+  pkt.our_alt = 0.0f;
+  pkt.our_hdg = 0.0f; //contact_info.our_hdg = info->m_true_heading_info; //todo, this is the wrong heading. :(
 
   return pkt;
 }
 
-bool radar_marpa_aquire(uint8_t radar, int bearing, int range){
-  auto plugin = GetRadarPlugin();
-  auto info = GetRadarInfo(radar); 
-  if (info == nullptr || plugin == nullptr){
-    return false;
-  }
-  Polar pol;
-  pol.angle = bearing;
-  pol.r = range; //hopefully this works okay?
-  pol.time = wxGetUTCTimeMillis(); //now.
-
-  GeoPosition gps;
-	info->GetRadarPosition(&gps);
-  ExtendedPosition curr;
-  curr.pos = gps;
-
-  ExtendedPosition target_pos = RadarPolar2Pos(radar, pol, curr);
-  info->m_arpa->AcquireNewMARPATarget(target_pos); //should just aquire the target.
-  return true;
-}
-
-bool radar_marpa_delete(uint8_t radar, int bearing, int range){
+bool radar_marpa_acquire(uint8_t radar, float lat, float lon){
+  OC_DEBUG("[radar_marpa_acquire](%d,%f,%f)", radar, lat, lon);
   auto info = GetRadarInfo(radar); 
   if (info == nullptr){
     return false;
   }
-  Polar pol;
-  pol.angle = bearing;
-  pol.r = range; //hopefully this works okay?
-  pol.time = wxGetUTCTimeMillis(); //now.
 
-  GeoPosition gps;
-	info->GetRadarPosition(&gps);
-  ExtendedPosition curr;
-  curr.pos = gps;
+  ExtendedPosition target_pos = {};
+  target_pos.pos.lat = lat;
+  target_pos.pos.lon = lon;
+  info->m_arpa->AcquireNewMARPATarget(target_pos);
+  return true;
+}
 
-  ExtendedPosition target_pos = RadarPolar2Pos(radar, pol, curr);
-  info->m_arpa->DeleteTarget(target_pos); //should just aquire the target.
+bool radar_marpa_delete(uint8_t radar, float lat, float lon){
+  OC_DEBUG("[radar_marpa_delete](%d,%f,%f)", radar, lat, lon);
+  auto info = GetRadarInfo(radar); 
+  if (info == nullptr){
+    return false;
+  }
+
+  ExtendedPosition target_pos = {};
+  target_pos.pos.lat = lat;
+  target_pos.pos.lon = lon;
+  info->m_arpa->DeleteTarget(target_pos);
   return true;
 }
 
@@ -758,7 +746,7 @@ bool radar_marpa_delete_all(uint8_t radar){
   if (info == nullptr){
     return false;
   }
-  info->m_arpa->DeleteAllTargets(); //should just delete all targets
+  info->m_arpa->DeleteAllTargets();
   return true;
 }
 
@@ -819,26 +807,21 @@ ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){
   ArpaTarget* target = nullptr;
   if (info && info->m_arpa)
     target = info->m_arpa->m_targets[i]; //m_targets was originally private
-  if (target == nullptr)
+  if (target == nullptr || target->m_init_time == 0)
     return pkt;
   
   //we now have a bunch of info from target -> X
 
   //not sure if we have exposed enough of the marpa info, might need to make more bits public or move this to inside RadarMarpa
-  pkt.sensorid = radar; //0,1 A,B
   
-  //todo define this enum somewhere. {GuardZone, Arpa, Marpa}
-  if (target->m_automatic)
-    pkt.sensortype = 12; //SENSOR_TYPE_RADAR_ARPA; //true for ARPA
-  else
-    pkt.sensortype = 13; //SENSOR_TYPE_RADAR_MARPA; //false for MARPA
-
-  pkt.contactid = target->m_target_id;
-  pkt.init_time = time(0) - (int) target->m_refresh.GetValue(); //probably casting wrong.
-  pkt.info_time = time(0);
+  pkt.radar = radar;
+  pkt.is_automatic = target->m_automatic;
+  pkt.contactid = static_cast<uint32_t>(target->m_target_id);
+  pkt.init_time = target->m_init_time;
+  pkt.info_time = wxGetUTCTimeUSec().GetValue ();
   pkt.lat = target->m_position.pos.lat;
   pkt.lon = target->m_position.pos.lon;
-  pkt.sog = target->m_speed_kn;
+  pkt.sog = target->m_speed_kn * 0.514444;
   pkt.cog = target->m_course;
   GeoPosition gps;
 	info->GetRadarPosition(&gps);
@@ -846,12 +829,15 @@ ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i){
   curr.pos = gps;
 
   Polar pol = RadarPos2Polar(radar, target->m_position, curr);
-  pkt.range = pol.r / info->m_pixels_per_meter / 1852.; //eqns from PassARPAtoOCPN
-  pkt.bearing = pol.angle * 360. / info->m_spokes;
-  
-  pkt.phase = target->m_status; //a target_status (Q, T, L) for acquring active lost.
+  pkt.range = static_cast<float>(pol.r / info->m_pixels_per_meter); //eqns from PassARPAtoOCPN
+  pkt.bearing = static_cast<float>(pol.angle * 360. / info->m_spokes);
+
+  OC_DEBUG("ARPA:target:%d:%d:%d:%llu:m_status=%d,m_lost_count=%d", i, info->m_arpa->GetTargetCount(), target->m_target_id, target->m_init_time, target->m_status, target->m_lost_count);
+  pkt.phase = target->m_status;
   pkt.our_lat = gps.lat; 
   pkt.our_lon = gps.lon;
+  pkt.our_alt = 0.0f;
+  pkt.our_hdg = 0.0f;
 
   return pkt;
 }

@@ -344,9 +344,12 @@ void RadarArpa::AcquireOrDeleteMarpaTarget(ExtendedPosition target_pos, int stat
     return;
   }
 
-  LOG_ARPA(wxT("radar_pi: Adding (M)ARPA target at position %f / %f"), target_pos.pos.lat, target_pos.pos.lon);
+  LOG_ARPA(wxT("radar_pi: Adding (M)ARPA target at position %f/%f.status=%d"), target_pos.pos.lat, target_pos.pos.lon, status);
 
   ArpaTarget* target = m_targets[i_target];
+  target->m_init_time = wxGetUTCTimeUSec().GetValue ();;
+  target_id_count++;
+  target->m_target_id = target_id_count;
   target->m_position = target_pos;  // Expected position
   target->m_position.time = 0;
   target->m_position.dlat_dt = 0.;
@@ -362,6 +365,8 @@ void RadarArpa::AcquireOrDeleteMarpaTarget(ExtendedPosition target_pos, int stat
     target->m_kalman = new KalmanFilter(m_ri->m_spokes);
   }
   target->m_automatic = false;
+
+  LOG_ARPA(wxT("Acquire Marpa target %i:%llu"), i_target, target->m_target_id);
   return;
 }
 
@@ -840,12 +845,6 @@ void ArpaTarget::RefreshTarget(int dist) {
       m_position.sd_speed_kn = 0.;
     }
     m_status++;
-    // target gets an id when status  == STATUS_TO_OCPN
-    if (m_status == STATUS_TO_OCPN) {
-      target_id_count++;
-      if (target_id_count >= 10000) target_id_count = 1;
-      m_target_id = target_id_count;
-    }
     // Kalman filter to  calculate the apostriori local position and speed based on found position (pol)
     if (m_status > 1) {
       m_kalman->Update_P();
@@ -1016,6 +1015,7 @@ ArpaTarget::ArpaTarget(radar_pi* pi, RadarInfo* ri) {
   m_contour_length = 0;
   m_lost_count = 0;
   m_target_id = 0;
+  m_init_time = 0;
   m_refresh = 0;
   m_automatic = false;
   m_speed_kn = 0.;
@@ -1033,6 +1033,7 @@ ArpaTarget::ArpaTarget() {
   m_contour_length = 0;
   m_lost_count = 0;
   m_target_id = 0;
+  m_init_time = 0;
   m_refresh = 0;
   m_automatic = false;
   m_speed_kn = 0.;
@@ -1154,6 +1155,7 @@ void ArpaTarget::SetStatusLost() {
   }
   m_status = LOST;
   m_target_id = 0;
+  m_init_time = 0;
   m_automatic = false;
   m_refresh = 0;
   m_speed_kn = 0.;
@@ -1168,6 +1170,7 @@ void RadarArpa::DeleteAllTargets() {
   for (int i = 0; i < m_number_of_targets; i++) {
     if (!m_targets[i]) continue;
     m_targets[i]->SetStatusLost();
+    LOG_INFO(wxT("Lost arpa target %i"), i);
   }
 }
 
@@ -1196,7 +1199,9 @@ int RadarArpa::AcquireNewARPATarget(Polar pol, int status) {
   }
   ArpaTarget* target = m_targets[i];
   target_pos = target->Polar2Pos(pol, own_pos);
-
+  target->m_init_time = wxGetUTCTimeUSec().GetValue ();;
+  target_id_count++;
+  target->m_target_id = target_id_count;
   target->m_position = target_pos;  // Expected position
   target->m_position.time = wxGetUTCTimeMillis();
   target->m_position.dlat_dt = 0.;
@@ -1212,7 +1217,8 @@ int RadarArpa::AcquireNewARPATarget(Polar pol, int status) {
   }
   target->m_check_for_duplicate = false;
   target->m_automatic = true;
-  target->m_target_id = 0;
+  LOG_ARPA(wxT("Acquire Arpa target %i:%llu"), i, target->m_target_id);
+
   target->RefreshTarget(TARGET_SEARCH_RADIUS1);
   return i;
 }

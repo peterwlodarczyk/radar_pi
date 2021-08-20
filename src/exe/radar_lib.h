@@ -61,8 +61,8 @@ extern "C" DECL_IMPEXP bool radar_set_guardzone_state(uint8_t radar, uint8_t zon
 extern "C" DECL_IMPEXP bool radar_set_guardzone_arpa(uint8_t radar, uint8_t zone, int state);
 extern "C" DECL_IMPEXP bool radar_set_guardzone_type(uint8_t radar, uint8_t zone, int type);
 extern "C" DECL_IMPEXP bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs);
-extern "C" DECL_IMPEXP bool radar_marpa_aquire(uint8_t radar, int bearing, int range);
-extern "C" DECL_IMPEXP bool radar_marpa_delete(uint8_t radar, int bearing, int range);
+extern "C" DECL_IMPEXP bool radar_marpa_acquire(uint8_t radar, float lat, float lon);
+extern "C" DECL_IMPEXP bool radar_marpa_delete(uint8_t radar, float lat, float lon);
 extern "C" DECL_IMPEXP bool radar_marpa_delete_all(uint8_t radar);
 
 extern "C" DECL_IMPEXP void radar_enable_profiling(bool enable);
@@ -101,6 +101,7 @@ struct RadarPosition {
   uint64_t timestamp; // microseconds since 1970 UTC
   int sats;
 };
+
 struct GuardZoneStatus {
   double gz1_inner; // meters
   double gz1_outer; // meters
@@ -136,34 +137,49 @@ struct RadarControlStatus {
   int scan_speed;
   int noise_rejection;
 };
+
 struct GuardZoneContactReport {
-  int sensortype; //radar enum //actually needs to be 7 for radar
-  int sensorid; //enum(GuardZone, ARPA, MARPA)
-  int contactid; //increment when alarm goes true.
-  int init_time; //start contact time.
-  int info_time; //current time
-  float our_lat; //our pos from mavlink messages.
-  float our_lon; //our pos from mavlink messages.
-  int our_hdg; //our pos from mavlink messages.
+  uint8_t sensortype; //radar enum //actually needs to be 7 for radar
+  uint8_t sensorid; //enum(GuardZone, ARPA, MARPA)
+  uint32_t contactid; //increment when alarm goes true.
+  uint64_t init_time; //start contact time.
+  uint64_t info_time; //current time
+  float our_lat; // [deg] our pos from mavlink messages.
+  float our_lon; // [deg]our pos from mavlink messages.
+  float our_alt; // [m].
+  float our_hdg; //[deg] our pos from mavlink messages.
 };
 
+#define RADAR_PHASE_FOR_DELETION (-2)
+#define RADAR_PHASE_LOST (-1)
+#define RADAR_PHASE_ACQUIRE0 (0)
+#define RADAR_PHASE_ACQUIRE1 (1)
+#define RADAR_PHASE_ACQUIRE2 (2)
+#define RADAR_PHASE_ACQUIRE3 (3)
+#define RADAR_PHASE_Q (4)
+#define RADAR_PHASE_TRACKED (5)
+
+#define OC_RADAR_MAX_ARPA 100
+
 struct ARPAContactReport {
-  int sensortype; //radar enum //actually needs to be 7 for radar
-  int sensorid; //enum(GuardZone, ARPA, MARPA) ->  m_automatic
-  int contactid; // [m_target_id]
-  int init_time; //start contact time.
-  int info_time; //current time
+  uint8_t radar;
+  uint8_t is_automatic;
+  uint32_t contactid; // [m_target_id]
+  uint64_t init_time; // [us] start contact time.
+  uint64_t info_time; // [us] current time
   //some of the data is here PassARPAtoOCPN
-  float lat; //target pos m_position.lat
-  float lon; //target pos m_position.lon
-  float cog; //target cog [m_course]
-  float sog; //target sog [m_speed_kn]
-  float our_lat; //our pos from mavlink messages.
-  float our_lon; //our pos from mavlink messages.
-  int our_hdg; //our pos from mavlink messages.
-  double bearing; //bearing = pol->angle * 360. / m_ri->m_spokes;
-  double range; //dist = pol->r / m_ri->m_pixels_per_meter / 1852.
+  float lat; // [deg] target pos m_position.lat
+  float lon; // [deg] target pos m_position.lon
+  float alt; // [m];
+  float bearing; // [deg] bearing = pol->angle * 360. / m_ri->m_spokes;
+  float range; // [m] dist = pol->r / m_ri->m_pixels_per_meter / 1852.
+  float cog; // [deg] target cog [m_course]
+  float sog; // [m/s ]target sog [m_speed_kn]
   int phase; //state of tracking.
+  float our_lat; // [deg] our pos from mavlink messages.
+  float our_lon; // [deg]our pos from mavlink messages.
+  float our_alt; // [m].
+  float our_hdg; //[deg] our pos from mavlink messages.
 };
 
 extern "C" DECL_IMPEXP void radar_set_position(const RadarPosition* pos);

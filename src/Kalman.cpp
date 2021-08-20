@@ -254,6 +254,11 @@ void GPSKalmanFilter::Predict(ExtendedPosition* old, ExtendedPosition* updated) 
   X(1, 0) = old->pos.lon;
   X(2, 0) = old->dlat_dt;
   X(3, 0) = old->dlon_dt;
+  A(0, 2) = 0.0;
+  auto diff = now - old->time;
+  uint32_t  ssss = diff.GetLo();
+  double diffd = ssss / 100.0;
+  A(0, 2) = diffd;
   A(0, 2) = (now - old->time).GetLo() / 1000.;  // delta time in seconds
   A(1, 3) = A(0, 2);
 

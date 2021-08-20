@@ -105,7 +105,8 @@ class ArpaTarget {
   radar_pi* m_pi;
   KalmanFilter* m_kalman;
  public: //exposing info that mavlink wants.
-  int m_target_id;
+  uint64_t m_target_id;
+  uint64_t m_init_time;
   target_status m_status;
   // radar position at time of last target fix, the polars in the contour refer to this origin
   GeoPosition m_radar_pos;
@@ -113,7 +114,7 @@ class ArpaTarget {
   double m_speed_kn;            // Average speed of target. TODO: Merge with m_position.speed?
   wxLongLong m_refresh;         // time of last refresh
   double m_course;
- private:
+ //private:
   int m_stationary;  // number of sweeps target was stationary
   int m_lost_count;
   bool m_check_for_duplicate;

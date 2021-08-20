@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 
-#define OC_TRACE OC_DEBUG
 void OC_DEBUG(const char* format, ...);
+void OC_TRACE(const char* format, ...);
 
 std::string MakeLocalTimeStamp();
 std::vector<uint8_t> JpegAppendComment(const std::vector<uint8_t>& input, const std::string& timestamp, const std::string& camera);

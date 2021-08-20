@@ -1012,7 +1012,7 @@ void radar_pi::ScheduleWindowRefresh() {
 }
 
 void radar_pi::OnTimerNotify(wxTimerEvent &event) {
-  OC_DEBUG("[radar_pi::OnTimerNotify]>>");
+  OC_TRACE("[radar_pi::OnTimerNotify]>>");
   if (!EnsureRadarSelectionComplete(false)) {
     return;
   }
@@ -1033,12 +1033,12 @@ void radar_pi::OnTimerNotify(wxTimerEvent &event) {
         if (canvas) {
           canvas->Refresh(false);
         } else {
-          LOG_INFO(wxT("**error canvas NOT OK, r=%i"), r);
+          LOG_VERBOSE(wxT("**error canvas NOT OK, r=%i"), r);
         }
       }
     }
   }
-  OC_DEBUG("[radar_pi::OnTimerNotify]<<");
+  OC_TRACE("[radar_pi::OnTimerNotify]<<");
 }
 
 // Called between 1 and 10 times per second by RenderGLOverlay call

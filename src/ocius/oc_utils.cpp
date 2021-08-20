@@ -19,7 +19,9 @@
 
 using namespace std;
 
-static bool LogEnabled = true;
+static bool LogDebugEnabled = true;
+static bool LogTraceEnabled = false;
+
 string MakeLocalTimeStamp() {
   char achTemp[256];
   achTemp[0] = '\0';
@@ -84,7 +86,18 @@ static void LogWrite(const char* t, const char* str) {
   }
 
 void OC_DEBUG(const char* format, ...) {
-  if (!LogEnabled) return;
+  if (!LogDebugEnabled) return;
+
+  char achDebug[4096];
+  va_list args;
+  va_start(args, format);
+  vsnprintf(achDebug, sizeof(achDebug), format, args);
+  va_end(args);
+  LogWrite("DEBUG", achDebug);
+}
+
+void OC_TRACE(const char* format, ...) {
+  if (!LogTraceEnabled) return;
 
   char achDebug[4096];
   va_list args;
