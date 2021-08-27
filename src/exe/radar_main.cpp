@@ -437,7 +437,6 @@ uint32_t radar_get_activity_count() {
   return 0;
 }
 
-
 // the number of spoked received
 uint32_t radar_get_spoke_count(uint8_t radar) {
   RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
@@ -447,6 +446,40 @@ uint32_t radar_get_spoke_count(uint8_t radar) {
     return info->m_oc_statistics.spoke_count;
 }
 
+//number of missing spokes
+uint32_t radar_get_missing_spoke_count(uint8_t radar) {
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return  info->m_oc_statistics.missing_spoke_count;
+}
+
+/* //decided against implementing this.
+uint32_t radar_get_broken_spoke_count(uint8_t radar) {
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return info->m_statistics.broken_spokes;
+}
+
+uint32_t radar_get_packet_count(uint8_t radar) {
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return info->m_statistics.packets;
+}
+
+uint32_t radar_get_broken_packet_count(uint8_t radar) {
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return info->m_statistics.broken_packets;
+}
+*/
 // the number of time a radar image has been successfully writen
 uint32_t radar_get_image_count(uint8_t radar) {
   RadarPlugin::RadarInfo* info = GetRadarInfo(radar);

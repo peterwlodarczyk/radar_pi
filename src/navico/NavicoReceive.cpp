@@ -270,6 +270,7 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
       LOG_RECEIVE(wxT("radar_pi: strange header length %d"), line->common.headerLen);
       // Do not draw something with this...
       m_ri->m_statistics.missing_spokes++;
+      m_ri->m_oc_statistics.missing_spoke_count++;
       m_next_spoke = (spoke + 1) % SPOKES;
       continue;
     }
@@ -280,11 +281,14 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
     if (m_next_spoke >= 0 && spoke != m_next_spoke) {
       if (spoke > m_next_spoke) {
         m_ri->m_statistics.missing_spokes += spoke - m_next_spoke;
+        m_ri->m_oc_statistics.missing_spoke_count += spoke - m_next_spoke;
       } else {
         m_ri->m_statistics.missing_spokes += SPOKES + spoke - m_next_spoke;
+        m_ri->m_oc_statistics.missing_spoke_count += SPOKES + spoke - m_next_spoke;
       }
     }
     m_next_spoke = (spoke + 1) % SPOKES;
+
 
     int range_raw = 0;
     int angle_raw = 0;

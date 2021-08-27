@@ -160,9 +160,10 @@ class RadarInfo {
   receive_statistics m_statistics;
   struct oc_statistics
   {
-    uint32_t image_write_count; // The number of images that have been written
-    uint32_t spoke_count; // The number of spokes
-  }; 
+    uint32_t image_write_count;   // The number of images that have been written
+    uint32_t spoke_count;         // The number of spoke
+    uint32_t missing_spoke_count; // The number of missing spoke
+  };
   oc_statistics m_oc_statistics;
   int m_oc_render_count;
   int m_oc_render_decimation;

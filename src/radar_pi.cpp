@@ -1111,7 +1111,7 @@ void radar_pi::TimedControlUpdate() {
       if (m_radar[r]->m_state.GetValue() != RADAR_OFF) {
         wxCriticalSectionLocker lock(m_radar[r]->m_exclusive);
 
-        t << wxString::Format(wxT("%s\npackets %d/%d\nspokes %d/%d/%d\n"), m_radar[r]->m_name.c_str(),
+        t << wxString::Format(wxT("[radar_pi::TimedControlUpdate] Packet&SpokeInfo: %s\npackets %d/%d\nspokes %d/%d/%d\n"), m_radar[r]->m_name.c_str(),
                               m_radar[r]->m_statistics.packets, m_radar[r]->m_statistics.broken_packets,
                               m_radar[r]->m_statistics.spokes, m_radar[r]->m_statistics.broken_spokes,
                               m_radar[r]->m_statistics.missing_spokes);
