@@ -626,7 +626,7 @@ bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //chang
   return true;
 }
 
-GuardZoneStatus radar_get_guardzone_define(uint8_t radar) {
+GuardZoneStatus radar_get_guardzone_definition(uint8_t radar) {
   struct GuardZoneStatus pkt = {};
   auto info = GetRadarInfo(radar);
   if (info == nullptr)
