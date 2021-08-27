@@ -189,7 +189,7 @@ struct ARPAContactReport {
 extern "C" DECL_IMPEXP void radar_set_position(const RadarPosition* pos);
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_state(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_type(uint8_t radar);
-extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_define(uint8_t radar);
+extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_definition(uint8_t radar);
 extern "C" DECL_IMPEXP RadarControlStatus radar_get_control_status(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneContactReport radar_get_guardzone_status(uint8_t radar);
 extern "C" DECL_IMPEXP ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i);

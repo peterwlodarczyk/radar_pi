@@ -624,7 +624,7 @@ bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //chang
   m_guard_zone->SetStartBearing(start_bearing);
   m_guard_zone->SetEndBearing(end_bearing);
   return true;
-}
+};
 
 GuardZoneStatus radar_get_guardzone_definition(uint8_t radar) {
   struct GuardZoneStatus pkt = {};
