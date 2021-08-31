@@ -163,8 +163,11 @@ class RadarInfo {
     uint32_t image_write_count;   // The number of images that have been written
     uint32_t spoke_count;         // The number of spoke
     uint32_t missing_spoke_count; // The number of missing spoke
+    uint32_t spokes_drawn;
   };
   oc_statistics m_oc_statistics;
+  oc_statistics m_prev_oc_statistics;
+  uint64_t prev_render_time;
   int m_oc_render_count;
   int m_oc_render_decimation;
   int m_oc_image_count;

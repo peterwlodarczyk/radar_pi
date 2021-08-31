@@ -56,6 +56,7 @@ extern "C" DECL_IMPEXP double radar_get_range(uint8_t radar);
 extern "C" DECL_IMPEXP uint32_t radar_get_activity_count(); // Across all radars. Should 
 extern "C" DECL_IMPEXP uint32_t radar_get_spoke_count(uint8_t radar); // the number of spokes received
 extern "C" DECL_IMPEXP uint32_t radar_get_missing_spoke_count(uint8_t radar); // the number of missing spokes received
+extern "C" DECL_IMPEXP uint32_t radar_get_spokes_drawn(uint8_t radar); // the number of missing spokes received
 //extern "C" DECL_IMPEXP uint32_t radar_get_broken_spoke_count(uint8_t radar); // the number of missing spokes received
 //extern "C" DECL_IMPEXP uint32_t radar_get_packet_count(uint8_t radar); // the number of radar udp packets received
 //extern "C" DECL_IMPEXP uint32_t radar_get_broken_packet_count(uint8_t radar); // the number of brocken radar udp packets received.
@@ -95,6 +96,7 @@ extern "C" DECL_IMPEXP bool radar_set_control(uint8_t radar, const char* control
 extern "C" DECL_IMPEXP bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value);
 extern "C" DECL_IMPEXP bool radar_get_control(uint8_t radar, const char* control, ::RadarControlState* state, int32_t* value);
 extern "C" DECL_IMPEXP bool radar_config_save();
+extern "C" DECL_IMPEXP bool radar_config_load();
 
 struct RadarPosition {
   double lat; // degrees
@@ -189,7 +191,7 @@ struct ARPAContactReport {
 extern "C" DECL_IMPEXP void radar_set_position(const RadarPosition* pos);
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_state(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_type(uint8_t radar);
-extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_define(uint8_t radar);
+extern "C" DECL_IMPEXP GuardZoneStatus radar_get_guardzone_definition(uint8_t radar);
 extern "C" DECL_IMPEXP RadarControlStatus radar_get_control_status(uint8_t radar);
 extern "C" DECL_IMPEXP GuardZoneContactReport radar_get_guardzone_status(uint8_t radar);
 extern "C" DECL_IMPEXP ARPAContactReport radar_get_arpa_contact_report(uint8_t radar, int i);

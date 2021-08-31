@@ -382,6 +382,7 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
       data_highres[2 * i] = lookup_low[line->data[i]];
       data_highres[2 * i + 1] = lookup_high[line->data[i]];
     }
+    OC_DEBUG("[NavicoReceive::ProcessFrame] (END) time_received:%u, bearing:%i raw:%i, spoke_length:%i, spoke_range:%i", time_rec, a, b, len, range_meters);
     m_ri->ProcessRadarSpoke(a, b, data_highres, len, range_meters, time_rec);
   }
 }

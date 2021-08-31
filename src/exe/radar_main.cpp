@@ -399,11 +399,20 @@ bool radar_get_tx(uint8_t radar) {
     return false;
 }
 
-bool radar_config_save() { 
+bool radar_config_save() {
   OC_DEBUG("[%s]", __func__);
   auto plugin = GetRadarPlugin();
   if (plugin)
     return plugin->SaveConfig();
+  else
+    return false;
+}
+
+bool radar_config_load() {
+  OC_DEBUG("[%s]", __func__);
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    return plugin->LoadConfig();
   else
     return false;
 }
@@ -455,6 +464,13 @@ uint32_t radar_get_missing_spoke_count(uint8_t radar) {
     return  info->m_oc_statistics.missing_spoke_count;
 }
 
+uint32_t radar_get_spokes_drawn(uint8_t radar) {
+  RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+  if (info == nullptr)
+    return 0;
+  else
+    return  info->m_oc_statistics.spokes_drawn;
+}
 /* //decided against implementing this.
 uint32_t radar_get_broken_spoke_count(uint8_t radar) {
   RadarPlugin::RadarInfo* info = GetRadarInfo(radar);

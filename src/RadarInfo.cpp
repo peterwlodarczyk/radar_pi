@@ -42,6 +42,7 @@
 #include "TrailBuffer.h"
 #include "drawutil.h"
 #include "ocius/oc_utils.h"
+#include <ctime>
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -85,6 +86,7 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   CLEAR_STRUCT(m_statistics);
   CLEAR_STRUCT(m_course_log);
   CLEAR_STRUCT(m_oc_statistics);
+  CLEAR_STRUCT(m_prev_oc_statistics);
   m_oc_render_count = 0;
   m_oc_render_decimation = 1;
   m_oc_image_count = 0;
@@ -398,7 +400,7 @@ void RadarInfo::ResetSpokes() {
   GeoPosition pos;
   GetRadarPosition(&pos);
   LOG_VERBOSE(wxT("radar_pi: reset spokes"));
-
+  OC_DEBUG("radar_pi: reset spokes");
   CLEAR_STRUCT(zap);
   for (size_t i = 0; i < m_spokes; i++) {
     memset(m_history[i].line, 0, m_spoke_len_max);
@@ -439,7 +441,7 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
                                   wxLongLong time_rec) {
   ProfilerGuardT tg(RADARINFO_PROCESSRADARSPOKE);
   int orientation;
-  LOG_VERBOSE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
+  OC_TRACE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
   if (angle==0 && m_radar == 0)
   {
     static auto previous = wxLongLong(0);
@@ -448,7 +450,7 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
     {
       int period = (now - previous).GetLo();
       double rate = 1000.0 / period;
-      OC_TRACE("[RadarInfo::ProcessRadarSpoke] period=%d.angle=%d.Rate=%.5f", period, angle, rate);
+      OC_DEBUG("[RadarInfo::ProcessRadarSpoke] period=%d.angle=%d.Rate=%.5f", period, angle, rate);
     }
     previous = now;
   }
@@ -899,7 +901,20 @@ void RadarInfo::RenderRadarImage2(DrawInfo *di, double radar_scale, double panel
       return;
     }
   }
-
+  auto stats = this->m_oc_statistics;
+  auto prev_stats = this->m_prev_oc_statistics;
+  uint64_t render_time = std::time(nullptr) * 1000;
+  uint32_t spoke_rate = (stats.spoke_count - prev_stats.spoke_count);
+  uint32_t missing_spoke_rate = (stats.missing_spoke_count - prev_stats.missing_spoke_count);
+  uint32_t spoke_drawn_rate = (stats.spokes_drawn - prev_stats.spokes_drawn);
+  OC_DEBUG("[RadarInfo::RenderRadarImage2] spoke_rate:%u, missing_spoke_rate:%u, spoke_drawn_rate:%u", spoke_rate, missing_spoke_rate, spoke_drawn_rate);
+  if ( spoke_rate != spoke_drawn_rate){
+    //found that this didn't trigger unless radar range was changed.
+    //there were consistently missing spokes -> im back to thinking packets are dropping the longer it goes on.
+    OC_DEBUG("[RadarInfo::RenderRadarImage2] SPOKES NOT DRAWN");
+  }
+  this->m_prev_oc_statistics = this->m_oc_statistics;
+  this->prev_render_time = render_time;
   if (di == &m_draw_overlay) {
     di->draw->DrawRadarOverlayImage(radar_scale, panel_rotate);
   } else {

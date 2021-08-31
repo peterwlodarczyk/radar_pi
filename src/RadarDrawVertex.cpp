@@ -129,6 +129,7 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
   int r_end = 0;
 
   if (angle < 0 || angle >= (int)m_spokes || len > m_spoke_len_max || !m_vertices) {
+    OC_DEBUG("[RadarDrawVertex::ProcessRadarSpoke], casue: range:%i, length:%i, vertice:%i", (int)(angle < 0 || angle >= (int)m_spokes), (int)(len > m_spoke_len_max), (int)(!m_vertices));
     return;
   }
   VertexLine* line = &m_vertices[angle];
@@ -140,7 +141,8 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
     line->points = (VertexPoint*)malloc(line->allocated * sizeof(VertexPoint));
     if (!line->points) {
       if (!m_oom) {
-        wxLogError(wxT("radar_pi: Out of memory"));
+        wxLogError(wxT("radar_pi: Out of memory")); //am I hitting this?
+        OC_DEBUG("[RadarDrawVertex::ProcessRadarSpoke], OOM: out of memeory error case");
         m_oom = true;
       }
       line->allocated = 0;
@@ -148,6 +150,7 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
       return;
     }
   }
+
   line->count = 0;
   line->timeout = now + m_ri->m_pi->m_settings.max_age;
   line->spoke_pos = spoke_pos;
@@ -181,6 +184,7 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
     blue = m_ri->m_colour_map_rgb[previous_colour].Blue();
     SetBlob(line, angle, angle + 1, r_begin, r_end, red, green, blue, alpha);
   }
+  m_ri->m_oc_statistics.spokes_drawn++;
 }
 
 void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rotate) {
