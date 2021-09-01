@@ -767,10 +767,10 @@ void ArpaTarget::RefreshTarget(int dist) {
   if ((time1 < (m_refresh + SCAN_MARGIN2) || time2 < time1) && m_status != 0) {
     wxLongLong now = wxGetUTCTimeMillis();  // millis
     int diff = now.GetLo() - m_refresh.GetLo();
-    if (diff > 8000) {
+    if (diff > 16000) {
       LOG_ARPA(wxT("radar_pi: target not refreshed, missing spokes, set lost, status= %i, target_id= %i timediff= %i"), m_status,
                m_target_id, diff);
-      OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%i not refreshed, missing spokes", m_target_id);
+      OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%u not refreshed, missing spokes", m_target_id);
       SetStatusLost();
     }
     return;
@@ -795,7 +795,7 @@ void ArpaTarget::RefreshTarget(int dist) {
     delta_t = 0.;
   }
   if (m_position.pos.lat > 90.) {
-    OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%i , m_position.pos.lat > 90.", m_target_id);
+    OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%u , m_position.pos.lat > 90.", m_target_id);
     SetStatusLost();
     return;
   }
@@ -810,7 +810,7 @@ void ArpaTarget::RefreshTarget(int dist) {
   pol.r = (int)(sqrt(x_local.pos.lat * x_local.pos.lat + x_local.pos.lon * x_local.pos.lon) * m_ri->m_pixels_per_meter);
   // zooming and target movement may  cause r to be out of bounds
   if (pol.r >= (int)m_ri->m_spoke_len_max || pol.r <= 0) {
-    OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%i , r is out of bounds", m_target_id);
+    OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%u , r is out of bounds", m_target_id);
     SetStatusLost();
     return;
   }
@@ -826,7 +826,7 @@ void ArpaTarget::RefreshTarget(int dist) {
     // target too large? (land masses?) get rid of it
     if (abs(back.r - pol.r) > MAX_TARGET_DIAMETER || abs(m_max_r.r - m_min_r.r) > MAX_TARGET_DIAMETER ||
         abs(m_min_angle.angle - m_max_angle.angle) > MAX_TARGET_DIAMETER) {
-      OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%i , target too large, possible land mass", m_target_id);
+      OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%u , target too large, possible land mass", m_target_id);
       SetStatusLost();
       return;
     }
@@ -891,7 +891,7 @@ void ArpaTarget::RefreshTarget(int dist) {
 
     // delete low status targets immediately when not found
     if (m_status == ACQUIRE0 || m_status == ACQUIRE1 || m_status == 2) {
-      OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%i , low status target not found and is discarded.", m_target_id);
+      OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%u , low status target not found and is discarded.", m_target_id);
       SetStatusLost();
       return;
     }
@@ -900,7 +900,7 @@ void ArpaTarget::RefreshTarget(int dist) {
 
     // delete if not found too often
     if (m_lost_count > MAX_LOST_COUNT) {
-      OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%i , failed to be found too often (m_lost_count > MAX_LOST_COUNT) possibly trying to track noise.", m_target_id);
+      OC_DEBUG("[RadarArpa::RefreshTarget], SetStatusLost(): Target:%u , failed to be found too often (m_lost_count > MAX_LOST_COUNT) possibly trying to track noise.", m_target_id);
       SetStatusLost();
       return;
     }
@@ -1149,7 +1149,7 @@ void ArpaTarget::PassARPAtoOCPN(Polar* pol, OCPN_target_status status) {
 }
 
 void ArpaTarget::SetStatusLost() {
-  OC_DEBUG("[ArpaTarget::SetStatusLost] Lost target: %i", m_target_id);
+  OC_DEBUG("[ArpaTarget::SetStatusLost] Lost target: %u", m_target_id);
   m_contour_length = 0;
   m_lost_count = 0;
   if (m_kalman) {
