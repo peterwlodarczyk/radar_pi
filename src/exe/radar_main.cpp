@@ -408,11 +408,11 @@ bool radar_config_save() {
     return false;
 }
 
-bool radar_config_load() {
+bool radar_config_restore() {
   OC_DEBUG("[%s]", __func__);
   auto plugin = GetRadarPlugin();
   if (plugin)
-    return plugin->LoadConfig();
+    return plugin->RestoreConfig();
   else
     return false;
 }
@@ -426,7 +426,7 @@ double radar_set_range(uint8_t radar, double range) {
   else {
     range = 0;
   }
-  OC_DEBUG("[%s]=%f.", __func__, range);
+  OC_DEBUG("[%s]%d=%f.", __func__, radar, range);
   return range;
 }
 
@@ -436,7 +436,7 @@ double radar_get_range(uint8_t radar) {
   if (controller != nullptr) {
     range = controller->GetRange();
   }
-  OC_TRACE("[%s]=%d.", __func__, range);
+  OC_TRACE("[%s]%d=%d.", __func__, radar, range);
   return range;
 }
 
@@ -509,15 +509,16 @@ bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarCo
   //note it might be possible to replace the set_control calls here with virtually pressing the associated button.
   bool r = false;
   RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
-  RadarControlItem item; //todo, fake an item with the value we need.
-  item.Update(value, (RadarPlugin::RadarControlState) state);
-  //RadarControlButton button; //i don't think this gets used by the target trails function - so make it an empty button.
 
   if (info != nullptr) {
+    RadarControlItem item; //todo, fake an item with the value we need.
+    item.Update(value, (RadarPlugin::RadarControlState) state);
+    //RadarControlButton button; //i don't think this gets used by the target trails function - so make it an empty button.
+    
     ControlType control_enum = ControlTypeStringToEnum(control_string);
     r = info->SetControlValue(control_enum, item, nullptr); //fake a button and hope it doesn't break things?
   }
-  OC_DEBUG("[%s]=%d.control_item=%s.state=%d,value=%d.", __func__, r, control_string, state, value);
+  OC_DEBUG("[%s]%d=%d.control_item=%s.state=%d,value=%d.", __func__, radar, r, control_string, state, value);
   return r;
 }
 
@@ -528,29 +529,29 @@ bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControl
     ControlType control_enum = ControlTypeStringToEnum(control_string);
     r = controller->SetControlValue(control_enum, (RadarPlugin::RadarControlState)state, value);
   }
-  OC_DEBUG("[%s]=%d.control=%s.state=%d,value=%d.", __func__, r, control_string, state, value);
+  OC_DEBUG("[%s]%d=%d.control=%s.state=%d,value=%d.", __func__, radar, r, control_string, state, value);
   return r;
 }
 
 bool radar_get_control(uint8_t radar, const char* control_string, ::RadarControlState* state, int32_t* value){
   if (state == nullptr || value == nullptr) {
-    OC_DEBUG("[%s]=false.control=%s", __func__, control_string);
+    OC_DEBUG("[%s]%d=false.control=%s", __func__, radar, control_string);
     return false;
   }
 
   auto controller = GetRadarController(radar);
   if (controller == nullptr){
-    OC_DEBUG("[%s]=false.control=%s", __func__, control_string);
+    OC_DEBUG("[%s]%d=false.control=%s", __func__, radar, control_string);
     return false;
   }
 
   ControlType control_enum = ControlTypeStringToEnum(control_string);
   bool ret = controller->GetControlValue(control_enum, *((RadarPlugin::RadarControlState*)state), *value);
   if (!ret) {
-    OC_DEBUG("[%s]=false.control=%s", __func__, control_string);
+    OC_DEBUG("[%s]%d=false.control=%s", __func__, radar, control_string);
     return false;
   }
-  OC_DEBUG("[%s]=true.control=%s.state=%d,value=%d.", __func__, control_string, *state, *value);
+  OC_DEBUG("[%s]%d=true.control=%s.state=%d,value=%d.", __func__, radar, control_string, *state, *value);
   return true;
 }
 
@@ -575,41 +576,45 @@ void radar_set_position(const RadarPosition* pos) {
 }
 
 bool radar_set_guardzone_state(uint8_t radar, uint8_t zone, int state){ 
+  OC_DEBUG("[%s]%d: zone=%d,state=%d", __func__, radar, zone, state);
   //enabling guard zone. [This actually just enables the ALARM for the respective guardzone]
   //handle set guardzone? See Controls Dialog setGuardZoneVisibility? / ShowGuardZone?
   auto info = GetRadarInfo(radar);
   if (info == nullptr)
     return false;
 
-  auto m_guard_zone = info->m_guard_zone[zone];
-  m_guard_zone->m_show_time = time(0);
-  m_guard_zone->SetAlarmOn(state);
+  GuardZone* guard_zone = info->m_guard_zone[zone];
+  guard_zone->m_show_time = time(0);
+  guard_zone->SetAlarmOn(state);
   return true;
 }
 
 bool radar_set_guardzone_arpa(uint8_t radar, uint8_t zone, int state){ 
+  OC_DEBUG("[%s]%d: zone=%d,state=%d", __func__, radar, zone, state);
   //enabling guard zone. [This actually just enables the ALARM for the respective guardzone]
   //handle set guardzone? See Controls Dialog setGuardZoneVisibility? / ShowGuardZone?
   auto info = GetRadarInfo(radar);
   if (info == nullptr)
     return false;
-  auto m_guard_zone = info->m_guard_zone[zone];
-  m_guard_zone->m_show_time = time(0);
-  m_guard_zone->SetArpaOn(state);
+  GuardZone* guard_zone = info->m_guard_zone[zone];
+  guard_zone->m_show_time = time(0);
+  guard_zone->SetArpaOn(state);
   return true;
 }
 
 bool radar_set_guardzone_type(uint8_t radar, uint8_t zone, int type){
+  OC_DEBUG("[%s]%d: zone=%d,state=%d", __func__, radar, zone, type);
   auto info = GetRadarInfo(radar); //hopefully returns a RadarInfo? RadarInfo then contains 
   if (info == nullptr)
     return false;
-  auto m_guard_zone = info->m_guard_zone[zone]; // do i need auto's here??
-  m_guard_zone->m_show_time = time(0);
-  m_guard_zone->SetType((RadarPlugin::GuardZoneType)type); //mode should be 0 or 1 for arc / circle -> based ont he GuardZoneType enum
+  GuardZone* guard_zone = info->m_guard_zone[zone];
+  guard_zone->m_show_time = time(0);
+  guard_zone->SetType((RadarPlugin::GuardZoneType)type); //mode should be 0 or 1 for arc / circle -> based ont he GuardZoneType enum
   return true;
 }
 
-bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //change this defintion.
+bool radar_set_guardzone_dimensions(uint8_t radar, uint8_t zone, const int* dims){ //change this defintion.
+  OC_DEBUG("[%s]%d: zone=%d,state=%d,dims=[%d,%d,%d,%d]", __func__, radar, zone, dims[0], dims[1], dims[2], dims[3]);
   //unsure how they pick which radar | zone the below settings apply to... As it's done through the selection of the menu.
   
   //taken from on range X click's 
@@ -618,13 +623,13 @@ bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //chang
   if (info == nullptr)
     return false;
 
-  auto m_guard_zone = info->m_guard_zone[zone];
-  m_guard_zone->m_show_time = time(0);
+  GuardZone* guard_zone = info->m_guard_zone[zone];
+  guard_zone->m_show_time = time(0);
 
-  int inner = defs[0];
-  int outer = defs[1];
-  int start_bearing = defs[2];
-  int end_bearing = defs[3];
+  int inner = dims[0];
+  int outer = dims[1];
+  int start_bearing = dims[2];
+  int end_bearing = dims[3];
 
   MOD_DEGREES(start_bearing);
   MOD_DEGREES(end_bearing);
@@ -635,10 +640,10 @@ bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs){ //chang
     end_bearing += 360;
   }
 
-  m_guard_zone->SetInnerRange(inner);
-  m_guard_zone->SetOuterRange(outer);
-  m_guard_zone->SetStartBearing(start_bearing);
-  m_guard_zone->SetEndBearing(end_bearing);
+  guard_zone->SetInnerRange(inner);
+  guard_zone->SetOuterRange(outer);
+  guard_zone->SetStartBearing(start_bearing);
+  guard_zone->SetEndBearing(end_bearing);
   return true;
 };
 

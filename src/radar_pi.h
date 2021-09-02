@@ -500,6 +500,7 @@ class radar_pi : public opencpn_plugin_116, public wxEvtHandler {
   bool IsRadarOnScreen(int radar);
 
   bool LoadConfig();
+  bool RestoreConfig(); // Read the config file and restore select controls
   bool SaveConfig();
 
   long GetRangeMeters();

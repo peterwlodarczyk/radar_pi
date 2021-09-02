@@ -65,7 +65,7 @@ extern "C" DECL_IMPEXP uint32_t radar_get_image_count(uint8_t radar); // the num
 extern "C" DECL_IMPEXP bool radar_set_guardzone_state(uint8_t radar, uint8_t zone, int state);
 extern "C" DECL_IMPEXP bool radar_set_guardzone_arpa(uint8_t radar, uint8_t zone, int state);
 extern "C" DECL_IMPEXP bool radar_set_guardzone_type(uint8_t radar, uint8_t zone, int type);
-extern "C" DECL_IMPEXP bool radar_set_guardzone_define(uint8_t radar, uint8_t zone, int* defs);
+extern "C" DECL_IMPEXP bool radar_set_guardzone_dimensions(uint8_t radar, uint8_t zone, const int* dims);
 extern "C" DECL_IMPEXP bool radar_marpa_acquire(uint8_t radar, float lat, float lon);
 extern "C" DECL_IMPEXP bool radar_marpa_delete(uint8_t radar, float lat, float lon);
 extern "C" DECL_IMPEXP bool radar_marpa_delete_all(uint8_t radar);
@@ -96,7 +96,7 @@ extern "C" DECL_IMPEXP bool radar_set_control(uint8_t radar, const char* control
 extern "C" DECL_IMPEXP bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value);
 extern "C" DECL_IMPEXP bool radar_get_control(uint8_t radar, const char* control, ::RadarControlState* state, int32_t* value);
 extern "C" DECL_IMPEXP bool radar_config_save();
-extern "C" DECL_IMPEXP bool radar_config_load();
+extern "C" DECL_IMPEXP bool radar_config_restore();
 
 struct RadarPosition {
   double lat; // degrees
