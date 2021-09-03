@@ -113,7 +113,7 @@ static bool write_png_file(const char* file_name, png_infop info_ptr, png_bytep 
   return true;
 }
 
-bool OciusDumpVertexImage(int radar) {
+bool OciusDumpVertexImage(int radar, string stage) {
   if (radar < 0 || radar > 1)
     return false;
   ProfilerGuardT tg(OCIUSDUMPVERTEXIMAGE);
@@ -180,7 +180,7 @@ bool OciusDumpVertexImage(int radar) {
   png_uint_32 reduce_result = opng_reduce_image(png_read_ptr, info_ptr, reductions);
   OC_TRACE("[OciusDumpVertexImage] opng_reduce_image=%d.", reduce_result);
 
-  string filename = g_OciusLiveDir + '/' + name + "-capture.png";
+  string filename = g_OciusLiveDir + '/' + name + '-' + stage + ".png";
   {
     FileLock f(filename.c_str());
     if (f.locked()) {

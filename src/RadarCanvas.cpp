@@ -34,7 +34,7 @@
 #include "TextureFont.h"
 #include "drawutil.h"
 #include "ocius/oc_utils.h"
-
+#include "ocius/oc_radar_interface.h"
 PLUGIN_BEGIN_NAMESPACE
 
 BEGIN_EVENT_TABLE(RadarCanvas, wxGLCanvas)
@@ -596,7 +596,7 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
       break;
   }
 
-  // LAYER 1 - RANGE RINGS AND HEADINGS
+  // LAYER 1 - (previously) RANGE RINGS AND HEADINGS
   ResetGLViewPort(clientSize);
   Profiler(RADARCANVAS_RENDER1).Stop();
 
@@ -678,15 +678,13 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
     glScaled((float)clientSize.GetHeight() / clientSize.GetWidth(), -1.0, 1.0);
   }
   glMatrixMode(GL_MODELVIEW);  // Reset matrick stack target back to GL_MODELVIEW
-
-
+    //this eventually calls OciusDumpVertexImage (overlay) possible
   m_ri->RenderRadarImage1(wxPoint(0, 0), m_ri->m_panel_zoom / m_ri->m_range.GetValue(), 0.0, false);
-
   Profiler(RADARCANVAS_RENDER4).Stop();
   bool enableLayer5TextsAndCursor = true;
   if (enableLayer5TextsAndCursor)
   {
-    ProfilerGuardT thg(RADARCANVAS_RENDER5);
+    ProfilerGuardT thg(RADARCANVAS_RENDER6);
     // LAYER 5 - TEXTS & CURSOR
     ResetGLViewPort(clientSize);
     RenderTexts(clientSize);
@@ -700,10 +698,18 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
     glPopAttrib();
     glPopMatrix();
   }
-  
-  Profiler(RADARCANVAS_RENDER6).Start();
+
+  Profiler(RADARCANVAS_RENDER5).Start();
   RenderRangeRingsAndHeading(clientSize, radar_radius); //moved down from LAYER 1
-  Profiler(RADARCANVAS_RENDER6).Stop();
+  Profiler(RADARCANVAS_RENDER5).Stop();
+
+  //temp removing decimation. 
+  //if (m_ri->m_oc_image_decimation > 0 && ++m_ri->m_oc_image_count % m_ri->m_oc_image_decimation == 0)
+  //{
+  if (OciusDumpVertexImage(m_ri->m_radar, string("display"))) //dump another radar image directly now, should include range rings. 
+    m_ri->m_oc_statistics.image_write_count++;
+  //}
+
   // Do the swapbuffers first, before restoring the context. If we don't then various artifacts
   // occur on MacOS with the radar PPI window getting completely distorted.
   // Also it seems much more logical to call SwapBuffers() *before* going back to the OpenCPN
