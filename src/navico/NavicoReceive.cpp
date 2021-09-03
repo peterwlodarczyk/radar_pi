@@ -264,7 +264,6 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
     // Validate the spoke
     int spoke = line->common.scan_number[0] | (line->common.scan_number[1] << 8);
     m_ri->m_statistics.spokes++;
-    m_ri->m_oc_statistics.spoke_count++;
 
     if (line->common.headerLen != 0x18) {
       LOG_RECEIVE(wxT("radar_pi: strange header length %d"), line->common.headerLen);

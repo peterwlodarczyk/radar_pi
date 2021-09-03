@@ -442,6 +442,8 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
   ProfilerGuardT tg(RADARINFO_PROCESSRADARSPOKE);
   int orientation;
   OC_TRACE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
+  m_oc_statistics.spoke_count++;
+
   if (angle==0 && m_radar == 0)
   {
     static auto previous = wxLongLong(0);
@@ -450,7 +452,7 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
     {
       int period = (now - previous).GetLo();
       double rate = 1000.0 / period;
-      OC_DEBUG("[RadarInfo::ProcessRadarSpoke] period=%d.angle=%d.Rate=%.5f", period, angle, rate);
+      OC_DEBUG("[RadarInfo::ProcessRadarSpoke]%d:period=%d.angle=%d.Rate=%.5f", m_radar, period, angle, rate);
     }
     previous = now;
   }
@@ -901,20 +903,16 @@ void RadarInfo::RenderRadarImage2(DrawInfo *di, double radar_scale, double panel
       return;
     }
   }
-  auto stats = this->m_oc_statistics;
-  auto prev_stats = this->m_prev_oc_statistics;
-  uint64_t render_time = std::time(nullptr) * 1000;
-  uint32_t spoke_rate = (stats.spoke_count - prev_stats.spoke_count);
-  uint32_t missing_spoke_rate = (stats.missing_spoke_count - prev_stats.missing_spoke_count);
-  uint32_t spoke_drawn_rate = (stats.spokes_drawn - prev_stats.spokes_drawn);
-  OC_DEBUG("[RadarInfo::RenderRadarImage2] spoke_rate:%u, missing_spoke_rate:%u, spoke_drawn_rate:%u", spoke_rate, missing_spoke_rate, spoke_drawn_rate);
-  if ( spoke_rate != spoke_drawn_rate){
+  uint32_t spoke_diff = (m_oc_statistics.spoke_count - m_prev_oc_statistics.spoke_count);
+  uint32_t missing_spoke_diff = (m_oc_statistics.missing_spoke_count - m_prev_oc_statistics.missing_spoke_count);
+  uint32_t spoke_drawn_diff = (m_oc_statistics.spokes_drawn - m_prev_oc_statistics.spokes_drawn);
+  OC_DEBUG("[RadarInfo::RenderRadarImage2]%d: spoke_diff:%u, missing_spoke_diff:%u, spoke_drawn_diff:%u", m_radar, spoke_diff, missing_spoke_diff, spoke_drawn_diff);
+  if ( spoke_diff != spoke_drawn_diff){
     //found that this didn't trigger unless radar range was changed.
     //there were consistently missing spokes -> im back to thinking packets are dropping the longer it goes on.
-    OC_DEBUG("[RadarInfo::RenderRadarImage2] SPOKES NOT DRAWN");
+    OC_DEBUG("[RadarInfo::RenderRadarImage2]%d: %d SPOKES NOT DRAWN", m_radar, spoke_diff - spoke_drawn_diff);
   }
-  this->m_prev_oc_statistics = this->m_oc_statistics;
-  this->prev_render_time = render_time;
+  m_prev_oc_statistics = m_oc_statistics;
   if (di == &m_draw_overlay) {
     di->draw->DrawRadarOverlayImage(radar_scale, panel_rotate);
   } else {

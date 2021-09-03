@@ -167,7 +167,6 @@ class RadarInfo {
   };
   oc_statistics m_oc_statistics;
   oc_statistics m_prev_oc_statistics;
-  uint64_t prev_render_time;
   int m_oc_render_count;
   int m_oc_render_decimation;
   int m_oc_image_count;
