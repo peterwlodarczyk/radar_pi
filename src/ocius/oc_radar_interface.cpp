@@ -143,7 +143,10 @@ bool OciusDumpVertexImage(int radar, string stage) {
     for (int p = 0; p < width * height * 4; p += 4) { //for each RGBA section
       if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50) { //default background colour in the config.
       //todo check if there is a better way to do the above check (compare bits of the whole section?)
-        buffer[p + 3] = 0;
+        if(stage == "overlay")
+          buffer[p + 3] = 0;
+        else
+          buffer[p + 2] = 0; //black bg for non-overlay
       } else if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 94) { //GZ B colour
         buffer[p + 3] = 30;
       } else if (buffer[p + 0] == 0 && buffer[p + 1] == 55 && buffer[p + 2] == 39) { // GZ A colour
@@ -180,7 +183,7 @@ bool OciusDumpVertexImage(int radar, string stage) {
   png_uint_32 reduce_result = opng_reduce_image(png_read_ptr, info_ptr, reductions);
   OC_TRACE("[OciusDumpVertexImage] opng_reduce_image=%d.", reduce_result);
 
-  string filename = g_OciusLiveDir + '/' + name + '-' + stage + ".png";
+  string filename = g_OciusLiveDir + '/' + name + '-' + stage + ".png"; 
   {
     FileLock f(filename.c_str());
     if (f.locked()) {
