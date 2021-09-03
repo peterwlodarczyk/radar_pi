@@ -99,7 +99,7 @@ void RadarCanvas::RenderTexts(const wxSize &loc) {
 #define MENU_EXTRA_WIDTH 32
 
   // Draw Menu in the top right
-
+  
   s = _("Menu");
   if (m_pi->m_settings.dock_radar[m_ri->m_radar]) {
     s = _("Menu ") + m_ri->m_name;
@@ -110,8 +110,9 @@ void RadarCanvas::RenderTexts(const wxSize &loc) {
   // Calculate the size of the rounded rect, this is also where you can 'click'...
   m_menu_size.x = x + 2 * (MENU_BORDER + MENU_EXTRA_WIDTH);
   m_menu_size.y = y + 2 * (MENU_BORDER);
-
+  /* trying to remove the menu and - + only
   if (state != RADAR_OFF) {
+    
     glColor4ub(40, 40, 100, 128);
 
     DrawRoundRect(loc.GetWidth() - m_menu_size.x, 0, m_menu_size.x, m_menu_size.y, 4);
@@ -140,6 +141,7 @@ void RadarCanvas::RenderTexts(const wxSize &loc) {
                                 loc.GetHeight() - m_zoom_size.y + MENU_BORDER);
   }
 
+  */
   glColor4ub(200, 255, 200, 255);
   s = m_ri->GetCanvasTextTopLeft();
   m_FontBig.RenderString(s, 0, 0);
@@ -687,7 +689,7 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
     ProfilerGuardT thg(RADARCANVAS_RENDER6);
     // LAYER 5 - TEXTS & CURSOR
     ResetGLViewPort(clientSize);
-    RenderTexts(clientSize);
+    RenderTexts(clientSize); //testing removing this. Will effect the VNC.
     glPushMatrix();
 
     glTranslated(m_ri->m_off_center.x + m_ri->m_drag.x, m_ri->m_off_center.y + m_ri->m_drag.y, 0.);
