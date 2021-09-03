@@ -278,12 +278,12 @@ void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotat
       glDrawArrays(GL_TRIANGLES, 0, line->count);
     }
 
-    // OCIUS
-    if (m_ri->m_oc_image_decimation > 0 && ++m_ri->m_oc_image_count % m_ri->m_oc_image_decimation == 0)
-    {
-      if (OciusDumpVertexImage(m_ri->m_radar))
-        m_ri->m_oc_statistics.image_write_count++;
-    }
+    // OCIUS //removing decimationg temp. 
+    //if (m_ri->m_oc_image_decimation > 0 && ++m_ri->m_oc_image_count % m_ri->m_oc_image_decimation == 0)
+    //{
+    if (OciusDumpVertexImage(m_ri->m_radar, string("overlay")))
+      m_ri->m_oc_statistics.image_write_count++;
+    //}
 
     glPopMatrix();
   }
