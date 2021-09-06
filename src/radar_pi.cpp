@@ -1677,8 +1677,8 @@ bool radar_pi::RestoreConfig(void) {
       control->SetControlValue((RadarPlugin::ControlType)CT_INTERFERENCE_REJECTION, (RadarPlugin::RadarControlState)RCS_MANUAL, v);
       pConf->Read(wxString::Format(wxT("Radar%dLocalInterferenceRejection"), r), &v, 0);
       control->SetControlValue((RadarPlugin::ControlType)CT_LOCAL_INTERFERENCE_REJECTION, (RadarPlugin::RadarControlState)RCS_MANUAL, v);
-      pConf->Read(wxString::Format(wxT("Radar%dBearingAlignment"), r), &v, 0);
-      control->SetControlValue((RadarPlugin::ControlType)CT_BEARING_ALIGNMENT, (RadarPlugin::RadarControlState)RCS_MANUAL, v);
+//      pConf->Read(wxString::Format(wxT("Radar%dBearingAlignment"), r), &v, 0);
+//     control->SetControlValue((RadarPlugin::ControlType)CT_BEARING_ALIGNMENT, (RadarPlugin::RadarControlState)RCS_MANUAL, v);
       pConf->Read(wxString::Format(wxT("Radar%dAntennaHeight"), r), &v, 2);
       control->SetControlValue((RadarPlugin::ControlType)CT_ANTENNA_HEIGHT, (RadarPlugin::RadarControlState)RCS_MANUAL, v);
 
