@@ -227,6 +227,8 @@ void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rot
       glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(VertexPoint), &line->points[0].red);
       glDrawArrays(GL_TRIANGLES, 0, line->count);
     }
+    if (OciusDumpVertexImage(m_ri->m_radar, string("overlay2")))
+      m_ri->m_oc_statistics.image_write_count++;
     glPopMatrix();
   }
   glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays

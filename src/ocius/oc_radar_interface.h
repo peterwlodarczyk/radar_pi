@@ -1,5 +1,7 @@
 #ifndef __OC_RADAR_INTERFACE_H
 #define __OC_RADAR_INTERFACE_H
 
-bool OciusDumpVertexImage(int radar, string stage);
+#include <string>
+
+bool OciusDumpVertexImage(int radar, const string& stage);
 #endif

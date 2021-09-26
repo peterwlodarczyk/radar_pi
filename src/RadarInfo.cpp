@@ -1000,7 +1000,9 @@ void RadarInfo::RenderRadarImage1(wxPoint center, double scale, double overlay_r
 
   wxLongLong now = wxGetUTCTimeMillis();
   // Render the guard zone
-  if (!overlay || (M_SETTINGS.guard_zone_on_overlay && (M_SETTINGS.overlay_on_standby || m_state.GetValue() == RADAR_TRANSMIT))) {
+  //if (!overlay || (M_SETTINGS.guard_zone_on_overlay && (M_SETTINGS.overlay_on_standby || m_state.GetValue() == RADAR_TRANSMIT))) {
+  // This will stop it from drawing the guardzone on the radar display
+  if (M_SETTINGS.guard_zone_on_overlay && (!overlay || ((M_SETTINGS.overlay_on_standby || m_state.GetValue() == RADAR_TRANSMIT)))) {
     glPushMatrix();
     glTranslated(center.x, center.y, 0);
     glRotated(guard_rotate, 0.0, 0.0, 1.0);

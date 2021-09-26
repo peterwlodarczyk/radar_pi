@@ -113,7 +113,7 @@ static bool write_png_file(const char* file_name, png_infop info_ptr, png_bytep 
   return true;
 }
 
-bool OciusDumpVertexImage(int radar, string stage) {
+bool OciusDumpVertexImage(int radar, const string& stage) {
   if (radar < 0 || radar > 1)
     return false;
   ProfilerGuardT tg(OCIUSDUMPVERTEXIMAGE);
@@ -138,12 +138,14 @@ bool OciusDumpVertexImage(int radar, string stage) {
   }
 
   glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+  bool isOverlayStage = (stage == "overlay") || (stage == "overlay2");
   //set the transparent sections based on the 0,0,50 (initial background settings)
   if (buffer) {
     for (int p = 0; p < width * height * 4; p += 4) { //for each RGBA section
-      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50) { //default background colour in the config.
-      //todo check if there is a better way to do the above check (compare bits of the whole section?)
-        if(stage == "overlay")
+      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50) { 
+        //default background colour in the config.
+        //todo check if there is a better way to do the above check (compare bits of the whole section?)
+        if (isOverlayStage)
           buffer[p + 3] = 0;
         else
           buffer[p + 2] = 0; //black bg for non-overlay
