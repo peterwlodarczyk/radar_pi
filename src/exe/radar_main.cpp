@@ -613,6 +613,18 @@ bool radar_set_guardzone_type(uint8_t radar, uint8_t zone, int type){
   return true;
 }
 
+bool radar_set_guardzone_overlay(uint8_t radar, uint8_t zone, int show)
+{
+  OC_DEBUG("[%s]%d: zone=%d,show=%d", __func__, radar, zone, show);
+  auto info = GetRadarInfo(radar); //hopefully returns a RadarInfo? RadarInfo then contains 
+  if (info == nullptr)
+    return false;
+  GuardZone* guard_zone = info->m_guard_zone[zone];
+  //guard_zone->m_show_time = time(0);
+  // guard_zone->SetType((RadarPlugin::GuardZoneType)type); //mode should be 0 or 1 for arc / circle -> based ont he GuardZoneType enum
+  return true;
+}
+
 bool radar_set_guardzone_dimensions(uint8_t radar, uint8_t zone, const int* dims){ //change this defintion.
   OC_DEBUG("[%s]%d: zone=%d,state=%d,dims=[%d,%d,%d,%d]", __func__, radar, zone, dims[0], dims[1], dims[2], dims[3]);
   //unsure how they pick which radar | zone the below settings apply to... As it's done through the selection of the menu.
