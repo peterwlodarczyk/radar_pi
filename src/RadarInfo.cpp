@@ -906,7 +906,15 @@ void RadarInfo::RenderRadarImage2(DrawInfo *di, double radar_scale, double panel
   uint32_t spoke_diff = (m_oc_statistics.spoke_count - m_prev_oc_statistics.spoke_count);
   uint32_t missing_spoke_diff = (m_oc_statistics.missing_spoke_count - m_prev_oc_statistics.missing_spoke_count);
   uint32_t spoke_drawn_diff = (m_oc_statistics.spokes_drawn - m_prev_oc_statistics.spokes_drawn);
-  OC_DEBUG("[RadarInfo::RenderRadarImage2]%d: spoke_diff:%u, missing_spoke_diff:%u, spoke_drawn_diff:%u", m_radar, spoke_diff, missing_spoke_diff, spoke_drawn_diff);
+  OC_DEBUG("[RadarInfo::RenderRadarImage2]%d:"
+     "spoke_diff:%u,"
+	 "missing_spoke_diff:%u,"
+	 "spoke_drawn_diff:%u", 
+	 m_radar, 
+	 spoke_diff, 
+	 missing_spoke_diff, 
+	 spoke_drawn_diff);
+	 
   if ( spoke_diff != spoke_drawn_diff){
     //found that this didn't trigger unless radar range was changed.
     //there were consistently missing spokes -> im back to thinking packets are dropping the longer it goes on.
