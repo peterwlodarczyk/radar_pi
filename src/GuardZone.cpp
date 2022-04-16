@@ -66,7 +66,7 @@ void GuardZone::ProcessSpoke(SpokeBearing angle, uint8_t* data, uint8_t* hist, s
             range_end = len;
           }
           for (size_t r = range_start; r <= range_end; r++) {
-            if (data[r] >= m_pi->m_settings.threshold_blue) {
+            if (data[r] >= m_pi->m_settings.thresholds.threshold_blue) {
               m_running_count++;
             }
 #ifdef TEST_GUARD_ZONE_LOCATION
@@ -88,7 +88,7 @@ void GuardZone::ProcessSpoke(SpokeBearing angle, uint8_t* data, uint8_t* hist, s
         }
 
         for (size_t r = range_start; r <= range_end; r++) {
-          if (data[r] >= m_pi->m_settings.threshold_blue) {
+          if (data[r] >= m_pi->m_settings.thresholds.threshold_blue) {
             m_running_count++;
           }
 #ifdef TEST_GUARD_ZONE_LOCATION

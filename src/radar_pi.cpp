@@ -41,6 +41,7 @@
 #include "navico/NavicoLocate.h"
 #include "nmea0183/nmea0183.h"
 #include "ocius/oc_utils.h"
+#include <string>
 
 PLUGIN_BEGIN_NAMESPACE
 
@@ -123,7 +124,7 @@ END_EVENT_TABLE()
 //---------------------------------------------------------------------------------------------------------
 
 radar_pi::radar_pi(void *ppimgr) : opencpn_plugin_116(ppimgr) {
-  LOG_INFO(wxT("[oc_radar4::oc_radar]"));
+  LOG_INFO(wxT("[radar_pi::radar_pi]"));
   m_boot_time = wxGetUTCTimeMillis();
   m_initialized = false;
   m_predicted_position_initialised = false;
@@ -236,12 +237,13 @@ int radar_pi::Init(void) {
   // Set default settings before we load config. Prevents random behavior on uninitalized behavior.
   // For instance, LOG_XXX messages before config is loaded.
   m_settings.verbose = 0;
-  m_settings.chart_size = 512;
+  m_settings.chart_size = DEFAULT_CHART_SIZE;
   m_settings.overlay_transparency = DEFAULT_OVERLAY_TRANSPARENCY;
   m_settings.refreshrate = 1;
-  m_settings.threshold_blue = 255;
-  m_settings.threshold_red = 255;
-  m_settings.threshold_green = 255;
+  m_settings.thresholds.threshold_blue = 50;
+  m_settings.thresholds.threshold_green = 100;
+  m_settings.thresholds.threshold_red = 200;
+  m_settings.thresholds.threshold_trails = m_settings.thresholds.threshold_red;
   CLEAR_STRUCT(m_settings.radar_interface_address);
   m_settings.radar_count = 0;
 
@@ -313,6 +315,8 @@ int radar_pi::Init(void) {
         return 0;
       }
     }
+    m_radar[r]->m_thresholds = m_settings.thresholds;
+    m_radar[r]->ComputeColourMap();
   }
   // and get rid of any radars we're not using
   for (size_t r = M_SETTINGS.radar_count; r < RADARS; r++) {
@@ -1546,11 +1550,12 @@ bool radar_pi::LoadConfig(void) {
     pConf->Read(wxT("ScanMaxAge"), &m_settings.max_age, 6);
     pConf->Read(wxT("Show"), &m_settings.show, true);
     pConf->Read(wxT("SkewFactor"), &m_settings.skew_factor, 1);
-    pConf->Read(wxT("ThresholdBlue"), &m_settings.threshold_blue, 50);
+    pConf->Read(wxT("ThresholdBlue"), &m_settings.thresholds.threshold_blue, 50);
     // Make room for BLOB_HISTORY_MAX history values
-    m_settings.threshold_blue = MAX(m_settings.threshold_blue, BLOB_HISTORY_MAX + 1);
-    pConf->Read(wxT("ThresholdGreen"), &m_settings.threshold_green, 100);
-    pConf->Read(wxT("ThresholdRed"), &m_settings.threshold_red, 200);
+    m_settings.thresholds.threshold_blue = MAX(m_settings.thresholds.threshold_blue, THRESHOLD_MIN);
+    pConf->Read(wxT("ThresholdGreen"), &m_settings.thresholds.threshold_green, 100);
+    pConf->Read(wxT("ThresholdRed"), &m_settings.thresholds.threshold_red, 200);
+    pConf->Read(wxT("TrailsThreshold"), &m_settings.thresholds.threshold_trails, m_settings.thresholds.threshold_red);
     pConf->Read(wxT("TrailColourStart"), &s, "rgb(255,255,255)");
     m_settings.trail_start_colour = wxColour(s);
     pConf->Read(wxT("TrailColourEnd"), &s, "rgb(63,63,63)");
@@ -1792,11 +1797,12 @@ bool radar_pi::RestoreConfig(void) {
     // pConf->Read(wxT("ScanMaxAge"), &m_settings.max_age, 6);
     // pConf->Read(wxT("Show"), &m_settings.show, true);
     // pConf->Read(wxT("SkewFactor"), &m_settings.skew_factor, 1);
-    // pConf->Read(wxT("ThresholdBlue"), &m_settings.threshold_blue, 50);
-    // // Make room for BLOB_HISTORY_MAX history values
-    // m_settings.threshold_blue = MAX(m_settings.threshold_blue, BLOB_HISTORY_MAX + 1);
-    // pConf->Read(wxT("ThresholdGreen"), &m_settings.threshold_green, 100);
-    // pConf->Read(wxT("ThresholdRed"), &m_settings.threshold_red, 200);
+    pConf->Read(wxT("ThresholdBlue"), &m_settings.thresholds.threshold_blue, 50);
+    // Make room for BLOB_HISTORY_MAX history values
+    m_settings.thresholds.threshold_blue = MAX(m_settings.thresholds.threshold_blue, THRESHOLD_MIN);
+    pConf->Read(wxT("ThresholdGreen"), &m_settings.thresholds.threshold_green, 100);
+    pConf->Read(wxT("ThresholdRed"), &m_settings.thresholds.threshold_red, 200);
+    pConf->Read(wxT("TrailsThreshold"), &m_settings.thresholds.threshold_trails, m_settings.thresholds.threshold_red);
     // pConf->Read(wxT("TrailColourStart"), &s, "rgb(255,255,255)");
     // m_settings.trail_start_colour = wxColour(s);
     // pConf->Read(wxT("TrailColourEnd"), &s, "rgb(63,63,63)");
@@ -1807,6 +1813,170 @@ bool radar_pi::RestoreConfig(void) {
 
     // m_settings.max_age = wxMax(wxMin(m_settings.max_age, MAX_AGE), MIN_AGE);
 
+    for (int r = 0; r < (int)M_SETTINGS.radar_count; r++) {
+      RadarInfo *ri = m_radar[n];
+      if (ri != nullptr){
+        LOG_INFO(wxT("[radar_pi::RestoreConfig]%d:m_thresholds=[%d,%d,%d]"), r, ri->m_thresholds.threshold_blue,ri->m_thresholds.threshold_green,ri->m_thresholds.threshold_red);
+        ri->m_thresholds = m_settings.thresholds;
+        ri->ComputeColourMap();
+        ri->SetIntensity(1.0);
+      }
+    }
+
+    return true;
+  }
+  return false;
+}
+
+bool radar_pi::SetConfig(const char* name, const char* value) {
+  LOG_INFO(wxT("[radar_pi:SetConfig] (%s, %s)"), name, value);
+  // pConf->Write(wxT("AlarmPosX"), m_settings.alarm_pos.x);
+  // pConf->Write(wxT("AlarmPosY"), m_settings.alarm_pos.y);
+  // pConf->Write(wxT("AlertAudioFile"), m_settings.alert_audio_file);
+  // pConf->Write(wxT("DeveloperMode"), m_settings.developer_mode);
+  // pConf->Write(wxT("DrawingMethod"), m_settings.drawing_method);
+  // pConf->Write(wxT("EnableCOGHeading"), m_settings.enable_cog_heading);
+  // pConf->Write(wxT("GuardZoneDebugInc"), m_settings.guard_zone_debug_inc);
+  // pConf->Write(wxT("GuardZoneOnOverlay"), m_settings.guard_zone_on_overlay);
+  // pConf->Write(wxT("OverlayStandby"), m_settings.overlay_on_standby);
+  // pConf->Write(wxT("GuardZoneTimeout"), m_settings.guard_zone_timeout);
+  // pConf->Write(wxT("GuardZonesRenderStyle"), m_settings.guard_zone_render_style);
+  // pConf->Write(wxT("GuardZonesThreshold"), m_settings.guard_zone_threshold);
+  // pConf->Write(wxT("IgnoreRadarHeading"), m_settings.ignore_radar_heading);
+  // pConf->Write(wxT("ShowExtremeRange"), m_settings.show_extreme_range);
+  // pConf->Write(wxT("MenuAutoHide"), m_settings.menu_auto_hide);
+  // pConf->Write(wxT("PassHeadingToOCPN"), m_settings.pass_heading_to_opencpn);
+  // pConf->Write(wxT("RangeUnits"), (int)m_settings.range_units);
+  // pConf->Write(wxT("Refreshrate"), m_settings.refreshrate.GetValue());
+  // pConf->Write(wxT("ReverseZoom"), m_settings.reverse_zoom);
+  // pConf->Write(wxT("ScanMaxAge"), m_settings.max_age);
+  // pConf->Write(wxT("Show"), m_settings.show);
+  // pConf->Write(wxT("SkewFactor"), m_settings.skew_factor);
+  if (strcmp(name, "ThresholdBlue") == 0) {
+    m_settings.thresholds.threshold_blue = atoi(value);
+    LOG_INFO(wxT("Threshold changed."));
+    return true;
+  }
+  else if (strcmp(name, "ThresholdGreen") == 0) {
+    m_settings.thresholds.threshold_green = atoi(value);
+    LOG_INFO(wxT("Threshold changed."));
+    return true;
+  }
+  else if (strcmp(name, "ThresholdRed") == 0) {
+    m_settings.thresholds.threshold_red = atoi(value);
+    LOG_INFO(wxT("Threshold changed."));
+    return true;
+  }
+  else if (strcmp(name, "ThresholdRed") == 0) {
+    m_settings.thresholds.threshold_red = atoi(value);
+    LOG_INFO(wxT("Threshold changed."));
+    return true;
+  }
+  else if (strcmp(name, "VerboseLog") == 0) {
+    m_settings.verbose = atoi(value);
+    return true;
+  }
+  // TODO: This will crash it at the moment.
+  // else if (strcmp(name, "ChartSize") == 0) {
+  //   m_settings.chart_size = atoi(value);
+  //   return true;
+  // }
+
+  // pConf->Write(wxT("TrailColourStart"), m_settings.trail_start_colour.GetAsString());
+  // pConf->Write(wxT("TrailColourEnd"), m_settings.trail_end_colour.GetAsString());
+  // pConf->Write(wxT("TrailsOnOverlay"), m_settings.trails_on_overlay);
+  // pConf->Write(wxT("Transparency"), m_settings.overlay_transparency.GetValue());
+  // pConf->Write(wxT("AISatARPAoffset"), m_settings.AISatARPAoffset);
+  // pConf->Write(wxT("ColourStrong"), m_settings.strong_colour.GetAsString());
+  // pConf->Write(wxT("ColourIntermediate"), m_settings.intermediate_colour.GetAsString());
+  // pConf->Write(wxT("ColourWeak"), m_settings.weak_colour.GetAsString());
+  // pConf->Write(wxT("ColourDopplerApproaching"), m_settings.doppler_approaching_colour.GetAsString());
+  // pConf->Write(wxT("ColourDopplerReceding"), m_settings.doppler_receding_colour.GetAsString());
+  // pConf->Write(wxT("ColourArpaEdge"), m_settings.arpa_colour.GetAsString());
+  // pConf->Write(wxT("ColourAISText"), m_settings.ais_text_colour.GetAsString());
+  // pConf->Write(wxT("ColourPPIBackground"), m_settings.ppi_background_colour.GetAsString());
+  // pConf->Write(wxT("RadarCount"), static_cast<unsigned int>(m_settings.radar_count));
+  // pConf->Write(wxT("DockSize"), m_settings.dock_size);
+
+  // for (int r = 0; r < (int)m_settings.radar_count; r++) {
+  //   pConf->Write(wxString::Format(wxT("Radar%dType"), r), RadarTypeName[m_radar[r]->m_radar_type]);
+  //   pConf->Write(wxString::Format(wxT("Radar%dNavicoInfo"), r), m_settings.navico_radar_info[r].to_string());
+  //   pConf->Write(wxString::Format(wxT("Radar%dAddress"), r), m_settings.radar_address[r].FormatNetworkAddress());
+  //   pConf->Write(wxString::Format(wxT("Radar%dInterface"), r), m_settings.radar_interface_address[r].FormatNetworkAddress());
+  //   pConf->Write(wxString::Format(wxT("Radar%dRange"), r), m_radar[r]->m_range.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dRotation"), r), m_radar[r]->m_orientation.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dTransmit"), r), m_radar[r]->m_state.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dWindowShow"), r), m_settings.show_radar[r]);
+  //   pConf->Write(wxString::Format(wxT("Radar%dWindowDock"), r), m_settings.dock_radar[r]);
+  //   pConf->Write(wxString::Format(wxT("Radar%dControlShow"), r), m_settings.show_radar_control[r]);
+  //   pConf->Write(wxString::Format(wxT("Radar%dTargetShow"), r), m_radar[r]->m_target_on_ppi.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dTrailsState"), r), (int)m_radar[r]->m_target_trails.GetState());
+  //   pConf->Write(wxString::Format(wxT("Radar%dTrails"), r), m_radar[r]->m_target_trails.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dTrueTrailsMotion"), r), m_radar[r]->m_trails_motion.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dWindowPosX"), r), m_settings.window_pos[r].x);
+  //   pConf->Write(wxString::Format(wxT("Radar%dWindowPosY"), r), m_settings.window_pos[r].y);
+  //   pConf->Write(wxString::Format(wxT("Radar%dControlPosX"), r), m_settings.control_pos[r].x);
+  //   pConf->Write(wxString::Format(wxT("Radar%dControlPosY"), r), m_settings.control_pos[r].y);
+  //   pConf->Write(wxString::Format(wxT("Radar%dMainBangSize"), r), m_radar[r]->m_main_bang_size.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dAntennaForward"), r), m_radar[r]->m_antenna_forward.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dAntennaStarboard"), r), m_radar[r]->m_antenna_starboard.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dRunTimeOnIdle"), r), m_radar[r]->m_timed_run.GetValue());
+  //   for (int i = 0; i < MAX_CHART_CANVAS; i++) {
+  //     pConf->Write(wxString::Format(wxT("Radar%dOverlayCanvas%d"), r, i), m_radar[r]->m_overlay_canvas[i].GetValue());
+  //   }
+
+  //   pConf->Write(wxString::Format(wxT("Radar%dGain"), r), m_radar[r]->m_gain.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dGainAuto"), r), (int)m_radar[r]->m_gain.GetState());
+  //   pConf->Write(wxString::Format(wxT("Radar%dSea"), r), m_radar[r]->m_sea.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dSeaAuto"), r), (int)m_radar[r]->m_sea.GetState());
+  //   pConf->Write(wxString::Format(wxT("Radar%dRain"), r), m_radar[r]->m_rain.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dRainAuto"), r), (int)m_radar[r]->m_rain.GetState());
+  //   pConf->Write(wxString::Format(wxT("Radar%dTargetBoost"), r), m_radar[r]->m_rain.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dTargetExpansion"), r), m_radar[r]->m_target_expansion.GetValue() > 0);
+  //   pConf->Write(wxString::Format(wxT("Radar%dTargetSeparation"), r), m_radar[r]->m_target_separation.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dDoppler"), r), m_radar[r]->m_doppler.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dScanSpeed"), r), m_radar[r]->m_scan_speed.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dNoiseRejection"), r), m_radar[r]->m_noise_rejection.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dInterferenceRejection"), r), m_radar[r]->m_interference_rejection.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dLocalInterferenceRejection"), r), m_radar[r]->m_local_interference_rejection.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dBearingAlignment"), r), m_radar[r]->m_bearing_alignment.GetValue());
+  //   pConf->Write(wxString::Format(wxT("Radar%dAntennaHeight"), r), m_radar[r]->m_antenna_height.GetValue());
+
+  //   // LOG_DIALOG(wxT("radar_pi: SaveConfig: show_radar[%d]=%d"), r, m_settings.show_radar[r]);
+  //   for (int i = 0; i < GUARD_ZONES; i++) {
+  //     pConf->Write(wxString::Format(wxT("Radar%dZone%dStartBearing"), r, i), m_radar[r]->m_guard_zone[i]->m_start_bearing);
+  //     pConf->Write(wxString::Format(wxT("Radar%dZone%dEndBearing"), r, i), m_radar[r]->m_guard_zone[i]->m_end_bearing);
+  //     pConf->Write(wxString::Format(wxT("Radar%dZone%dOuterRange"), r, i), m_radar[r]->m_guard_zone[i]->m_outer_range);
+  //     pConf->Write(wxString::Format(wxT("Radar%dZone%dInnerRange"), r, i), m_radar[r]->m_guard_zone[i]->m_inner_range);
+  //     pConf->Write(wxString::Format(wxT("Radar%dZone%dType"), r, i), (int)m_radar[r]->m_guard_zone[i]->m_type);
+  //     pConf->Write(wxString::Format(wxT("Radar%dZone%dAlarmOn"), r, i), m_radar[r]->m_guard_zone[i]->m_alarm_on);
+  //     pConf->Write(wxString::Format(wxT("Radar%dZone%dArpaOn"), r, i), m_radar[r]->m_guard_zone[i]->m_arpa_on);
+  //   }
+
+  return false;
+}
+
+bool radar_pi::GetConfig(const char* name, char* value, int len) const {
+  LOG_INFO(wxT("[radar_pi:GetConfig] (%s,%s,%d)"), name, value, len);
+  if (len < 0)
+    return false;
+
+  memset(value, 0, len);
+
+  if (strcmp(name, "ThresholdBlue") == 0) {
+    strncpy(value, std::to_string(m_settings.thresholds.threshold_blue).c_str(), len);
+    return true;
+  }
+  else if (strcmp(name, "ThresholdGreen") == 0) {
+    strncpy(value, std::to_string(m_settings.thresholds.threshold_green).c_str(), len);
+    return true;
+  }
+  else if (strcmp(name, "ThresholdRed") == 0) {
+    strncpy(value, std::to_string(m_settings.thresholds.threshold_red).c_str(), len);
+    return true;
+  }
+  else if (strcmp(name, "VerboseLog") == 0) {
+    strncpy(value, std::to_string(m_settings.verbose).c_str(), len);
     return true;
   }
   return false;
@@ -1841,9 +2011,10 @@ bool radar_pi::SaveConfig(void) {
     pConf->Write(wxT("ScanMaxAge"), m_settings.max_age);
     pConf->Write(wxT("Show"), m_settings.show);
     pConf->Write(wxT("SkewFactor"), m_settings.skew_factor);
-    pConf->Write(wxT("ThresholdBlue"), m_settings.threshold_blue);
-    pConf->Write(wxT("ThresholdGreen"), m_settings.threshold_green);
-    pConf->Write(wxT("ThresholdRed"), m_settings.threshold_red);
+    pConf->Write(wxT("ThresholdBlue"), m_settings.thresholds.threshold_blue);
+    pConf->Write(wxT("ThresholdGreen"), m_settings.thresholds.threshold_green);
+    pConf->Write(wxT("ThresholdRed"), m_settings.thresholds.threshold_red);
+    pConf->Write(wxT("TrailsThreshold"), m_settings.thresholds.threshold_trails);
     pConf->Write(wxT("TrailColourStart"), m_settings.trail_start_colour.GetAsString());
     pConf->Write(wxT("TrailColourEnd"), m_settings.trail_end_colour.GetAsString());
     pConf->Write(wxT("TrailsOnOverlay"), m_settings.trails_on_overlay);

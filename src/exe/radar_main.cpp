@@ -399,6 +399,24 @@ bool radar_get_tx(uint8_t radar) {
     return false;
 }
 
+bool radar_config_set(const char* name, const char* value) {
+  OC_DEBUG("[%s(%s,%s)]", __func__, name, value);
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    return plugin->SetConfig(name, value);
+  else
+    return false;
+}
+
+bool radar_config_get(const char* name, char* value, int len) {
+  OC_DEBUG("[%s(%s)]", __func__);
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    return plugin->GetConfig(name, value, len);
+  else
+    return false;
+}
+
 bool radar_config_save() {
   OC_DEBUG("[%s]", __func__);
   auto plugin = GetRadarPlugin();
@@ -524,10 +542,35 @@ bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarCo
 
 bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value) {
   bool r = false;
-  auto controller = GetRadarController(radar);
-  if (controller != nullptr) {
-    ControlType control_enum = ControlTypeStringToEnum(control_string);
-    r = controller->SetControlValue(control_enum, (RadarPlugin::RadarControlState)state, value);
+  if (strcmp(control_string, "threshold") == 0)
+  {
+    RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+    if (info != nullptr)
+    {
+      info->SetThreshold((int)(value / 100.0  * (THRESHOLD_MAX - THRESHOLD_MIN) + THRESHOLD_MIN + 0.5));
+      r = true;
+    }
+  }
+  else if (strcmp(control_string, "trails_threshold") == 0)  {
+    RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+    if (info != nullptr)    {
+      info->SetTrailsThreshold((int)(value / 100.0 * (THRESHOLD_MAX - THRESHOLD_MIN) + THRESHOLD_MIN + 0.5));
+      r = true;
+    }
+  }
+  else if (strcmp(control_string, "intensity") == 0) {
+    RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+    if (info != nullptr) {
+      info->SetIntensity((value / 100.0));
+      r = true;
+    }
+  }
+  else {
+    auto controller = GetRadarController(radar);
+    if (controller != nullptr) {
+      ControlType control_enum = ControlTypeStringToEnum(control_string);
+      r = controller->SetControlValue(control_enum, (RadarPlugin::RadarControlState)state, value);
+    }
   }
   OC_DEBUG("[%s]%d=%d.control=%s.state=%d,value=%d.", __func__, radar, r, control_string, state, value);
   return r;
@@ -539,17 +582,34 @@ bool radar_get_control(uint8_t radar, const char* control_string, ::RadarControl
     return false;
   }
 
-  auto controller = GetRadarController(radar);
-  if (controller == nullptr){
-    OC_DEBUG("[%s]%d=false.control=%s", __func__, radar, control_string);
-    return false;
+  if (strcmp(control_string, "threshold") == 0)  {
+    RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+    if (info != nullptr)
+      *value = (int32_t)((info->GetThreshold() - THRESHOLD_MIN) * 100.0 / (THRESHOLD_MAX - THRESHOLD_MIN) + 0.5);
   }
+  else if (strcmp(control_string, "trails_threshold") == 0)  {
+    RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+    if (info != nullptr)
+      *value = (int32_t)((info->GetTrailsThreshold() - THRESHOLD_MIN) * 100.0 / (THRESHOLD_MAX - THRESHOLD_MIN) + 0.5);
+  }
+  else if (strcmp(control_string, "intensity") == 0)  {
+    RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
+    if (info != nullptr)
+      *value = (int32_t)(info->GetIntensity() * 100.0 + 0.5);
+  }
+  else {
+    auto controller = GetRadarController(radar);
+    if (controller == nullptr){
+      OC_DEBUG("[%s]%d=false.control=%s", __func__, radar, control_string);
+      return false;
+    }
 
-  ControlType control_enum = ControlTypeStringToEnum(control_string);
-  bool ret = controller->GetControlValue(control_enum, *((RadarPlugin::RadarControlState*)state), *value);
-  if (!ret) {
-    OC_DEBUG("[%s]%d=false.control=%s", __func__, radar, control_string);
-    return false;
+    ControlType control_enum = ControlTypeStringToEnum(control_string);
+    bool ret = controller->GetControlValue(control_enum, *((RadarPlugin::RadarControlState*)state), *value);
+    if (!ret) {
+      OC_DEBUG("[%s]%d=false.control=%s", __func__, radar, control_string);
+      return false;
+    }
   }
   OC_DEBUG("[%s]%d=true.control=%s.state=%d,value=%d.", __func__, radar, control_string, *state, *value);
   return true;

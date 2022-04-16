@@ -92,6 +92,7 @@ RadarInfo::RadarInfo(radar_pi *pi, int radar) {
   m_oc_image_count = 0;
   m_oc_image_decimation = 1;
 
+  m_intensity = 1.0;
   m_mouse_pos.lat = NAN;
   m_mouse_pos.lon = NAN;
   for (int i = 0; i < ORIENTATION_NUMBER; i++) {
@@ -340,17 +341,59 @@ void RadarInfo::SetName(wxString name) {
   }
 }
 
+
+int RadarInfo::SetThreshold(int threshold){
+  threshold = min(255, max(0, threshold));
+  m_thresholds.threshold_blue = threshold;
+  // Deal with the threshold being higher than the intermediate and strong
+  m_thresholds.threshold_green = max(m_thresholds.threshold_green, m_thresholds.threshold_blue);
+  m_thresholds.threshold_red = max(m_thresholds.threshold_red, m_thresholds.threshold_blue);
+
+  // Deal with the case when the threshold has been pushed up then back down
+  if (m_thresholds.threshold_green > M_SETTINGS.thresholds.threshold_green && threshold < m_thresholds.threshold_green)
+    m_thresholds.threshold_green = M_SETTINGS.thresholds.threshold_green;
+  if (m_thresholds.threshold_red > M_SETTINGS.thresholds.threshold_red && threshold < m_thresholds.threshold_red)
+    m_thresholds.threshold_red = M_SETTINGS.thresholds.threshold_red;
+  
+  ComputeColourMap();
+  return m_thresholds.threshold_blue;
+}
+
+int RadarInfo::GetThreshold() const{
+  return m_thresholds.threshold_blue;
+}
+
+int RadarInfo::SetTrailsThreshold(int threshold){
+  threshold = min(255, max(0, threshold));
+  m_thresholds.threshold_trails = threshold;
+  ComputeColourMap();
+  return m_thresholds.threshold_blue;
+}
+
+int RadarInfo::GetTrailsThreshold() const{
+  return m_thresholds.threshold_trails;
+}
+
+double RadarInfo::SetIntensity(double intensity){
+  m_intensity = intensity;
+  return m_intensity;
+}
+
+double RadarInfo::GetIntensity() const{
+  return m_intensity;
+}
+
 void RadarInfo::ComputeColourMap() {
   for (int i = 0; i <= UINT8_MAX; i++) {
     if (i == UINT8_MAX && m_doppler.GetValue() > 0) {
       m_colour_map[i] = BLOB_DOPPLER_APPROACHING;
     } else if ((i == UINT8_MAX - 1) && m_doppler.GetValue() == 1) {
       m_colour_map[i] = BLOB_DOPPLER_RECEDING;
-    } else if (i >= m_pi->m_settings.threshold_red) {
+    } else if (i >= m_thresholds.threshold_red) {
       m_colour_map[i] = BLOB_STRONG;
-    } else if (i >= m_pi->m_settings.threshold_green) {
+    } else if (i >= m_thresholds.threshold_green) {
       m_colour_map[i] = BLOB_INTERMEDIATE;
-    } else if (i >= m_pi->m_settings.threshold_blue && i > BLOB_HISTORY_MAX) {
+    } else if (i >= m_thresholds.threshold_blue && i > BLOB_HISTORY_MAX) {
       m_colour_map[i] = BLOB_WEAK;
     } else {
       m_colour_map[i] = BLOB_NONE;  // maybe trail colour, see below
@@ -444,7 +487,7 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
   OC_TRACE("[RadarInfo::ProcessRadarSpoke] angle=%d", angle);
   m_oc_statistics.spoke_count++;
 
-  if (angle==0 && m_radar == 0)
+  if (angle==0 && m_radar == 1)
   {
     static auto previous = wxLongLong(0);
     auto now = wxGetUTCTimeMillis();
@@ -452,7 +495,9 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
     {
       int period = (now - previous).GetLo();
       double rate = 1000.0 / period;
-      OC_DEBUG("[RadarInfo::ProcessRadarSpoke]%d:period=%d.angle=%d.Rate=%.5f", m_radar, period, angle, rate);
+      LOG_VERBOSE("[RadarInfo::ProcessRadarSpoke]%d:period=%d.angle=%d.Rate=%.5f", m_radar, period, angle, rate);
+      // for (int i = 0; i < len; ++i)
+      //   OC_DEBUG("data[%d]=%d.", i, data[i]);
     }
     previous = now;
   }
@@ -503,7 +548,7 @@ void RadarInfo::ProcessRadarSpoke(SpokeBearing angle, SpokeBearing bearing, uint
   // with relative data.
   //
   int stabilized_mode = orientation != ORIENTATION_HEAD_UP;
-  uint8_t weakest_normal_blob = m_pi->m_settings.threshold_red;
+  uint8_t weakest_normal_blob = m_thresholds.threshold_red;
 
   uint8_t *hist_data = m_history[bearing].line;
   m_history[bearing].time = time_rec;

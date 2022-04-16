@@ -176,45 +176,63 @@ NavicoReceive::NavicoReceive(radar_pi *pi, RadarInfo *ri, NetworkAddress reportA
 
 NavicoReceive::~NavicoReceive() {}
 
+#define STRENGTH_1_UNMAPPED 1
+#define STRENGTH_F_UNMAPPED 15
+#define STRENGTH_1_MAPPED 33
+#define STRENGTH_F_MAPPED 240
+
+static uint8_t MapRadarDataToStrength(uint8_t data) {
+  if (data == 0)
+    return 0;
+  return (uint8_t)((double(data)-STRENGTH_1_UNMAPPED)/(STRENGTH_F_UNMAPPED-STRENGTH_1_UNMAPPED)*(STRENGTH_F_MAPPED-STRENGTH_1_MAPPED)+STRENGTH_1_MAPPED+0.5);
+}
 void NavicoReceive::InitializeLookupData() {
   if (lookupData[5][255] == 0) {
     for (int j = 0; j <= UINT8_MAX; j++) {
-      uint8_t low = (j & 0x0f) << 4;
-      uint8_t high = (j & 0xf0);
+      uint8_t low = j & 0x0f;
+      uint8_t high = (j & 0xf0) >> 4;
 
-      lookupData[LOOKUP_SPOKE_LOW_NORMAL][j] = low;
-      lookupData[LOOKUP_SPOKE_HIGH_NORMAL][j] = high;
+      // Because of history using values 0 to 32
+      LOG_INFO(wxT("---------------------------"));
+      for (int i = 0; i < 16; ++i)
+        LOG_INFO(wxT("FFF:%X:%X"), i, MapRadarDataToStrength(i));
+
+      uint8_t low_strength = MapRadarDataToStrength(low);
+      uint8_t high_strength = MapRadarDataToStrength(high);
+
+      lookupData[LOOKUP_SPOKE_LOW_NORMAL][j] = low_strength;
+      lookupData[LOOKUP_SPOKE_HIGH_NORMAL][j] = high_strength;
 
       switch (low) {
-        case 0xf0:
+        case 0xf:
           lookupData[LOOKUP_SPOKE_LOW_BOTH][j] = 0xff;
           lookupData[LOOKUP_SPOKE_LOW_APPROACHING][j] = 0xff;
           break;
 
-        case 0xe0:
+        case 0xe:
           lookupData[LOOKUP_SPOKE_LOW_BOTH][j] = 0xfe;
-          lookupData[LOOKUP_SPOKE_LOW_APPROACHING][j] = low;
+          lookupData[LOOKUP_SPOKE_LOW_APPROACHING][j] = low_strength;
           break;
 
         default:
           lookupData[LOOKUP_SPOKE_LOW_BOTH][j] = low;
-          lookupData[LOOKUP_SPOKE_LOW_APPROACHING][j] = low;
+          lookupData[LOOKUP_SPOKE_LOW_APPROACHING][j] = low_strength;
       }
 
       switch (high) {
-        case 0xf0:
+        case 0xf:
           lookupData[LOOKUP_SPOKE_HIGH_BOTH][j] = 0xff;
           lookupData[LOOKUP_SPOKE_HIGH_APPROACHING][j] = 0xff;
           break;
 
-        case 0xe0:
+        case 0xe:
           lookupData[LOOKUP_SPOKE_HIGH_BOTH][j] = 0xfe;
-          lookupData[LOOKUP_SPOKE_HIGH_APPROACHING][j] = high;
+          lookupData[LOOKUP_SPOKE_HIGH_APPROACHING][j] = high_strength;
           break;
 
         default:
-          lookupData[LOOKUP_SPOKE_HIGH_BOTH][j] = high;
-          lookupData[LOOKUP_SPOKE_HIGH_APPROACHING][j] = high;
+          lookupData[LOOKUP_SPOKE_HIGH_BOTH][j] = high_strength;
+          lookupData[LOOKUP_SPOKE_HIGH_APPROACHING][j] = high_strength;
       }
     }
   }
@@ -375,6 +393,7 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
     if (doppler < 0 || doppler > 2) {
       doppler = 0;
     }
+
     uint8_t *lookup_low = lookupData[LOOKUP_SPOKE_LOW_NORMAL + doppler];
     uint8_t *lookup_high = lookupData[LOOKUP_SPOKE_HIGH_NORMAL + doppler];
     for (int i = 0; i < NAVICO_SPOKE_LEN / 2; i++) {
@@ -383,6 +402,7 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
     }
     //statement is too often, removing.
     //OC_DEBUG("[NavicoReceive::ProcessFrame] (END) time_received:%u, bearing:%i raw:%i, spoke_length:%i, spoke_range:%i", time_rec, a, b, len, range_meters);
+    
     m_ri->ProcessRadarSpoke(a, b, data_highres, len, range_meters, time_rec);
   }
 }

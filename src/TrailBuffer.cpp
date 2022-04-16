@@ -77,8 +77,8 @@ void TrailBuffer::UpdateTrueTrails(SpokeBearing bearing, uint8_t *data, size_t l
   RadarControlState trails = m_ri->m_target_trails.GetState();
   bool update_targets_true = trails != RCS_OFF && motion == TARGET_MOTION_TRUE;
 
-  uint8_t weak_target = M_SETTINGS.threshold_blue;
-  uint8_t strong_target = M_SETTINGS.threshold_red;
+  uint8_t weak_target = m_ri->m_thresholds.threshold_blue;
+  uint8_t trails_threshold = m_ri->m_thresholds.threshold_trails;
   size_t radius = 0;
 
   for (; radius < len - 1; radius++) {  //  len - 1 : no trails on range circle
@@ -91,7 +91,7 @@ void TrailBuffer::UpdateTrueTrails(SpokeBearing bearing, uint8_t *data, size_t l
       uint8_t *trail = &M_TRUE_TRAILS(point.x, point.y);
       // when ship moves north, offset.lat > 0. Add to move trails image in opposite direction
       // when ship moves east, offset.lon > 0. Add to move trails image in opposite direction
-      if (data[radius] >= strong_target) {
+      if (data[radius] >= trails_threshold) {
         *trail = 1;
       } else if (*trail > 0 && *trail < TRAIL_MAX_REVOLUTIONS) {
         (*trail)++;
@@ -129,13 +129,13 @@ void TrailBuffer::UpdateRelativeTrails(SpokeBearing angle, uint8_t *data, size_t
   bool update_relative_motion = trails != RCS_OFF && motion == TARGET_MOTION_RELATIVE;
 
   uint8_t *trail = &M_RELATIVE_TRAILS(angle, 0);
-  uint8_t weak_target = M_SETTINGS.threshold_blue;
-  uint8_t strong_target = M_SETTINGS.threshold_red;
+  uint8_t weak_target = m_ri->m_thresholds.threshold_blue;
+  uint8_t trails_threshold = m_ri->m_thresholds.threshold_trails;
   int radius = 0;
   int length = int(len);
 
   for (; radius < length - 1; radius++, trail++) {  // len - 1 : no trails on range circle
-    if (data[radius] >= strong_target) {
+    if (data[radius] >= trails_threshold) {
       *trail = 1;
     } else if (*trail > 0 && *trail < TRAIL_MAX_REVOLUTIONS) {
       (*trail)++;

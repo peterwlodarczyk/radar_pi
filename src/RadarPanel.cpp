@@ -69,7 +69,7 @@ bool RadarPanel::Create() {
   DimeWindow(this);
   Fit();
   Layout();
-  m_best_size = wxSize(m_pi->m_settings.chart_size, m_pi->m_settings.chart_size);
+  m_best_size = wxSize(m_pi->m_settings.chart_size+8, m_pi->m_settings.chart_size+24);
   //wxSize opencpn_window = GetOCPNCanvasWindow()->GetSize();
   //m_best_size.x = wxMin(wxMin(m_best_size.x / 2, 512), opencpn_window.x / 3);
   //m_best_size.y = wxMin(wxMin(m_best_size.y / 2, 512), opencpn_window.y / 2);

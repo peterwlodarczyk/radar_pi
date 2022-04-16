@@ -142,7 +142,7 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
     if (!line->points) {
       if (!m_oom) {
         wxLogError(wxT("radar_pi: Out of memory")); //am I hitting this?
-        OC_DEBUG("[RadarDrawVertex::ProcessRadarSpoke], OOM: out of memeory error case");
+        OC_DEBUG("[RadarDrawVertex::ProcessRadarSpoke], OOM: out of memeory error case")  ;
         m_oom = true;
       }
       line->allocated = 0;
@@ -154,8 +154,26 @@ void RadarDrawVertex::ProcessRadarSpoke(int transparency, SpokeBearing angle, ui
   line->count = 0;
   line->timeout = now + m_ri->m_pi->m_settings.max_age;
   line->spoke_pos = spoke_pos;
+  // if (angle == 0) {
+  //       OC_DEBUG("-------------------------------------");
+  //       for (size_t radius = 0; radius < len; radius++) {
+  //         OC_DEBUG("data[%d]=%d", radius, data[radius]);
+  //       }
+  // }
   for (size_t radius = 0; radius < len; radius++) {
     strength = data[radius];
+    if (m_ri->m_intensity != 1.0) {
+      // We use intensity to move strength up and down.
+      int s = strength * m_ri->m_intensity + 0.5;
+      if (s > 255)
+        s = 255;
+      strength = (GLubyte)s;
+      //m_ri->m_pi->logBinaryData(wxT("data"), (uint8_t *)data, len);
+      // if (angle == 0) {
+      //   LOG_BINARY_OCIUS(wxT("data"), (uint8_t *)data, len);
+      // }
+    }
+    
     BlobColour actual_colour = m_ri->m_colour_map[strength];
 
     if (actual_colour == previous_colour) {

@@ -269,6 +269,15 @@ class RadarInfo {
   double m_mouse_ebl[ORIENTATION_NUMBER];
   double m_mouse_vrm;
 
+  int SetThreshold(int threshold);
+  int GetThreshold() const;
+  int SetTrailsThreshold(int threshold);
+  int GetTrailsThreshold() const;
+  double SetIntensity(double intensity);
+  double GetIntensity() const;
+  
+  Thresholds m_thresholds;
+  double m_intensity;
   // Speedup lookup tables of color to r,g,b, set dependent on m_settings.display_option.
   PixelColour m_colour_map_rgb[BLOB_COLOURS];
   BlobColour m_colour_map[UINT8_MAX + 1];

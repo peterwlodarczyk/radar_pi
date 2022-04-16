@@ -327,6 +327,8 @@ enum BlobColour {
 #define BLOB_HISTORY_MAX BLOB_HISTORY_31
 #define BLOB_HISTORY_COLOURS (BLOB_HISTORY_MAX - BLOB_NONE)
 #define BLOB_COLOURS (BLOB_DOPPLER_APPROACHING + 1)
+#define THRESHOLD_MIN (BLOB_HISTORY_MAX + 1)
+#define THRESHOLD_MAX 255
 
 extern const char *convertRadarToString(int range_meters, int units, int index);
 extern double local_distance(GeoPosition pos1, GeoPosition pos2);
@@ -356,6 +358,14 @@ static const bool HasBitCount2[8] = {
 
 enum RangeUnits { RANGE_MIXED, RANGE_METRIC, RANGE_NAUTIC };
 static const int RangeUnitsToMeters[3] = {1852, 1000, 1852};
+
+struct Thresholds
+{
+  int threshold_red = 50;                           // Radar data has to be this strong to show as STRONG
+  int threshold_green = 100;                        // Radar data has to be this strong to show as INTERMEDIATE
+  int threshold_blue = 200;                         // Radar data has to be this strong to show as WEAK
+  int threshold_trails = 200;                       // The threshold that will trigger a trail
+};
 
 /**
  * The data that is stored in the opencpn.ini file. Most of this is set in the OptionsDialog,
@@ -393,10 +403,7 @@ struct PersistentSettings {
   bool reverse_zoom;                               // false = normal, true = reverse
   bool show_extreme_range;                         // Show red ring at extreme range and center
   bool reset_radars;                               // True on exit of OptionsDialog when reset of radars is pressed
-  int threshold_red;                               // Radar data has to be this strong to show as STRONG
-  int threshold_green;                             // Radar data has to be this strong to show as INTERMEDIATE
-  int threshold_blue;                              // Radar data has to be this strong to show as WEAK
-  int threshold_multi_sweep;                       // Radar data has to be this strong not to be ignored in multisweep
+  Thresholds thresholds;
   int type_detection_method;                       // 0 = default, 1 = ignore reports
   int AISatARPAoffset;                             // Rectangle side where to search AIS targets at ARPA position
   wxPoint control_pos[RADARS];                     // Saved position of control menu windows
@@ -498,6 +505,9 @@ class radar_pi : public opencpn_plugin_116, public wxEvtHandler {
   void UpdateAllControlStates(bool all);
 
   bool IsRadarOnScreen(int radar);
+
+  bool SetConfig(const char* item, const char* value);
+  bool GetConfig(const char* item, char* value, int len) const;
 
   bool LoadConfig();
   bool RestoreConfig(); // Read the config file and restore select controls

@@ -95,6 +95,8 @@ enum RadarControlState {
 extern "C" DECL_IMPEXP bool radar_set_control(uint8_t radar, const char* control, ::RadarControlState state, int32_t value);
 extern "C" DECL_IMPEXP bool radar_set_item_control(uint8_t radar, const char* control_string, ::RadarControlState state, int32_t value);
 extern "C" DECL_IMPEXP bool radar_get_control(uint8_t radar, const char* control, ::RadarControlState* state, int32_t* value);
+extern "C" DECL_IMPEXP bool radar_config_set(const char* name, const char* value);
+extern "C" DECL_IMPEXP bool radar_config_get(const char* name, char* value, int len);
 extern "C" DECL_IMPEXP bool radar_config_save();
 extern "C" DECL_IMPEXP bool radar_config_restore();
 
