@@ -113,7 +113,7 @@ static bool write_png_file(const char* file_name, png_infop info_ptr, png_bytep 
   return true;
 }
 
-bool OciusDumpVertexImage(int radar, const string& stage) {
+bool OciusDumpVertexImage(int radar, const string& stage, uint8_t bg_red, uint8_t bg_green, uint8_t bg_blue) {
   if (radar < 0 || radar > 1)
     return false;
   ProfilerGuardT tg(OCIUSDUMPVERTEXIMAGE);
@@ -142,7 +142,7 @@ bool OciusDumpVertexImage(int radar, const string& stage) {
   //set the transparent sections based on the 0,0,50 (initial background settings)
   if (buffer) {
     for (int p = 0; p < width * height * 4; p += 4) { //for each RGBA section
-      if (buffer[p + 0] == 0 && buffer[p + 1] == 0 && buffer[p + 2] == 50) { 
+      if (buffer[p + 0] == bg_red && buffer[p + 1] == bg_green && buffer[p + 2] == bg_blue) { 
         //default background colour in the config.
         //todo check if there is a better way to do the above check (compare bits of the whole section?)
         if (isOverlayStage)

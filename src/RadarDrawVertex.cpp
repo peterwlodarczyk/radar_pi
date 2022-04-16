@@ -245,7 +245,10 @@ void RadarDrawVertex::DrawRadarOverlayImage(double radar_scale, double panel_rot
       glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(VertexPoint), &line->points[0].red);
       glDrawArrays(GL_TRIANGLES, 0, line->count);
     }
-    if (OciusDumpVertexImage(m_ri->m_radar, string("overlay2")))
+    if (OciusDumpVertexImage(m_ri->m_radar, string("overlay2"),
+      m_ri->m_pi->m_settings.ppi_background_colour.Red(), 
+      m_ri->m_pi->m_settings.ppi_background_colour.Green(), 
+      m_ri->m_pi->m_settings.ppi_background_colour.Blue()))
       m_ri->m_oc_statistics.image_write_count++;
     glPopMatrix();
   }
@@ -301,7 +304,10 @@ void RadarDrawVertex::DrawRadarPanelImage(double panel_scale, double panel_rotat
     // OCIUS //removing decimationg temp. 
     //if (m_ri->m_oc_image_decimation > 0 && ++m_ri->m_oc_image_count % m_ri->m_oc_image_decimation == 0)
     //{
-    if (OciusDumpVertexImage(m_ri->m_radar, string("overlay")))
+    if (OciusDumpVertexImage(m_ri->m_radar, string("overlay"),
+      m_ri->m_pi->m_settings.ppi_background_colour.Red(), 
+      m_ri->m_pi->m_settings.ppi_background_colour.Green(), 
+      m_ri->m_pi->m_settings.ppi_background_colour.Blue()))
       m_ri->m_oc_statistics.image_write_count++;
     //}
 

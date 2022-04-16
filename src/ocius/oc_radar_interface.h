@@ -3,5 +3,5 @@
 
 #include <string>
 
-bool OciusDumpVertexImage(int radar, const string& stage);
+bool OciusDumpVertexImage(int radar, const string& stage, uint8_t bg_red, uint8_t bg_green, uint8_t bg_blue);
 #endif

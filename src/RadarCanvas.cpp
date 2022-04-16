@@ -47,6 +47,9 @@ EVT_MOTION(RadarCanvas::OnMouseMotion)
 EVT_LEFT_UP(RadarCanvas::OnMouseClickUp)
 END_EVENT_TABLE()
 
+const double ZOOM_FACTOR_CENTER = 0.582; // On how big a part of the PPI do we draw the radar picture
+const double ZOOM_FACTOR_OFFSET = 1.05;  // On how big a part of the PPI do we draw the radar picture
+
 static int attribs[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, WX_GL_STENCIL_SIZE, 8, 0};
 
 RadarCanvas::RadarCanvas(radar_pi *pi, RadarInfo *ri, wxWindow *parent, wxSize size)
@@ -708,7 +711,11 @@ void RadarCanvas::Render(wxPaintEvent &evt) {
   //temp removing decimation. 
   //if (m_ri->m_oc_image_decimation > 0 && ++m_ri->m_oc_image_count % m_ri->m_oc_image_decimation == 0)
   //{
-  if (OciusDumpVertexImage(m_ri->m_radar, string("display"))) //dump another radar image directly now, should include range rings. 
+    
+  if (OciusDumpVertexImage(m_ri->m_radar, string("display"),
+      m_pi->m_settings.ppi_background_colour.Red(), 
+      m_pi->m_settings.ppi_background_colour.Green(), 
+      m_pi->m_settings.ppi_background_colour.Blue())) //dump another radar image directly now, should include range rings. 
     m_ri->m_oc_statistics.image_write_count++;
   //}
 
