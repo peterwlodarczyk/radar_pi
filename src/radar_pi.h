@@ -389,6 +389,7 @@ struct PersistentSettings {
   bool overlay_on_standby;                         // Show guard zone when radar is in standby?
   int guard_zone_debug_inc;                        // Value to add on every cycle to guard zone bearings, for testing.
   double skew_factor;                              // Set to -1 or other value to correct skewing
+  double range_factor;                             // a factor applied to set and reported range.
   RangeUnits range_units;                          // See enum
   int max_age;                                     // Scans older than this in seconds will be removed
   RadarControlItem refreshrate;                    // How quickly to refresh the display

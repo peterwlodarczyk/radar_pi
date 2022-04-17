@@ -435,13 +435,16 @@ bool radar_config_restore() {
     return false;
 }
 
-#define RADAR_RANGE_FUDGE 1.06
-
 double radar_set_range(uint8_t radar, double range) {
   auto controller = GetRadarController(radar);
+  double range_factor = 1.0;
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    range_factor = plugin->m_settings.range_factor;
+
   if (controller) {
-    controller->SetRange(range*RADAR_RANGE_FACTOR*RADAR_RANGE_FUDGE);
-    range = controller->GetRange()/RADAR_RANGE_FACTOR*RADAR_RANGE_FUDGE;
+    controller->SetRange(range*RADAR_RANGE_FACTOR*range_factor);
+    range = controller->GetRange()/RADAR_RANGE_FACTOR*range_factor;
   }
   else {
     range = 0;
@@ -453,9 +456,14 @@ double radar_set_range(uint8_t radar, double range) {
 double radar_get_range(uint8_t radar) {
   int range = 0;
   auto controller = GetRadarController(radar);
-  if (controller != nullptr) {
-    range = controller->GetRange()/(RADAR_RANGE_FACTOR*RADAR_RANGE_FUDGE);
-  }
+  double range_factor = 1.0;
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    range_factor = plugin->m_settings.range_factor;
+
+  if (controller != nullptr)
+    range = controller->GetRange()/(RADAR_RANGE_FACTOR*range_factor);
+  
   OC_TRACE("[%s]%d=%d.", __func__, radar, range);
   return range;
 }
