@@ -568,6 +568,10 @@ bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControl
       r = true;
     }
   }
+  // these controls are disabled.
+  else if (strcmp(control_string, "doppler") == 0) {
+    ;
+  }
   else if (strcmp(control_string, "intensity") == 0) {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
     if (info != nullptr) {
