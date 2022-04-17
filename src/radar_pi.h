@@ -76,6 +76,10 @@ class RadarArpa;
 class GPSKalmanFilter;
 class NavicoLocate;
 
+const double RADAR_RANGE_FACTOR = 0.582; // The range the radar acutally has 
+const double ZOOM_FACTOR_CENTER = RADAR_RANGE_FACTOR; // On how big a part of the PPI do we draw the radar picture
+const double ZOOM_FACTOR_OFFSET = 1.05;  // On how big a part of the PPI do we draw the radar picture
+
 #define MAX_CHART_CANVAS (2)  // How many canvases OpenCPN supports
 #define RADARS (4)            // Arbitrary limit, anyone running this many is already crazy!
 #define GUARD_ZONES (2)       // Could be increased if wanted

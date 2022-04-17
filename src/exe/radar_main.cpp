@@ -435,11 +435,13 @@ bool radar_config_restore() {
     return false;
 }
 
+#define RADAR_RANGE_FUDGE 1.06
+
 double radar_set_range(uint8_t radar, double range) {
   auto controller = GetRadarController(radar);
   if (controller) {
-    controller->SetRange(range);
-    range = controller->GetRange();
+    controller->SetRange(range*RADAR_RANGE_FACTOR*RADAR_RANGE_FUDGE);
+    range = controller->GetRange()/RADAR_RANGE_FACTOR*RADAR_RANGE_FUDGE;
   }
   else {
     range = 0;
@@ -452,7 +454,7 @@ double radar_get_range(uint8_t radar) {
   int range = 0;
   auto controller = GetRadarController(radar);
   if (controller != nullptr) {
-    range = controller->GetRange();
+    range = controller->GetRange()/(RADAR_RANGE_FACTOR*RADAR_RANGE_FUDGE);
   }
   OC_TRACE("[%s]%d=%d.", __func__, radar, range);
   return range;
