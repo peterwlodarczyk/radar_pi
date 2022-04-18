@@ -48,6 +48,10 @@ PLUGIN_BEGIN_NAMESPACE
 #undef M_SETTINGS
 #define M_SETTINGS m_settings
 
+// Global used for radar_start to set the chart size.
+// Chart size needs to be known at initialisation time
+int g_ChartSize = DEFAULT_CHART_SIZE;
+
 // the class factories, used to create and destroy instances of the PlugIn
 
 extern "C" DECL_EXP opencpn_plugin *create_pi(void *ppimgr) { return new radar_pi(ppimgr); }
@@ -1413,9 +1417,15 @@ bool radar_pi::LoadConfig(void) {
     m_settings.range_units = (RangeUnits)wxMax(wxMin(v, 2), 0);
 
     pConf->Read(wxT("VerboseLog"), &m_settings.verbose, 0);
-    pConf->Read(wxT("ChartSize"), &m_settings.chart_size, DEFAULT_CHART_SIZE);
-    if (m_settings.chart_size == 0)
-      m_settings.chart_size = DEFAULT_CHART_SIZE;
+    // A global set by radar_start
+    if (g_ChartSize != 0) {
+        m_settings.chart_size = g_ChartSize;
+    }
+    else {
+      pConf->Read(wxT("ChartSize"), &m_settings.chart_size, DEFAULT_CHART_SIZE);
+      if (m_settings.chart_size == 0)
+        m_settings.chart_size = DEFAULT_CHART_SIZE;
+    }
 
     pConf->Read(wxT("RadarCount"), &v, 0);
     M_SETTINGS.radar_count = v;

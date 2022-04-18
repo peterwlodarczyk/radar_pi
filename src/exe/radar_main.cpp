@@ -205,7 +205,7 @@ int main(int argc, char* argv[]) {
 #endif
 
 #else
-bool radar_start(const char* configFilename, const char* logDir, const char* liveDir) {
+bool radar_start(const char* configFilename, const char* logDir, const char* liveDir, int chartSize) {
   int argc = 0;
   char** argv = nullptr;
 #endif
@@ -217,12 +217,14 @@ bool radar_start(const char* configFilename, const char* logDir, const char* liv
 
   g_OciusLiveDir = liveDir;
   g_ConfigFilename = configFilename;
+  g_ChartSize = chartSize;
 
   OC_DEBUG("[radar_pi::main]");
   OC_DEBUG("g_ConfigFilename=%s.", g_ConfigFilename.c_str());
   OC_DEBUG("g_OciusLogFilename=%s", g_OciusLogFilename.c_str());
   OC_DEBUG("g_OpenCPNLogFilename=%s", g_OpenCPNLogFilename.c_str());
   OC_DEBUG("g_OciusLiveDir=%s", g_OciusLiveDir.c_str());
+  OC_DEBUG("g_CharSize=%d", chartSize);
   OC_DEBUG("DISPLAY=%s", getenv("DISPLAY"));
   try
   {

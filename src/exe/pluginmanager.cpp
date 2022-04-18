@@ -131,7 +131,6 @@ std::string g_OciusLogFilename = "radar-ocius.log";
 std::string g_OpenCPNLogFilename = "radar-opencpn.log";
 std::string g_OciusLiveDir = "/dev/shm/usv/live";
 
-
 #ifdef PLUGINMANAGER
 static PlugInManager *s_ppim = nullptr;
 #else

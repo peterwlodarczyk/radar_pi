@@ -236,6 +236,10 @@ typedef enum ControlType {
   CT_MAX
 } ControlType;
 
+// Global used for radar_start to set the chart size.
+// Chart size needs to be known at initialisation time
+extern int g_ChartSize;
+
 // We used to use wxColour(), but its implementation is surprisingly
 // complicated in some ports of wxWidgets, in particular wxMAC, so
 // use our own BareBones version. This has a surprising effect on
