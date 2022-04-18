@@ -439,9 +439,14 @@ bool radar_config_restore() {
 
 double radar_set_range(uint8_t radar, double range) {
   auto controller = GetRadarController(radar);
+  double range_factor = 1.0;
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    range_factor = plugin->m_settings.range_factor;
+
   if (controller) {
-    controller->SetRange(range);
-    range = controller->GetRange();
+    controller->SetRange(range*RADAR_RANGE_FACTOR*range_factor);
+    range = controller->GetRange()/RADAR_RANGE_FACTOR*range_factor;
   }
   else {
     range = 0;
@@ -453,9 +458,14 @@ double radar_set_range(uint8_t radar, double range) {
 double radar_get_range(uint8_t radar) {
   int range = 0;
   auto controller = GetRadarController(radar);
-  if (controller != nullptr) {
-    range = controller->GetRange();
-  }
+  double range_factor = 1.0;
+  auto plugin = GetRadarPlugin();
+  if (plugin)
+    range_factor = plugin->m_settings.range_factor;
+
+  if (controller != nullptr)
+    range = controller->GetRange()/(RADAR_RANGE_FACTOR*range_factor);
+  
   OC_TRACE("[%s]%d=%d.", __func__, radar, range);
   return range;
 }
@@ -559,6 +569,10 @@ bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControl
       info->SetTrailsThreshold((int)(value / 100.0 * (THRESHOLD_MAX - THRESHOLD_MIN) + THRESHOLD_MIN + 0.5));
       r = true;
     }
+  }
+  // these controls are disabled.
+  else if (strcmp(control_string, "doppler") == 0) {
+    ;
   }
   else if (strcmp(control_string, "intensity") == 0) {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);

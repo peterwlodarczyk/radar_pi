@@ -47,9 +47,6 @@ EVT_MOTION(RadarCanvas::OnMouseMotion)
 EVT_LEFT_UP(RadarCanvas::OnMouseClickUp)
 END_EVENT_TABLE()
 
-const double ZOOM_FACTOR_CENTER = 0.582; // On how big a part of the PPI do we draw the radar picture
-const double ZOOM_FACTOR_OFFSET = 1.05;  // On how big a part of the PPI do we draw the radar picture
-
 static int attribs[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, WX_GL_STENCIL_SIZE, 8, 0};
 
 RadarCanvas::RadarCanvas(radar_pi *pi, RadarInfo *ri, wxWindow *parent, wxSize size)

@@ -1560,6 +1560,7 @@ bool radar_pi::LoadConfig(void) {
     pConf->Read(wxT("ScanMaxAge"), &m_settings.max_age, 6);
     pConf->Read(wxT("Show"), &m_settings.show, true);
     pConf->Read(wxT("SkewFactor"), &m_settings.skew_factor, 1);
+    pConf->Read(wxT("RangeFactor"), &m_settings.range_factor, 1.0);
     pConf->Read(wxT("ThresholdBlue"), &m_settings.thresholds.threshold_blue, 50);
     // Make room for BLOB_HISTORY_MAX history values
     m_settings.thresholds.threshold_blue = MAX(m_settings.thresholds.threshold_blue, THRESHOLD_MIN);
@@ -2021,6 +2022,7 @@ bool radar_pi::SaveConfig(void) {
     pConf->Write(wxT("ScanMaxAge"), m_settings.max_age);
     pConf->Write(wxT("Show"), m_settings.show);
     pConf->Write(wxT("SkewFactor"), m_settings.skew_factor);
+    pConf->Write(wxT("RangeFactor"), m_settings.range_factor);
     pConf->Write(wxT("ThresholdBlue"), m_settings.thresholds.threshold_blue);
     pConf->Write(wxT("ThresholdGreen"), m_settings.thresholds.threshold_green);
     pConf->Write(wxT("ThresholdRed"), m_settings.thresholds.threshold_red);

@@ -76,6 +76,10 @@ class RadarArpa;
 class GPSKalmanFilter;
 class NavicoLocate;
 
+const double RADAR_RANGE_FACTOR = 0.582; // The range the radar acutally has 
+const double ZOOM_FACTOR_CENTER = RADAR_RANGE_FACTOR; // On how big a part of the PPI do we draw the radar picture
+const double ZOOM_FACTOR_OFFSET = 1.05;  // On how big a part of the PPI do we draw the radar picture
+
 #define MAX_CHART_CANVAS (2)  // How many canvases OpenCPN supports
 #define RADARS (4)            // Arbitrary limit, anyone running this many is already crazy!
 #define GUARD_ZONES (2)       // Could be increased if wanted
@@ -389,6 +393,7 @@ struct PersistentSettings {
   bool overlay_on_standby;                         // Show guard zone when radar is in standby?
   int guard_zone_debug_inc;                        // Value to add on every cycle to guard zone bearings, for testing.
   double skew_factor;                              // Set to -1 or other value to correct skewing
+  double range_factor;                             // a factor applied to set and reported range.
   RangeUnits range_units;                          // See enum
   int max_age;                                     // Scans older than this in seconds will be removed
   RadarControlItem refreshrate;                    // How quickly to refresh the display
