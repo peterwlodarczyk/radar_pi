@@ -346,14 +346,8 @@ int RadarInfo::SetThreshold(int threshold){
   threshold = min(255, max(0, threshold));
   m_thresholds.threshold_blue = threshold;
   // Deal with the threshold being higher than the intermediate and strong
-  m_thresholds.threshold_green = max(m_thresholds.threshold_green, m_thresholds.threshold_blue);
-  m_thresholds.threshold_red = max(m_thresholds.threshold_red, m_thresholds.threshold_blue);
-
-  // Deal with the case when the threshold has been pushed up then back down
-  if (m_thresholds.threshold_green > M_SETTINGS.thresholds.threshold_green && threshold < m_thresholds.threshold_green)
-    m_thresholds.threshold_green = M_SETTINGS.thresholds.threshold_green;
-  if (m_thresholds.threshold_red > M_SETTINGS.thresholds.threshold_red && threshold < m_thresholds.threshold_red)
-    m_thresholds.threshold_red = M_SETTINGS.thresholds.threshold_red;
+  m_thresholds.threshold_green = max(threshold, M_SETTINGS.thresholds.threshold_green);
+  m_thresholds.threshold_red = max(threshold, M_SETTINGS.thresholds.threshold_red);
   
   ComputeColourMap();
   return m_thresholds.threshold_blue;

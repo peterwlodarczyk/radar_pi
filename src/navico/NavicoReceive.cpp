@@ -393,7 +393,6 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
     if (doppler < 0 || doppler > 2) {
       doppler = 0;
     }
-
     uint8_t *lookup_low = lookupData[LOOKUP_SPOKE_LOW_NORMAL + doppler];
     uint8_t *lookup_high = lookupData[LOOKUP_SPOKE_HIGH_NORMAL + doppler];
     for (int i = 0; i < NAVICO_SPOKE_LEN / 2; i++) {
@@ -402,7 +401,6 @@ void NavicoReceive::ProcessFrame(const uint8_t *data, size_t len) {
     }
     //statement is too often, removing.
     //OC_DEBUG("[NavicoReceive::ProcessFrame] (END) time_received:%u, bearing:%i raw:%i, spoke_length:%i, spoke_range:%i", time_rec, a, b, len, range_meters);
-    
     m_ri->ProcessRadarSpoke(a, b, data_highres, len, range_meters, time_rec);
   }
 }
