@@ -76,6 +76,21 @@ class RadarArpa;
 class GPSKalmanFilter;
 class NavicoLocate;
 
+// These are the acutal values coming back in the Navico spokes.
+// E and F and used when doppler is turned on.
+#define NAVICO_STRENGTH_MIN 0
+#define NAVICO_STRENGTH_MAX 15
+
+#define NAVICO_STRENGTH_MIN_MAPPED 0
+#define NAVICO_STRENGTH_1_MAPPED 33
+#define NAVICO_STRENGTH_15_MAPPED 240
+
+// Used for thresholds and turned a reported Navico radar data to a strength for in the colour map.
+uint8_t MapNavicoRadarDataToStrength(uint8_t data);
+
+// This takes a number from 0-255 and turns it back into a strength
+uint8_t MapNavicoRadarStrengthToData(uint8_t data);
+
 const double RADAR_RANGE_FACTOR = 0.582; // The range the radar acutally has 
 const double ZOOM_FACTOR_CENTER = RADAR_RANGE_FACTOR; // On how big a part of the PPI do we draw the radar picture
 const double ZOOM_FACTOR_OFFSET = 1.05;  // On how big a part of the PPI do we draw the radar picture

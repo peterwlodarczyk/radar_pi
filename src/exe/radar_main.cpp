@@ -559,14 +559,20 @@ bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControl
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
     if (info != nullptr)
     {
-      info->SetThreshold((int)(value / 100.0  * (THRESHOLD_MAX - THRESHOLD_MIN) + THRESHOLD_MIN + 0.5));
+      value = max(1,value);
+      int strength = MapNavicoRadarDataToStrength(value);
+      OC_DEBUG("[%s]%d=%d.control_item=%s.state=%d,data=%d.strength=%d.", __func__, radar, r, control_string, state, value, strength);
+      info->SetThreshold(strength);
       r = true;
     }
   }
   else if (strcmp(control_string, "trail_threshold") == 0)  {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
     if (info != nullptr)    {
-      info->SetTrailsThreshold((int)(value / 100.0 * (THRESHOLD_MAX - THRESHOLD_MIN) + THRESHOLD_MIN + 0.5));
+      value = max(1,value);
+      int strength = MapNavicoRadarDataToStrength(value);
+      OC_DEBUG("[%s]%d=%d.control_item=%s.state=%d,data=%d.strength=%d.", __func__, radar, r, control_string, state, value, strength);
+      info->SetTrailsThreshold(strength);
       r = true;
     }
   }
@@ -596,13 +602,19 @@ bool radar_get_control(uint8_t radar, const char* control_string, ::RadarControl
 
   if (strcmp(control_string, "threshold") == 0)  {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
-    if (info != nullptr)
-      *value = (int32_t)((info->GetThreshold() - THRESHOLD_MIN) * 100.0 / (THRESHOLD_MAX - THRESHOLD_MIN) + 0.5);
+    if (info != nullptr) {
+      int strength = info->GetThreshold();
+      *value = MapNavicoRadarStrengthToData(strength);
+      OC_DEBUG("[%s]%d=%d.control_item=%s.strength=%d.", __func__, radar, *value, control_string, strength);
+    }    
   }
   else if (strcmp(control_string, "trail_threshold") == 0)  {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
-    if (info != nullptr)
-      *value = (int32_t)((info->GetTrailsThreshold() - THRESHOLD_MIN) * 100.0 / (THRESHOLD_MAX - THRESHOLD_MIN) + 0.5);
+    if (info != nullptr){
+      int strength = info->GetTrailsThreshold();
+      *value = MapNavicoRadarStrengthToData(strength);
+      OC_DEBUG("[%s]%d=%d.control_item=%s.strength=%d.", __func__, radar, *value, control_string, strength);
+    }
   }
   else if (strcmp(control_string, "intensity") == 0)  {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
@@ -803,8 +815,8 @@ RadarControlStatus radar_get_control_status(uint8_t radar) {
   pkt.scan_speed = info->m_scan_speed.GetValue();
   pkt.noise_rejection = info->m_noise_rejection.GetValue();
   pkt.intensity = max(0,min(info->m_thresholds.threshold_trails, 255));
-  pkt.threshold = max(0,min(info->m_thresholds.threshold_blue, 255));
-  pkt.trail_threshold = max(0,min(info->m_thresholds.threshold_trails, 255));
+  pkt.threshold = MapNavicoRadarDataToStrength(info->GetThreshold());
+  pkt.trail_threshold = MapNavicoRadarDataToStrength(info->GetTrailsThreshold());
   return pkt;
 }
 

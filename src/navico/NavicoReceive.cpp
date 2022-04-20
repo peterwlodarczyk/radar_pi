@@ -176,16 +176,24 @@ NavicoReceive::NavicoReceive(radar_pi *pi, RadarInfo *ri, NetworkAddress reportA
 
 NavicoReceive::~NavicoReceive() {}
 
-#define STRENGTH_1_UNMAPPED 1
-#define STRENGTH_F_UNMAPPED 15
-#define STRENGTH_1_MAPPED 33
-#define STRENGTH_F_MAPPED 240
-
-static uint8_t MapRadarDataToStrength(uint8_t data) {
+uint8_t MapNavicoRadarDataToStrength(uint8_t data) {
+  // Non linea mapping
   if (data == 0)
     return 0;
-  return (uint8_t)((double(data)-STRENGTH_1_UNMAPPED)/(STRENGTH_F_UNMAPPED-STRENGTH_1_UNMAPPED)*(STRENGTH_F_MAPPED-STRENGTH_1_MAPPED)+STRENGTH_1_MAPPED+0.5);
+  if (data>15)
+    data = 15;
+  int strength = (int)(((double)data-(NAVICO_STRENGTH_MIN+1))/(NAVICO_STRENGTH_MAX-(NAVICO_STRENGTH_MIN+1))*(NAVICO_STRENGTH_15_MAPPED-NAVICO_STRENGTH_1_MAPPED)+NAVICO_STRENGTH_1_MAPPED+0.5);
+  return (uint8_t)max(0,min(255,strength));
 }
+
+uint8_t MapNavicoRadarStrengthToData(uint8_t strength) {
+  // Non linea mapping
+  if (strength < NAVICO_STRENGTH_1_MAPPED)
+    return 0;
+  int data = (uint8_t)(((double)strength-NAVICO_STRENGTH_1_MAPPED)/(NAVICO_STRENGTH_15_MAPPED-NAVICO_STRENGTH_1_MAPPED)*(NAVICO_STRENGTH_MAX-1)+1+0.5);
+  return (uint8_t)max(0,min(15,data));
+}
+
 void NavicoReceive::InitializeLookupData() {
   if (lookupData[5][255] == 0) {
     for (int j = 0; j <= UINT8_MAX; j++) {
@@ -193,12 +201,8 @@ void NavicoReceive::InitializeLookupData() {
       uint8_t high = (j & 0xf0) >> 4;
 
       // Because of history using values 0 to 32
-      LOG_INFO(wxT("---------------------------"));
-      for (int i = 0; i < 16; ++i)
-        LOG_INFO(wxT("FFF:%X:%X"), i, MapRadarDataToStrength(i));
-
-      uint8_t low_strength = MapRadarDataToStrength(low);
-      uint8_t high_strength = MapRadarDataToStrength(high);
+      uint8_t low_strength = MapNavicoRadarDataToStrength(low);
+      uint8_t high_strength = MapNavicoRadarDataToStrength(high);
 
       lookupData[LOOKUP_SPOKE_LOW_NORMAL][j] = low_strength;
       lookupData[LOOKUP_SPOKE_HIGH_NORMAL][j] = high_strength;
@@ -234,6 +238,13 @@ void NavicoReceive::InitializeLookupData() {
           lookupData[LOOKUP_SPOKE_HIGH_BOTH][j] = high_strength;
           lookupData[LOOKUP_SPOKE_HIGH_APPROACHING][j] = high_strength;
       }
+      // LOG_INFO(wxT("---------------------------"));
+      // for (int i = 0; i < 16; ++i)
+      // {
+      //   int mapped = MapNavicoRadarDataToStrength(i);
+      //   int unmapped = MapNavicoRadarStrengthToData(mapped);
+      //   LOG_INFO(wxT("XXX:Data->Strength:%d:%d:%d."), i, mapped, unmapped);
+      // }
     }
   }
 }

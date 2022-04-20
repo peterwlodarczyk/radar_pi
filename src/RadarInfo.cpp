@@ -343,7 +343,7 @@ void RadarInfo::SetName(wxString name) {
 
 
 int RadarInfo::SetThreshold(int threshold){
-  threshold = min(255, max(0, threshold));
+  threshold = min(255, max(NAVICO_STRENGTH_1_MAPPED, threshold));
   m_thresholds.threshold_blue = threshold;
   // Deal with the threshold being higher than the intermediate and strong
   m_thresholds.threshold_green = max(threshold, M_SETTINGS.thresholds.threshold_green);
@@ -358,7 +358,7 @@ int RadarInfo::GetThreshold() const{
 }
 
 int RadarInfo::SetTrailsThreshold(int threshold){
-  threshold = min(255, max(0, threshold));
+  threshold = min(255, max(NAVICO_STRENGTH_1_MAPPED, threshold));
   m_thresholds.threshold_trails = threshold;
   ComputeColourMap();
   return m_thresholds.threshold_blue;
