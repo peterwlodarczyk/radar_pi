@@ -814,9 +814,9 @@ RadarControlStatus radar_get_control_status(uint8_t radar) {
   pkt.doppler = info->m_doppler.GetValue();
   pkt.scan_speed = info->m_scan_speed.GetValue();
   pkt.noise_rejection = info->m_noise_rejection.GetValue();
-  pkt.intensity = max(0,min(info->m_thresholds.threshold_trails, 255));
-  pkt.threshold = MapNavicoRadarDataToStrength(info->GetThreshold());
-  pkt.trail_threshold = MapNavicoRadarDataToStrength(info->GetTrailsThreshold());
+  pkt.intensity = max(0.0,info->m_intensity);
+  pkt.threshold = MapNavicoRadarStrengthToData(info->GetThreshold());
+  pkt.trail_threshold = MapNavicoRadarStrengthToData(info->GetTrailsThreshold());
   return pkt;
 }
 
