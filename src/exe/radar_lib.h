@@ -144,6 +144,9 @@ struct RadarControlStatus {
   int doppler;
   int scan_speed;
   int noise_rejection;
+  int intensity; // percentage
+  int threshold; // percentage
+  int trail_threshold; // percentage
 };
 
 struct GuardZoneContactReport {

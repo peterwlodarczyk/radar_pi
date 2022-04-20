@@ -563,16 +563,12 @@ bool radar_set_control(uint8_t radar, const char* control_string, ::RadarControl
       r = true;
     }
   }
-  else if (strcmp(control_string, "trails_threshold") == 0)  {
+  else if (strcmp(control_string, "trail_threshold") == 0)  {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
     if (info != nullptr)    {
       info->SetTrailsThreshold((int)(value / 100.0 * (THRESHOLD_MAX - THRESHOLD_MIN) + THRESHOLD_MIN + 0.5));
       r = true;
     }
-  }
-  // these controls are disabled.
-  else if (strcmp(control_string, "doppler") == 0) {
-    ;
   }
   else if (strcmp(control_string, "intensity") == 0) {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
@@ -603,7 +599,7 @@ bool radar_get_control(uint8_t radar, const char* control_string, ::RadarControl
     if (info != nullptr)
       *value = (int32_t)((info->GetThreshold() - THRESHOLD_MIN) * 100.0 / (THRESHOLD_MAX - THRESHOLD_MIN) + 0.5);
   }
-  else if (strcmp(control_string, "trails_threshold") == 0)  {
+  else if (strcmp(control_string, "trail_threshold") == 0)  {
     RadarPlugin::RadarInfo* info = GetRadarInfo(radar);
     if (info != nullptr)
       *value = (int32_t)((info->GetTrailsThreshold() - THRESHOLD_MIN) * 100.0 / (THRESHOLD_MAX - THRESHOLD_MIN) + 0.5);
@@ -806,6 +802,9 @@ RadarControlStatus radar_get_control_status(uint8_t radar) {
   pkt.doppler = info->m_doppler.GetValue();
   pkt.scan_speed = info->m_scan_speed.GetValue();
   pkt.noise_rejection = info->m_noise_rejection.GetValue();
+  pkt.intensity = max(0,min(info->m_thresholds.threshold_trails, 255));
+  pkt.threshold = max(0,min(info->m_thresholds.threshold_blue, 255));
+  pkt.trail_threshold = max(0,min(info->m_thresholds.threshold_trails, 255));
   return pkt;
 }
 
