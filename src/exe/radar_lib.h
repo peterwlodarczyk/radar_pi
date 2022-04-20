@@ -144,7 +144,7 @@ struct RadarControlStatus {
   int doppler;
   int scan_speed;
   int noise_rejection;
-  double intensity; // multiplier >= 0.0
+  int intensity; // multiplier %
   int threshold; // 1-15
   int trail_threshold; // 1-15
 };
